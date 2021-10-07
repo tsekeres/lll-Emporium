@@ -27,7 +27,7 @@ CREATE TABLE Users
 	FirstName varchar(50),
 	LastName varchar(50),
 	EmailAddress varchar(50),
-	IsDesigner bit default 0,
+	IsDesigner integer default 0,
 	Bio varchar(500)
 )
 
@@ -39,7 +39,7 @@ CREATE TABLE dbo.Products
 	ProductTypeId uniqueidentifier NOT NULL,
 	DesignerId uniqueidentifier NOT NULL,
 	ProductName varchar(100) NOT NULL,
-	Description varchar(500) NULL,
+	ProductDescription varchar(500) NULL,
 	ProductImageURL varchar(500) NULL,
 	Price decimal NOT NULL,
 	InventoryCount integer,
