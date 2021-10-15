@@ -15,4 +15,9 @@ namespace LLL_Emporium.Models
         public int Quantity { get; set; }
         public decimal Discount { get; set; }
     }
+
+    public class OrderLineMultiple
+    {
+        public List<OrderLine> OrderLines { get; set; } 
+    }
 }

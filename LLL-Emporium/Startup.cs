@@ -31,6 +31,7 @@ namespace LLL_Emporium
             services.AddSingleton<IConfiguration>(Configuration); /* -> any time someone asks for this thing,
                                                                    * give them the same copy */
             services.AddTransient<OrderRepository>(); // create a new thing anytime someone asks
+            services.AddTransient<OrderLineRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
