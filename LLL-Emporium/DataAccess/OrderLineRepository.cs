@@ -116,6 +116,29 @@ namespace LLL_Emporium.DataAccess
             return resultList;
         }
 
+        internal bool UpdateOrderLine(Guid OrderLineId, OrderLine lineItem)
+        {
+            bool returnVal = false;
+            var db = new SqlConnection(_connectionString);
+            var sql = @"UPDATE OrderLines
+                        SET OrderId = @OrderId,
+                            ProductId = @ProductId,
+                            UnitPrice = @UnitPrice,
+                            Quantity = @Quantity,
+                            Discount = @Discount
+                        OUTPUT Inserted.* 
+                        WHERE Id = @Id";
+
+            lineItem.Id = OrderLineId;
+            var result = db.Query<OrderLine>(sql, lineItem);
+            if (result.Any())
+            {
+                returnVal = true;
+            }
+
+            return returnVal;
+        }
+
         internal bool DeleteByLineId(Guid lineId)
         {
             bool returnVal = false;

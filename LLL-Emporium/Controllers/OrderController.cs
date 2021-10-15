@@ -14,11 +14,22 @@ namespace LLL_Emporium.Controllers
     public class OrderController : ControllerBase
     {
         private OrderRepository _orderRepository;
-        
+
 
         public OrderController(OrderRepository orderRepo)
         {
             _orderRepository = orderRepo;
+        }
+
+        [HttpGet]
+        public IActionResult GetAllOrders()
+        {
+            var result = _orderRepository.GetAllOrders();
+            if (result.Count() > 0)
+            {
+                return Ok(result);
+            }
+            else return NotFound("No orders.");
         }
 
         [HttpGet("{orderId}")]
@@ -32,17 +43,17 @@ namespace LLL_Emporium.Controllers
             else return NotFound("Order not found");
         }
 
-
-        [HttpGet]
-        public IActionResult GetAllOrders()
+        [HttpGet("customers/{customerId}")]
+        public IActionResult GetOrdersByCustomerId(Guid customerId)
         {
-            var result = _orderRepository.GetAllOrders();
-            if (result.Count() > 0)
+            var result = _orderRepository.GetOrdersByCustomerId(customerId);
+            if (result != null)
             {
                 return Ok(result);
             }
-            else return NotFound("No orders.");
+            else return NotFound($"Orders for customer with id {customerId} not found.");
         }
+
 
         [HttpPost]
         public IActionResult CreateOrder(Order order)

@@ -68,7 +68,7 @@ namespace LLL_Emporium.Controllers
                 return Created($"/api/orders/{lineItem.OrderId}/orderLines/{result}", lineItem);
             }
         }
-        [HttpPost("/orders/multipleOrderLine")]
+        [HttpPost("/orders/multipleOrderLines")]
         public IActionResult NewOrderLines(OrderLineMultiple orderList)
         {
             var result = _orderLineRepository.AddMultipleLineItems(orderList);
@@ -80,6 +80,17 @@ namespace LLL_Emporium.Controllers
             {
                 return Created($"/api/orders/{result.OrderLines[0].OrderId}/orderlines/{result}", result);
             }
+        }
+
+        [HttpPatch("{lineItemId}")]
+        public IActionResult UpdateOrderLine(Guid lineItemId, OrderLine lineItem)
+        {
+            var result = _orderLineRepository.UpdateOrderLine(lineItemId, lineItem);
+            if (result)
+            {
+                return Ok($"Order line with id {lineItemId} successfully updated");
+            }
+            else return BadRequest($"Order line with id {lineItemId} not updated");
         }
 
         [HttpDelete("{lineId}")]

@@ -40,6 +40,20 @@ namespace LLL_Emporium.DataAccess
             var result = db.QuerySingleOrDefault<Order>(sql, parameters);
             return result;
         }
+        internal IEnumerable<Order> GetOrdersByCustomerId(Guid customerId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from Orders
+                        WHERE CustomerId = @CustomerId";
+
+            var parameters = new
+            {
+                CustomerId = customerId 
+            };
+
+            var result = db.Query<Order>(sql, parameters);
+            return result;
+        }
 
         internal Guid AddOrder(Order order)
         {
