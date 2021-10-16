@@ -93,15 +93,15 @@ namespace LLL_Emporium.Controllers
             else return BadRequest($"Order line with id {lineItemId} not updated");
         }
 
-        [HttpDelete("{lineId}")]
-        public IActionResult DeleteByOrderLineId(Guid lineId)
+        [HttpDelete("{lineItemId}")]
+        public IActionResult DeleteByOrderLineId(Guid lineItemId)
         {
-            var result = _orderLineRepository.DeleteByLineId(lineId);
+            var result = _orderLineRepository.DeleteByLineId(lineItemId);
             if (result)
             {
-                return Ok($"LineItem with id {lineId} was deleted");
+                return Ok($"LineItem with id {lineItemId} was deleted");
             }
-            else return BadRequest($"LineItem with id {lineId} was not deleted");
+            else return BadRequest($"LineItem with id {lineItemId} was not deleted");
         }
         
         [HttpDelete("/orders/{orderId}/orderLines")]
