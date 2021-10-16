@@ -1,3 +1,15 @@
+Delete from OrderLines;
+Delete from Orders;
+Delete from Products;
+Delete from ProductTypes;
+Delete from Categories;
+Delete from Users;
+Delete from RoleTypes;
+Delete from PaymentTypes;
+Delete from TransactionTypes
+Delete from Transactions;
+
+
 DROP TABLE IF EXISTS dbo.Categories
 
 CREATE TABLE dbo.Categories
@@ -36,7 +48,6 @@ CREATE TABLE Users
 	FirstName varchar(50),
 	LastName varchar(50),
 	EmailAddress varchar(100),
-	ProfilePicURL varchar(500),
 	Bio varchar(1000),
 	CONSTRAINT FK_Users_RoleTypes FOREIGN KEY (RoleTypeId)
 		REFERENCES dbo.RoleTypes (Id)
