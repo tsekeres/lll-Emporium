@@ -8,6 +8,6 @@ namespace LLL_Emporium.Models
     public class PaymentType
     {
         public Guid Id { get; set; }
-        public string PaymentType { get; set; }
+        public string PaymentTypeName { get; set; }
     }
 }

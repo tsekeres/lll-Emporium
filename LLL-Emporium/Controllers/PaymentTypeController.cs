@@ -12,7 +12,23 @@ namespace LLL_Emporium.Controllers
     [ApiController]
     public class PaymentTypeController : ControllerBase
     {
-        private PaymentTypeRepository paymentTypeRepository;
+        private PaymentTypeRepository _paymentTypeRepository;
+
+        public PaymentTypeController(PaymentTypeRepository paymentTypeRepo)
+        {
+            _paymentTypeRepository = paymentTypeRepo;
+        }
+
+        [HttpGet]
+        public IActionResult GetAllPaymentTypes()
+        {
+            var result = _paymentTypeRepository.GetAllPaymentTypes();
+            if (result.Count() > 0)
+            {
+                return Ok(result);
+            }
+            else return NotFound("No payment types.");
+        }
 
     }
 }
