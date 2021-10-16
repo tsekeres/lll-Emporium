@@ -65,7 +65,7 @@ namespace LLL_Emporium.Controllers
             }
             else
             {
-                return Created($"/api/orders/{result}", order);
+                return Created($"/api/orders/{result}", result);
             }
         }
 

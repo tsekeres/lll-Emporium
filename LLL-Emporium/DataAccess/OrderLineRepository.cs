@@ -78,18 +78,17 @@ namespace LLL_Emporium.DataAccess
             return id;
         }
 
-        internal OrderLineMultiple AddMultipleLineItems(OrderLineMultiple lineItems)
+        internal  List<Guid> AddMultipleLineItems(OrderLineMultiple lineItems)
         {
             using var db = new SqlConnection(_connectionString);
-            OrderLineMultiple resultList = new OrderLineMultiple();
-            resultList.OrderLines = new List<OrderLine>();
+            var resultList = new List<Guid>();
             var sql = @"INSERT INTO OrderLines
                         (OrderId,
                          ProductId,
                          UnitPrice,
                          Quantity,
                          Discount)
-                        OUTPUT Inserted.*
+                        OUTPUT Inserted.Id
                         VALUES
                         (@OrderId,
                          @ProductId,
@@ -106,11 +105,11 @@ namespace LLL_Emporium.DataAccess
                     Quantity = lineItem.Quantity,
                     Discount = lineItem.Discount
                 };
-                var result = db.Query<OrderLine>(sql, parameters);
+                var result = db.Query<Guid>(sql, parameters);
                 if (result.Count() > 0)
                 {
-                    lineItem.Id = result.ElementAt(0).OrderId;
-                    resultList.OrderLines.Add(result.First());
+                    lineItem.Id = result.First();
+                    resultList.Add(result.First());
                 }
             });
             return resultList;

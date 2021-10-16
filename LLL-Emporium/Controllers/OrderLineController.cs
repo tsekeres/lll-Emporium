@@ -65,20 +65,20 @@ namespace LLL_Emporium.Controllers
             }
             else
             {
-                return Created($"/api/orders/{lineItem.OrderId}/orderLines/{result}", lineItem);
+                return Created($"/api/orders/{lineItem.OrderId}/orderLines/{result}", result);
             }
         }
         [HttpPost("/orders/multipleOrderLines")]
         public IActionResult NewOrderLines(OrderLineMultiple orderList)
         {
             var result = _orderLineRepository.AddMultipleLineItems(orderList);
-            if(result.OrderLines.Count() == 0)
+            if(result.Count() == 0)
             {
                 return BadRequest("Line Items Not Added");
             }
             else
             {
-                return Created($"/api/orders/{result.OrderLines[0].OrderId}/orderlines/{result}", result);
+                return Created($"/api/orders/{orderList.OrderLines[0].OrderId}/orderlines", result);
             }
         }
 
