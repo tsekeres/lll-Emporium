@@ -39,6 +39,6 @@ Searchable, live links to items...
 ## Helpful Links
 - Figma: https://www.figma.com/file/PN5kBK7TnmUQOTtGOXNjDD/Live-Laugh-Love-Emporium?node-id=0%3A1
 - Project Board: 
-- ERD: https://dbdiagram.io/d/615baa4b825b5b014620ce7b
+- ERD: https://dbdiagram.io/d/616a0ec2940c4c4eec981197
 
 ## Screenshots
