@@ -2,8 +2,8 @@ INSERT INTO Categories (CategoryName)
 VALUES ('Clothing'),
 	   ('Accessories');
 
-INSERT INTO Users (FirstName, LastName, IsDesigner, Bio)
-VALUES ('Honey-Rae', 'Swan', '1', 'Honey-Rae is a designer with a passion for making sure “Live, Laugh, Love” is close to our hearts or worn on our sleeve. She designs luxury tees, tracksuits, and jewelry.')
+INSERT INTO Users (FirstName, LastName, RoleTypeId, Bio)
+VALUES ('Honey-Rae', 'Swan', (Select Id from RoleTypes where RoleTypeName = 'Super User'), 'Honey-Rae is a designer with a passion for making sure “Live, Laugh, Love” is close to our hearts or worn on our sleeve. She designs luxury tees, tracksuits, and jewelry.')
 
 INSERT INTO ProductTypes (CategoryId, TypeName)
 VALUES	((Select Id from Categories where CategoryName = 'Clothing'), 'Tees'),

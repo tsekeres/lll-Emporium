@@ -2,8 +2,8 @@ INSERT INTO Categories (CategoryName)
 VALUES ('Bathroom Decor'),
 	('Auto Accessories');
 
-INSERT INTO Users (FirstName, LastName, IsDesigner, Bio)
-VALUES ('Jonathon', 'Joyner', '1', 'Johathan is a designer with an eye for ways to let your friends and family know that “Live, Laugh, Love” is close to your heart. He designs for bath and auto accessories!')
+INSERT INTO Users (FirstName, LastName, RoleTypeId, Bio)
+VALUES ('Jonathon', 'Joyner', (Select Id from RoleTypes where RoleTypeName = 'Super User'), 'Johathan is a designer with an eye for ways to let your friends and family know that “Live, Laugh, Love” is close to your heart. He designs for bath and auto accessories!')
 
 INSERT INTO ProductTypes (CategoryId, TypeName)
 VALUES	((Select Id from Categories where CategoryName = 'Bathroom Decor'), 'Bath Towels'),

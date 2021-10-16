@@ -2,8 +2,8 @@ INSERT INTO Categories (CategoryName)
 VALUES ('Kitchen'),
 	('Lawn and Garden');
 
-INSERT INTO Users (FirstName, LastName, IsDesigner, Bio)
-VALUES ('Tad', 'Sekeres', '1', 'Tad is a designer with an eye for the subtle touch that will let your friends and family know that “Live, Laugh, Love” is close to your heart and displayed for your neighbors to see. He is in our Kitchen and Bath department but also loves to dabble in the Garden!')
+INSERT INTO Users (FirstName, LastName, RoleTypeId, Bio)
+VALUES ('Tad', 'Sekeres', (Select Id from RoleTypes where RoleTypeName = 'Super User'), 'Tad is a designer with an eye for the subtle touch that will let your friends and family know that “Live, Laugh, Love” is close to your heart and displayed for your neighbors to see. He is in our Kitchen and Bath department but also loves to dabble in the Garden!')
 
 INSERT INTO ProductTypes (CategoryId, TypeName)
 VALUES	((Select Id from Categories where CategoryName = 'Kitchen'), 'Towels'),

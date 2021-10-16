@@ -2,8 +2,8 @@ INSERT INTO Categories (CategoryName)
 VALUES ('Construction'),
 	   ('Biker Gear');
 
-INSERT INTO Users (FirstName, LastName, IsDesigner, Bio)
-VALUES ('John', 'Maple', '1', 'John Maple is a designer with a passion for making sure “Live, Laugh, Love” is displayed in unexpected places.')
+INSERT INTO Users (FirstName, LastName, RoleTypeId, Bio)
+VALUES ('John', 'Maple', (Select Id from RoleTypes where RoleTypeName = 'Super User'), 'John Maple is a designer with a passion for making sure “Live, Laugh, Love” is displayed in unexpected places.')
 
 INSERT INTO ProductTypes (CategoryId, TypeName)
 VALUES	((Select Id from Categories where CategoryName = 'Construction'), 'Excavators'),
@@ -38,7 +38,7 @@ VALUES ((Select Id from ProductTypes where TypeName = 'Excavators'),
 		  '1650 M Bulldozer (Live, Laugh, Love decorative)',
 		  'M Series heavy-duty bulldozer with "Live, Laugh, Love" in elegent font',
 		  'https://storage.googleapis.com/lll-emporium/1650M_BBB_1480-LLL.jpg',
-		  '175.00',
+		  '167175.00',
 		  '6'),
 		((Select Id from ProductTypes where TypeName = 'Leather Jackets'),
 		 (Select Id from Users where LastName = 'Maple'),
