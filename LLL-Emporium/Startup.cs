@@ -32,6 +32,7 @@ namespace LLL_Emporium
                                                                    * give them the same copy */
             services.AddTransient<OrderRepository>(); // create a new thing anytime someone asks
             services.AddTransient<OrderLineRepository>();
+            services.AddTransient<UserRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
