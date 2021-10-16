@@ -36,6 +36,7 @@ CREATE TABLE Users
 	FirstName varchar(50),
 	LastName varchar(50),
 	EmailAddress varchar(100),
+	ProfilePicURL varchar(500),
 	Bio varchar(1000),
 	CONSTRAINT FK_Users_RoleTypes FOREIGN KEY (RoleTypeId)
 		REFERENCES dbo.RoleTypes (Id)
