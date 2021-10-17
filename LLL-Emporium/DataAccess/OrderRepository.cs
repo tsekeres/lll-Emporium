@@ -78,18 +78,8 @@ namespace LLL_Emporium.DataAccess
                         @OrderDate)";
 
             // setting all but Id parameter by hand as the database will create the Guid Id parameter automatically
-            var parameters = new
-            {
-                CustomerId = order.CustomerId,
-                ShippingAddress = order.ShippingAddress,
-                ShippingCity = order.ShippingCity,
-                ShippingState = order.ShippingState,
-                ShippingZip = order.ShippingZip,
-                ShippingCost = order.ShippingCost,
-                OrderDate = order.OrderDate
-            };
 
-            id = db.ExecuteScalar<Guid>(sql, parameters);
+            id = db.ExecuteScalar<Guid>(sql, order);
             if (!id.Equals(Guid.Empty))
             {
                 order.Id = id;
