@@ -59,6 +59,8 @@ namespace LLL_Emporium.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             Guid id = new Guid();
+
+            // leaving out the Id parameter as the database will create the primary key Id
             var sql = @"INSERT INTO [dbo].[Orders]
                         ([CustomerId], 
                          [ShippingAddress],
@@ -76,8 +78,6 @@ namespace LLL_Emporium.DataAccess
                         @ShippingZip,
                         @ShippingCost,
                         @OrderDate)";
-
-            // setting all but Id parameter by hand as the database will create the Guid Id parameter automatically
 
             id = db.ExecuteScalar<Guid>(sql, order);
             if (!id.Equals(Guid.Empty))
