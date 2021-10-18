@@ -32,5 +32,16 @@ namespace LLL_Emporium.Controllers
             }
             else return NotFound("No users");
         }
+
+        [HttpPost]
+        public IActionResult addUser(User newUser)
+        {
+            if (string.IsNullOrEmpty(newUser.FirstName))
+            {
+                return BadRequest("First and Last Name Required");
+            }
+            _userRepository.Add(newUser);
+            return Created($"/api/users/{newUser.Id}", newUser);
+        }
     }
 }

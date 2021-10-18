@@ -1,13 +1,5 @@
-Delete from OrderLines;
-Delete from Orders;
-Delete from Products;
-Delete from ProductTypes;
-Delete from Categories;
-Delete from Users;
-Delete from RoleTypes;
-Delete from PaymentTypes;
-Delete from TransactionTypes
-Delete from Transactions;
+
+
 
 
 DROP TABLE IF EXISTS dbo.Categories

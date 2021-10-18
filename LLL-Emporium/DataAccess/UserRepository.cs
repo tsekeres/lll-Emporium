@@ -25,5 +25,27 @@ namespace LLL_Emporium.DataAccess
             var users = db.Query<User>(@"Select * From Users");
             return users;
         }
+
+        internal void Add(User newUser)
+        {
+            using var db = new SqlConnection(_connectionString);
+            Guid id = new Guid();
+            var sql = @"INSERT INTO [dbo].[Users]
+                        ([FirstName],
+                         [LastName],
+                         [RoleTypeId],
+                         [Bio])
+                            OUTPUT inserted.Id
+                            VALUES
+                         (@FirstName,
+                          @LastName,
+                          @RoleTypeId,
+                          @Bio)";
+        
+
+            id = db.ExecuteScalar<Guid>(sql, newUser);
+            newUser.Id = id;
+        }
+       
     }
 }
