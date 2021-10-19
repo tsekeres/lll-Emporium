@@ -59,13 +59,24 @@ namespace LLL_Emporium.DataAccess
             category.Id = id;
         }
 
-        internal void DeleteCategory(Guid id)
+        internal bool DeleteCategory(Guid id)
         {
+            bool returnVal = false;
             using var db = new SqlConnection(_connectionString);
-            var sql = @"DELETE FROM Orders
+            var sql = @"DELETE FROM Categories
                         OUTPUT Deleted.Id
                         WHERE Id = @Id";
-            db.Execute(sql, new { id });
+            var parameters = new
+            {
+                Id = id
+            };
+
+            var result = db.Query(sql, parameters);
+            if (result.Count() > 0)
+            {
+                returnVal = true;
+            }
+            return returnVal;
         }
 
         internal Category UpdateCategory(Guid id, Category category)

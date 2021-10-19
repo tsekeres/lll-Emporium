@@ -72,9 +72,12 @@ namespace LLL_Emporium.Controllers
         [HttpDelete("{categoryId}")]
         public IActionResult DeleteCategory(Guid categoryId)
         {
-            _categoryRepository.DeleteCategory(categoryId);
-
-            return Ok();
+            var result = _categoryRepository.DeleteCategory(categoryId);
+            if (result)
+            {
+                return Ok($"{categoryId} deleted");
+            }
+            else return NotFound($"{categoryId} not found");
         }
     }
 }
