@@ -39,7 +39,7 @@ namespace LLL_Emporium.Controllers
             else return NotFound("Product not found");
         }
 
-        [HttpGet("{designerId}")]
+        [HttpGet("designers/{designerId}")]
         public IActionResult GetProductsByDesignerId(Guid designerId)
         {
             var result = _productRepository.GetProductsByDesignerId(designerId);
