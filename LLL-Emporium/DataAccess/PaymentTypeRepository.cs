@@ -88,7 +88,7 @@ namespace LLL_Emporium.DataAccess
             bool returnVal = false;
             using var db = new SqlConnection(_connectionString);
             var sql = @"UPDATE PaymentTypes
-                            SET PaymentTypeName = @PaymentTypeName,
+                            SET PaymentTypeName = @PaymentTypeName
                                 Output Inserted.*
                             WHERE Id = @Id";
 
