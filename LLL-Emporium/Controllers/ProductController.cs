@@ -1,4 +1,5 @@
 ﻿using LLL_Emporium.DataAccess;
+using LLL_Emporium.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -59,6 +60,20 @@ namespace LLL_Emporium.Controllers
                 return Ok(result);
             }
             else return NotFound("This product type does not containe any associated products");
+        }
+
+        [HttpPost]
+        public IActionResult CreateProduct(Product product)
+        {
+            var result = _productRepository.AddProduct(product);
+            if (result.Equals(Guid.Empty))
+            {
+                return BadRequest("Product Not Added");
+            }
+            else
+            {
+                return Created($"/api/products/{result}", result);
+            }
         }
 
     }

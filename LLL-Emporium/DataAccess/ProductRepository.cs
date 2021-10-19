@@ -82,7 +82,7 @@ namespace LLL_Emporium.DataAccess
                          [ProductDescription],
                          [ProductImageUrl],
                          [Price],
-                         [Inventory])
+                         [InventoryCount])
                         OUTPUT inserted.Id
                         VALUES
                        (@ProductTypeId,
@@ -91,7 +91,7 @@ namespace LLL_Emporium.DataAccess
                         @ProductDescription,
                         @ProductImageUrl,
                         @Price,
-                        @Inventory)";
+                        @InventoryCount)";
 
             id = db.ExecuteScalar<Guid>(sql, product);
             if (!id.Equals(Guid.Empty))
@@ -119,7 +119,7 @@ namespace LLL_Emporium.DataAccess
                             ProductDescription = @ProductDescription
                             ProductImageUrl = @ProductImageUrl
                             Price = @Price
-                            Inventory = @Inventory
+                            InventoryCount = @InventoryCount
                         WHERE Id = @Id";
 
             product.Id = id;

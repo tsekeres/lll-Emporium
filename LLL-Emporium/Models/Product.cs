@@ -14,7 +14,7 @@ namespace LLL_Emporium.Models
         public string ProductDescription { get; set; }
         public string ProductImageUrl { get; set; }
         public decimal Price { get; set; }
-        public int Inventory { get; set; }
+        public int InventoryCount { get; set; }
 
     }
 }
