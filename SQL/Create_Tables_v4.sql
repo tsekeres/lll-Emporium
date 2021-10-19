@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> main
 
 DROP TABLE IF EXISTS dbo.Categories
 
