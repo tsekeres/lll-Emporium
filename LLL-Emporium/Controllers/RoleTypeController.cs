@@ -64,7 +64,7 @@ namespace LLL_Emporium.Controllers
             {
                 return BadRequest($"Role Type not added.");
             }
-            else return Created($"/api/RoleType/{result}", roleTypeObj);
+            else return Created($"/api/RoleType/{result}", result);
         }
 
         [HttpDelete("{roleTypeId}")]
