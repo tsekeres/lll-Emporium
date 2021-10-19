@@ -44,16 +44,14 @@ namespace LLL_Emporium.Controllers
         [HttpPost]
         public IActionResult CreateCategory(Category category)
         {
-            var result = _categoryRepository.AddCategory(category);
-            if (result.Equals(Guid.Empty))
+            if (string.IsNullOrEmpty(category.CategoryName))
             {
-                return BadRequest("Category Not Added");
+                return BadRequest("Name Required");
             }
-            else
-            {
-                return Created($"/api/categories/{result}", result);
-            }
+            _categoryRepository.AddCategory(category);
+            return Created($"/api/categories/{category.Id}", category);
         }
+
 
         [HttpPut("{categoryId}")]
         public IActionResult UpdateCategory(Guid categoryId, Category category)

@@ -41,25 +41,22 @@ namespace LLL_Emporium.DataAccess
             return result;
         }
 
-        internal Guid AddCategory(Category category)
+        internal void AddCategory(Category category)
         {
             using var db = new SqlConnection(_connectionString);
             Guid id = new Guid();
 
             var sql = @"INSERT INTO [dbo].[Categories]
                         ([CategoryName], 
-                         [CategoryImageUrl],
+                         [CategoryImageUrl])
                         OUTPUT inserted.Id
                         VALUES
                        (@CategoryName,
-                        @CategoryImageUrl";
+                        @CategoryImageUrl)";
+            
 
             id = db.ExecuteScalar<Guid>(sql, category);
-            if (!id.Equals(Guid.Empty))
-            {
-                category.Id = id;
-            }
-            return id;
+            category.Id = id;
         }
 
         internal void DeleteCategory(Guid id)
