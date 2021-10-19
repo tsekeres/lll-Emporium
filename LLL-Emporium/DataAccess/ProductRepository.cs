@@ -101,13 +101,24 @@ namespace LLL_Emporium.DataAccess
             return id;
         }
 
-        internal void DeleteProduct(Guid id)
+        internal bool DeleteProduct(Guid id)
         {
+            bool returnVal = false;
             using var db = new SqlConnection(_connectionString);
-            var sql = @"DELETE FROM Productss
+            var sql = @"DELETE FROM Products
                         OUTPUT Deleted.Id
                         WHERE Id = @Id";
-            db.Execute(sql, new { id });
+            var parameters = new
+            {
+                Id = id
+            };
+
+            var result = db.Query(sql, parameters);
+            if (result.Count() > 0)
+            {
+                returnVal = true;
+            }
+            return returnVal;
         }
 
         internal Product UpdateProduct(Guid id, Product product)

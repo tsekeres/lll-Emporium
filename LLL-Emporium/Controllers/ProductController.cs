@@ -92,5 +92,16 @@ namespace LLL_Emporium.Controllers
 
         }
 
+        [HttpDelete("{productId}")]
+        public IActionResult DeleteProduct(Guid productId)
+        {
+            var result = _productRepository.DeleteProduct(productId);
+            if (result)
+            {
+                return Ok($"{productId} deleted");
+            }
+            else return NotFound($"{productId} not found");
+        }
+
     }
 }
