@@ -1,5 +1,6 @@
 ﻿using LLL_Emporium.DataAccess;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace LLL_Emporium.Controllers
@@ -25,6 +26,28 @@ namespace LLL_Emporium.Controllers
                 return Ok(result);
             }
             else return NotFound("No products.");
+        }
+
+        [HttpGet("{productId}")]
+        public IActionResult GetProductById(Guid productId)
+        {
+            var result = _productRepository.GetProductById(productId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound("Product not found");
+        }
+
+        [HttpGet("{designerId}")]
+        public IActionResult GetProductsByDesignerId(Guid designerId)
+        {
+            var result = _productRepository.GetProductsByDesignerId(designerId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound("Product not found");
         }
 
     }
