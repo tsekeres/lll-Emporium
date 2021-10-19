@@ -35,10 +35,8 @@ namespace LLL_Emporium.DataAccess
             {
                 Id = roleId
             };
-
-            var result = db.QuerySingleOrDefault<RoleType>(sql, parameter);
+            var result = db.QueryFirstOrDefault<RoleType>(sql, parameter);
             return result;
-            }
         }
     }
 }
