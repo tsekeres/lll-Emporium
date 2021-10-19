@@ -50,5 +50,16 @@ namespace LLL_Emporium.Controllers
             else return NotFound("Product not found");
         }
 
+        [HttpGet("productTypes/{productTypeId}")]
+        public IActionResult GetProductsByProductTypeId(Guid productTypeId)
+        {
+            var result = _productRepository.GetProductsByProductTypeId(productTypeId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound("This product type does not containe any associated products");
+        }
+
     }
 }
