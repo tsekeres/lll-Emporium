@@ -31,5 +31,51 @@ namespace LLL_Emporium.Controllers
             }
             else return NotFound("No role types.");
         }
+
+        [HttpGet("{roleTypeId}")]
+
+        public IActionResult GetRoleTypeById(Guid roleTypeId)
+        {
+            var result = _roleTypeRepository.GetRoleTypeById(roleTypeId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"Role type with id {roleTypeId} not found.");
+        }
+
+        [HttpPatch("{roleTypeId}")]
+        public IActionResult updateRoleType(Guid roleTypeId, RoleType roleType)
+        {
+            var result = _roleTypeRepository.UpdateRoleType(roleTypeId, roleType);
+            if (result)
+            {
+                return Ok($"Role type with id {roleTypeId} has been updated.");
+            }
+                return BadRequest($"Role type with id {roleTypeId} not found or not updated");
+
+        }
+
+        [HttpPost]
+        public IActionResult AddRoleType(RoleType roleTypeObj)
+        {
+            var result = _roleTypeRepository.AddRoleType(roleTypeObj);
+            if (result.Equals(Guid.Empty))
+            {
+                return BadRequest($"Role Type not added.");
+            }
+            else return Created($"/api/RoleType/{result}", roleTypeObj);
+        }
+
+        [HttpDelete("{roleTypeId}")]
+        public IActionResult deleteRoleType(Guid roleTypeId)
+        {
+            var result = _roleTypeRepository.DeleteRoleType(roleTypeId);
+            if (result)
+            {
+                return Ok($"Role type with id {roleTypeId} has been deleted");
+            }
+            else return BadRequest($"Role type with id {roleTypeId} not found or not deleted");
+        }
     }
 }
