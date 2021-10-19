@@ -114,11 +114,10 @@ namespace LLL_Emporium.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"UPDATE Products
-                        SET ProductTypeId = @ProductTypeId,
-                            ProductName = @ProductName,
-                            ProductDescription = @ProductDescription
-                            ProductImageUrl = @ProductImageUrl
-                            Price = @Price
+                        SET ProductName = @ProductName,
+                            ProductDescription = @ProductDescription,
+                            ProductImageUrl = @ProductImageUrl,
+                            Price = @Price,
                             InventoryCount = @InventoryCount
                         WHERE Id = @Id";
 

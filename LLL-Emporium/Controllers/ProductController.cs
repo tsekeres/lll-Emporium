@@ -76,5 +76,21 @@ namespace LLL_Emporium.Controllers
             }
         }
 
+        [HttpPatch("{productId}")]
+        public IActionResult UpdateProduct(Guid productId, Product product)
+        {
+            var productToUpdate = _productRepository.GetProductById(productId);
+
+            if (productToUpdate == null)
+            {
+                return NotFound($"Could not find a product with the id {productId} to update");
+            }
+
+            var updatedProduct = _productRepository.UpdateProduct(productId, product);
+
+            return Ok(updatedProduct);
+
+        }
+
     }
 }
