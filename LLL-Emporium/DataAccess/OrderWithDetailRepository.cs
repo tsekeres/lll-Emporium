@@ -22,7 +22,7 @@ namespace LLL_Emporium.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             OrderWithDetail resultObj = new OrderWithDetail();
-            resultObj.LineItems = new List<OrderLine>();
+            resultObj.LineItems = new List<OrderLineDetail>();
 
             var sql = @"SELECT * FROM Orders
                         WHERE Id = @Id";
@@ -35,9 +35,11 @@ namespace LLL_Emporium.DataAccess
             if ( result != null)
             {
                 resultObj.Order = result;
-                sql = @"SELECT * FROM OrderLines
-                        WHERE OrderId = @Id";
-                var orderLineResult = db.Query<OrderLine>(sql, parameter);
+                sql = @"SELECT * FROM OrderLines OL
+                        JOIN Products PR
+                        ON PR.Id = OL.ProductId
+                        WHERE OL.OrderId = @Id";
+                var orderLineResult = db.Query<OrderLineDetail>(sql, parameter);
                 if (orderLineResult.Count() > 0)
                 {
                     foreach ( var lineItem in orderLineResult)
@@ -46,7 +48,11 @@ namespace LLL_Emporium.DataAccess
                     }
                 }
             }
-            return resultObj;
+            if (result == null)
+            {
+                return null;
+            }
+            else return resultObj;
         }
     }
 }
