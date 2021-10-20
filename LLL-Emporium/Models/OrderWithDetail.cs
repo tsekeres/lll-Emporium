@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace LLL_Emporium.Models
 {
-    public class OrderWithDetails
+    public class OrderWithDetail
     {
         public Order Order { get; set; }
-        public OrderLineMultiple LineItems { get; set; }
+        public List<OrderLine> LineItems  { get; set; }
     }
 }
