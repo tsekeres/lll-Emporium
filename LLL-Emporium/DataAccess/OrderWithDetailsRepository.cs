@@ -18,6 +18,13 @@ namespace LLL_Emporium.DataAccess
             _connectionString = config.GetConnectionString("LLL-Emporium");
         }
 
+        internal GetOrderWithDetails(Guid orderId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = 
+
+        }
+
 
     }
 }
