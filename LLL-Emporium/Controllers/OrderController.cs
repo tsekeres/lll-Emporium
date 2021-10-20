@@ -81,7 +81,7 @@ namespace LLL_Emporium.Controllers
         }
 
         [HttpPatch("{orderId}")]
-        public IActionResult PatchOrder(Guid orderId, Order order)
+        public IActionResult UpdateOrder(Guid orderId, Order order)
         {
             var result = _orderRepository.UpdateOrder(orderId, order);
             if (result)
