@@ -33,6 +33,8 @@ namespace LLL_Emporium
             services.AddTransient<OrderRepository>(); // create a new thing anytime someone asks
             services.AddTransient<OrderLineRepository>();
             services.AddTransient<UserRepository>();
+            services.AddTransient<CategoryRepository>();
+            services.AddTransient<ProductRepository>();
             services.AddTransient<PaymentTypeRepository>();
             services.AddTransient<TransactionTypeRepository>();
             services.AddControllers();

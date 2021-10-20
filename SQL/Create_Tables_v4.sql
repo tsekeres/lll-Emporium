@@ -1,3 +1,54 @@
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'OrderLines') DELETE from OrderLines;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Orders') DELETE from Orders;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Transactions') DELETE from Transactions;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'TransactionTypes') DELETE from TransactionTypes;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'PaymentTypes') DELETE from PaymentTypes;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Products') DELETE from Products;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Users') DELETE from Users;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'RoleTypes') DELETE from RoleTypes;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'ProductTypes') DELETE from ProductTypes;
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Categories') DELETE from Categories;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Transactions')
+ALTER TABLE dbo.Transactions 
+DROP CONSTRAINT FK_Transactions_TransactionTypes;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Transactions')
+ALTER TABLE dbo.Transactions 
+DROP CONSTRAINT FK_Transactions_PaymentTypes;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Transactions')
+ALTER TABLE dbo.Transactions 
+DROP CONSTRAINT FK_Transactions_Orders;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'OrderLines')
+ALTER TABLE dbo.OrderLines
+DROP CONSTRAINT FK_OrderLines_Products;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'OrderLines')
+ALTER TABLE dbo.OrderLines
+DROP CONSTRAINT FK_OrderLines_Orders;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Orders')
+ALTER TABLE dbo.Orders
+DROP CONSTRAINT FK_Orders_Customers;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Products')
+ALTER TABLE dbo.Products
+DROP CONSTRAINT FK_Products_ProductTypes;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Products')
+ALTER TABLE dbo.Products
+DROP CONSTRAINT FK_Products_Users;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'Users')
+ALTER TABLE dbo.Users
+DROP CONSTRAINT FK_Users_RoleTypes;
+
+IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'PaymentTypes')
+ALTER TABLE dbo.ProductTypes
+DROP CONSTRAINT FK_ProductTypes_CategoryId
+>>>>>>> 277c4a4df28e05bd749f559aec0f9884ee560745
 
 DROP TABLE IF EXISTS dbo.Categories
 
@@ -8,7 +59,7 @@ CREATE TABLE dbo.Categories
 	CategoryImageUrl varchar(500) NULL
 )
 
-DROP TABLE IF EXISTS dbo.ProducTypes;
+DROP TABLE IF EXISTS dbo.ProductTypes;
 
 CREATE TABLE dbo.ProductTypes
 (

@@ -62,15 +62,7 @@ namespace LLL_Emporium.DataAccess
                          @Quantity,
                          @Discount)";
 
-            var parameters = new
-            {
-                OrderId = lineItem.OrderId,
-                ProductId = lineItem.ProductId,
-                UnitPrice = lineItem.UnitPrice,
-                Quantity = lineItem.Quantity,
-                Discount = lineItem.Discount
-            };
-            id = db.ExecuteScalar<Guid>(sql, parameters);
+            id = db.ExecuteScalar<Guid>(sql, lineItem);
             if (!id.Equals(Guid.Empty))
             {
                 lineItem.Id = id;
@@ -97,15 +89,7 @@ namespace LLL_Emporium.DataAccess
                          @Discount)";
             lineItems.OrderLines.ForEach(lineItem =>
             {
-                var parameters = new
-                {
-                    OrderId = lineItem.OrderId,
-                    ProductId = lineItem.ProductId,
-                    UnitPrice = lineItem.UnitPrice,
-                    Quantity = lineItem.Quantity,
-                    Discount = lineItem.Discount
-                };
-                var result = db.Query<Guid>(sql, parameters);
+                var result = db.Query<Guid>(sql, lineItem);
                 if (result.Count() > 0)
                 {
                     lineItem.Id = result.First();
