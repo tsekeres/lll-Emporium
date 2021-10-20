@@ -21,6 +21,17 @@ namespace LLL_Emporium.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult GetAllOrderLines()
+        {
+            var result = _orderLineRepository.GetAllOrderLines();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound("No order line items found");
+        }
+
         [HttpGet("{orderLineId}")]
         public IActionResult GetSingleOrderLine(Guid orderLineId)
         {
