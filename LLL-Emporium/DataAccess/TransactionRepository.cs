@@ -50,44 +50,70 @@ namespace LLL_Emporium.DataAccess
             var result = db.Query<Transaction>(sql, parameters);
             return result;
         }
+        internal IEnumerable<Transaction> GetTransactionsByPaymentTypeId(Guid paymentTypeId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from Transactions
+                        WHERE PaymentTypeId = @PaymentTypeId";
 
-        internal Guid AddOrder(Order order)
+            var parameters = new
+            {
+                PaymentTypeId = paymentTypeId
+            };
+
+            var result = db.Query<Transaction>(sql, parameters);
+            return result;
+        }
+
+        internal IEnumerable<Transaction> GetTransactionsByTransactionTypeId(Guid transactionTypeId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from Transactions
+                        WHERE TransactionTypeId = @TransactionTypsId";
+
+            var parameters = new
+            {
+                TransactionTypeId = transactionTypeId
+            };
+
+            var result = db.Query<Transaction>(sql, parameters);
+            return result;
+        }
+
+        internal Guid AddTransaction(Transaction transaction)
         {
             using var db = new SqlConnection(_connectionString);
             Guid id = new Guid();
 
-            // leaving out the Id parameter as the database will create the primary key Id
-            var sql = @"INSERT INTO [dbo].[Orders]
-                        ([CustomerId], 
-                         [ShippingAddress],
-                         [ShippingCity],
-                         [ShippingState],
-                         [ShippingZip],
-                         [ShippingCost],
-                         [OrderDate])
+            var sql = @"INSERT INTO [dbo].[Transactions]
+                        ([OrderId], 
+                         [PaymentTypeId],
+                         [TransactionTypeId],
+                         [PaymentAccount],
+                         [PaymentAmount],
+                         [PaymentDate])
                         OUTPUT inserted.Id
                         VALUES
-                       (@CustomerId,
-                        @ShippingAddress,
-		                @ShippingCity,
-                        @ShippingState,
-                        @ShippingZip,
-                        @ShippingCost,
-                        @OrderDate)";
+                       (@OrderId,
+                        @PaymentTypeId,
+                        @TransactionTypeId,
+                        @PaymentAccount,
+		                @PaymentAmount,
+                        @PaymentDate)";
 
-            id = db.ExecuteScalar<Guid>(sql, order);
+            id = db.ExecuteScalar<Guid>(sql, transaction);
             if (!id.Equals(Guid.Empty))
             {
-                order.Id = id;
+                transaction.Id = id;
             }
             return id;
         }
 
-        internal bool DeleteOrder(Guid id)
+        internal bool DeleteTransaction(Guid id)
         {
             bool returnVal = false;
             using var db = new SqlConnection(_connectionString);
-            var sql = @"DELETE FROM Orders
+            var sql = @"DELETE FROM Transactions
                         OUTPUT Deleted.Id
                         WHERE Id = @Id";
             var parameters = new
@@ -103,7 +129,7 @@ namespace LLL_Emporium.DataAccess
             return returnVal;
         }
 
-        internal bool UpdateOrder(Guid orderId, Order order)
+        internal bool UpdateTransaction(Guid transactionId, Order order)
         {
             bool returnVal = false;
             using var db = new SqlConnection(_connectionString);
