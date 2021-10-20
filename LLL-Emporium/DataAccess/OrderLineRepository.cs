@@ -18,6 +18,14 @@ namespace LLL_Emporium.DataAccess
             _connectionString = config.GetConnectionString("LLL-Emporium");
         }
 
+        internal IEnumerable<OrderLine> GetAllOrderLines()
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from OrderLines";
+            var result = db.Query<OrderLine>(sql);
+            return result;
+        }
+
         internal OrderLine GetSingleOrderLine(Guid orderLineId)
         {
             using var db = new SqlConnection(_connectionString);
