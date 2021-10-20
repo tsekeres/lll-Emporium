@@ -34,6 +34,7 @@ namespace LLL_Emporium
             services.AddTransient<OrderLineRepository>();
             services.AddTransient<UserRepository>();
             services.AddTransient<PaymentTypeRepository>();
+            services.AddTransient<TransactionTypeRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
