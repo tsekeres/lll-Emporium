@@ -59,6 +59,20 @@ namespace LLL_Emporium.DataAccess
             category.Id = id;
         }
 
+        internal Category UpdateCategory(Guid id, Category category)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"UPDATE Categories
+                        SET CategoryName = @CategoryName,
+                            CategoryImageUrl = @CategoryImageUrl
+                        WHERE Id = @Id";
+
+            category.Id = id;
+            var updatedCategory = db.QuerySingleOrDefault<Category>(sql, category);
+
+            return updatedCategory;
+        }
+
         internal bool DeleteCategory(Guid id)
         {
             bool returnVal = false;
@@ -77,20 +91,6 @@ namespace LLL_Emporium.DataAccess
                 returnVal = true;
             }
             return returnVal;
-        }
-
-        internal Category UpdateCategory(Guid id, Category category)
-        {
-            using var db = new SqlConnection(_connectionString);
-            var sql = @"UPDATE Categories
-                        SET CategoryName = @CategoryName,
-                            CategoryImageUrl = @CategoryImageUrl
-                        WHERE Id = @Id";
-
-            category.Id = id;
-            var updatedCategory = db.QuerySingleOrDefault<Category>(sql, category);
-
-            return updatedCategory;
         }
 
     }
