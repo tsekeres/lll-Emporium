@@ -39,6 +39,7 @@ namespace LLL_Emporium
             services.AddTransient<TransactionTypeRepository>();
             services.AddTransient<TransactionRepository>();
             services.AddTransient<RoleTypeRepository>();
+            services.AddTransient<ProductTypesRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
