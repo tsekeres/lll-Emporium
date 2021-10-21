@@ -23,7 +23,11 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * from OrderLines";
             var result = db.Query<OrderLine>(sql);
-            return result;
+            if (result.Any())
+            {
+                return result;
+            }
+            else return null;
         }
 
         internal OrderLine GetSingleOrderLine(Guid orderLineId)
@@ -49,7 +53,11 @@ namespace LLL_Emporium.DataAccess
                 OrderId = orderId
             };
             var result = db.Query<OrderLine>(sql, parameter);
-            return result;
+            if (result.Any())
+            {
+                return result;
+            }
+            else return null;
         }
 
         internal Guid AddLineItem(OrderLine lineItem)
