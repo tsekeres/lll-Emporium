@@ -51,7 +51,11 @@ namespace LLL_Emporium.DataAccess
             };
 
             var result = db.Query<Transaction>(sql, parameters);
-            return result;
+            if (result.Count() == 0)
+            {
+                return null;
+            }
+            else return result;
         }
         internal IEnumerable<Transaction> GetTransactionsByPaymentTypeId(Guid paymentTypeId)
         {
@@ -65,7 +69,11 @@ namespace LLL_Emporium.DataAccess
             };
 
             var result = db.Query<Transaction>(sql, parameters);
-            return result;
+            if (result.Count() == 0)
+            {
+                return null;
+            }
+            else return result;
         }
 
         internal IEnumerable<Transaction> GetTransactionsByTransactionTypeId(Guid transactionTypeId)
@@ -80,7 +88,11 @@ namespace LLL_Emporium.DataAccess
             };
 
             var result = db.Query<Transaction>(sql, parameters);
-            return result;
+            if (result.Count() == 0)
+            {
+                return null;
+            }
+            else return result;
         }
 
         internal Guid AddTransaction(Transaction transaction)
