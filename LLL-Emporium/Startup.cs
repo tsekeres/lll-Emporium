@@ -37,6 +37,7 @@ namespace LLL_Emporium
             services.AddTransient<ProductRepository>();
             services.AddTransient<PaymentTypeRepository>();
             services.AddTransient<TransactionTypeRepository>();
+            services.AddTransient<TransactionRepository>();
             services.AddTransient<RoleTypeRepository>();
             services.AddTransient<ProductTypesRepository>();
             services.AddControllers();

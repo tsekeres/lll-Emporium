@@ -48,7 +48,6 @@ DROP CONSTRAINT FK_Users_RoleTypes;
 IF EXISTS (SELECT * FROM Information_schema.TABLES WHERE TABLE_NAME = 'PaymentTypes')
 ALTER TABLE dbo.ProductTypes
 DROP CONSTRAINT FK_ProductTypes_CategoryId
->>>>>>> 277c4a4df28e05bd749f559aec0f9884ee560745
 
 DROP TABLE IF EXISTS dbo.Categories
 
