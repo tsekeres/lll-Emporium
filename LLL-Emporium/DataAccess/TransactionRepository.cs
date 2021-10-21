@@ -72,7 +72,7 @@ namespace LLL_Emporium.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * from Transactions
-                        WHERE TransactionTypeId = @TransactionTypsId";
+                        WHERE TransactionTypeId = @TransactionTypeId";
 
             var parameters = new
             {
