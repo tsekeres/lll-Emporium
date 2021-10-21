@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LLL_Emporium.Models;
 
 namespace LLL_Emporium.DataAccess
 {
@@ -129,32 +132,26 @@ namespace LLL_Emporium.DataAccess
             return returnVal;
         }
 
-        internal bool UpdateTransaction(Guid transactionId, Order order)
+        internal bool UpdateTransaction(Guid transactionId, Transaction transaction)
         {
             bool returnVal = false;
             using var db = new SqlConnection(_connectionString);
-            var sql = @"UPDATE Orders
-                        SET ShippingAddress = @ShippingAddress,
-                            ShippingCity = @ShippingCity,
-                            ShippingState = @ShippingState,
-                            ShippingZip = @ShippingZip,
-                            ShippingCost = @ShippingCost,
-                            OrderDate = @OrderDate
+            var sql = @"UPDATE Transactions
+                        SET PaymentAccount = @PaymentAccount,
+                            PaymentAmount = @PaymentAmount,
+                            PaymentDate = @PaymentDate
                             Output Inserted.*
                         WHERE Id = @Id";
 
             var parameters = new
             {
-                Id = orderId,
-                ShippingAddress = order.ShippingAddress,
-                ShippingCity = order.ShippingCity,
-                ShippingState = order.ShippingState,
-                ShippingZip = order.ShippingZip,
-                ShippingCost = order.ShippingCost,
-                OrderDate = order.OrderDate
+                Id = transactionId,
+                PaymentAccount = transaction.PaymentAccount,
+                PaymentAmount = transaction.PaymentAmount,
+                PaymentDate = transaction.PaymentDate
             };
 
-            var result = db.Query<Order>(sql, parameters);
+            var result = db.Query<Transaction>(sql, parameters);
             if (result.Count() > 0)
             {
                 returnVal = true;
