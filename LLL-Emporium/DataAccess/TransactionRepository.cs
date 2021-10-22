@@ -151,6 +151,8 @@ namespace LLL_Emporium.DataAccess
             var sql = @"UPDATE Transactions
                         SET PaymentAccount = @PaymentAccount,
                             PaymentAmount = @PaymentAmount,
+                            PaymentTypeID = @PaymentTypeId,
+                            TransactionTypeId = @TransactionTypeId,
                             PaymentDate = @PaymentDate
                             Output Inserted.*
                         WHERE Id = @Id";
@@ -160,7 +162,9 @@ namespace LLL_Emporium.DataAccess
                 Id = transactionId,
                 PaymentAccount = transaction.PaymentAccount,
                 PaymentAmount = transaction.PaymentAmount,
-                PaymentDate = transaction.PaymentDate
+                PaymentDate = transaction.PaymentDate,
+                PaymentTypeId = transaction.PaymentTypeId,
+                TransactionTypeId = transaction.TransactionTypeId
             };
 
             var result = db.Query<Transaction>(sql, parameters);

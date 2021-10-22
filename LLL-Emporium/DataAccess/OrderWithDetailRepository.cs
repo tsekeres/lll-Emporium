@@ -23,6 +23,8 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             OrderWithDetail resultObj = new OrderWithDetail();
             resultObj.LineItems = new List<OrderLineDetail>();
+            resultObj.TransactionItems = new List<TransactionDetail>();
+
 
             var sql = @"SELECT * FROM Orders
                         WHERE Id = @Id";
@@ -32,19 +34,61 @@ namespace LLL_Emporium.DataAccess
             };
             
             var result = db.QueryFirstOrDefault<Order>(sql, parameter);
-            if ( result != null)
+            if (result != null)
             {
                 resultObj.Order = result;
-                sql = @"SELECT * FROM OrderLines OL
+
+                // Get first and last name of customer
+                if (result.CustomerId != Guid.Empty)
+                {
+                    sql = @"SELECT FirstName, LastName FROM Users
+                                        WHERE Id = @Id";
+                    var userParameter = new
+                    {
+                        Id = result.CustomerId
+                    };
+                    var userResult = db.QueryFirstOrDefault<User>(sql, userParameter);
+                    if (userResult != null)
+                    {
+                        resultObj.CustomerFirstName = userResult.FirstName;
+                        resultObj.CustomerLastName = userResult.LastName;
+                    }
+                }
+
+
+                // Get list of line items
+                sql = @"SELECT OL.Id, OL.ProductId,
+	                    OL.UnitPrice, OL.Quantity, OL.Discount,
+	                    PR.ProductName, PR.ProductDescription,
+	                    PR.ProductImageURL, PR.InventoryCount, PR.Price as CurrentPrice FROM OrderLines OL
                         JOIN Products PR
                         ON PR.Id = OL.ProductId
                         WHERE OL.OrderId = @Id";
                 var orderLineResult = db.Query<OrderLineDetail>(sql, parameter);
-                if (orderLineResult.Count() > 0)
+                if (orderLineResult.Any())
                 {
-                    foreach ( var lineItem in orderLineResult)
+                    foreach (var lineItem in orderLineResult)
                     {
                         resultObj.LineItems.Add(lineItem);
+                    }
+                }
+
+
+                // Get list of transactions on order
+                sql = @"SELECT TR.Id, PT.Id AS PaymentTypeId, TT.Id AS TransactionTypeId, 
+                            TR.PaymentAccount, TR.PaymentAmount, TR.PaymentDate,
+	                        PT.PaymentTypeName, TT.TransactionTypeName  FROM Transactions TR
+                        JOIN PaymentTypes PT
+	                        ON TR.PaymentTypeId = PT.Id
+                        JOIN TransactionTypes TT
+	                        ON TR.TransactionTypeId = TT.Id
+                        WHERE TR.OrderId = @Id";
+                var transactionsResult = db.Query<TransactionDetail>(sql, parameter);
+                if (transactionsResult.Any())
+                {
+                    foreach(var transaction in transactionsResult)
+                    {
+                        resultObj.TransactionItems.Add(transaction);
                     }
                 }
             }
