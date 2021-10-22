@@ -41,8 +41,8 @@ namespace LLL_Emporium.DataAccess
                 // Get first and last name of customer
                 if (result.CustomerId != Guid.Empty)
                 {
-                    sql = @"SELECT FirstName, LastName FROM Users
-                                        WHERE Id = @Id";
+                    sql = @"SELECT * FROM Users
+                            WHERE Id = @Id";
                     var userParameter = new
                     {
                         Id = result.CustomerId
