@@ -23,7 +23,11 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * FROM RoleTypes";
             var result = db.Query<RoleType>(sql);
-            return result;
+            if (result.Any())
+            {
+                return result;
+            }
+            else return null;
         }
 
         internal RoleType GetRoleTypeById(Guid roleTypeId)

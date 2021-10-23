@@ -23,7 +23,11 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * FROM Orders";
             var result = db.Query<Order>(sql);
-            return result;
+            if (result.Any())
+            {
+                return result;
+            }
+            else return null;
         }
 
         internal Order GetOrderById(Guid id)
@@ -52,7 +56,11 @@ namespace LLL_Emporium.DataAccess
             };
 
             var result = db.Query<Order>(sql, parameters);
-            return result;
+            if (result.Any())
+            {
+                return result;
+            }
+            else return null;
         }
 
         internal Guid AddOrder(Order order)
