@@ -102,7 +102,7 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Transaction with Id {transactionId} not found for deletion");
         }
 
-        [HttpPatch("{transactionId}")]
+        [HttpPut("{transactionId}")]
         public IActionResult UpdateTransaction(Guid transactionId, Transaction transaction)
         {
             var result = _transactionRepository.UpdateTransaction(transactionId, transaction);

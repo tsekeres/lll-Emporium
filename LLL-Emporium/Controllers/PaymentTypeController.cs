@@ -67,8 +67,8 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Payment Type with Id {paymentTypeId} not found for deletion");
         }
 
-        [HttpPatch("{paymentTypeId}")]
-        public IActionResult PatchPaymentType(Guid paymentTypeId, PaymentType paymentType)
+        [HttpPut("{paymentTypeId}")]
+        public IActionResult PutPaymentType(Guid paymentTypeId, PaymentType paymentType)
         {
             var result = _paymentTypeRepository.UpdatePaymentType(paymentTypeId, paymentType);
             if (result)

@@ -76,7 +76,7 @@ namespace LLL_Emporium.Controllers
             }
         }
 
-        [HttpPatch("{productId}")]
+        [HttpPut("{productId}")]
         public IActionResult UpdateProduct(Guid productId, Product product)
         {
             var productToUpdate = _productRepository.GetProductById(productId);
