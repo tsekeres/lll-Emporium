@@ -67,8 +67,8 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Transaction Type with Id {transactionTypeId} not found for deletion");
         }
 
-        [HttpPatch("{transactionTypeId}")]
-        public IActionResult PatchTransactionType(Guid transactionTypeId, TransactionType transactionType)
+        [HttpPut("{transactionTypeId}")]
+        public IActionResult PutTransactionType(Guid transactionTypeId, TransactionType transactionType)
         {
             var result = _transactionTypeRepository.UpdateTransactionType(transactionTypeId, transactionType);
             if (result)

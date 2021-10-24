@@ -93,7 +93,7 @@ namespace LLL_Emporium.Controllers
             }
         }
 
-        [HttpPatch("{lineItemId}")]
+        [HttpPut("{lineItemId}")]
         public IActionResult UpdateOrderLine(Guid lineItemId, OrderLine lineItem)
         {
             var result = _orderLineRepository.UpdateOrderLine(lineItemId, lineItem);
