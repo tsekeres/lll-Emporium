@@ -80,7 +80,7 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Order with Id {orderId} not found for deletion");
         }
 
-        [HttpPatch("{orderId}")]
+        [HttpPut("{orderId}")]
         public IActionResult UpdateOrder(Guid orderId, Order order)
         {
             var result = _orderRepository.UpdateOrder(orderId, order);
