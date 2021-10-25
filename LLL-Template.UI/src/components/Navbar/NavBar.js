@@ -10,7 +10,7 @@ import {
   NavItem,
   Button,
 } from 'reactstrap';
-import { signInUser, signOutUser } from '../helpers/auth';
+import { signInUser, signOutUser } from '../../helpers/auth';
 
 const NavBar = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);

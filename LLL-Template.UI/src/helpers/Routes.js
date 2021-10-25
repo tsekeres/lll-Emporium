@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Home from '../views/Home/Home';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   // eslint-disable-next-line no-confusing-arrow
@@ -17,11 +18,11 @@ PrivateRoute.propTypes = {
   user: PropTypes.any,
 };
 
-function Routes({ user }) {
+function Routes() {
   return (
     <div>
       <Switch>
-        <Route exact path="/" user={user} />
+        <Route exact path="/" component={Home} />
         <PrivateRoute
         />
         <PrivateRoute
