@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function Home() {
   return (
     <div className='Home'>
-      <div>HAHAHAH</div>
+      <div></div>
     </div>
   );
 }
