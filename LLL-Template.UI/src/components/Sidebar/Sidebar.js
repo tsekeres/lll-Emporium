@@ -9,8 +9,10 @@ import {
   SidebarMenu,
   SidebarLink,
   SideBtnWrap,
-  SidebarRoute
+  SidebarRoute,
+  NavBarImg1,
 } from './SidebarElements';
+import logo from '../../Assets/NavBarIcons/LOGO.png';
 
 export default function Sidebar({
   isOpen,
@@ -46,7 +48,8 @@ export default function Sidebar({
             </SidebarLink>
         </SidebarMenu>
         <SideBtnWrap className='SideBtnWrap'>
-          <SidebarRoute className='SidebarRoute' onClick={toggle}>Sign In</SidebarRoute>
+          <SidebarRoute className='SidebarRoute' onClick={toggle}>sign in</SidebarRoute>
+          <NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1>
         </SideBtnWrap>
       </SidebarWrapper>
     </SidebarContainer>
