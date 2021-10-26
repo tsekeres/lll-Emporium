@@ -39,10 +39,10 @@ export const Column1 = styled.div`
 
 export const AboutUsImg = styled.img`
   display: flex;
-  width: 60%;
+  width: 50%;
 
   @media screen and (max-width: 1150px) {
-    width: 75%;
+    width: 60%;
   }
 
   @media screen and (max-width: 525px) {

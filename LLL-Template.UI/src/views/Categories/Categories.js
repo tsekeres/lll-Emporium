@@ -1,65 +1,133 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  InfoContainer,
-  InfoWrapper,
-  InfoRow,
+  CategoryContainer,
+  CategoryWrapper,
   Column1,
+  CategoryCard,
+  CategoryCardImg,
+  CategoryCardHeader,
+  CategoryCardButtons,
+  CategoryCardEdit,
+  CategoryCardDelete,
+  CategoryImg,
+  CategoryCardFooter,
   Column2,
-  TextWrapper,
-  TopLine,
-  Heading,
-  Subtitle,
-  DescriptionWrap,
-  AboutMe,
-  ImgWrap,
-  Img,
 } from './CategoryElements';
-import aboutus from '../../Assets/ViewStockPhotos/AboutUsViewStock.jpeg';
+import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
+import jewelry from '../../Assets/CategoryIcons/Jewelry.png';
+// import add from '../../Assets/ActionIcons/Add.png';
+import edit from '../../Assets/ActionIcons/Edit.png';
+import deleted from '../../Assets/ActionIcons/Delete.png';
 
-// eslint-disable-next-line import/prefer-default-export
-export const Categories = ({
-  lightbg,
-  id,
-  topLine,
-  alt,
-  imgStart,
-  lightText,
-  darkText,
-  headline,
-  buttonLabel,
-  description,
-// eslint-disable-next-line arrow-body-style
-}) => {
+export const Categories = () => {
   return (
-    <>
-      <InfoContainer lightbg={lightbg} id={id}>
-        <InfoWrapper id='bio'>
-          <InfoRow imgStart={imgStart}>
-            <Column1>
-              <TextWrapper>
-                <TopLine>{topLine}</TopLine>
-                <Heading lightText={lightText}>{headline}</Heading>
-                <Subtitle darkText={darkText}>{description}</Subtitle>
-                <DescriptionWrap>
-                  <AboutMe to="/#bio"
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                  exact={true}
-                  offset={-80}
-                  >{buttonLabel}</AboutMe>
-                </DescriptionWrap>
-              </TextWrapper>
-            </Column1>
-            <Column2>
-              <ImgWrap>
-                <Img alt={alt} src={aboutus}/>
-              </ImgWrap>
-            </Column2>
-          </InfoRow>
-        </InfoWrapper>
-      </InfoContainer>
-    </>
+      <CategoryContainer className="AboutUsContainer">
+        <CategoryWrapper className="AboutUsWrapper">
+        <Column1 className="Column1">
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+            <CategoryCard className="CategoryCard">
+              <CategoryCardHeader className="CategoryCardHeader">
+                <CategoryCardButtons className="CategoryCardButtons">
+                  <CategoryCardEdit className="CategoryCardEdit" src={edit}></CategoryCardEdit>
+                  <CategoryCardDelete className="CategoryCardDelete" src={deleted}></CategoryCardDelete>
+                </CategoryCardButtons>
+              </CategoryCardHeader>
+              <CategoryCardImg className="CategoryCardImg" src={jewelry}></CategoryCardImg>
+              <CategoryCardFooter className="CategoryCardFooter">
+                jewelry
+              </CategoryCardFooter>
+            </CategoryCard>
+        </Column1>
+        <Column2 className="Column2">
+          <CategoryImg src={category} className="CategoryImg"></CategoryImg>
+        </Column2>
+        </CategoryWrapper>
+      </CategoryContainer>
   );
 };

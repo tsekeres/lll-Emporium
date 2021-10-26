@@ -27,28 +27,28 @@ function Home() {
             One place for all your live, laugh, love needs.
           </AlternateItem>
           <Item className="Item">
-            Clothing
+            clothing
           </Item>
           <Item className="Item">
-            Accessories
+            accessories
           </Item>
           <Item className="Item">
-            Kitchen
+            kitchen
           </Item>
           <Item className="Item">
-            Bath
+            bath
           </Item>
           <Item className="Item">
-            Car Accessories
+            car accessories
           </Item>
           <Item className="Item">
-            Lawn and Garden
+            lawn and garden
           </Item>
           <Item className="Item">
-            Biker Gear
+            biker gear
           </Item>
           <Item className="Item">
-            Construction Eqipment
+            construction eqipment
           </Item>
         </CategoryData>
       </Top>

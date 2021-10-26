@@ -1,146 +1,115 @@
 /* eslint-disable quotes */
 import styled from 'styled-components';
 
-export const InfoContainer = styled.div`
+export const CategoryContainer = styled.div`
   color: #00000;
   background: #fff;
   height: 734px;
-  padding-top: 100px;
+  padding-top: 50px;
 `;
 
-export const InfoWrapper = styled.div`
-  display: grid;
-  z-index: 1;
-  height: 100%;
+export const CategoryWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
   width: 100%;
-  max-width: 1100px;
-  margin-right: auto;
-  margin-left: auto;
-  justify-content: center;
 
-`;
-
-export const InfoRow = styled.div`
-  display: grid;
-  grid-auto-columns: minmax(auto, 1fr);
-  align-items: center;
-  grid-template-areas: ${({ imgStart }) => (imgStart ? `'col2 col1'` : `'col1 col2'`)};
-
-
-  @media screen and (max-width: 768px) {
-    grid-template-areas: ${({ imgStart }) => (imgStart ? `'col2 col2' 'col1 col1'` : `'col1' 'col2'`)};
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
 export const Column1 = styled.div`
-  margin-bottom: 15px;
-  padding: 0 15px;
-  grid-area: col1;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: 634px;
+  margin-top: 48px;
+
+  @media screen and (max-width: 1150px) {
+    width: 70%;
+  }
+
+  @media screen and (max-width: 525px) {
+    width: 100%;
+  }
+`;
+
+export const CategoryCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 25%;
+  height: 20%;
+  opacity: .5;
+  margin-left: 75px;
+
+  @media screen and (max-width: 525px) {
+    margin-left: 25px;
+    margin-right: 20px;
+  }
+`;
+
+export const CategoryCardImg = styled.img`
+  height: 60%;
+`;
+
+export const CategoryCardHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  height: 15%;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
+export const CategoryCardButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 50%;
+  margin-top: 5px;
+`;
+
+export const CategoryCardEdit = styled.img`
+  height: 15px;
+  margin-left: 10px;
+`;
+
+export const CategoryCardDelete = styled.img`
+  height: 13px;
+  margin-top: 1.5px;
+`;
+
+export const CategoryImg = styled.img`
+  display: flex;
+  align-self: center;
+  width: 60%;
+
+  @media screen and (max-width: 1150px) {
+    width: 70%;
+  }
+  }
 `;
 
 export const Column2 = styled.div`
-  margin-bottom: 15px;
-  padding: 0 15px;
-  grid-area: col2;
-`;
-
-export const TextWrapper = styled.div`
-  max-width: 540px;
-  padding-top: 9;
-  padding-bottom: 30px;
-`;
-
-export const TopLine = styled.p`
-  color: #fff;
-  font-size: 13px;
-  line-height: 16px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-
-  @media screen and (max-width: 480px) {
-    font-size: 8px;
-  }
-`;
-
-export const Heading = styled.h1`
-  font-size: 32px;
-  line-height: 1.1;
-  font-weight: 600;
-  color: ${({ lightText }) => (lightText ? '#fff' : '#000000')};
-
-  @media screen and (max-width: 480px) {
-    font-size: 24px;
-  }
-`;
-
-export const Subtitle = styled.p`
-  max-width: 440px;
-  margin-bottom: 15px;
-  font-size: 16px;
-  line-height: 24px;
-  color: ${({ darkText }) => (darkText ? '#000000' : '#fff')};
-
-  @media screen and (max-width: 480px) {
-    font-size: 8px;
-  }
-`;
-
-export const DescriptionWrap = styled.div`
   display: flex;
-  justify-content: flex-start;
-`;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 734px;
 
-export const ImgWrap = styled.div`
-  max-width: 555px;
-  height: 100%;
-
-  @media screen and (max-width: 540px) {
-    width: 50%;
-  }
-
-  @media screen and (max-width: 480px) {
-    width: 50%;
-    padding: 0;
-  }
-
-  @media screen and (max-width: 375px) {
-    width: 50%;
-    padding: 0;
+  @media screen and (max-width: 800px) {
+    display: none;
   }
 `;
 
-export const Img = styled.img`
-  width: 75%;
-  // margin: 0 0 10px 0;
-  // padding-right: 0;
-
-  @media screen and (max-width: 768px) {
-    width: 50%;
-    // padding-bottom: 200px;
-  }
-
-  @media screen and (max-width: 480px) {
-    width: 75%;
-    // padding-bottom: 200px;
-  }
-
-  @media screen and (max-width: 411px) {
-    width: 75%;
-    // padding-bottom: 200px;
-  }
-
-  @media screen and (max-width: 360px) {
-    width: 75%;
-    // padding-bottom: 300px;
-  }
-`;
-
-export const AboutMe = styled.p`
-  font-size: 12px;
-
-  @media screen and (max-width: 480px) {
-    font-size: 8px;
-  }
+export const CategoryCardFooter = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  width: 100%;
 `;

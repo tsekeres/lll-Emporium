@@ -19,18 +19,18 @@ export const AboutUs = () => {
   return (
       <AboutUsContainer className="AboutUsContainer">
         <AboutUsWrapper className="AboutUsWrapper">
-          <Column1>
-            <AboutUsImg src={aboutus}></AboutUsImg>
+          <Column1 className="Column1">
+            <AboutUsImg src={aboutus} className="AboutUsImg"></AboutUsImg>
           </Column1>
-          <Column2>
-          <Bio>
+          <Column2 className="Column2">
+          <Bio className="Bio">
               Here at Live, Laugh, Love Emporium we believe that in order to truly live, you must always do so according to our motto.
               First, you must live. Second, you must laugh. Third, you must love.
               However, we want to ensure our livers and laughers and lovers are not doing so in secret.
               We created this store to ensure that you have the necessary items to illustrate your dedication to living, laughing,
               and loving-- on your person, in your home, and on your feed.
             </Bio>
-            <LogoImgWrapper>
+            <LogoImgWrapper className="LogoImgWrapper">
               <LogoImg src={logo}></LogoImg>
             </LogoImgWrapper>
           </Column2>

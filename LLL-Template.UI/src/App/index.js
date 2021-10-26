@@ -7,6 +7,7 @@ import Sidebar from '../components/Sidebar/Sidebar';
 import Home from '../views/Home/Home';
 import { Categories } from '../views/Categories/Categories';
 import { AboutUs } from '../views/AboutUs/AboutUs';
+import { Footer } from '../components/Footer/Footer';
 
 export default function App() {
   // const [user, setUser] = useState(null);
@@ -42,6 +43,7 @@ export default function App() {
         </Switch>
         <Categories/>
         <AboutUs/>
+        <Footer/>
       </Router>
     </div>
   );
