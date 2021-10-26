@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import Home from '../views/Home/Home';
+import { Footer } from '../components/Footer/Footer';
 
 export default function App() {
   // const [user, setUser] = useState(null);
@@ -38,6 +39,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={Home}/>
         </Switch>
+        <Footer/>
       </Router>
     </div>
   );
