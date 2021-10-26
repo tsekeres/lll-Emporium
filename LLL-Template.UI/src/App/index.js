@@ -3,10 +3,16 @@ import React, { useEffect } from 'react';
 // import 'firebase/auth';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
+import getProducts from '../helpers/Data/ProductsData';
 import Home from '../views/Home/Home';
 
 export default function App() {
   // const [user, setUser] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts().then(setProducts);
+  }, []);
 
   useEffect(() => {
   //   firebase.auth().onAuthStateChanged((authed) => {

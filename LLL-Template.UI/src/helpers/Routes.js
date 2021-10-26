@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Home from '../views/Home/Home';
+import Products from '../views/Products/Products';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   // eslint-disable-next-line no-confusing-arrow
@@ -18,12 +19,22 @@ PrivateRoute.propTypes = {
   user: PropTypes.any,
 };
 
-function Routes() {
+function Routes({
+  products, setProducts
+}) {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <PrivateRoute
+        <Route
+          exact
+          path="/products"
+          component={() => (
+            <Products
+              products={products}
+              setProducts={setProducts}
+            />
+          )}
         />
         <PrivateRoute
         />
@@ -35,6 +46,7 @@ function Routes() {
 
 Routes.propTypes = {
   user: PropTypes.any,
+  products: PropTypes.array,
 };
 
 export default Routes;
