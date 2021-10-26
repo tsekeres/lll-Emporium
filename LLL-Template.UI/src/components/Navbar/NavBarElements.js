@@ -84,6 +84,7 @@ export const NavItemsMiddle = styled.div`
 export const NavBarImg = styled.img`
   width: 100px;
   align-self: center;
+  margin-top: 5px;
 
   @media screen and (max-width: 950px) {
     width: 75px;

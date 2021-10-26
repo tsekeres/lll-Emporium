@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import firebase from 'firebase/app';
 // import 'firebase/auth';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
+import Sidebar from '../components/Sidebar/Sidebar';
 import Home from '../views/Home/Home';
 
 export default function App() {
   // const [user, setUser] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
   //   firebase.auth().onAuthStateChanged((authed) => {
@@ -27,7 +33,8 @@ export default function App() {
   return (
     <div className='App'>
       <Router>
-        <NavBar/>
+        <Sidebar isOpen={isOpen} toggle={toggle}/>
+        <NavBar toggle={toggle}/>
         <Switch>
           <Route exact path="/" component={Home}/>
         </Switch>
