@@ -12,6 +12,9 @@ import {
   AlternateWelcomeImg,
   SecondWelcomeImg,
 } from './HomeElements';
+import { Categories } from '../Categories/Categories';
+import { AboutUs } from '../AboutUs/AboutUs';
+import { Footer } from '../../components/Footer/Footer';
 import welcomeImg from '../../Assets/ViewStockPhotos/WelcomeImg.jpeg';
 import knitting from '../../Assets/ViewStockPhotos/Knitting.jpeg';
 import dancing from '../../Assets/ViewStockPhotos/Dancing.jpeg';
@@ -20,6 +23,7 @@ import yoga from '../../Assets/ViewStockPhotos/Yoga.jpeg';
 
 function Home() {
   return (
+    <>
     <HomePage className='Home'>
       <Top className="Top">
         <CategoryData className="CategoryData">
@@ -62,6 +66,10 @@ function Home() {
         <SecondWelcomeImg src={yoga} className="SecondWelcomeImg"></SecondWelcomeImg>
       </Bottom>
     </HomePage>
+    <Categories/>
+    <AboutUs/>
+   <Footer/>
+   </>
   );
 }
 
