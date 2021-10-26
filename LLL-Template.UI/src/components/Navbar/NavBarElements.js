@@ -4,6 +4,15 @@ import styled from 'styled-components';
 export const NavigationBar = styled.div`
   display: flex;
   flex-direction: row;
+  background: #fff;
+  height: 100px;
+  margin-top: -80px;
+  display: flex;
+  justify-content: center;
+  font-size: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 export const NavLeft = styled.div`
@@ -19,7 +28,7 @@ export const NavItemsLeft = styled.div`
 `;
 
 export const NavBarImg1 = styled.img`
-  width: 50px;
+  // width: 50px;
   margin-left: 10px;
 
   @media screen and (min-width: 526px) {
