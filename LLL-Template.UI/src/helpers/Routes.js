@@ -1,14 +1,15 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Home from '../views/Home/Home';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
-  const routeChecker = (taco) =>
-    user ? (
+  // eslint-disable-next-line no-confusing-arrow
+  const routeChecker = (taco) => user ? (
       <Component {...taco} user={user} />
-    ) : (
+  ) : (
       <Redirect to={{ pathname: '/', state: { from: taco.location } }} />
-    );
+  );
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 
@@ -17,26 +18,16 @@ PrivateRoute.propTypes = {
   user: PropTypes.any,
 };
 
-function Routes({ user }) {
+function Routes() {
   return (
     <div>
       <Switch>
-        <Route exact path="/" user={user} component={Home} />
+        <Route exact path="/" component={Home} />
         <PrivateRoute
-          exact
-          path="/"
-          user={user}
-          component={() => (
-            <ViewName user={user} />
-          )}
         />
         <PrivateRoute
-          exact
-          path="/"
-          user={user}
-          component={() => <ViewNAme user={user} />}
         />
-        <Route path="*" component={Home} />
+        <Route path="*" />
       </Switch>
     </div>
   );
