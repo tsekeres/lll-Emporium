@@ -122,6 +122,7 @@ const RoleTypeForm = () => {
           onChange={(event) => handleSelectedChange(event)} />
           <RoleTypeButtonLabel>{role.roleTypeName}</RoleTypeButtonLabel>
       </RoleTypeInputDiv>)}
+      <RoleTypeInputDiv>
       <RoleTypeButton onClick={handleUpdate}>Update</RoleTypeButton>
       { showUpdate ? <><RoleTypeTextInput
         onChange={handleInputChange}
@@ -131,7 +132,8 @@ const RoleTypeForm = () => {
         />
         <RoleTypeButton
           onClick={handleUpdateRoleSubmit} >Submit Update</RoleTypeButton></> : <></> }
-      <RoleTypeButton onClick={handleDelete}>Delete</RoleTypeButton>
+      </RoleTypeInputDiv>
+      <RoleTypeInputDiv>
       <RoleTypeButton onClick={handleNew}>Add New Role</RoleTypeButton>
       { showNew ? <><RoleTypeTextInput
         onChange={handleInputChange}
@@ -141,6 +143,8 @@ const RoleTypeForm = () => {
         />
         <RoleTypeButton
           onClick={handleNewRoleSubmit} >Submit Role</RoleTypeButton></> : <></> }
+      </RoleTypeInputDiv>
+      <RoleTypeButton onClick={handleDelete}>Delete</RoleTypeButton>
       <RoleTypeMessage>
         { showMessage ? message : ''}
       </RoleTypeMessage>
