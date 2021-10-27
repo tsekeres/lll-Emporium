@@ -147,5 +147,22 @@ namespace LLL_Emporium.DataAccess
             }
             return returnVal;
         }
+
+        internal Order GetShoppingCart(Guid userID)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from Orders
+                        WHERE Orders.id NOT IN
+                        (SELECT ORD.id from Orders ORD
+                         JOIN Transactions TR
+                         ON TR.OrderID = ORD.id )
+                         AND CustomerID = @CustomerId";
+            var parameter = new
+            {
+                CustomerId = userID
+            };
+            var result = db.QueryFirstOrDefault<Order>(sql, parameter);
+            return result;
+        }
     }
 }
