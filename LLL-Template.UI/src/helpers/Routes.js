@@ -7,6 +7,7 @@ import PersonalProfile from '../views/PersonalProfile/PersonalProfile';
 import OrderHistory from '../views/OrderHistory/OrderHistory';
 import SellingHistory from '../views/SellingHistory/SellingHistory';
 import Users from '../views/Users/Users';
+import RoleTypeView from '../views/RoleTypes/RoleTypes';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   // eslint-disable-next-line no-confusing-arrow
@@ -33,7 +34,7 @@ function Routes() {
         <Route exact path="/OrderHistory" component={OrderHistory} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
         <Route exact path="/Users" component={Users} />
-        <Route exact path="/Users/RoleTypes" component={Users} />
+        <Route exact path="/Users/RoleTypes" component={() => <RoleTypeView />} />
         <PrivateRoute />
         <PrivateRoute />
         <Route path="*" />
