@@ -20,7 +20,6 @@ import {
 const RoleTypeForm = () => {
   const [roleList, setRoleTypes] = useState([]);
   const [selected, setSelected] = useState(null);
-  const [selectedRoleType, setSelectedRoleType] = useState({});
   const [showNew, setShowNew] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [roleTypesUpdated, setRoleTypesUpdated] = useState(false);
@@ -39,7 +38,7 @@ const RoleTypeForm = () => {
   useEffect(() => {
     if (selected !== null) {
       getSingleRoleType(selected).then((responseObj) => {
-        setSelectedRoleType(responseObj);
+        setRoleTypeName(responseObj);
       });
     }
   }, [selected]);
@@ -58,9 +57,9 @@ const RoleTypeForm = () => {
   const handleInputChange = (e) => {
     setRoleTypeName((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value ? e.target.value : ''
     }));
-    console.warn(roleTypeName);
+    console.warn(roleTypeName.roleTypeName);
   };
 
   const handleNewRoleSubmit = () => {
@@ -120,7 +119,7 @@ const RoleTypeForm = () => {
         onChange={handleInputChange}
         type='text'
         name='roleTypeName'
-        placeholder={selectedRoleType?.roleTypeName}
+        value = {roleTypeName?.roleTypeName}
         />
         <RoleTypeButton
           onClick={handleUpdateRoleSubmit} >Submit Update</RoleTypeButton></> : <></> }
