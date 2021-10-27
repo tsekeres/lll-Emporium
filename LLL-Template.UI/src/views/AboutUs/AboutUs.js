@@ -17,7 +17,7 @@ import logo from '../../Assets/NavBarIcons/LOGO.png';
 
 export const AboutUs = () => {
   return (
-      <AboutUsContainer className="AboutUsContainer">
+      <AboutUsContainer className="AboutUsContainer" id="AboutUs">
         <AboutUsWrapper className="AboutUsWrapper">
           <Column1 className="Column1">
             <AboutUsImg src={aboutus} className="AboutUsImg"></AboutUsImg>

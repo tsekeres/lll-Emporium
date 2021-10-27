@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link as LinkS } from 'react-scroll';
 
 // eslint-disable-next-line import/prefer-default-export
 export const NavigationBar = styled.div`
@@ -178,5 +179,18 @@ export const MobileIcon = styled.div`
 
   @media screen and (max-width: 525px){
     display: flex;
+  }
+`;
+
+export const HashLink = styled(LinkS)`
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+
+  &.activeStyle {
+    border-bottom: 3px solid #fff;
   }
 `;
