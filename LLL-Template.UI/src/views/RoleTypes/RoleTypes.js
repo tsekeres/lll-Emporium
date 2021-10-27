@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import RoleTypeForm from '../../components/Forms/RoleTypeForm';
+import RoleTypeForm from '../../components/Forms/RoleTypeForms/RoleTypeForm';
 import { getRoleTypes } from '../../helpers/data/roleTypeData';
 import { RoleView, RoleViewTitle } from './RoleTypeElements';
 

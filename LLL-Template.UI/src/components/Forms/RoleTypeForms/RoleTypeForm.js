@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { deleteRoleType } from '../../helpers/data/roleTypeData';
+import { deleteRoleType } from '../../../helpers/data/roleTypeData';
 
 import {
   RoleTypeButtonLabel,
