@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HashLink } from '../../../node_modules/react-router-hash-link';
+import { HashLink } from 'react-router-hash-link';
 import {
   SidebarContainer,
   Icon,
