@@ -52,10 +52,18 @@ export default function NavBar({ toggle }) {
           <NavLink className="Link">
             <Link to="/Designers" style={styleObj}> designers</Link>
           </NavLink>
-          <NavLink className="Link">account</NavLink>
-          <NavLink className="Link">order history</NavLink>
-          <NavLink className="Link">sales</NavLink>
-          <NavLink className="Link">users</NavLink>
+          <NavLink className="Link">
+            <Link to="/PersonalProfile" style={styleObj}> account </Link>
+          </NavLink>
+          <NavLink className="Link">
+            <Link to="/OrderHistory" style={styleObj}> order history</Link>
+          </NavLink>
+          <NavLink className="Link">
+            <Link to="/SellingHistory" style={styleObj}> selling history</Link>
+          </NavLink>
+          <NavLink className="Link">
+            <Link to="/Users" style={styleObj}> users</Link>
+          </NavLink>
         </NavItemsLeft>
       </NavLeft>
       <NavMiddle className="NavMiddle">

@@ -30,9 +30,13 @@ export default function Sidebar({
   toggle
 }) {
   return (
-    <SidebarContainer className='SidebarContainer' isOpen={isOpen} onClick={toggle}>
-      <Icon className='Icon' onClick={toggle}>
-        <CloseIcon className ='Icon'/>
+    <SidebarContainer
+      className="SidebarContainer"
+      isOpen={isOpen}
+      onClick={toggle}
+    >
+      <Icon className="Icon" onClick={toggle}>
+        <CloseIcon className="Icon" />
       </Icon>
       <SidebarWrapper className='SidebarWrapper'>
         <SidebarMenu className='SidebarMenu'>
@@ -46,24 +50,26 @@ export default function Sidebar({
               about us
             </HashLink>
             </SidebarLink>
-            <SidebarLink className='Link' to="/Designers" onClick={toggle}>
-              designers
-            </SidebarLink>
-            <SidebarLink className='Link' onClick={toggle}>
-              account
-            </SidebarLink>
-            <SidebarLink className='Link' onClick={toggle}>
-              order history
-            </SidebarLink>
-            <SidebarLink className='Link' onClick={toggle}>
-              sales
-            </SidebarLink>
-            <SidebarLink className='Link' onClick={toggle}>
-              users
-            </SidebarLink>
+          <SidebarRoute className="Link" to="/Designers" onClick={toggle}>
+            designers
+          </SidebarRoute>
+          <SidebarRoute className="Link" to="/PersonalProfile" onClick={toggle}>
+            account
+          </SidebarRoute>
+          <SidebarRoute className="Link" to="/OrderHistory" onClick={toggle}>
+            order history
+          </SidebarRoute>
+          <SidebarRoute className="Link" to="/SellingHistory" onClick={toggle}>
+            sales
+          </SidebarRoute>
+          <SidebarRoute className="Link" to="/Users" onClick={toggle}>
+            users
+          </SidebarRoute>
         </SidebarMenu>
-        <SideBtnWrap className='SideBtnWrap'>
-          <SidebarRoute className='SidebarRoute' onClick={toggle}>sign in</SidebarRoute>
+        <SideBtnWrap className="SideBtnWrap">
+          <SidebarRoute className="SidebarRoute" onClick={toggle}>
+            sign in
+          </SidebarRoute>
           <NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1>
         </SideBtnWrap>
       </SidebarWrapper>
