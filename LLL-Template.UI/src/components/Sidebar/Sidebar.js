@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { HashLink } from 'react-router-hash-link';
 import {
   SidebarContainer,
   Icon,
@@ -14,6 +15,16 @@ import {
 } from './SidebarElements';
 import logo from '../../Assets/NavBarIcons/LOGO.png';
 
+const styleObj = {
+  color: '#000000',
+};
+
+const scrollWithOffset = (el) => {
+  const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+  const yOffset = -65;
+  window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+};
+
 export default function Sidebar({
   isOpen,
   toggle
@@ -25,11 +36,15 @@ export default function Sidebar({
       </Icon>
       <SidebarWrapper className='SidebarWrapper'>
         <SidebarMenu className='SidebarMenu'>
-        <SidebarLink className='Link'>
+          <SidebarLink className='Link' onClick={toggle}>
+          <HashLink smooth to='/#Categories' style={styleObj} scroll={scrollWithOffset} >
               shop
-            </SidebarLink>
+            </HashLink>
+          </SidebarLink>
             <SidebarLink className='Link' onClick={toggle}>
+            <HashLink smooth to='/#AboutUs' style={styleObj}>
               about us
+            </HashLink>
             </SidebarLink>
             <SidebarLink className='Link' to="/Designers" onClick={toggle}>
               designers
