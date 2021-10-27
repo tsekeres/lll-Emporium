@@ -1,18 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 // import firebase from 'firebase/app';
 // import 'firebase/auth';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
 import getProducts from '../helpers/Data/ProductsData';
-import Home from '../views/Home/Home';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { Footer } from '../components/Footer/Footer';
+import Routes from '../helpers/Routes';
+
 
 export default function App() {
   // const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     getProducts().then(setProducts);
   }, []);
+
+
 
   useEffect(() => {
   //   firebase.auth().onAuthStateChanged((authed) => {
@@ -33,10 +44,10 @@ export default function App() {
   return (
     <div className='App'>
       <Router>
-        <NavBar/>
-        <Switch>
-          <Route exact path="/" component={Home}/>
-        </Switch>
+        <Sidebar isOpen={isOpen} toggle={toggle}/>
+        <NavBar toggle={toggle}/>
+        <Routes></Routes>
+        <Footer/>
       </Router>
     </div>
   );
