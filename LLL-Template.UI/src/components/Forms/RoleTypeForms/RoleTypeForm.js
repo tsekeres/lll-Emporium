@@ -18,13 +18,21 @@ import {
 } from './RoleTypeFormElements';
 
 const RoleTypeForm = () => {
+  // list of all roles
   const [roleList, setRoleTypes] = useState([]);
+  // the seleced role
   const [selected, setSelected] = useState(null);
+  // display new role text input
   const [showNew, setShowNew] = useState(false);
+  // display update role text input
   const [showUpdate, setShowUpdate] = useState(false);
+  // trigger re-render
   const [roleTypesUpdated, setRoleTypesUpdated] = useState(false);
+  // show result message - disappears after 5 seconds
   const [showMessage, setShowMessage] = useState(false);
+  // the result message
   const [message, setMessage] = useState('');
+  // name of role to update or add
   const [roleTypeName, setRoleTypeName] = useState({
     roleTypeName: ''
   });
