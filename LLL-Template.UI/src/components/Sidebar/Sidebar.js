@@ -31,7 +31,7 @@ export default function Sidebar({
             <SidebarLink className='Link' onClick={toggle}>
               about us
             </SidebarLink>
-            <SidebarLink className='Link' onClick={toggle}>
+            <SidebarLink className='Link' to="/Designers" onClick={toggle}>
               designers
             </SidebarLink>
             <SidebarLink className='Link' onClick={toggle}>
