@@ -3,6 +3,10 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Home from '../views/Home/Home';
 import Designers from '../views/Designers/Designers';
+import PersonalProfile from '../views/PersonalProfile/PersonalProfile';
+import OrderHistory from '../views/OrderHistory/OrderHistory';
+import SellingHistory from '../views/SellingHistory/SellingHistory';
+import Users from '../views/Users/Users';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   // eslint-disable-next-line no-confusing-arrow
@@ -25,10 +29,12 @@ function Routes() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/Designers" component={Designers} />
-        <PrivateRoute
-        />
-        <PrivateRoute
-        />
+        <Route exact path="/PersonalProfile" component={PersonalProfile} />
+        <Route exact path="/OrderHistory" component={OrderHistory} />
+        <Route exact path="/SellingHistory" component={SellingHistory} />
+        <Route exact path="/Users" component={Users} />
+        <PrivateRoute />
+        <PrivateRoute />
         <Route path="*" />
       </Switch>
     </div>
