@@ -26,11 +26,17 @@ const RoleTypeTextInput = styled.input`
   margin 5px;
   `;
 
+const RoleTypeMessage = styled.div`
+  margin 5px;
+  height: 2em;
+  `;
+
 export {
   RoleTypeFormDiv,
   RoleTypeInputDiv,
   RoleTypeRadioButton,
   RoleTypeButtonLabel,
   RoleTypeButton,
-  RoleTypeTextInput
+  RoleTypeTextInput,
+  RoleTypeMessage
 };

@@ -21,7 +21,8 @@ namespace LLL_Emporium.DataAccess
         internal IEnumerable<RoleType> GetAllRoleTypes()
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT * FROM RoleTypes";
+            var sql = @"SELECT * FROM RoleTypes
+                        ORDER BY roleTypeName";
             var result = db.Query<RoleType>(sql);
             if (result.Any())
             {

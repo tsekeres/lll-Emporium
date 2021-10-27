@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { deleteRoleType } from '../../../helpers/data/roleTypeData';
+import React, { useState, useEffect } from 'react';
+import {
+  getRoleTypes,
+  deleteRoleType,
+  addRoleType,
+  updateRoleType,
+  getSingleRoleType
+} from '../../../helpers/data/roleTypeData';
 
 import {
   RoleTypeButtonLabel,
@@ -8,17 +13,43 @@ import {
   RoleTypeRadioButton,
   RoleTypeButton,
   RoleTypeInputDiv,
-  RoleTypeTextInput
+  RoleTypeTextInput,
+  RoleTypeMessage
 } from './RoleTypeFormElements';
 
-const RoleTypeForm = ({
-  roleList
-}) => {
-  const [selected, setSelected] = useState();
+const RoleTypeForm = () => {
+  const [roleList, setRoleTypes] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [selectedRoleType, setSelectedRoleType] = useState({});
   const [showNew, setShowNew] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [roleTypesUpdated, setRoleTypesUpdated] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState('');
   const [roleTypeName, setRoleTypeName] = useState({
     roleTypeName: ''
   });
+
+  useEffect(() => {
+    getRoleTypes().then((responseArr) => {
+      setRoleTypes(responseArr);
+    });
+  }, [roleTypesUpdated]);
+
+  useEffect(() => {
+    if (selected !== null) {
+      getSingleRoleType(selected).then((responseObj) => {
+        setSelectedRoleType(responseObj);
+      });
+    }
+  }, [selected]);
+
+  useEffect(() => {
+    function timedMessage() {
+      setShowMessage(false);
+    }
+    setTimeout(timedMessage, 5000);
+  }, [showMessage]);
 
   const handleSelectedChange = (e) => {
     setSelected(e.target.value);
@@ -32,17 +63,47 @@ const RoleTypeForm = ({
     console.warn(roleTypeName);
   };
 
+  const handleNewRoleSubmit = () => {
+    addRoleType(roleTypeName)
+      .then(() => {
+        setShowMessage(true);
+        setMessage(`Added roleType ${roleTypeName.roleTypeName}`);
+      })
+      .catch(() => setMessage(`RoleType ${roleTypeName} not added`));
+    setRoleTypesUpdated(!roleTypesUpdated);
+  };
+
+  const handleUpdateRoleSubmit = () => {
+    if (selected !== false) {
+      setShowMessage(true);
+      updateRoleType(selected, roleTypeName)
+        .then(() => {
+          setMessage(`Updated roleType ${roleTypeName.roleTypeName}`);
+        })
+        .catch(() => setMessage(`RoleType ${roleTypeName} not updated`));
+      setRoleTypesUpdated(!roleTypesUpdated);
+    }
+  };
+
   const handleDelete = () => {
-    if (selected != null) {
+    if (selected !== null) {
       deleteRoleType(selected)
-        .then(() => console.warn('Roletype was deleted'))
-        .catch(() => console.warn('RoleType was not deleted'));
+        .then(() => {
+          setRoleTypesUpdated(!roleTypesUpdated);
+          setMessage('Role Type deleted');
+        })
+        .catch(() => setMessage('RoleType was not deleted and may be in use.'));
+      setShowMessage(true);
     }
   };
 
   const handleNew = () => {
     console.warn('Adding new');
     setShowNew(!showNew);
+  };
+
+  const handleUpdate = () => {
+    setShowUpdate(!showUpdate);
   };
 
   return (
@@ -54,21 +115,30 @@ const RoleTypeForm = ({
           onChange={(event) => handleSelectedChange(event)} />
           <RoleTypeButtonLabel>{role.roleTypeName}</RoleTypeButtonLabel>
       </RoleTypeInputDiv>)}
+      <RoleTypeButton onClick={handleUpdate}>Update</RoleTypeButton>
+      { showUpdate ? <><RoleTypeTextInput
+        onChange={handleInputChange}
+        type='text'
+        name='roleTypeName'
+        placeholder={selectedRoleType?.roleTypeName}
+        />
+        <RoleTypeButton
+          onClick={handleUpdateRoleSubmit} >Submit Update</RoleTypeButton></> : <></> }
       <RoleTypeButton onClick={handleDelete}>Delete</RoleTypeButton>
       <RoleTypeButton onClick={handleNew}>Add New Role</RoleTypeButton>
       { showNew ? <><RoleTypeTextInput
-        onClick={handleInputChange}
+        onChange={handleInputChange}
         type='text'
         name='roleTypeName'
         placeholder='Enter a RoleType name'
         />
-        <RoleTypeButton>Submit Role</RoleTypeButton></> : <></> }
+        <RoleTypeButton
+          onClick={handleNewRoleSubmit} >Submit Role</RoleTypeButton></> : <></> }
+      <RoleTypeMessage>
+        { showMessage ? message : ''}
+      </RoleTypeMessage>
   </RoleTypeFormDiv>
   );
-};
-
-RoleTypeForm.propTypes = {
-  roleList: PropTypes.array
 };
 
 export default RoleTypeForm;
