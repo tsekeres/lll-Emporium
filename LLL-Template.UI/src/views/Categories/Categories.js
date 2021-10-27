@@ -25,7 +25,7 @@ import deleted from '../../Assets/ActionIcons/Delete.png';
 export const Categories = () => {
   return (
       <CategoryContainer className="AboutUsContainer">
-        <CategoryWrapper className="AboutUsWrapper">
+        <CategoryWrapper className="AboutUsWrapper" id="Categories">
         <Column1 className="Column1">
             <CategoryCard className="CategoryCard">
               <CategoryCardHeader className="CategoryCardHeader">
