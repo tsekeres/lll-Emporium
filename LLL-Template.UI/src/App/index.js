@@ -23,8 +23,6 @@ export default function App() {
     getProducts().then(setProducts);
   }, []);
 
-
-
   useEffect(() => {
   //   firebase.auth().onAuthStateChanged((authed) => {
   //     if (authed) {
