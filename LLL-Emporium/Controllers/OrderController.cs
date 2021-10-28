@@ -54,6 +54,17 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Orders for customer with id {customerId} not found.");
         }
 
+        [HttpGet("customers/{customerId}/shoppingcart")]
+        public IActionResult GetCustomerShoppingCart(Guid customerId)
+        {
+            var result = _orderRepository.GetShoppingCart(customerId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"No shopping cart for customer with id {customerId}.");
+        }
+
 
         [HttpPost]
         public IActionResult CreateOrder(Order order)
