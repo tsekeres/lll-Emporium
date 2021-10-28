@@ -62,7 +62,7 @@ namespace LLL_Emporium.Controllers
             {
                 return Ok(result);
             }
-            else return NotFound($"No shopping cart for custome with id {customerId}.");
+            else return NotFound($"No shopping cart for customer with id {customerId}.");
         }
 
 
