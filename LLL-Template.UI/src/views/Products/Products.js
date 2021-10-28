@@ -1,16 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ProductCards from '../components/ProductCards';
+import userEvent from "@testing-library/user-event";
+import React, { useState, useEffect } from "react";
+import getProducts from "../../../helpers/data/ProductsData";
+import ProductCards from "../components/ProductCards";
 
-function Products({ products, setProducts }) {
+function Products () {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    getProducts().then(setProducts);
+  }, []);
+
   return (
     <>
-      <div className='card-container-2 product-view'>
+      <div className="card-container-2 product-view">
         {products?.map((productInfo) => (
           <ProductCards
-            // key={productInfo.firebaseKey}
+            key={user.Id}
             product={productInfo}
-            setProducts={setProducts}
           />
         ))}
       </div>
@@ -18,9 +24,9 @@ function Products({ products, setProducts }) {
   );
 }
 
-Products.propTypes = {
-  productss: PropTypes.array,
-  setProducts: PropTypes.func,
-};
+// Products.propTypes = {
+//   productss: PropTypes.array,
+//   setProducts: PropTypes.func,
+// };
 
 export default Products;

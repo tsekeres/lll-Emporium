@@ -58,6 +58,7 @@ function Routes({
 Routes.propTypes = {
   user: PropTypes.any,
   products: PropTypes.array,
+  setProducts: PropTypes.func,
 };
 
 export default Routes;

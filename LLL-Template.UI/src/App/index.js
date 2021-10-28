@@ -1,27 +1,18 @@
 import React, { useState, useEffect } from 'react';
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
-import getProducts from '../helpers/Data/ProductsData';
+// import getProducts from '../helpers/data/ProductsData';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { Footer } from '../components/Footer/Footer';
 import Routes from '../helpers/Routes';
 
-
 export default function App() {
   // const [user, setUser] = useState(null);
-  const [products, setProducts] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  
   const toggle = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    getProducts().then(setProducts);
-  }, []);
 
   useEffect(() => {
   //   firebase.auth().onAuthStateChanged((authed) => {

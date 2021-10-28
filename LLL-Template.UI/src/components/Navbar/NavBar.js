@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaBars } from 'react-icons/fa';
-import { HashLink } from 'react-router-hash-link';
+import { HashLink } from '../../../node_modules/react-router-hash-link';
 import {
   NavigationBar,
   NavLeft,
@@ -53,7 +53,7 @@ export default function NavBar({ toggle }) {
             <Link to="/Designers" style={styleObj}> designers</Link>
           </NavLink>
           <NavLink className="Link">
-            <Link to="/PersonalProfile" style={styleObj}> account </Link>
+            <Link to="/PersonalProfile" style={styleObj}> personal profile </Link>
           </NavLink>
           <NavLink className="Link">
             <Link to="/OrderHistory" style={styleObj}> order history</Link>
