@@ -15,7 +15,14 @@ const GetOrdersByUserId = (userId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const GetOrderWithDetail = (orderId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/api/orders/details/${orderId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 export {
   GetOrderById,
-  GetOrdersByUserId
+  GetOrdersByUserId,
+  GetOrderWithDetail
 };

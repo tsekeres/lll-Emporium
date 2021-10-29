@@ -15,7 +15,7 @@ const OrderHistory = () => {
   return (
     <OrderHistoryOuterDiv>
     { orderList.map((order) => <OrderHistoryCard
-        key={order.Id}
+        key={order.id}
         order={order} />) }
     </OrderHistoryOuterDiv>
   );
