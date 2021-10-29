@@ -21,6 +21,7 @@ const OrderLineItemsDiv = styled.div`
   margin: 10px 10px 5px;
   display: inline-block;
   width: 48%;
+  padding-left: 8%;
 `;
 
 const OrderTotalDiv = styled.div`
@@ -36,11 +37,12 @@ const ProductsIconDiv = styled.div`
   display: inline-block;
   width: 8%;
   height: 4em;
-  margin: 0;
+  margin-left: 2em;
+  margin-top: 1%;
   text-align: center;
   border: 1px solid black;
   border-radius: 5px;
-  vertical-align: text-bottom;
+  vertical-align: top;
 `;
 
 const ProductsHelperSpan = styled.span`
