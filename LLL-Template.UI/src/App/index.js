@@ -4,7 +4,6 @@ import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
-import './App.scss';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -18,7 +17,6 @@ function App() {
           uid: authed.uid,
           user: authed.email.split('@')[0],
         };
-        getPlayers(authed.uid).then((playersArray) => setPlayers(playersArray));
         setUser(userInfoObj);
       } else if (user || user === null) {
         setUser(false);
