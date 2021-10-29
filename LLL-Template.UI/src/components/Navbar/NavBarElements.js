@@ -38,7 +38,7 @@ export const NavBarImg1 = styled.img`
 `;
 
 export const NavLink = styled.div`
-  font-size: 10px;
+  font-size: 12px;
   margin-left: 15px;
   margin-right: 15px;
 
