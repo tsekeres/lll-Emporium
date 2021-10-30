@@ -1,6 +1,6 @@
 // import userEvent from '@testing-library/user-event';
 import React, { useState, useEffect } from 'react';
-import getProducts from '../../helpers/data/ProductsData';
+import { getProducts } from '../../helpers/data/ProductsData';
 import ProductCards from '../../components/Cards/ProductCards/ProductCards';
 
 function Products() {
@@ -15,7 +15,7 @@ function Products() {
       <div className='product-view'>
         {products?.map((productInfo) => (
           <ProductCards
-            key={productInfo}
+            key={productInfo.id}
             product={productInfo}
           />
         ))}
