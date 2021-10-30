@@ -1,9 +1,9 @@
-import userEvent from "@testing-library/user-event";
-import React, { useState, useEffect } from "react";
-import getProducts from "../../../helpers/data/ProductsData";
-import ProductCards from "../components/ProductCards";
+// import userEvent from '@testing-library/user-event';
+import React, { useState, useEffect } from 'react';
+import getProducts from '../../helpers/data/ProductsData';
+import ProductCards from '../../components/Cards/ProductCards/ProductCards';
 
-function Products () {
+function Products() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -12,10 +12,10 @@ function Products () {
 
   return (
     <>
-      <div className="card-container-2 product-view">
+      <div className='product-view'>
         {products?.map((productInfo) => (
           <ProductCards
-            key={user.Id}
+            key={productInfo}
             product={productInfo}
           />
         ))}
@@ -23,10 +23,5 @@ function Products () {
     </>
   );
 }
-
-// Products.propTypes = {
-//   productss: PropTypes.array,
-//   setProducts: PropTypes.func,
-// };
 
 export default Products;
