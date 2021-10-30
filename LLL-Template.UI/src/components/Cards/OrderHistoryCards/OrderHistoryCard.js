@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 // import GetLineItemsByOrderId from '../../../helpers/data/lineItemData';
-import { GetOrderWithDetail } from '../../../helpers/data/orderData';
+import { getOrderWithDetail } from '../../../helpers/data/orderData';
 import LineItemHistoryCard from './LineItemHistoryCard';
-import ProductsIcon from '../../../Assets/ActionIcons/Products.png';
 import {
   OrderHistoryCardOuterDiv,
   OrderDataDetailDiv,
   OrderDataDiv,
   OrderLineItemsDiv,
   OrderTotalDiv,
-  ProductsIconDiv,
-  ProductsIconImg,
-  ProductsHelperSpan
 } from './OrderHistoryCardElements';
 
 const FormatDate = (dateString) => {
@@ -39,7 +35,7 @@ const OrderHistoryCard = ({
   const [orderTotal, setOrderTotal] = useState('');
   useEffect(() => {
     console.warn(order.id);
-    GetOrderWithDetail(order.id).then((itemsObj) => {
+    getOrderWithDetail(order.id).then((itemsObj) => {
       console.warn(itemsObj.lineItems);
       setLineItems(itemsObj.lineItems);
       setOrderTotal(CalculateTotal(itemsObj));
@@ -52,10 +48,6 @@ const OrderHistoryCard = ({
         <OrderDataDetailDiv>Order Number: {order?.id}</OrderDataDetailDiv>
         <OrderDataDetailDiv>Order Date: {FormatDate(order?.orderDate)}</OrderDataDetailDiv>
        </OrderDataDiv>
-       <ProductsIconDiv>
-        <ProductsHelperSpan></ProductsHelperSpan>
-          <ProductsIconImg src={ProductsIcon} alt="Products Logo" />
-       </ProductsIconDiv>
        <OrderLineItemsDiv>
         { lineItems.map((orderLine) => <LineItemHistoryCard
           key={orderLine.id}

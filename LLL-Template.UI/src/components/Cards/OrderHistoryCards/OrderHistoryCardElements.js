@@ -20,8 +20,8 @@ const OrderDataDetailDiv = styled.div`
 const OrderLineItemsDiv = styled.div`
   margin: 10px 10px 5px;
   display: inline-block;
-  width: 48%;
-  padding-left: 8%;
+  width: 50%; 
+  padding-left: 1%;
 `;
 
 const OrderTotalDiv = styled.div`
@@ -31,28 +31,7 @@ const OrderTotalDiv = styled.div`
   height: 77px;
   vertical-align: top;
   padding: 5px;
-`;
-
-const ProductsIconDiv = styled.div`
-  display: inline-block;
-  width: 8%;
-  height: 4em;
-  margin-left: 2em;
-  margin-top: 1%;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  vertical-align: top;
-`;
-
-const ProductsHelperSpan = styled.span`
-  display: inline-block;
-  height: 100%;
-  vertical-align: top;
-`;
-
-const ProductsIconImg = styled.img`
-  width: 50%;
+  float: right;
 `;
 
 export {
@@ -61,7 +40,4 @@ export {
   OrderDataDetailDiv,
   OrderLineItemsDiv,
   OrderTotalDiv,
-  ProductsIconDiv,
-  ProductsHelperSpan,
-  ProductsIconImg
 };

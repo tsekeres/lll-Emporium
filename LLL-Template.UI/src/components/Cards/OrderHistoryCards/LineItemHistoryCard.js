@@ -1,13 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import LineItemHistoryCardDiv from './LineItemHistoryCardElements';
+import {
+  LineItemOuterDiv,
+  ProductsIconDiv,
+  ProductsIconImg,
+  LineItemDescriptionDiv
+} from './LineItemHistoryCardElements';
 
 const LineItemHistoryCard = ({
   lineItem
 }) => (
-  <LineItemHistoryCardDiv>
-    {lineItem.productName}
-  </LineItemHistoryCardDiv>
+  <LineItemOuterDiv>
+    <ProductsIconDiv>
+        <ProductsIconImg src={lineItem.productImageUrl} alt="Product Image" />
+      </ProductsIconDiv>
+    <LineItemDescriptionDiv>
+      {lineItem.productName}
+    </LineItemDescriptionDiv>
+  </LineItemOuterDiv>
 
 );
 
