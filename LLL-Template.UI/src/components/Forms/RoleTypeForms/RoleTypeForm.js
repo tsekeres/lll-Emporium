@@ -32,8 +32,12 @@ const RoleTypeForm = () => {
   const [showMessage, setShowMessage] = useState(false);
   // the result message
   const [message, setMessage] = useState('');
-  // name of role to update or add
+  // name of role to update
   const [roleTypeName, setRoleTypeName] = useState({
+    roleTypeName: ''
+  });
+  // name of role to add
+  const [newRoleTypeName, setNewRoleTypeName] = useState({
     roleTypeName: ''
   });
 
@@ -67,17 +71,23 @@ const RoleTypeForm = () => {
       ...prevState,
       [e.target.name]: e.target.value ? e.target.value : ''
     }));
-    console.warn(roleTypeName.roleTypeName);
+  };
+
+  const handleNewInputChange = (e) => {
+    setNewRoleTypeName((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value ? e.target.value : ''
+    }));
   };
 
   const handleNewRoleSubmit = () => {
-    addRoleType(roleTypeName)
+    addRoleType(newRoleTypeName)
       .then(() => {
         setShowMessage(true);
-        setMessage(`Added roleType ${roleTypeName.roleTypeName}`);
+        setMessage(`Added roleType ${newRoleTypeName.roleTypeName}`);
+        setRoleTypesUpdated(!roleTypesUpdated);
       })
       .catch(() => setMessage(`RoleType ${roleTypeName} not added`));
-    setRoleTypesUpdated(!roleTypesUpdated);
   };
 
   const handleUpdateRoleSubmit = () => {
@@ -86,9 +96,9 @@ const RoleTypeForm = () => {
       updateRoleType(selected, roleTypeName)
         .then(() => {
           setMessage(`Updated roleType ${roleTypeName.roleTypeName}`);
+          setRoleTypesUpdated(!roleTypesUpdated);
         })
         .catch(() => setMessage(`RoleType ${roleTypeName} not updated`));
-      setRoleTypesUpdated(!roleTypesUpdated);
     }
   };
 
@@ -105,7 +115,6 @@ const RoleTypeForm = () => {
   };
 
   const handleNew = () => {
-    console.warn('Adding new');
     setShowNew(!showNew);
   };
 
@@ -136,7 +145,7 @@ const RoleTypeForm = () => {
       <RoleTypeInputDiv>
       <RoleTypeButton onClick={handleNew}>Add New Role</RoleTypeButton>
       { showNew ? <><RoleTypeTextInput
-        onChange={handleInputChange}
+        onChange={handleNewInputChange}
         type='text'
         name='roleTypeName'
         placeholder='Enter a RoleType name'
