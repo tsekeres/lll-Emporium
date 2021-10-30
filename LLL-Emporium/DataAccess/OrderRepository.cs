@@ -48,8 +48,8 @@ namespace LLL_Emporium.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * from Orders
-                        WHERE CustomerId = @CustomerId";
-
+                        WHERE CustomerId = @CustomerId
+                        Order BY OrderDate";
             var parameters = new
             {
                 CustomerId = customerId 
