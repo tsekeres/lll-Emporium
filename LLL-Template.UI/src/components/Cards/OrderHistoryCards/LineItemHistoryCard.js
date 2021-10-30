@@ -12,13 +12,14 @@ const LineItemHistoryCard = ({
 }) => (
   <LineItemOuterDiv>
     <ProductsIconDiv>
-        <ProductsIconImg src={lineItem.productImageUrl} alt="Product Image" />
+        <ProductsIconImg
+          src={lineItem.productImageUrl}
+          alt="Product Image" />
       </ProductsIconDiv>
     <LineItemDescriptionDiv>
       {lineItem.productName}
     </LineItemDescriptionDiv>
   </LineItemOuterDiv>
-
 );
 
 LineItemHistoryCard.propTypes = {

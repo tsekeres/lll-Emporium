@@ -71,7 +71,6 @@ const RoleTypeForm = () => {
       ...prevState,
       [e.target.name]: e.target.value ? e.target.value : ''
     }));
-    console.warn(roleTypeName.roleTypeName);
   };
 
   const handleNewInputChange = (e) => {
@@ -79,7 +78,6 @@ const RoleTypeForm = () => {
       ...prevState,
       [e.target.name]: e.target.value ? e.target.value : ''
     }));
-    console.warn(newRoleTypeName.roleTypeName);
   };
 
   const handleNewRoleSubmit = () => {
@@ -117,7 +115,6 @@ const RoleTypeForm = () => {
   };
 
   const handleNew = () => {
-    console.warn('Adding new');
     setShowNew(!showNew);
   };
 

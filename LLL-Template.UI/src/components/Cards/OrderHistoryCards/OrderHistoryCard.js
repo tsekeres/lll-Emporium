@@ -34,9 +34,9 @@ const OrderHistoryCard = ({
   const [lineItems, setLineItems] = useState([]);
   const [orderTotal, setOrderTotal] = useState('');
   useEffect(() => {
-    console.warn(order.id);
+    // console.warn(order.id);
     getOrderWithDetail(order.id).then((itemsObj) => {
-      console.warn(itemsObj.lineItems);
+      // console.warn(itemsObj.lineItems);
       setLineItems(itemsObj.lineItems);
       setOrderTotal(CalculateTotal(itemsObj));
     });

@@ -5,6 +5,12 @@ const OrderHistorySearchUserOuterDiv = styled.div`
   margin 100px auto 10px;
 `;
 
+const OrderHistoryTitle = styled.div`
+  margin: 5px;
+  text-align: center;
+  font-size: 1.2em;
+`;
+
 const OrderHistoryOuterDiv = styled.div`
   width: 95%;
   margin: 100px auto 10px;
@@ -24,6 +30,7 @@ const LI = styled.li`
 
 export {
   OrderHistorySearchUserOuterDiv,
+  OrderHistoryTitle,
   OrderHistorySearchUser,
   OrderHistoryOuterDiv,
   UL,

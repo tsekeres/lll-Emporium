@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
 import OrderHistoryCard from '../../components/Cards/OrderHistoryCards/OrderHistoryCard';
 import {
   OrderHistorySearchUserOuterDiv,
   OrderHistoryOuterDiv,
-  OrderHistorySearchUser,
-  UL,
-  LI,
-
+  OrderHistoryTitle,
 } from './OrderHistoryElements';
 import { getOrdersByUserId } from '../../helpers/data/orderData';
 import { getSingleRoleType } from '../../helpers/data/roleTypeData';
@@ -14,31 +12,52 @@ import getAllUsers from '../../helpers/data/userData';
 
 const OrderHistory = () => {
   const [orderList, setOrderList] = useState([]);
-  const [isAdmin, setIsAdmin] = useState('');
-  const [userList, setUserList] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [options, setOptions] = useState([]);
   const userID = '21a4208d-db82-47e2-a6c8-ce26220b83ad';
   const userRoleTypeId = 'B96AE106-B560-43BC-BCEC-3AB69EC1A794';
+  // const userRoleTypeId = '50FA8B54-8C02-4440-844E-43AAE0F74B73';
 
   useEffect(() => {
+    const optionsArr = [];
     getSingleRoleType(userRoleTypeId)
       .then((role) => {
-        if (role.roleTypeName === 'Super User') {
+        if (role.roleTypeName === 'Super User'
+          || role.roleTypesName === 'Administrator') {
           setIsAdmin(true);
+          setOrderList([]);
+        } else {
+          // if this is not an admin user, we show their orders
+          getOrdersByUserId(userID)
+            .then((orderListResponse) => setOrderList(orderListResponse));
         }
       });
-    getAllUsers().then((resultArr) => setUserList(resultArr));
-    getOrdersByUserId(userID)
-      .then((orderListResponse) => setOrderList(orderListResponse));
+    // setup list of user names for the select drop down
+    getAllUsers().then((resultArr) => {
+      for (let i = 0; i < resultArr.length; i += 1) {
+        const option = {
+          value: resultArr[i].id,
+          label: `${resultArr[i].lastName}, ${resultArr[i].firstName}`
+        };
+        optionsArr.push(option);
+      }
+      setOptions(optionsArr);
+    });
   }, []);
+
+  const handleSelectClick = ((e) => {
+    getOrdersByUserId(e.value)
+      .then((orderListItems) => setOrderList(orderListItems))
+      .catch(() => setOrderList([]));
+  });
 
   return (
     <>
     <OrderHistorySearchUserOuterDiv>
-    { isAdmin ? <><OrderHistorySearchUser type='text' placeholder='search' />
-      </> : '' }
-    { isAdmin ? (<UL> { userList?.map((user) => <LI
-        key={user.id}>{user.lastName}, {user.firstName}</LI>) }
-        </UL>) : '' }
+    <OrderHistoryTitle>Orders</OrderHistoryTitle>
+    { isAdmin ? <Select
+      options={options}
+      onChange={handleSelectClick}/> : '' }
     </OrderHistorySearchUserOuterDiv>
     <OrderHistoryOuterDiv>
     { orderList.map((order) => <OrderHistoryCard
