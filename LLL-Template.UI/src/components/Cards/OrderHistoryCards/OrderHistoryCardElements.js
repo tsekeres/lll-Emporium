@@ -22,6 +22,7 @@ const OrderLineItemsDiv = styled.div`
   display: inline-block;
   width: 50%; 
   padding-left: 1%;
+  background-color: #c4c4c4;
 `;
 
 const OrderTotalDiv = styled.div`

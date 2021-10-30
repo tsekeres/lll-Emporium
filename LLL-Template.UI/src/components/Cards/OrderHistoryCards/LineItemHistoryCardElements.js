@@ -25,6 +25,7 @@ const ProductsHelperSpan = styled.span`
 const ProductsIconImg = styled.img`
   width: 80%;
   object-fit: contain;
+  border-radius: 5px;
 `;
 
 const LineItemDescriptionDiv = styled.div`
