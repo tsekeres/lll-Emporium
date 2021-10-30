@@ -1,6 +1,7 @@
 import axios from 'axios';
 import LLLConfig from '../apiKeys';
 
+<<<<<<< HEAD
 const dbUrl = LLLConfig.baseUrl;
 
 const getUsers = () => new Promise((resolve, reject) => {
@@ -10,3 +11,14 @@ const getUsers = () => new Promise((resolve, reject) => {
 });
 
 export default getUsers;
+=======
+const dbURL = LLLConfig.baseUrl;
+
+const getAllUsers = () => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/api/users`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+export default getAllUsers;
+>>>>>>> main
