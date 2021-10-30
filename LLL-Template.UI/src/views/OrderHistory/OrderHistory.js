@@ -14,7 +14,7 @@ const OrderHistory = () => {
   const [orderList, setOrderList] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [options, setOptions] = useState([]);
-  const userID = '21a4208d-db82-47e2-a6c8-ce26220b83ad';
+  const userId = '21a4208d-db82-47e2-a6c8-ce26220b83ad';
   const userRoleTypeId = 'B96AE106-B560-43BC-BCEC-3AB69EC1A794';
   // const userRoleTypeId = '50FA8B54-8C02-4440-844E-43AAE0F74B73';
 
@@ -28,10 +28,11 @@ const OrderHistory = () => {
           setOrderList([]);
         } else {
           // if this is not an admin user, we show their orders
-          getOrdersByUserId(userID)
+          getOrdersByUserId(userId)
             .then((orderListResponse) => setOrderList(orderListResponse));
         }
-      });
+      })
+      .catch(setIsAdmin(false));
     // setup list of user names for the select drop down
     getAllUsers().then((resultArr) => {
       for (let i = 0; i < resultArr.length; i += 1) {
@@ -42,7 +43,8 @@ const OrderHistory = () => {
         optionsArr.push(option);
       }
       setOptions(optionsArr);
-    });
+    })
+      .catch(setOptions([]));
   }, []);
 
   const handleSelectClick = ((e) => {
