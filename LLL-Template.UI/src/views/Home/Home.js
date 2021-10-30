@@ -14,6 +14,7 @@ import {
 } from './HomeElements';
 import { Categories } from '../Categories/Categories';
 import { AboutUs } from '../AboutUs/AboutUs';
+import { getCategories } from '../../helpers/data/categoryData';
 import welcomeImg from '../../Assets/ViewStockPhotos/WelcomeImg.jpeg';
 import knitting from '../../Assets/ViewStockPhotos/Knitting.jpeg';
 import dancing from '../../Assets/ViewStockPhotos/Dancing.jpeg';

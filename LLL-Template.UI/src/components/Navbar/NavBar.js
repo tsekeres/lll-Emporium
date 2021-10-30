@@ -30,7 +30,7 @@ const styleObj = {
 
 const scrollWithOffset = (el) => {
   const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
-  const yOffset = -80;
+  const yOffset = -10;
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 };
 export default function NavBar({ toggle }) {

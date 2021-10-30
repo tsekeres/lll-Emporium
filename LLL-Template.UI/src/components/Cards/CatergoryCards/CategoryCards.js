@@ -13,9 +13,9 @@ import {
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 
-export const CategoryCards = ({ CategoryId, CategoryImageUrl, CategoryName }) => {
+export const CategoryCards = ({ id, categoryImageUrl, categoryName }) => {
   return (
-    <CategoryCard className="CategoryCard" key={CategoryId}>
+    <CategoryCard className="CategoryCard" key={id}>
       <CategoryCardHeader className="CategoryCardHeader">
         <CategoryCardButtons className="CategoryCardButtons">
           <CategoryCardEdit
@@ -28,21 +28,18 @@ export const CategoryCards = ({ CategoryId, CategoryImageUrl, CategoryName }) =>
           ></CategoryCardDelete>
         </CategoryCardButtons>
       </CategoryCardHeader>
-      <CategoryCardImg
-        className="CategoryCardImg"
-        src={CategoryImageUrl}
-      ></CategoryCardImg>
+      <CategoryCardImg className="CategoryCardImg" src={categoryImageUrl}/>
       <CategoryCardFooter className="CategoryCardFooter">
-        {CategoryName}
+        {categoryName}
       </CategoryCardFooter>
     </CategoryCard>
   );
 };
 
 CategoryCards.propTypes = {
-  CategoryId: PropTypes.string.isRequired,
-  CategoryName: PropTypes.string.isRequired,
-  CategoryImageUrl: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  categoryName: PropTypes.string.isRequired,
+  categoryImageUrl: PropTypes.string.isRequired,
 };
 
 export default CategoryCards;

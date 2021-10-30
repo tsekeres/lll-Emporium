@@ -3,7 +3,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { getCategories } from '../../helpers/data/categoryData';
-import CategoryCards from '../../components/Cards/CatergoryCards/CategoryCards';
+import { CategoryCards } from '../../components/Cards/CatergoryCards/CategoryCards';
 import {
   CategoryContainer,
   CategoryWrapper,
@@ -26,9 +26,9 @@ export const Categories = () => {
         <Column1 className="Column1">
           {categories.map((categoryInfo) => (
             <CategoryCards
-              key={categoryInfo.CategoryId}
-              CategoryImageUrl={categoryInfo.CategoryImageUrl}
-              CategoryName={categoryInfo.CategoryName}
+              key={categoryInfo.id}
+              categoryImageUrl={categoryInfo.categoryImageUrl}
+              categoryName={categoryInfo.categoryName}
             />
           ))}
         </Column1>
