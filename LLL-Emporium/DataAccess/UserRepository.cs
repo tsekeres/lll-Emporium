@@ -77,5 +77,18 @@ namespace LLL_Emporium.DataAccess
             var userUpdate = db.QuerySingleOrDefault<User>(sql, user);
             return userUpdate;
         }
+
+        internal User GetByRoleType(Guid roleTypeId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"Select * From User where RoleTypeId = @RoleTypeId";
+            var parameter = new
+            {
+                Id = roleTypeId
+            };
+            var GetRoleType = db.QuerySingleOrDefault<User>(sql, parameter);
+            return GetRoleType;
+        }
+
     }
 }

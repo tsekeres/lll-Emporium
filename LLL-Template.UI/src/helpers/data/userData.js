@@ -1,12 +1,13 @@
 import axios from 'axios';
 import LLLConfig from '../apiKeys';
 
-const dbURL = LLLConfig.baseUrl;
+const dbUrl = LLLConfig.baseUrl;
 
-const getAllUsers = () => new Promise((resolve, reject) => {
-  axios.get(`${dbURL}/api/users`)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error));
+// took outmerge conflicts
+const getUsers = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/api/users`)
+    .then((userList) => resolve(userList.data))
+    .catch((err) => reject(err));
 });
 
-export default getAllUsers;
+export default getUsers;

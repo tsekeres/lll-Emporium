@@ -76,5 +76,17 @@ namespace LLL_Emporium.Controllers
             return Ok();
         }
 
+
+        [HttpGet("{RoleTypeId}/roletypeId")]
+        public IActionResult GetRoleTypeByName(Guid RoleType)
+        {
+            var RoleTypeId = _userRepository.GetByRoleType(RoleType);
+            if (RoleTypeId != null)
+            {
+                return NotFound("No Role Type");
+            }
+            return Ok(RoleTypeId);
+        }
+
     }
 }
