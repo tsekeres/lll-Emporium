@@ -18,6 +18,23 @@ export const CategoryCard = styled.div`
   }
 `;
 
+export const Button = styled.button`
+  height: 50%;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden; 
+`;
+
+export const Button1 = styled.button`
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden; 
+`;
+
 export const CategoryCardImg = styled.img`
   height: 60%;
 `;
@@ -25,7 +42,7 @@ export const CategoryCardImg = styled.img`
 export const CategoryCardHeader = styled.div`
   display: flex;
   flex-direction: row;
-  height: 15%;
+  height: 20%;
   width: 100%;
   justify-content: flex-end;
 `;
@@ -33,19 +50,18 @@ export const CategoryCardHeader = styled.div`
 export const CategoryCardButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   width: 50%;
-  margin-top: 5px;
+  height: 100%;
 `;
 
 export const CategoryCardEdit = styled.img`
   height: 15px;
-  margin-left: 10px;
 `;
 
 export const CategoryCardDelete = styled.img`
   height: 13px;
-  margin-top: 1.5px;
+  margin-right: 5px;
 `;
 
 export const CategoryCardFooter = styled.div`
@@ -53,4 +69,7 @@ export const CategoryCardFooter = styled.div`
   justify-content: center;
   margin-top: 5px;
   width: 100%;
+`;
+
+export const Modal1 = styled.div`
 `;

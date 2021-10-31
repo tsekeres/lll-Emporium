@@ -1,10 +1,10 @@
-import React from 'react';
+/* eslint-disable import/prefer-default-export */
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   HomePage,
   Top,
   AlternateItem,
-  Item,
   CategoryData,
   Bottom,
   WelcomeImg,
@@ -15,6 +15,7 @@ import {
 import { Categories } from '../Categories/Categories';
 import { AboutUs } from '../AboutUs/AboutUs';
 import { getCategories } from '../../helpers/data/categoryData';
+import { HomeViewCards } from '../../components/Cards/HomeCards/HomeViewCards';
 import welcomeImg from '../../Assets/ViewStockPhotos/WelcomeImg.jpeg';
 import knitting from '../../Assets/ViewStockPhotos/Knitting.jpeg';
 import dancing from '../../Assets/ViewStockPhotos/Dancing.jpeg';
@@ -22,6 +23,11 @@ import man from '../../Assets/ViewStockPhotos/Man.jpeg';
 import yoga from '../../Assets/ViewStockPhotos/Yoga.jpeg';
 
 function Home() {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getCategories().then((response) => setCategories(response));
+  }, []);
   return (
     <>
     <HomePage className='Home'>
@@ -30,30 +36,12 @@ function Home() {
           <AlternateItem className="AlternateItem">
             One place for all your live, laugh, love needs.
           </AlternateItem>
-          <Item className="Item">
-            clothing
-          </Item>
-          <Item className="Item">
-            accessories
-          </Item>
-          <Item className="Item">
-            kitchen
-          </Item>
-          <Item className="Item">
-            bath
-          </Item>
-          <Item className="Item">
-            car accessories
-          </Item>
-          <Item className="Item">
-            lawn and garden
-          </Item>
-          <Item className="Item">
-            biker gear
-          </Item>
-          <Item className="Item">
-            construction eqipment
-          </Item>
+          {categories.map((categoryInfo) => (
+            <HomeViewCards
+              key={categoryInfo.id}
+              categoryName={categoryInfo.categoryName}
+            />
+          ))}
         </CategoryData>
       </Top>
       <Bottom className="Bottom">

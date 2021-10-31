@@ -21,9 +21,9 @@ export const Categories = () => {
     getCategories().then((response) => setCategories(response));
   }, []);
   return (
-    <CategoryContainer className="AboutUsContainer">
-      <CategoryWrapper className="AboutUsWrapper" id="Categories">
-        <Column1 className="Column1">
+    <CategoryContainer className="CategoryContainer" id="CategoryContainer">
+      <CategoryWrapper className="CategoryWrapper" id="Categories">
+        <Column1 className="CategoryColumn1">
           {categories.map((categoryInfo) => (
             <CategoryCards
               key={categoryInfo.id}
@@ -32,7 +32,7 @@ export const Categories = () => {
             />
           ))}
         </Column1>
-        <Column2 className="Column2">
+        <Column2 className="CategoryColumn2">
           <CategoryImg src={category} className="CategoryImg"></CategoryImg>
         </Column2>
         </CategoryWrapper>
