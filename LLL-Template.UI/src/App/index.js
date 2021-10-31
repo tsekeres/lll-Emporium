@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
+import NavBar from '../components/Navbar/NavBar';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { Footer } from '../components/Footer/Footer';
 import Routes from '../helpers/Routes';
+<<<<<<< HEAD
 import NavBar from '../components/NavBar';
+=======
+>>>>>>> 00a88ec546bca3402e401d37058fa2fa7145e14e
 
-function App() {
-  const [user, setUser] = useState(null);
+export default function App() {
+  // const [user, setUser] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
+<<<<<<< HEAD
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed) {
         const userInfoObj = {
@@ -22,16 +34,31 @@ function App() {
         setUser(false);
       }
     });
+=======
+  //   firebase.auth().onAuthStateChanged((authed) => {
+  //     if (authed) {
+  //       const userInfoObj = {
+  //         fullName: authed.displayName,
+  //         profileImage: authed.photoURL,
+  //         uid: authed.uid,
+  //         user: authed.email.split('@')[0],
+  //       };
+  //       setUser(userInfoObj);
+  //     } else if (user || user === null) {
+  //       setUser(false);
+  //     }
+  //   });
+>>>>>>> 00a88ec546bca3402e401d37058fa2fa7145e14e
   }, []);
 
   return (
     <div className='App'>
       <Router>
-        <NavBar user={user} />
-        <Routes user={user} />
+        <Sidebar isOpen={isOpen} toggle={toggle}/>
+        <NavBar toggle={toggle}/>
+        <Routes></Routes>
+        <Footer/>
       </Router>
     </div>
   );
 }
-
-export default App;

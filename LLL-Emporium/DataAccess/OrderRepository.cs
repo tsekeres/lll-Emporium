@@ -48,8 +48,8 @@ namespace LLL_Emporium.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * from Orders
-                        WHERE CustomerId = @CustomerId";
-
+                        WHERE CustomerId = @CustomerId
+                        Order BY OrderDate";
             var parameters = new
             {
                 CustomerId = customerId 
@@ -146,6 +146,23 @@ namespace LLL_Emporium.DataAccess
                 returnVal = true;
             }
             return returnVal;
+        }
+
+        internal Order GetShoppingCart(Guid userID)
+        {
+            var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from Orders
+                        WHERE Orders.id NOT IN
+                        (SELECT ORD.id from Orders ORD
+                         JOIN Transactions TR
+                         ON TR.OrderID = ORD.id )
+                         AND CustomerID = @CustomerId";
+            var parameter = new
+            {
+                CustomerId = userID
+            };
+            var result = db.QueryFirstOrDefault<Order>(sql, parameter);
+            return result;
         }
     }
 }
