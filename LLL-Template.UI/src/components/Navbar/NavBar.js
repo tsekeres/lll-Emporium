@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaBars } from 'react-icons/fa';
-import { HashLink } from 'react-router-hash-link';
+import { HashLink } from '../../../node_modules/react-router-hash-link';
 import {
   NavigationBar,
   NavLeft,

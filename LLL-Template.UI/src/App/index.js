@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import firebase from 'firebase/app';
 // import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
-import NavBar from '../components/Navbar/NavBar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { Footer } from '../components/Footer/Footer';
 import Routes from '../helpers/Routes';
+import NavBar from '../components/Navbar/NavBar';
 
 export default function App() {
   // const [user, setUser] = useState(null);
@@ -15,7 +15,7 @@ export default function App() {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
+  // useEffect(() => {
   //   firebase.auth().onAuthStateChanged((authed) => {
   //     if (authed) {
   //       const userInfoObj = {
@@ -29,15 +29,15 @@ export default function App() {
   //       setUser(false);
   //     }
   //   });
-  }, []);
+  // }, []);
 
   return (
     <div className='App'>
       <Router>
-        <Sidebar isOpen={isOpen} toggle={toggle}/>
-        <NavBar toggle={toggle}/>
+        <Sidebar isOpen={isOpen} toggle={toggle} />
+        <NavBar toggle={toggle} />
         <Routes></Routes>
-        <Footer/>
+        <Footer />
       </Router>
     </div>
   );
