@@ -3,10 +3,26 @@ import LLLConfig from '../apiKeys';
 
 const dbURL = LLLConfig.baseUrl;
 
-const GetLineItemsByOrderId = (orderId) => new Promise((resolve, reject) => {
+const getLineItemsByOrderId = (orderId) => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/api/orders/${orderId}/orderLines`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
-export default GetLineItemsByOrderId;
+const getOrderLineWithProduct = (orderLineId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/api/order/orderLines/details/${orderLineId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const getOrderLinesWithProduct = (orderId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/api/orders/${orderId}/orderLinesWithProduct`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+export {
+  getLineItemsByOrderId,
+  getOrderLineWithProduct,
+  getOrderLinesWithProduct
+};
