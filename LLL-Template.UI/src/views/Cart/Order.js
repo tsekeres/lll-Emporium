@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import getPaymentTypes from '../../helpers/data/paymentTypeData';
-import { getOrderById } from '../../helpers/data/orderData';
-import { getOrderLinesWithProduct } from '../../helpers/data/lineItemData';
+import { getOrderWithDetail } from '../../helpers/data/orderData';
 import {
   OrderOuterDiv,
   OrderDataDetailDiv,
@@ -25,16 +24,11 @@ const OrderDetailView = ({
   const [lineItemsList, setLineItemsList] = useState([]);
   const [options, setOptions] = useState([]);
   useEffect(() => {
-    getOrderById(orderId)
-      .then((orderResult) => {
-        setOrder(orderResult);
-        console.warn(order);
-      })
-      .catch(() => setOrder(null));
-    getOrderLinesWithProduct(orderId)
-      .then((resultList) => {
-        console.warn(resultList);
-        setLineItemsList(resultList);
+    getOrderWithDetail(orderId)
+      .then((resultObj) => {
+        console.warn(resultObj);
+        setOrder(resultObj.order);
+        setLineItemsList(resultObj.lineItems);
       })
       .catch(() => console.warn('error'));
   }, [orderId]);
