@@ -119,7 +119,7 @@ const OrderDetailView = ({
     if (mounted && orderTotal) {
       setNewTransaction((prevState) => ({
         ...prevState,
-        paymentAmount: orderTotal - totalPayments
+        paymentAmount: Math.round((orderTotal - totalPayments + Number.EPSILON) * 100) / 100
       }));
     }
     return function cleanup() {
@@ -211,8 +211,7 @@ const OrderDetailView = ({
           <InputLabel htmlFor='paymentAmount'>Payment Amount</InputLabel>
           <OrderFormInput
             type='text' name='paymentAmount' value={newTransaction.paymentAmount}
-            label='paymentAmount' onChange={handleTransactionChange}
-            pattern='^\$\d{1,3(,\d{3})*(\.\d+)?$'/>
+            label='paymentAmount' onChange={handleTransactionChange} />
             <div>Past Payments</div>
           <OrderTransactionList>
             { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
