@@ -21,8 +21,15 @@ const getOrderWithDetail = (orderId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const updateOrder = (order) => new Promise((resolve, reject) => {
+  axios.put(`${dbURL}/api/orders/${order.id}`, order)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 export {
   getOrderById,
   getOrdersByUserId,
-  getOrderWithDetail
+  getOrderWithDetail,
+  updateOrder
 };

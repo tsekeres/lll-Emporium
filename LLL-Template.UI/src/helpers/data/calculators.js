@@ -8,7 +8,7 @@ const formatDate = (dateString) => {
   return output;
 };
 
-const calculateTotal = (order, itemsList) => {
+const calculateOrderSubtotal = (order, itemsList) => {
   let total = 0.0;
   itemsList.forEach((item) => {
     total += item.unitPrice;
@@ -17,7 +17,19 @@ const calculateTotal = (order, itemsList) => {
   return total;
 };
 
+const calculateTotalPayments = (transactionList) => {
+  let total = 0.0;
+  console.warn(transactionList);
+  if (transactionList) {
+    for (let i = 0; i < transactionList.length; i += 1) {
+      total += transactionList[i].paymentAmount;
+    }
+  }
+  return total;
+};
+
 export {
   formatDate,
-  calculateTotal
+  calculateOrderSubtotal,
+  calculateTotalPayments
 };

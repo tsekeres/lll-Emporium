@@ -42,6 +42,26 @@ const OrderFormInput = styled.input`
   width: 90%;
 `;
 
+const OrderTransactionList = styled.div`
+  width: 90%;
+`;
+
+const OrderTransactionLine = styled.div`
+  width: 100%;
+`;
+
+const OrderTotalPaymentsDiv = styled.div`
+  width: 100%;
+`;
+
+const OrderTotalDue = styled.div`
+  width: 40%;
+`;
+
+const OrderSubmitButton = styled.button`
+  width: 10em
+`;
+
 export {
   OrderOuterDiv,
   OrderDataDiv,
@@ -49,5 +69,10 @@ export {
   OrderLineItemsDiv,
   OrderAddressPaymentDiv,
   InputLabel,
-  OrderFormInput
+  OrderFormInput,
+  OrderTransactionList,
+  OrderTransactionLine,
+  OrderTotalPaymentsDiv,
+  OrderTotalDue,
+  OrderSubmitButton
 };
