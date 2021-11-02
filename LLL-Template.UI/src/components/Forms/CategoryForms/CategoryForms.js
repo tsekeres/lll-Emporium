@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
   updateCategory,
   addCategory,
+  getCategories,
 } from '../../../helpers/data/categoryData';
 import {
   CategoryFormTitle,
@@ -34,7 +35,11 @@ const CategoryForms = ({
     if (category.id) {
       updateCategory(category).then((categoryArray) => setCategories(categoryArray));
     } else {
-      addCategory(category).then((categoryArray) => setCategories(categoryArray));
+      const categoryObj = {
+        categoryName: category.categoryName,
+        categoryImageUrl: category.categoryImageUrl,
+      };
+      addCategory(categoryObj).then(() => getCategories().then((response) => setCategories(response)));
 
       setCategory({
         categoryName: '',
@@ -65,7 +70,7 @@ const CategoryForms = ({
       <label>Image: </label>
       <input
         className='category'
-        name='categoryImage'
+        name='categoryImageUrl'
         type='text'
         placeholder='Category Image URL'
         value={categoryImageUrl}

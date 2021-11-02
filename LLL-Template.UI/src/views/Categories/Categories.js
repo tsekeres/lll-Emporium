@@ -61,7 +61,7 @@ export const Categories = () => {
                 />
           </Modal>
         <Column1 className="CategoryColumn1">
-          {categories.map((categoryInfo) => (
+          {categories?.map((categoryInfo) => (
             <CategoryCards
               key={categoryInfo.id}
               id={categoryInfo.id}

@@ -19,6 +19,7 @@ import {
   SignIn,
   BagImg,
   MobileIcon,
+  Button,
 } from './NavBarElements';
 import logo from '../../Assets/NavBarIcons/LOGO.png';
 import loggedin from '../../Assets/NavBarIcons/LoggedIn.png';
@@ -82,11 +83,11 @@ export default function NavBar({ toggle, user }) {
                 (user)
                   ? <div>
                       <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
-                      <button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedOut}></SignIn></button>
+                      <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
                     </div>
                   : <div>
                       <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
-                      <button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedin}></SignIn></button>
+                      <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
                       <BagImg className="BagImg" src={bag}></BagImg>
                     </div>
               }

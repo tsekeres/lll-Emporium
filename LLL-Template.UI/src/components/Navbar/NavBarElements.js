@@ -194,3 +194,11 @@ export const HashLink = styled(LinkS)`
     border-bottom: 3px solid #fff;
   }
 `;
+
+export const Button = styled.button`
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden; 
+`;
