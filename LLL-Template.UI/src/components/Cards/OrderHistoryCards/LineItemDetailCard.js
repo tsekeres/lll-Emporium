@@ -26,7 +26,7 @@ const LineItemDetailCard = ({
 );
 
 LineItemDetailCard.propTypes = {
-  lineItem: PropTypes.string
+  lineItem: PropTypes.object
 };
 
 export default LineItemDetailCard;

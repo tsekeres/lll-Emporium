@@ -62,7 +62,7 @@ const OrderDetailView = ({
     label: ''
   });
   const [transactionTypeOptions, setTransactionTypeOptions] = useState({});
-  const [newTransaction, setnewTransaction] = useState({
+  const [newTransaction, setNewTransaction] = useState({
     orderId,
     paymentTypeId: '',
     transactionTypeId: '',
@@ -105,11 +105,27 @@ const OrderDetailView = ({
   }, [lineItemsList]);
 
   useEffect(() => {
-    if (transactionList) {
+    let mounted = true;
+    if (transactionList && mounted) {
       setTotalPayments(calculateTotalPayments(transactionList));
     }
+    return function cleanup() {
+      mounted = false;
+    };
   }, [transactionList]);
 
+  useEffect(() => {
+    let mounted = true;
+    if (mounted && orderTotal) {
+      setNewTransaction((prevState) => ({
+        ...prevState,
+        paymentAmount: orderTotal - totalPayments
+      }));
+    }
+    return function cleanup() {
+      mounted = false;
+    };
+  }, [orderTotal, totalPayments]);
   const handleChange = (e) => {
     setOrder((prevState) => ({
       ...prevState,
@@ -123,7 +139,7 @@ const OrderDetailView = ({
   };
 
   const handleTransactionChange = (e) => {
-    setnewTransaction((prevState) => ({
+    setNewTransaction((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value ? e.target.value : ''
     }));
@@ -168,34 +184,35 @@ const OrderDetailView = ({
             lineItem={lineObj} />) : '' }
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>
-          <InputLabel for='shippingAddress'>Street Address</InputLabel>
+          <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>
           <OrderFormInput
             type='text' name='shippingAddress' value={order.shippingAddress}
             label='shippingAddress' onChange={handleChange}/>
-          <InputLabel for='shippingCity'>City</InputLabel>
+          <InputLabel htmlFor='shippingCity'>City</InputLabel>
           <OrderFormInput
             type='text' name='shippingCity' value={order.shippingCity}
             label='shippingCity' onChange={handleChange}/>
-          <InputLabel for="shippingState">State</InputLabel>
+          <InputLabel htmlFor="shippingState">State</InputLabel>
           <OrderFormInput
             type='text' name='shippingState' value={order.shippingState}
             label='shippingState' onChange={handleChange}/>
-          <InputLabel for='shippingZip'>Zip Code</InputLabel>
+          <InputLabel htmlFor='shippingZip'>Zip Code</InputLabel>
           <OrderFormInput
             type='text' name='shippingZip' value={order.shippingZip}
             label='shippingZip' onChange={handleChange}/>
-          <InputLabel for='paymentType'>Payment Type</InputLabel>
+          <InputLabel htmlFor='paymentType'>Payment Type</InputLabel>
           <Select
             options={paymentTypeOptions}
             onChange={handlePaymentTypeChange} />
-          <InputLabel for='paymentAccount'>Account Number</InputLabel>
+          <InputLabel htmlFor='paymentAccount'>Account Number</InputLabel>
           <OrderFormInput
             type='text' name='paymentAccount' value={newTransaction.paymentAccount}
             label='paymentAccount' onChange={handleTransactionChange} />
-          <InputLabel for='paymentAmount'>Payment Amount</InputLabel>
+          <InputLabel htmlFor='paymentAmount'>Payment Amount</InputLabel>
           <OrderFormInput
             type='text' name='paymentAmount' value={newTransaction.paymentAmount}
-            label='paymentAmount' onChange={handleTransactionChange}/>
+            label='paymentAmount' onChange={handleTransactionChange}
+            pattern='^\$\d{1,3(,\d{3})*(\.\d+)?$'/>
             <div>Past Payments</div>
           <OrderTransactionList>
             { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
