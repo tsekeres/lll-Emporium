@@ -1,48 +1,3 @@
-// 
-
-// 
-
-//   return (
-//     <Card>
-//       <CardImg top width='100%' src={project.screenshot} alt='Card image cap' />
-//       <CardBody>
-//         <CardTitle tag='h5'>{project.title}</CardTitle>
-//         <CardText>{project.description}</CardText>
-//         <CardText>{project.techUsed}</CardText>
-//         <CardLink href={project.netlifyLink}>View Live Project</CardLink>
-//         <CardLink href={project.githubLink}>View GitHub Repo</CardLink>
-//         <CardLink href={project.loomLink}>View Project Video</CardLink>
-//         <Button color='danger' onClick={() => handleClick('delete')}>
-//           Delete Project
-//         </Button>
-//         <Button color='info' onClick={() => handleClick('update')}>
-//           {updating ? 'Close Form' : 'Update Project'}
-//         </Button>
-//         {updating && (
-//           <ProjectForm
-//             formTitle='Update Project'
-//             setProjects={setProjects}
-//             firebaseKey={project.firebaseKey}
-//             title={project.title}
-//             screenshot={project.screenshot}
-//             netlifyLink={project.netlifyLink}
-//             githubLink={project.githubLink}
-//             loomLink={project.loomLink}
-//             description={project.description}
-//             techUsed={project.techUsed}
-//           />
-//         )}
-//       </CardBody>
-//     </Card>
-//   );
-// };
-
-// UpdateProjectCards.propTypes = {
-//   project: PropTypes.object,
-//   setProjects: PropTypes.func,
-// };
-
-// export default UpdateProjectCards;
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -89,13 +44,24 @@ const ProductCards = ({
         <ProductCard>
           <ProductCardHeader className="ProductCardHeader">
             <ProductCardButtons className="ProductCardButtons">
-              <ProductCardEdit
-                className="ProductCardEdit"
-                // src={edit}
-              ></ProductCardEdit>
+              <ProductCardEdit className="ProductCardEdit" onClick={() => handleClick('update')} src={edit}>
+                {updating ? 'Close Form' : 'Update Product'}
+              </ProductCardEdit>
+              {updating && (
+                <ProductForm
+                  formTitle='Update Product'
+                  setProducts={setProducts}
+                  productId={product.productId}
+                  productDescription={product.productDescription}
+                  productImageURL={product.productImageURL}
+                  productName={product.productName}
+                  price={product.price}
+                />
+              )}
               <ProductCardDelete
                 className="ProductCardDelete"
-                // src={deleted}
+                onClick={() => handleClick('delete')}
+                src={deleted}
               ></ProductCardDelete>
             </ProductCardButtons>
           </ProductCardHeader>
@@ -108,32 +74,13 @@ const ProductCards = ({
             <CardTitle tag="h5">{product.productName}</CardTitle>
             <CardText>{product.productDescription}</CardText>
             <CardText>{product.price}</CardText>
-            <Button color='danger' onClick={() => handleClick('delete')}>
-           Delete Project
-         </Button>
-         <Button color='info' onClick={() => handleClick('update')}>
-           {updating ? 'Close Form' : 'Update Project'}
-         </Button>
-         {updating && (
-          <ProjectForm
-            formTitle='Update Project'
-            setProjects={setProjects}
-            firebaseKey={project.firebaseKey}
-            title={project.title}
-            screenshot={project.screenshot}
-            netlifyLink={project.netlifyLink}
-            githubLink={project.githubLink}
-            loomLink={project.loomLink}
-            description={project.description}
-            techUsed={project.techUsed}
-          />
-        )}
           </ProductCardBody>
         </ProductCard>
       </Column1>
     </ProductWrapper>
   </ProductContainer>
-);
+  );
+};
 
 ProductCards.propTypes = {
   product: PropTypes.object,
