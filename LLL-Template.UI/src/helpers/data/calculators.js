@@ -19,7 +19,6 @@ const calculateOrderSubtotal = (order, itemsList) => {
 
 const calculateTotalPayments = (transactionList) => {
   let total = 0.0;
-  console.warn(transactionList);
   if (transactionList) {
     for (let i = 0; i < transactionList.length; i += 1) {
       total += transactionList[i].paymentAmount;

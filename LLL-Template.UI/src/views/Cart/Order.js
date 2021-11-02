@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import getPaymentTypes from '../../helpers/data/paymentTypeData';
 import getTransactionTypes from '../../helpers/data/transactionTypeData';
+import { addTransaction, getTransactionsByOrderId } from '../../helpers/data/transactionData';
 import { getOrderWithDetail, updateOrder } from '../../helpers/data/orderData';
 import {
   OrderOuterDiv,
@@ -24,7 +25,29 @@ import {
   calculateTotalPayments
 } from '../../helpers/data/calculators';
 import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
-// import LineItemHistoryCard from '../../components/Cards/OrderHistoryCards/LineItemHistoryCard';
+
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+});
+
+function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
+  let id = -1;
+  if (payments + paymentAmount < totalDue) {
+    for (let i = 0; i < options.length; i += 1) {
+      if (options[i].transactionTypeName === 'Partial Payment') {
+        id = options[i].id;
+      }
+    }
+  } else if (payments + paymentAmount >= totalDue) {
+    for (let i = 0; i < options.length; i += 1) {
+      if (options[i].transactionTypeName === 'Payment') {
+        id = options[i].id;
+      }
+    }
+  }
+  return id;
+}
 
 const OrderDetailView = ({
   orderId
@@ -33,10 +56,14 @@ const OrderDetailView = ({
   const [orderTotal, setOrderTotal] = useState('');
   const [lineItemsList, setLineItemsList] = useState([]);
   const [transactionList, setTransactionList] = useState([]);
-  const [paymentType, setPaymentType] = useState({});
+  const [paymentTypeOptions, setPaymentTypeOptions] = useState([]);
+  const [paymentType, setPaymentType] = useState({
+    value: '',
+    label: ''
+  });
   const [transactionTypeOptions, setTransactionTypeOptions] = useState({});
   const [newTransaction, setnewTransaction] = useState({
-    orderId: '',
+    orderId,
     paymentTypeId: '',
     transactionTypeId: '',
     paymentAccount: '',
@@ -44,7 +71,6 @@ const OrderDetailView = ({
     paymentDate: ''
   });
   const [totalPayments, setTotalPayments] = useState('');
-  const [paymentTypeOptions, setPaymentTypeOptions] = useState([]);
   useEffect(() => {
     getOrderWithDetail(orderId)
       .then((resultObj) => {
@@ -57,7 +83,6 @@ const OrderDetailView = ({
 
   useEffect(() => {
     const optionsArr = [];
-    const transactionTypeOptionsArr = [];
     getPaymentTypes().then((resultArr) => {
       for (let i = 0; i < resultArr.length; i += 1) {
         const option = {
@@ -69,18 +94,7 @@ const OrderDetailView = ({
       setPaymentTypeOptions(optionsArr);
     })
       .catch(setPaymentTypeOptions([]));
-    getTransactionTypes().then((resultArr) => {
-      for (let i = 0; i < resultArr.length; i += 1) {
-        if (resultArr[i].transactionTypeName !== 'Fradulent Payment') {
-          const option = {
-            value: resultArr[i].id,
-            label: `${resultArr[i].transactionTypeName}`
-          };
-          transactionTypeOptionsArr.push(option);
-        }
-      }
-      setTransactionTypeOptions(transactionTypeOptionsArr);
-    })
+    getTransactionTypes().then((resultArr) => setTransactionTypeOptions(resultArr))
       .catch(setTransactionTypeOptions([]));
   }, []);
 
@@ -105,10 +119,7 @@ const OrderDetailView = ({
 
   const handlePaymentTypeChange = (e) => {
     // react-select uses e.value, e.name etc.
-    setPaymentType((prevState) => ({
-      ...prevState,
-      [e.name]: e.value ? e.value : ''
-    }));
+    setPaymentType((e));
   };
 
   const handleTransactionChange = (e) => {
@@ -119,10 +130,28 @@ const OrderDetailView = ({
   };
 
   const handleSubmit = () => {
-    updateOrder(order).then((response) => {
-      console.warn(response);
-    })
+    updateOrder(order)
       .catch((err) => console.warn(err));
+    const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
+      totalPayments, parseFloat(newTransaction.paymentAmount), orderTotal);
+    const timeStamp = new Date();
+    const transaction = {
+      orderId: order.id,
+      paymentTypeId: paymentType.value,
+      transactionTypeId,
+      paymentAccount: newTransaction.paymentAccount,
+      paymentAmount: newTransaction.paymentAmount,
+      paymentDate: timeStamp.toISOString()
+    };
+    addTransaction(transaction).then((transactionId) => {
+      console.warn(transactionId);
+      getTransactionsByOrderId(orderId).then((responseList) => {
+        setTransactionList(responseList);
+      });
+    })
+      .catch((error) => console.warn(error));
+    console.warn(transaction);
+    // addTransaction(transaction);
   };
 
   return (
@@ -157,7 +186,7 @@ const OrderDetailView = ({
             label='shippingZip' onChange={handleChange}/>
           <InputLabel for='paymentType'>Payment Type</InputLabel>
           <Select
-            options={paymentTypeOptions} value={paymentType?.id}
+            options={paymentTypeOptions}
             onChange={handlePaymentTypeChange} />
           <InputLabel for='paymentAccount'>Account Number</InputLabel>
           <OrderFormInput
@@ -168,20 +197,17 @@ const OrderDetailView = ({
             type='text' name='paymentAmount' value={newTransaction.paymentAmount}
             label='paymentAmount' onChange={handleTransactionChange}/>
             <div>Past Payments</div>
-          <Select
-            options={transactionTypeOptions} value={paymentType?.id}
-            onChange={handlePaymentTypeChange} />
           <OrderTransactionList>
             { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
               key={transaction.id}>
-              {transaction.paymentAmount}
+              {currencyFormatter.format(transaction.paymentAmount)}
             </OrderTransactionLine>)) : '' }
           </OrderTransactionList>
           <div>Total Past Payments</div>
           <OrderTotalPaymentsDiv>
-            {totalPayments}
+            {currencyFormatter.format(totalPayments)}
           </OrderTotalPaymentsDiv>
-          <OrderTotalDue>Balance Due: {'\u0024'}{orderTotal - totalPayments}</OrderTotalDue>
+          <OrderTotalDue>Balance Due: {currencyFormatter.format(orderTotal - totalPayments)}</OrderTotalDue>
           <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton>
         </OrderAddressPaymentDiv>
       </OrderOuterDiv>
