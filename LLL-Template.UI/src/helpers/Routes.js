@@ -37,7 +37,6 @@ function Routes() {
         <Route exact path="/Users" component={userCardView} />
         <Route exact path="/orders" component={() => <OrderDetailView
             orderId='c64dbdf8-4de0-4b5d-93ed-177dfd4d6e65' /> } />
-        <Route exact path="/Users" component={Users} />
         <Route exact path="/Users/RoleTypes" component={() => <RoleTypeView />} />
         <PrivateRoute />
         <PrivateRoute />

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import getPaymentTypes from '../../helpers/data/paymentTypeData';
+import getTransactionTypes from '../../helpers/data/transactionTypeData';
 import { getOrderWithDetail, updateOrder } from '../../helpers/data/orderData';
 import {
   OrderOuterDiv,
@@ -32,12 +33,18 @@ const OrderDetailView = ({
   const [orderTotal, setOrderTotal] = useState('');
   const [lineItemsList, setLineItemsList] = useState([]);
   const [transactionList, setTransactionList] = useState([]);
+  const [paymentType, setPaymentType] = useState({});
+  const [transactionTypeOptions, setTransactionTypeOptions] = useState({});
   const [newTransaction, setnewTransaction] = useState({
+    orderId: '',
+    paymentTypeId: '',
+    transactionTypeId: '',
     paymentAccount: '',
-    paymentAmount: '0.0'
+    paymentAmount: '0.0',
+    paymentDate: ''
   });
   const [totalPayments, setTotalPayments] = useState('');
-  const [options, setOptions] = useState([]);
+  const [paymentTypeOptions, setPaymentTypeOptions] = useState([]);
   useEffect(() => {
     getOrderWithDetail(orderId)
       .then((resultObj) => {
@@ -50,6 +57,7 @@ const OrderDetailView = ({
 
   useEffect(() => {
     const optionsArr = [];
+    const transactionTypeOptionsArr = [];
     getPaymentTypes().then((resultArr) => {
       for (let i = 0; i < resultArr.length; i += 1) {
         const option = {
@@ -58,9 +66,22 @@ const OrderDetailView = ({
         };
         optionsArr.push(option);
       }
-      setOptions(optionsArr);
+      setPaymentTypeOptions(optionsArr);
     })
-      .catch(setOptions([]));
+      .catch(setPaymentTypeOptions([]));
+    getTransactionTypes().then((resultArr) => {
+      for (let i = 0; i < resultArr.length; i += 1) {
+        if (resultArr[i].transactionTypeName !== 'Fradulent Payment') {
+          const option = {
+            value: resultArr[i].id,
+            label: `${resultArr[i].transactionTypeName}`
+          };
+          transactionTypeOptionsArr.push(option);
+        }
+      }
+      setTransactionTypeOptions(transactionTypeOptionsArr);
+    })
+      .catch(setTransactionTypeOptions([]));
   }, []);
 
   useEffect(() => {
@@ -82,6 +103,14 @@ const OrderDetailView = ({
     }));
   };
 
+  const handlePaymentTypeChange = (e) => {
+    // react-select uses e.value, e.name etc.
+    setPaymentType((prevState) => ({
+      ...prevState,
+      [e.name]: e.value ? e.value : ''
+    }));
+  };
+
   const handleTransactionChange = (e) => {
     setnewTransaction((prevState) => ({
       ...prevState,
@@ -90,7 +119,9 @@ const OrderDetailView = ({
   };
 
   const handleSubmit = () => {
-    updateOrder(order).then((response) => console.warn(response))
+    updateOrder(order).then((response) => {
+      console.warn(response);
+    })
       .catch((err) => console.warn(err));
   };
 
@@ -126,7 +157,8 @@ const OrderDetailView = ({
             label='shippingZip' onChange={handleChange}/>
           <InputLabel for='paymentType'>Payment Type</InputLabel>
           <Select
-          options={options} />
+            options={paymentTypeOptions} value={paymentType?.id}
+            onChange={handlePaymentTypeChange} />
           <InputLabel for='paymentAccount'>Account Number</InputLabel>
           <OrderFormInput
             type='text' name='paymentAccount' value={newTransaction.paymentAccount}
@@ -136,6 +168,9 @@ const OrderDetailView = ({
             type='text' name='paymentAmount' value={newTransaction.paymentAmount}
             label='paymentAmount' onChange={handleTransactionChange}/>
             <div>Past Payments</div>
+          <Select
+            options={transactionTypeOptions} value={paymentType?.id}
+            onChange={handlePaymentTypeChange} />
           <OrderTransactionList>
             { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
               key={transaction.id}>
