@@ -38,7 +38,7 @@ export const NavBarImg1 = styled.img`
 `;
 
 export const NavLink = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   margin-left: 15px;
   margin-right: 15px;
 
@@ -193,4 +193,12 @@ export const HashLink = styled(LinkS)`
   &.activeStyle {
     border-bottom: 3px solid #fff;
   }
+`;
+
+export const Button = styled.button`
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden; 
 `;
