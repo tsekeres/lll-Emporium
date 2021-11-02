@@ -8,6 +8,21 @@ export const CategoryContainer = styled.div`
   padding-top: 50px;
 `;
 
+export const Modal = styled.div`
+position: fixed;
+z-index: 999;
+width: 100%;
+height: 100%;
+background: #fff;
+display: grid;
+align-items: center;
+top: 0;
+left: 0;
+transitionL 0.3s ease-in-out;
+opacity:  ${({ isOpen }) => (isOpen ? '100%' : '0')};
+top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
+`;
+
 export const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -115,12 +130,11 @@ export const Button = styled.button`
 display: flex;
 flex-direction: row;
 justify-content: flex-end;
-width: 50%;
 background-color: Transparent;
 background-repeat:no-repeat;
 border: none;
 cursor:pointer;
-overflow: hidden; 
+overflow: hidden;
 `;
 
 export const ButtonImg = styled.img`
