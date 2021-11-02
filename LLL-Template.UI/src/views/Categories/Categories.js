@@ -64,6 +64,7 @@ export const Categories = () => {
           {categories.map((categoryInfo) => (
             <CategoryCards
               key={categoryInfo.id}
+              id={categoryInfo.id}
               categoryImageUrl={categoryInfo.categoryImageUrl}
               categoryName={categoryInfo.categoryName}
               setCategories={setCategories}

@@ -101,7 +101,7 @@ export const CategoryCards = ({
 CategoryCards.propTypes = {
   id: PropTypes.string.isRequired,
   categoryName: PropTypes.string.isRequired,
-  categoryImageUrl: PropTypes.string.isRequired,
+  categoryImageUrl: PropTypes.string,
   setCategories: PropTypes.func,
 };
 

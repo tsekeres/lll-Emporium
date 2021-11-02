@@ -5,7 +5,6 @@ import {
   addCategory,
 } from '../../../helpers/data/categoryData';
 import {
-  AddCategoryForm,
   CategoryFormTitle,
   Button,
 } from './CategoryFormElements';
@@ -33,9 +32,9 @@ const CategoryForms = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (category.id) {
-      updateCategory(category, id).then((categoryArray) => setCategories(categoryArray));
+      updateCategory(category).then((categoryArray) => setCategories(categoryArray));
     } else {
-      addCategory(category, id).then((categoryArray) => setCategories(categoryArray));
+      addCategory(category).then((categoryArray) => setCategories(categoryArray));
 
       setCategory({
         categoryName: '',
@@ -46,7 +45,7 @@ const CategoryForms = ({
   };
 
   return (
-    <AddCategoryForm
+    <form
       id='addCategoryForm'
       autoComplete='off'
       onSubmit={handleSubmit}
@@ -75,7 +74,7 @@ const CategoryForms = ({
       <Button className='addCategory' type='submit'>
         Add Category
       </Button>
-    </AddCategoryForm>
+    </form>
   );
 };
 

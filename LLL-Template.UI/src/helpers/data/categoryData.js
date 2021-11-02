@@ -1,5 +1,5 @@
 import axios from 'axios';
-import LLLConfig from '../apiKeys';
+import { LLLConfig } from '../apiKeys';
 
 const dbURL = LLLConfig.baseUrl;
 
@@ -15,8 +15,8 @@ const getSingleCategory = (categoryId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const addCategory = (typeName) => new Promise((resolve, reject) => {
-  axios.post(`${dbURL}/api/categories`, typeName)
+const addCategory = (category) => new Promise((resolve, reject) => {
+  axios.post(`${dbURL}/api/categories`, category)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });

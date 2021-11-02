@@ -12,8 +12,8 @@ export const HomeViewCards = ({ id, categoryName }) => {
 };
 
 HomeViewCards.propTypes = {
-  id: PropTypes.string.isRequired,
-  categoryName: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  categoryName: PropTypes.string,
 };
 
 export default HomeViewCards;

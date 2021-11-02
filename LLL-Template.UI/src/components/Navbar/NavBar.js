@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaBars } from 'react-icons/fa';
 import { HashLink } from '../../../node_modules/react-router-hash-link';
+import { signInUser, signOutUser } from '../../helpers/auth';
 import {
   NavigationBar,
   NavLeft,
@@ -20,6 +21,7 @@ import {
   MobileIcon,
 } from './NavBarElements';
 import logo from '../../Assets/NavBarIcons/LOGO.png';
+import loggedin from '../../Assets/NavBarIcons/LoggedIn.png';
 import loggedOut from '../../Assets/NavBarIcons/LoggedOut.png';
 import bag from '../../Assets/NavBarIcons/bag.png';
 import magnifyingGlass from '../../Assets/NavBarIcons/SearchIcons.png';
@@ -33,7 +35,7 @@ const scrollWithOffset = (el) => {
   const yOffset = -10;
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 };
-export default function NavBar({ toggle }) {
+export default function NavBar({ toggle, user }) {
   return (
     <NavigationBar className="NavigationBar">
       <NavLeft className="NavLeft">
@@ -72,10 +74,24 @@ export default function NavBar({ toggle }) {
         </NavItemsMiddle>
       </NavMiddle>
       <NavRight className="NavRight">
-        <NavItemsRight className="NavItemsRight">
-          <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
-          <SignIn className="SignIn" src={loggedOut}></SignIn>
-          <BagImg className="BagImg" src={bag}></BagImg>
+      <NavItemsRight className="NavItemsRight" id="authButtons">
+          {
+            user !== null
+            && <div className="NavItemsRight" id="authButtons">
+              {
+                (user)
+                  ? <div>
+                      <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
+                      <button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedOut}></SignIn></button>
+                    </div>
+                  : <div>
+                      <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
+                      <button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedin}></SignIn></button>
+                      <BagImg className="BagImg" src={bag}></BagImg>
+                    </div>
+              }
+              </div>
+            }
           <MobileIcon className="MobileIcon" onClick={toggle}>
             <FaBars className="FaBars" />
           </MobileIcon>
@@ -87,4 +103,5 @@ export default function NavBar({ toggle }) {
 
 NavBar.propTypes = {
   toggle: PropTypes.any,
+  user: PropTypes.any,
 };
