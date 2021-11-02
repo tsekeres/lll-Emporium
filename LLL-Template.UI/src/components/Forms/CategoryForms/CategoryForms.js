@@ -33,7 +33,7 @@ const CategoryForms = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (category.id) {
-      updateCategory(category).then((categoryArray) => setCategories(categoryArray));
+      updateCategory(id, category).then(() => getCategories().then((response) => setCategories(response)));
     } else {
       const categoryObj = {
         categoryName: category.categoryName,
@@ -64,7 +64,7 @@ const CategoryForms = ({
         name='categoryName'
         type='text'
         placeholder='Category Name'
-        value={categoryName}
+        value={category.categoryName}
         onChange={handleInputChange}
       ></input>
       <label>Image: </label>
@@ -73,7 +73,7 @@ const CategoryForms = ({
         name='categoryImageUrl'
         type='text'
         placeholder='Category Image URL'
-        value={categoryImageUrl}
+        value={category.categoryImageUrl}
         onChange={handleInputChange}
       ></input>
       <Button className='addCategory' type='submit'>

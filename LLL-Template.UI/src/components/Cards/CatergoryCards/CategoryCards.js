@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { useHistory } from 'react-router-dom';
-import { deleteCategory } from '../../../helpers/data/categoryData';
+import { getCategories, deleteCategory } from '../../../helpers/data/categoryData';
 import CategoryForms from '../../Forms/CategoryForms/CategoryForms';
 import {
   CategoryCard,
@@ -41,7 +41,7 @@ export const CategoryCards = ({
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteCategory(id).then((categoryArray) => setCategories(categoryArray));
+        deleteCategory(id).then(() => getCategories().then((response) => setCategories(response)));
         break;
       case 'view':
         history.push(`/categories/${id}`);
