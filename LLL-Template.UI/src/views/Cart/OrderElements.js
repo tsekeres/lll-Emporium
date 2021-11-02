@@ -54,8 +54,16 @@ const OrderTotalPaymentsDiv = styled.div`
   width: 100%;
 `;
 
+const OrderSubTotalDiv = styled.div`
+  width: 80%;
+`;
+
+const OrderShippingCostDiv = styled.div`
+  width: 80%;
+`;
+
 const OrderTotalDue = styled.div`
-  width: 40%;
+  width: 80%;
 `;
 
 const OrderSubmitButton = styled.button`
@@ -73,6 +81,8 @@ export {
   OrderTransactionList,
   OrderTransactionLine,
   OrderTotalPaymentsDiv,
+  OrderSubTotalDiv,
+  OrderShippingCostDiv,
   OrderTotalDue,
   OrderSubmitButton
 };

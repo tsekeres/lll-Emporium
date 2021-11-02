@@ -14,9 +14,11 @@ import {
   OrderFormInput,
   OrderTransactionList,
   OrderTransactionLine,
+  OrderSubTotalDiv,
+  OrderShippingCostDiv,
   OrderTotalDue,
   OrderSubmitButton,
-  OrderTotalPaymentsDiv
+  OrderTotalPaymentsDiv,
 } from './OrderElements';
 
 import {
@@ -53,7 +55,7 @@ const OrderDetailView = ({
   orderId
 }) => {
   const [order, setOrder] = useState(null);
-  const [orderTotal, setOrderTotal] = useState('');
+  const [orderSubTotal, setOrderSubTotal] = useState('');
   const [lineItemsList, setLineItemsList] = useState([]);
   const [transactionList, setTransactionList] = useState([]);
   const [paymentTypeOptions, setPaymentTypeOptions] = useState([]);
@@ -100,7 +102,7 @@ const OrderDetailView = ({
 
   useEffect(() => {
     if (order && lineItemsList) {
-      setOrderTotal(calculateOrderSubtotal(order, lineItemsList));
+      setOrderSubTotal(calculateOrderSubtotal(order, lineItemsList));
     }
   }, [lineItemsList]);
 
@@ -116,16 +118,16 @@ const OrderDetailView = ({
 
   useEffect(() => {
     let mounted = true;
-    if (mounted && orderTotal) {
+    if (mounted && orderSubTotal) {
       setNewTransaction((prevState) => ({
         ...prevState,
-        paymentAmount: Math.round((orderTotal - totalPayments + Number.EPSILON) * 100) / 100
+        paymentAmount: Math.round((orderSubTotal + order.shippingCost - totalPayments + Number.EPSILON) * 100) / 100
       }));
     }
     return function cleanup() {
       mounted = false;
     };
-  }, [orderTotal, totalPayments]);
+  }, [orderSubTotal, totalPayments]);
   const handleChange = (e) => {
     setOrder((prevState) => ({
       ...prevState,
@@ -149,7 +151,7 @@ const OrderDetailView = ({
     updateOrder(order)
       .catch((err) => console.warn(err));
     const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
-      totalPayments, parseFloat(newTransaction.paymentAmount), orderTotal);
+      totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + order.shippingCost);
     const timeStamp = new Date();
     const transaction = {
       orderId: order.id,
@@ -219,11 +221,12 @@ const OrderDetailView = ({
               {currencyFormatter.format(transaction.paymentAmount)}
             </OrderTransactionLine>)) : '' }
           </OrderTransactionList>
-          <div>Total Past Payments</div>
-          <OrderTotalPaymentsDiv>
+          <OrderSubTotalDiv>SubTotal: {currencyFormatter.format(orderSubTotal)}</OrderSubTotalDiv>
+          <OrderShippingCostDiv>Shipping: {currencyFormatter.format(order.shippingCost)}</OrderShippingCostDiv>
+          <OrderTotalPaymentsDiv>Total Payments:
             {currencyFormatter.format(totalPayments)}
           </OrderTotalPaymentsDiv>
-          <OrderTotalDue>Balance Due: {currencyFormatter.format(orderTotal - totalPayments)}</OrderTotalDue>
+          <OrderTotalDue>Balance Due: {currencyFormatter.format(orderSubTotal + order.shippingCost - totalPayments)}</OrderTotalDue>
           <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton>
         </OrderAddressPaymentDiv>
       </OrderOuterDiv>

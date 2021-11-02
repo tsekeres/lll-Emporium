@@ -13,7 +13,6 @@ const calculateOrderSubtotal = (order, itemsList) => {
   itemsList.forEach((item) => {
     total += item.unitPrice;
   });
-  total += order.shippingCost;
   return total;
 };
 
