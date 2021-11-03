@@ -16,11 +16,11 @@ const ProductForm = ({
   productId,
 }) => {
   const [product, setProduct] = useState({
-    productImageURL: productImageURL || "",
-    productName: productName || "",
-    productDescription: productDescription || "",
-    price: price || "",
-    productId: productId || "",
+    productImageURL: productImageURL || '',
+    productName: productName || '',
+    productDescription: productDescription || '',
+    price: price || '',
+    productId: productId || '',
   });
   const history = useHistory();
 
@@ -39,7 +39,7 @@ const ProductForm = ({
       addProduct(product).then(setProduct);
       history.push('/products');
 
-      setProject({
+      setProduct({
         productImageURL: '',
         productName: '',
         productDescription: '',
@@ -104,7 +104,7 @@ const ProductForm = ({
   );
 };
 
-ProjectForm.propTypes = {
+ProductForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
   setProducts: PropTypes.func,
   productImageURL: PropTypes.string,

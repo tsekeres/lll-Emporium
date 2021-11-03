@@ -15,7 +15,7 @@ import {
   CardText,
 } from './ProductCardElements';
 import { deleteProduct } from '../../../helpers/data/ProductsData';
-import ProductForm from "../../Forms/ProductForms/ProductForm";
+import ProductForm from '../../Forms/ProductForms/ProductForm';
 
 const ProductCards = ({
   product,
@@ -44,7 +44,7 @@ const ProductCards = ({
         <ProductCard>
           <ProductCardHeader className="ProductCardHeader">
             <ProductCardButtons className="ProductCardButtons">
-              <ProductCardEdit className="ProductCardEdit" onClick={() => handleClick('update')} src={edit}>
+              <ProductCardEdit className="ProductCardEdit" onClick={() => handleClick('update')}>
                 {updating ? 'Close Form' : 'Update Product'}
               </ProductCardEdit>
               {updating && (
@@ -61,7 +61,6 @@ const ProductCards = ({
               <ProductCardDelete
                 className="ProductCardDelete"
                 onClick={() => handleClick('delete')}
-                src={deleted}
               ></ProductCardDelete>
             </ProductCardButtons>
           </ProductCardHeader>
@@ -84,6 +83,7 @@ const ProductCards = ({
 
 ProductCards.propTypes = {
   product: PropTypes.object,
+  setProducts: PropTypes.func,
 };
 
 export default ProductCards;

@@ -8,6 +8,21 @@ export const CategoryContainer = styled.div`
   padding-top: 50px;
 `;
 
+export const Modal = styled.div`
+position: fixed;
+z-index: 999;
+width: 100%;
+height: 100%;
+background: #fff;
+display: grid;
+align-items: center;
+top: 0;
+left: 0;
+transitionL 0.3s ease-in-out;
+opacity:  ${({ isOpen }) => (isOpen ? '100%' : '0')};
+top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
+`;
+
 export const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -54,8 +69,8 @@ export const CategoryCard = styled.div`
   }
 `;
 
-export const CategoryCardImg = styled.img`
-  height: 60%;
+export const AddCategoryButtonImg = styled.img`
+height: 15px;
 `;
 
 export const CategoryCardHeader = styled.div`
@@ -66,33 +81,30 @@ export const CategoryCardHeader = styled.div`
   justify-content: flex-end;
 `;
 
-export const CategoryCardButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  width: 50%;
-  margin-top: 5px;
+export const AddButtonContainer = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+width: 5%;
+padding-top: 150px;
 `;
 
-export const CategoryCardEdit = styled.img`
-  height: 15px;
-  margin-left: 10px;
-`;
-
-export const CategoryCardDelete = styled.img`
-  height: 13px;
-  margin-top: 1.5px;
+export const AddCategoryButton = styled.button`
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+width: 50%;
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden; 
 `;
 
 export const CategoryImg = styled.img`
   display: flex;
   align-self: center;
   width: 60%;
-
-  @media screen and (max-width: 1150px) {
-    width: 70%;
-  }
-  }
 `;
 
 export const Column2 = styled.div`
@@ -112,4 +124,19 @@ export const CategoryCardFooter = styled.div`
   justify-content: center;
   margin-top: 5px;
   width: 100%;
+`;
+
+export const Button = styled.button`
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden;
+`;
+
+export const ButtonImg = styled.img`
+height: 15px;
 `;

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
-import NavBar from '../components/Navbar/NavBar';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { Footer } from '../components/Footer/Footer';
 import Routes from '../helpers/Routes';
+import NavBar from '../components/Navbar/NavBar';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -33,7 +35,7 @@ export default function App() {
     <div className="App">
       <Router>
         <Sidebar isOpen={isOpen} toggle={toggle} />
-        <NavBar toggle={toggle} user={user} />
+        <NavBar toggle={toggle} user={user}/>
         <Routes user={user}></Routes>
         <Footer />
       </Router>
