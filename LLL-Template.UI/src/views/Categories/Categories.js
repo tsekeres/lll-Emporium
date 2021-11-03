@@ -41,9 +41,9 @@ export const Categories = () => {
   return (
     <CategoryContainer className="CategoryContainer" id="CategoryContainer">
       <CategoryWrapper className="CategoryWrapper" id="Categories">
-      <AddButtonContainer>
+      <AddButtonContainer className="AddButtonContainer">
             <AddCategoryButton className="addCategory" onClick={openModal}>
-              <AddCategoryButtonImg src={add}>
+              <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
               </AddCategoryButtonImg>
             </AddCategoryButton>
           </AddButtonContainer>
