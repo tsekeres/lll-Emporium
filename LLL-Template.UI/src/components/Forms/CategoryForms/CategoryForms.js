@@ -8,7 +8,12 @@ import {
 import {
   CategoryFormTitle,
   Button,
+  Form,
+  Input,
+  Label,
+  ButtonImg,
 } from './CategoryFormElements';
+import add from '../../../Assets/ActionIcons/Add.png';
 
 const CategoryForms = ({
   categoryFormTitle,
@@ -50,7 +55,7 @@ const CategoryForms = ({
   };
 
   return (
-    <form
+    <Form
       id='addCategoryForm'
       autoComplete='off'
       onSubmit={handleSubmit}
@@ -58,28 +63,28 @@ const CategoryForms = ({
       <CategoryFormTitle id='categoryFormTitle'>
         {categoryFormTitle}
       </CategoryFormTitle>
-      <label className='categoryNameLabel'>Name:</label>
-      <input
+      <Label className='categoryNameLabel'>Name:</Label>
+      <Input
         className='category'
         name='categoryName'
         type='text'
         placeholder='Category Name'
         value={category.categoryName}
         onChange={handleInputChange}
-      ></input>
-      <label>Image: </label>
-      <input
+      ></Input>
+      <Label>Image: </Label>
+      <Input
         className='category'
         name='categoryImageUrl'
         type='text'
         placeholder='Category Image URL'
         value={category.categoryImageUrl}
         onChange={handleInputChange}
-      ></input>
+      ></Input>
       <Button className='addCategory' type='submit'>
-        Add Category
+        <ButtonImg src={add}></ButtonImg>
       </Button>
-    </form>
+    </Form>
   );
 };
 

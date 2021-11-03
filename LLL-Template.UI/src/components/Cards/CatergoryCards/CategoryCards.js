@@ -1,7 +1,6 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactModal from 'react-modal';
 import { useHistory } from 'react-router-dom';
 import { getCategories, deleteCategory } from '../../../helpers/data/categoryData';
 import CategoryForms from '../../Forms/CategoryForms/CategoryForms';
@@ -15,7 +14,7 @@ import {
   CategoryCardFooter,
   Button,
   Button1,
-  Modal1,
+  Modal,
 } from './CategoryCardElements';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
@@ -75,8 +74,7 @@ export const CategoryCards = ({
       <CategoryCardFooter className='CategoryCardFooter'>
         {categoryName}
       </CategoryCardFooter>
-      <Modal1 className='displayEdit'>
-        <ReactModal
+        <Modal
           isOpen={modalIsOpen}
           onRequestClose={closeModal}
           className='Modal'
@@ -92,8 +90,7 @@ export const CategoryCards = ({
             categoryName={categoryName}
             setCategories={setCategories}
           />
-        </ReactModal>
-      </Modal1>
+        </Modal>
     </CategoryCard>
   );
 };

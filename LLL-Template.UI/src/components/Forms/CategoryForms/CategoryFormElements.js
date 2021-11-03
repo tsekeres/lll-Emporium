@@ -1,34 +1,43 @@
 import styled from 'styled-components';
 
 export const AddCategoryForm = styled.div`
-  border: 0px solid transparent;
-  background-color: white;
-  color: white;
-  display: flex;
-  flex-flow: column;
-  width: 50%;
-  height: 100%;
-  align-items: center;
-  border-radius: 1em;
-  padding: 10em;
+
+`;
+
+export const Form = styled.form`
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-items: center;
+padding-bottom: 200px;
+width: 100%;
 `;
 
 export const CategoryFormTitle = styled.div`
-  margin-top: 2em;
+padding-bottom: 75px;
 `;
 
-export const Label = styled.div``;
+export const Label = styled.label`
+padding-bottom: 25px;
+`;
 
-export const Input = styled.div`
-  width: 100%;
-  border-radius: 0.25em;
+export const Input = styled.input`
+margin-bottom: 50px;
+border-radius: 10px;
 `;
 
 export const Button = styled.button`
-  margin-top: 2em;
-  margin-bottom: 2em;
-  align-items: center;
-  background-color: #b6b34b;
-  color: white;
-  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 50%;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden; 
+`;
+
+export const ButtonImg = styled.img`
+  height: 15px;
 `;
