@@ -13,17 +13,14 @@ import {
   AddButtonContainer,
   AddCategoryButton,
   AddCategoryButtonImg,
-  CategoryImg,
-  Column2,
   Button,
   ButtonImg,
   Modal,
 } from './ProductTypesElements';
-import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export const ProductTypes = () => {
+export const ProductTypes = ({ categories }) => {
   const [productTypes, setProductTypes] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -37,6 +34,7 @@ export const ProductTypes = () => {
 
   useEffect(() => {
     getProductTypes().then((response) => setProductTypes(response));
+    console.warn(categories);
   }, []);
   return (
     <CategoryContainer className="CategoryContainer" id="CategoryContainer">
@@ -54,9 +52,10 @@ export const ProductTypes = () => {
           >
             <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>
                 <ProductTypeForms
-                  categoryFormTitle="Add Category"
+                  productTypeFormTitle="Add Product Type"
                   setProductTypes={setProductTypes}
                   productTypes={productTypes}
+                  categories={categories}
                 />
           </Modal>
         <Column1 className="CategoryColumn1">
@@ -69,12 +68,10 @@ export const ProductTypes = () => {
               productTypeImageurl={productTypeInfo.productTypeImageurl}
               setProductTypes={setProductTypes}
               productTypes={productTypes}
+              categories={categories}
             />
           ))}
         </Column1>
-        <Column2 className="CategoryColumn2">
-          <CategoryImg src={category} className="CategoryImg"></CategoryImg>
-        </Column2>
         </CategoryWrapper>
       </CategoryContainer>
   );
@@ -83,6 +80,7 @@ export const ProductTypes = () => {
 ProductTypes.propTypes = {
   productTypes: PropTypes.any,
   setProductTypes: PropTypes.func,
+  categories: PropTypes.any,
 };
 
 export default ProductTypes;

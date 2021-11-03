@@ -41,3 +41,7 @@ export const Button = styled.button`
 export const ButtonImg = styled.img`
   height: 15px;
 `;
+
+export const Option = styled.option`
+  height: 15px;
+`;

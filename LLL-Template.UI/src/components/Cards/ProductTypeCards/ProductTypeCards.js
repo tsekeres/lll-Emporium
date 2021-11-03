@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { getProductTypes, deleteProductType } from '../../../helpers/data/productTypesData';
-import ProductTypeForms from '../../Forms/CategoryForms/CategoryForms';
+import ProductTypeForms from '../../Forms/ProductTypeForms/ProductTypeForms';
 import {
   CategoryCard,
   CategoryCardImg,
@@ -22,9 +22,10 @@ import deleted from '../../../Assets/ActionIcons/Delete.png';
 export const ProductTypeCards = ({
   setProductTypes,
   id,
-  // categoryId,
+  categoryId,
   productTypeImageUrl,
   typeName,
+  categories,
 }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -85,11 +86,13 @@ export const ProductTypeCards = ({
             <CategoryCardDelete src={deleted}/>
           </Button>
           <ProductTypeForms
-            categoryFormTitle='Edit Category'
+            productTypeFormTitle='Edit Product Type'
             id={id}
             productTypeImageUrl={productTypeImageUrl}
             typeName={typeName}
             setProductTypes={setProductTypes}
+            categoryId={categoryId}
+            categories={categories}
           />
         </Modal>
     </CategoryCard>
@@ -101,6 +104,8 @@ ProductTypeCards.propTypes = {
   typeName: PropTypes.string.isRequired,
   productTypeImageUrl: PropTypes.string,
   setProductTypes: PropTypes.func,
+  categoryId: PropTypes.string,
+  categories: PropTypes.any,
 };
 
 export default ProductTypeCards;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import {
   updateProductType,
@@ -9,23 +10,26 @@ import {
   CategoryFormTitle,
   Button,
   Form,
-  Input,
   Label,
   ButtonImg,
+  Option,
 } from './ProductTypeFormElements';
 import add from '../../../Assets/ActionIcons/Add.png';
 
 const ProductTypeForms = ({
-  categoryFormTitle,
+  productTypeFormTitle,
   id,
-  categoryName,
-  categoryImageUrl,
+  categoryId,
+  typeName,
+  productTypeImageUrl,
   setProductTypes,
+  categories,
 }) => {
   const [productType, setProductType] = useState({
-    categoryName: categoryName || '',
-    categoryImageUrl: categoryImageUrl || '',
+    typeName: typeName || '',
+    productTypeImageUrl: productTypeImageUrl || '',
     id: id || null,
+    categoryId: categoryId || '',
   });
 
   const handleInputChange = (e) => {
@@ -41,15 +45,17 @@ const ProductTypeForms = ({
       updateProductType(id, productType).then(() => getProductTypes().then((response) => setProductTypes(response)));
     } else {
       const productTypeObj = {
-        categoryName: productType.categoryName,
-        categoryImageUrl: productType.categoryImageUrl,
+        typeName: productType.typeName,
+        productTypeImageUrl: productType.productTypeImageUrl,
+        categoryId: productType.categoryId,
       };
       addProductType(productTypeObj).then(() => getProductTypes().then((response) => setProductTypes(response)));
 
       setProductType({
-        categoryName: '',
-        categoryImageUrl: '',
+        typeName: '',
+        productTypeImageUrl: '',
         id: null,
+        categoryId: '',
       });
     }
   };
@@ -61,26 +67,41 @@ const ProductTypeForms = ({
       onSubmit={handleSubmit}
     >
       <CategoryFormTitle id='categoryFormTitle'>
-        {categoryFormTitle}
+        {productTypeFormTitle}
       </CategoryFormTitle>
       <Label className='categoryNameLabel'>Name:</Label>
       <Input
         className='category'
-        name='categoryName'
+        name='typeName'
         type='text'
-        placeholder='Category Name'
-        value={productType.categoryName}
+        placeholder='Product Type Name'
+        value={productType.typeName}
         onChange={handleInputChange}
       ></Input>
       <Label>Image: </Label>
       <Input
         className='category'
-        name='categoryImageUrl'
+        name='productTypeImageUrl'
         type='text'
-        placeholder='Category Image URL'
-        value={productType.categoryImageUrl}
+        placeholder='Product Type Image URL'
+        value={productType.productTypeImageUrl}
         onChange={handleInputChange}
       ></Input>
+      <Label>Category:</Label>
+      <Input
+          className="item"
+          type="select"
+          name="categoryId"
+          placeholder="Category"
+          id="exampleSelect"
+          onChange={handleInputChange}
+        >
+          {categories?.map((category) => (
+            <Option key={category.id} value={category.id}>
+              {category.categoryName}
+            </Option>
+          ))}
+        </Input>
       <Button className='addCategory' type='submit'>
         <ButtonImg src={add}></ButtonImg>
       </Button>
@@ -89,11 +110,13 @@ const ProductTypeForms = ({
 };
 
 ProductTypeForms.propTypes = {
-  categoryFormTitle: PropTypes.string.isRequired,
+  productTypeFormTitle: PropTypes.string.isRequired,
   setProductTypes: PropTypes.func,
   id: PropTypes.string,
-  categoryName: PropTypes.string,
-  categoryImageUrl: PropTypes.string,
+  typeName: PropTypes.string,
+  productTypeImageUrl: PropTypes.string,
+  categoryId: PropTypes.string,
+  categories: PropTypes.any,
 };
 
 export default ProductTypeForms;
