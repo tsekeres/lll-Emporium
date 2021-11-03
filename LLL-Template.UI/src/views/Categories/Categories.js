@@ -3,7 +3,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
 import CategoryForms from '../../components/Forms/CategoryForms/CategoryForms';
 import { getCategories } from '../../helpers/data/categoryData';
 import { CategoryCards } from '../../components/Cards/CatergoryCards/CategoryCards';
@@ -18,6 +17,7 @@ import {
   Column2,
   Button,
   ButtonImg,
+  Modal,
 } from './CategoryElements';
 import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
@@ -52,8 +52,7 @@ export const Categories = () => {
             onRequestClose={closeModal}
             className="Modal"
           >
-            <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/>Close Form</Button>
-              <div className="formContainer"></div>
+            <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>
                 <CategoryForms
                   categoryFormTitle="Add Category"
                   setCategories={setCategories}

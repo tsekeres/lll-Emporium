@@ -16,9 +16,29 @@ export const CategoryCard = styled.div`
     margin-left: 25px;
     margin-right: 20px;
   }
+
+opacity:  ${({ isOpen }) => (isOpen ? '0' : '100%')};
+top: ${({ isOpen }) => (isOpen ? '100%' : '0')};
+`;
+
+export const Modal = styled.div`
+position: fixed;
+z-index: 999;
+width: 100%;
+height: 100%;
+background: #fff;
+display: grid;
+align-items: center;
+top: 0;
+left: 0;
+transitionL 0.3s ease-in-out;
+opacity:  ${({ isOpen }) => (isOpen ? '100%' : '0')};
+top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
 `;
 
 export const Button = styled.button`
+  display: flex;
+  justify-content: flex-end;
   height: 50%;
   background-color: Transparent;
   background-repeat:no-repeat;
