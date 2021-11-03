@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { LLLConfig } from '../apiKeys';
 
-const dbURL = LLLConfig.baseUrl;
+const apiURL = LLLConfig.baseUrl;
 
 const addTransaction = (transactionObj) => new Promise((resolve, reject) => {
-  axios.post(`${dbURL}/api/transaction`, transactionObj)
+  axios.post(`${apiURL}/api/transaction`, transactionObj)
     .then((response) => {
       resolve(response.data);
     })
@@ -12,7 +12,7 @@ const addTransaction = (transactionObj) => new Promise((resolve, reject) => {
 });
 
 const getTransactionsByOrderId = (orderId) => new Promise((resolve, reject) => {
-  axios.get(`${dbURL}/api/transaction/order/${orderId}`)
+  axios.get(`${apiURL}/api/transaction/order/${orderId}`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });

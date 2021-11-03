@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { LLLConfig } from '../apiKeys';
 
-const dbURL = LLLConfig.baseUrl;
+const apiURL = LLLConfig.baseUrl;
 
 const getPaymentTypes = () => new Promise((resolve, reject) => {
-  axios.get(`${dbURL}/api/paymentTypes`)
+  axios.get(`${apiURL}/api/paymentTypes`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });

@@ -24,7 +24,8 @@ import {
 import {
   formatDate,
   calculateOrderSubtotal,
-  calculateTotalPayments
+  calculateTotalPayments,
+  calculateShippingCost
 } from '../../helpers/data/calculators';
 import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 
@@ -55,7 +56,7 @@ const OrderDetailView = ({
   orderId
 }) => {
   const [order, setOrder] = useState(null);
-  const [orderSubTotal, setOrderSubTotal] = useState('');
+  const [orderSubTotal, setOrderSubTotal] = useState(0.0);
   const [lineItemsList, setLineItemsList] = useState([]);
   const [transactionList, setTransactionList] = useState([]);
   const [paymentTypeOptions, setPaymentTypeOptions] = useState([]);
@@ -63,6 +64,7 @@ const OrderDetailView = ({
     value: '',
     label: ''
   });
+  const [shippingCost, setShippingCost] = useState(7.99);
   const [transactionTypeOptions, setTransactionTypeOptions] = useState({});
   const [newTransaction, setNewTransaction] = useState({
     orderId,
@@ -79,8 +81,7 @@ const OrderDetailView = ({
         setOrder(resultObj.order);
         setLineItemsList(resultObj.lineItems);
         setTransactionList(resultObj.transactionItems);
-      })
-      .catch(() => console.warn('error'));
+      });
   }, [orderId]);
 
   useEffect(() => {
@@ -100,12 +101,14 @@ const OrderDetailView = ({
       .catch(setTransactionTypeOptions([]));
   }, []);
 
+  // order subtotal
   useEffect(() => {
     if (order && lineItemsList) {
       setOrderSubTotal(calculateOrderSubtotal(order, lineItemsList));
     }
   }, [lineItemsList]);
 
+  // sum of payments made
   useEffect(() => {
     let mounted = true;
     if (transactionList && mounted) {
@@ -116,18 +119,31 @@ const OrderDetailView = ({
     };
   }, [transactionList]);
 
+  // setup new transaction
   useEffect(() => {
     let mounted = true;
     if (mounted && orderSubTotal) {
       setNewTransaction((prevState) => ({
         ...prevState,
-        paymentAmount: Math.round((orderSubTotal + order.shippingCost - totalPayments + Number.EPSILON) * 100) / 100
+        paymentAmount: Math.round((orderSubTotal + shippingCost - totalPayments + Number.EPSILON) * 100) / 100
       }));
     }
     return function cleanup() {
       mounted = false;
     };
-  }, [orderSubTotal, totalPayments]);
+  }, [orderSubTotal, totalPayments, shippingCost]);
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted && orderSubTotal) {
+      setShippingCost(calculateShippingCost(orderSubTotal));
+    }
+    return function cleanup() {
+      mounted = false;
+    };
+  }, [orderSubTotal]);
+
+  // main form input
   const handleChange = (e) => {
     setOrder((prevState) => ({
       ...prevState,
@@ -135,11 +151,13 @@ const OrderDetailView = ({
     }));
   };
 
+  // select payment type
   const handlePaymentTypeChange = (e) => {
     // react-select uses e.value, e.name etc.
     setPaymentType((e));
   };
 
+  // payment type and amount for transaction
   const handleTransactionChange = (e) => {
     setNewTransaction((prevState) => ({
       ...prevState,
@@ -148,10 +166,16 @@ const OrderDetailView = ({
   };
 
   const handleSubmit = () => {
-    updateOrder(order)
-      .catch((err) => console.warn(err));
+    order.shippingCost = shippingCost;
+    debugger;
+    console.warn(newTransaction.paymentAmount);
+    console.warn(orderSubTotal + shippingCost);
+    if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
+      order.completed = true;
+    }
+    updateOrder(order);
     const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
-      totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + order.shippingCost);
+      totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + shippingCost);
     const timeStamp = new Date();
     const transaction = {
       orderId: order.id,
@@ -161,14 +185,11 @@ const OrderDetailView = ({
       paymentAmount: newTransaction.paymentAmount,
       paymentDate: timeStamp.toISOString()
     };
-    addTransaction(transaction).then((transactionId) => {
-      console.warn(transactionId);
+    addTransaction(transaction).then(() => {
       getTransactionsByOrderId(orderId).then((responseList) => {
         setTransactionList(responseList);
       });
-    })
-      .catch((error) => console.warn(error));
-    console.warn(transaction);
+    });
     // addTransaction(transaction);
   };
 
@@ -222,11 +243,12 @@ const OrderDetailView = ({
             </OrderTransactionLine>)) : '' }
           </OrderTransactionList>
           <OrderSubTotalDiv>SubTotal: {currencyFormatter.format(orderSubTotal)}</OrderSubTotalDiv>
-          <OrderShippingCostDiv>Shipping: {currencyFormatter.format(order.shippingCost)}</OrderShippingCostDiv>
+          <OrderShippingCostDiv>Shipping: {currencyFormatter.format(shippingCost)}</OrderShippingCostDiv>
           <OrderTotalPaymentsDiv>Total Payments:
             {currencyFormatter.format(totalPayments)}
           </OrderTotalPaymentsDiv>
-          <OrderTotalDue>Balance Due: {currencyFormatter.format(orderSubTotal + order.shippingCost - totalPayments)}</OrderTotalDue>
+          <OrderTotalDue>Balance Due: {currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}
+            </OrderTotalDue>
           <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton>
         </OrderAddressPaymentDiv>
       </OrderOuterDiv>

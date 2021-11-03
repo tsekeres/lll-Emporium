@@ -23,11 +23,41 @@ const calculateTotalPayments = (transactionList) => {
       total += transactionList[i].paymentAmount;
     }
   }
+  total = parseFloat(total.toFixed(2));
   return total;
+};
+
+const calculateShippingCost = (subTotal) => {
+  let shippingCost = 7.99;
+  const additional = 5.00;
+  switch (true) {
+    case (subTotal < 100.00):
+      shippingCost += additional;
+      break;
+    case (subTotal < 200.00):
+      // 16.99
+      shippingCost += additional - 1;
+      break;
+    case (subTotal < 400.00):
+      // 19.99
+      shippingCost += additional - 2;
+      break;
+    case (subTotal < 800.00):
+      // 21.99
+      shippingCost += additional - 3;
+      break;
+    case (subTotal >= 800.00):
+      shippingCost += Math.round((subTotal * 0.02));
+      break;
+    default:
+      break;
+  }
+  return shippingCost;
 };
 
 export {
   formatDate,
   calculateOrderSubtotal,
-  calculateTotalPayments
+  calculateTotalPayments,
+  calculateShippingCost
 };
