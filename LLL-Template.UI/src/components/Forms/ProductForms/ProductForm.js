@@ -15,7 +15,7 @@ const ProductForm = ({
   price,
   productId,
 }) => {
-  const [product, setProducts] = useState({
+  const [product, setProduct] = useState({
     productImageURL: productImageURL || "",
     productName: productName || "",
     productDescription: productDescription || "",

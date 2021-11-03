@@ -23,8 +23,6 @@ import logo from '../../Assets/NavBarIcons/LOGO.png';
 import loggedOut from '../../Assets/NavBarIcons/LoggedOut.png';
 import bag from '../../Assets/NavBarIcons/bag.png';
 import magnifyingGlass from '../../Assets/NavBarIcons/SearchIcons.png';
-import { signInUser, signOutUser } from '../../helpers/auth';
-
 
 const styleObj = {
   color: '#000000',
@@ -89,4 +87,5 @@ export default function NavBar({ toggle, user }) {
 
 NavBar.propTypes = {
   toggle: PropTypes.any,
+  user: PropTypes.any,
 };
