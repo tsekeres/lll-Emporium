@@ -9,6 +9,10 @@ import {
   OrderOuterDiv,
   OrderDataDetailDiv,
   OrderLineItemsDiv,
+  OrderLineItemsUL,
+  OrderLineItemsLI,
+  OrderLineCheckBox,
+  OrderLineCountSelect,
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
@@ -28,6 +32,7 @@ import {
   calculateShippingCost
 } from '../../helpers/data/calculators';
 import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
+import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -85,27 +90,37 @@ const OrderDetailView = ({
   }, [orderId]);
 
   useEffect(() => {
+    let mounted = true;
     const optionsArr = [];
-    getPaymentTypes().then((resultArr) => {
-      for (let i = 0; i < resultArr.length; i += 1) {
-        const option = {
-          value: resultArr[i].id,
-          label: `${resultArr[i].paymentTypeName}`
-        };
-        optionsArr.push(option);
-      }
-      setPaymentTypeOptions(optionsArr);
-    })
-      .catch(setPaymentTypeOptions([]));
-    getTransactionTypes().then((resultArr) => setTransactionTypeOptions(resultArr))
-      .catch(setTransactionTypeOptions([]));
+    if (mounted) {
+      getPaymentTypes().then((resultArr) => {
+        for (let i = 0; i < resultArr.length; i += 1) {
+          const option = {
+            value: resultArr[i].id,
+            label: `${resultArr[i].paymentTypeName}`
+          };
+          optionsArr.push(option);
+        }
+        setPaymentTypeOptions(optionsArr);
+      })
+        .catch(setPaymentTypeOptions([]));
+      getTransactionTypes().then((resultArr) => setTransactionTypeOptions(resultArr))
+        .catch(setTransactionTypeOptions([]));
+    }
+    return function cleanup() {
+      mounted = false;
+    };
   }, []);
 
   // order subtotal
   useEffect(() => {
-    if (order && lineItemsList) {
+    let mounted = true;
+    if (mounted && order && lineItemsList) {
       setOrderSubTotal(calculateOrderSubtotal(order, lineItemsList));
     }
+    return function cleanup() {
+      mounted = false;
+    };
   }, [lineItemsList]);
 
   // sum of payments made
@@ -167,7 +182,6 @@ const OrderDetailView = ({
 
   const handleSubmit = () => {
     order.shippingCost = shippingCost;
-    debugger;
     console.warn(newTransaction.paymentAmount);
     console.warn(orderSubTotal + shippingCost);
     if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
@@ -197,14 +211,12 @@ const OrderDetailView = ({
     <>
     { order ? (
       <OrderOuterDiv>
-        <div>
-          <OrderDataDetailDiv>Order Number: {order.id}</OrderDataDetailDiv>
-          <OrderDataDetailDiv>Order Date: {formatDate(order.orderDate)}</OrderDataDetailDiv>
-        </div>
+        <OrderDataDetailDiv>Order Number: {order.id}</OrderDataDetailDiv>
+        <OrderDataDetailDiv>Order Date: {formatDate(order.orderDate)}</OrderDataDetailDiv>
         <OrderLineItemsDiv>
-          { lineItemsList ? lineItemsList.map((lineObj) => <LineItemDetailCard
-            key={lineObj.id}
-            lineItem={lineObj} />) : '' }
+          <LineItemsCartForm
+            lineItemsList={lineItemsList}
+          />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>
           <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>

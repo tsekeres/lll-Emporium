@@ -26,6 +26,24 @@ const OrderLineItemsDiv = styled.div`
   background-color: #c4c4c4;
 `;
 
+const OrderLineItemsUL = styled.ul`
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+`;
+
+const OrderLineItemsLI = styled.li`
+  width: 78%;
+`;
+
+const OrderLineCheckBox = styled.input`
+  width: 20%;
+`;
+
+const OrderLineCountSelect = styled.input`
+  width: 2em;
+`;
+
 const OrderAddressPaymentDiv = styled.div`
   width: 30%;
   background-color: #ba9e9b;
@@ -75,6 +93,10 @@ export {
   OrderDataDiv,
   OrderDataDetailDiv,
   OrderLineItemsDiv,
+  OrderLineItemsUL,
+  OrderLineItemsLI,
+  OrderLineCheckBox,
+  OrderLineCountSelect,
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
