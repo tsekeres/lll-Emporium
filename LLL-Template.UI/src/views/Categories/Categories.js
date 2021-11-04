@@ -36,36 +36,32 @@ export const Categories = ({ user, categories, setCategories }) => {
   return (
     <CategoryContainer className="CategoryContainer" id="CategoryContainer">
       <CategoryWrapper className="CategoryWrapper" id="Categories">
-      {
+          {
             user !== null
-            && <div className="CategoryWrapper">
+            && <AddButtonContainer className="AddButtonContainer">
               {
                 (user)
-                  ? <div>
-                      <AddButtonContainer className="AddButtonContainer">
-                        <AddCategoryButton className="addCategory" onClick={openModal}>
-                          <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
-                          </AddCategoryButtonImg>
-                        </AddCategoryButton>
-                      </AddButtonContainer>
-                      <Modal
-                        isOpen={modalIsOpen}
-                        className="Modal"
-                      >
-                        <Button className="modalClose" onClick={closeModal}>
-                          <ButtonImg src={deleted}/>
-                        </Button>
-                        <CategoryForms
-                          categoryFormTitle="Add Category"
-                          setCategories={setCategories}
-                          categories={categories}
-                        />
-                      </Modal>
-                    </div>
+                  ? <AddCategoryButton className="addCategory" onClick={openModal}>
+                      <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
+                      </AddCategoryButtonImg>
+                    </AddCategoryButton>
                   : <div></div>
               }
-              </div>
+              </AddButtonContainer>
             }
+            <Modal
+              isOpen={modalIsOpen}
+              className="Modal"
+            >
+              <Button className="modalClose" onClick={closeModal}>
+                <ButtonImg src={deleted}/>
+              </Button>
+              <CategoryForms
+                categoryFormTitle="Add Category"
+                setCategories={setCategories}
+                categories={categories}
+              />
+            </Modal>
         <Column1 className="CategoryColumn1">
           {categories?.map((categoryInfo) => (
             <CategoryCards
