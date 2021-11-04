@@ -44,7 +44,6 @@ export const Categories = ({ categories, setCategories }) => {
           </AddButtonContainer>
           <Modal
             isOpen={modalIsOpen}
-            onRequestClose={closeModal}
             className="Modal"
           >
             <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>

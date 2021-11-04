@@ -34,7 +34,6 @@ export const ProductTypes = ({ categories }) => {
 
   useEffect(() => {
     getProductTypes().then((response) => setProductTypes(response));
-    console.warn(categories);
   }, []);
   return (
     <CategoryContainer className="CategoryContainer" id="CategoryContainer">
@@ -47,7 +46,6 @@ export const ProductTypes = ({ categories }) => {
           </AddButtonContainer>
           <Modal
             isOpen={modalIsOpen}
-            onRequestClose={closeModal}
             className="Modal"
           >
             <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>
@@ -65,7 +63,7 @@ export const ProductTypes = ({ categories }) => {
               id={productTypeInfo.id}
               categoryId={productTypeInfo.categoryId}
               typeName={productTypeInfo.typeName}
-              productTypeImageurl={productTypeInfo.productTypeImageurl}
+              productTypeImageUrl={productTypeInfo.productTypeImageUrl}
               setProductTypes={setProductTypes}
               productTypes={productTypes}
               categories={categories}

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const CategoryContainer = styled.div`
   color: #00000;
   background: #fff;
-  height: 734px;
+  height: 1400px;
   padding-top: 50px;
 `;
 
@@ -27,6 +27,7 @@ export const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 100%;
 
   @media screen and (max-width: 800px) {
     flex-direction: column;
@@ -39,7 +40,7 @@ export const Column1 = styled.div`
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 100%;
   height: 634px;
   margin-top: 48px;
 

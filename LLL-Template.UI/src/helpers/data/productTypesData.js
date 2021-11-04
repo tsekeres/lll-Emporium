@@ -22,7 +22,7 @@ const addProductType = (productType) => new Promise((resolve, reject) => {
 });
 
 const updateProductType = (id, productTypeObj) => new Promise((resolve, reject) => {
-  axios.put(`${dbURL}/api/ProductTypes/${id}`, productTypeObj)
+  axios.put(`${dbURL}/api/ProductTypes/${id}/updateProductType`, productTypeObj)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });

@@ -78,7 +78,6 @@ export const ProductTypeCards = ({
       </CategoryCardFooter>
         <Modal
           isOpen={modalIsOpen}
-          onRequestClose={closeModal}
           className='Modal'
           parentSelector={() => document.querySelector('#CategoryContainer')}
         >
