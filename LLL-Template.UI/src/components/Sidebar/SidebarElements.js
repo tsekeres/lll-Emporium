@@ -44,7 +44,7 @@ export const SidebarMenu = styled.ul`
   grid-template-columns: 1fr;
   grid-template-rows: repeat(6, 60px);
   text-align: center;
-  padding-top: 75px;
+  padding-top: 50px;
 
   @media screen and (max-width: 480px) {
     grid-template-rows: repeat(6, 60px);
@@ -55,7 +55,7 @@ export const SidebarLink = styled(LinkS)`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
+  font-size: .75rem;
   text-decoration: none;
   list-style: none;
   transtion: 0.2s ease-in-out;
@@ -72,7 +72,7 @@ export const SideBtnWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 49%;
+  padding-left: 48.5%;
 `;
 
 export const SidebarRoute = styled(LinkR)`
@@ -81,11 +81,12 @@ export const SidebarRoute = styled(LinkR)`
   justify-content: center;
   background: #fff;
   color: #010606;
-  font-size: 1rem;
-  padding-top: 5px;
+  font-size: .75rem;
+  padding: 10px;
 `;
 
 export const NavBarImg1 = styled.img`
   width: 50px;
-  padding-top: 25px;
+  padding-top: 10px;
+  padding-left: 10px;
 `;

@@ -45,6 +45,8 @@ export default function Sidebar({
               shop
             </HashLink>
           </SidebarLink>
+            <SidebarRoute to="/ProductTypes">product types</SidebarRoute>
+            <SidebarRoute to="/Products">products</SidebarRoute>
             <SidebarLink className='Link' onClick={toggle}>
             <HashLink smooth to='/#AboutUs' style={styleObj}>
               about us

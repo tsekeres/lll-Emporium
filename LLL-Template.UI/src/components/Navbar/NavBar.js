@@ -63,16 +63,15 @@ export default function NavBar({ toggle, user }) {
             <Link to="/Designers" style={styleObj}> designers</Link>
           </NavLink>
           <NavLink className="Link">
-            <Link to="/PersonalProfile" style={styleObj}> account </Link>
-          </NavLink>
-          <NavLink className="Link">
-            <Link to="/OrderHistory" style={styleObj}> order history</Link>
-          </NavLink>
-          <NavLink className="Link">
-            <Link to="/SellingHistory" style={styleObj}> selling history</Link>
-          </NavLink>
-          <NavLink className="Link">
-            <Link to="/Users" style={styleObj}> users</Link>
+          <DropDown>
+                account
+              <DropDownContent className="dropdown-content">
+                <Link to="/PersonalProfile" style={styleObj}> my account </Link>
+                <Link to="/OrderHistory" style={styleObj}>order history</Link>
+                <Link to="/SellingHistory" style={styleObj}>selling history</Link>
+                <Link to="/Users" style={styleObj}> users</Link>
+              </DropDownContent>
+            </DropDown>
           </NavLink>
         </NavItemsLeft>
       </NavLeft>
