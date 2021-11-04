@@ -9,10 +9,6 @@ import {
   OrderOuterDiv,
   OrderDataDetailDiv,
   OrderLineItemsDiv,
-  OrderLineItemsUL,
-  OrderLineItemsLI,
-  OrderLineCheckBox,
-  OrderLineCountSelect,
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
@@ -31,7 +27,7 @@ import {
   calculateTotalPayments,
   calculateShippingCost
 } from '../../helpers/data/calculators';
-import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
+// import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
