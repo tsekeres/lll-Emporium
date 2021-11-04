@@ -43,7 +43,7 @@ export const CategoryCards = ({
         deleteCategory(id).then(() => getCategories().then((response) => setCategories(response)));
         break;
       case 'view':
-        history.push(`/categories/${id}`);
+        history.push(`api/categories/${id}`);
         break;
       default:
         console.warn('Nothing selected');
@@ -54,29 +54,28 @@ export const CategoryCards = ({
     <CategoryCard className='CategoryCard' key={id} id='CategoryCard'>
       <CategoryCardHeader className='CategoryCardHeader'>
         <CategoryCardButtons className='CategoryCardButtons'>
-          <Button1 id='editCategory' onClick={openModal}>
+          <Button1 className="editCategory" id='editCategory' onClick={openModal}>
             <CategoryCardEdit
-              className='CategoryCardEdit'
+              className='CategoryCardEditImage'
               src={edit}
             ></CategoryCardEdit>
           </Button1>
-          <Button1 id='deleteCategory' onClick={() => handleClick('delete')}>
+          <Button1 className='deleteCategory' id='deleteCategory' onClick={() => handleClick('delete')}>
             <CategoryCardDelete
-              className='CategoryCardDelete'
+              className='CategoryCardDeleteImage'
               src={deleted}
             ></CategoryCardDelete>
           </Button1>
         </CategoryCardButtons>
       </CategoryCardHeader>
-      <Button>
-        <CategoryCardImg className='CategoryCardImg' src={categoryImageUrl} />
+      <Button className="CategoryCardButton">
+        <CategoryCardImg className='CategoryCardImg' src={categoryImageUrl} onClick={() => handleClick('view')} />
       </Button>
       <CategoryCardFooter className='CategoryCardFooter'>
         {categoryName}
       </CategoryCardFooter>
         <Modal
           isOpen={modalIsOpen}
-          onRequestClose={closeModal}
           className='Modal'
           parentSelector={() => document.querySelector('#CategoryContainer')}
         >

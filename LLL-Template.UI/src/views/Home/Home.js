@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   HomePage,
@@ -14,7 +14,6 @@ import {
 } from './HomeElements';
 import { Categories } from '../Categories/Categories';
 import { AboutUs } from '../AboutUs/AboutUs';
-import { getCategories } from '../../helpers/data/categoryData';
 import { HomeViewCards } from '../../components/Cards/HomeCards/HomeViewCards';
 import welcomeImg from '../../Assets/ViewStockPhotos/WelcomeImg.jpeg';
 import knitting from '../../Assets/ViewStockPhotos/Knitting.jpeg';
@@ -22,12 +21,7 @@ import dancing from '../../Assets/ViewStockPhotos/Dancing.jpeg';
 import man from '../../Assets/ViewStockPhotos/Man.jpeg';
 import yoga from '../../Assets/ViewStockPhotos/Yoga.jpeg';
 
-function Home() {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    getCategories().then((response) => setCategories(response));
-  }, []);
+function Home({ categories, setCategories }) {
   return (
     <>
     <HomePage className='Home'>
@@ -36,7 +30,7 @@ function Home() {
           <AlternateItem className="AlternateItem">
             One place for all your live, laugh, love needs.
           </AlternateItem>
-          {categories.map((categoryInfo) => (
+          {categories?.map((categoryInfo) => (
             <HomeViewCards
               key={categoryInfo.id}
               categoryName={categoryInfo.categoryName}
@@ -54,7 +48,7 @@ function Home() {
         <SecondWelcomeImg src={yoga} className="SecondWelcomeImg"></SecondWelcomeImg>
       </Bottom>
     </HomePage>
-    <Categories/>
+    <Categories categories={categories} setCategories={setCategories}/>
     <AboutUs/>
    </>
   );
@@ -62,6 +56,8 @@ function Home() {
 
 Home.propTypes = {
   user: PropTypes.any,
+  categories: PropTypes.any,
+  setCategories: PropTypes.func,
 };
 
 export default Home;

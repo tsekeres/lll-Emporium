@@ -5,6 +5,7 @@ import Home from '../views/Home/Home';
 import Products from '../views/Products/Products';
 import Designers from '../views/Designers/Designers';
 import PersonalProfile from '../views/PersonalProfile/PersonalProfile';
+import { ProductTypes } from '../views/ProductTypes/ProductTypes';
 import OrderHistory from '../views/OrderHistory/OrderHistory';
 import SellingHistory from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
@@ -25,18 +26,42 @@ PrivateRoute.propTypes = {
   user: PropTypes.any,
 };
 
-function Routes() {
+function Routes({ categories, setCategories }) {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/Products" component={Products} />
+        <Route
+          exact
+          path="/"
+          component={() => (
+            <Home categories={categories} setCategories={setCategories} />
+          )}
+          categories={categories}
+          setCategories={setCategories}
+        />
         <Route exact path="/Designers" component={Designers} />
+        <Route
+          exact
+          path="/ProductTypes"
+          component={() => (
+            <ProductTypes
+              categories={categories}
+              setCategories={setCategories}
+            />
+          )}
+          categories={categories}
+          setCategories={setCategories}
+        />
+        <Route exact path="/Products" component={Products} />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
         <Route exact path="/Users" component={userCardView} />
-        <Route exact path="/Users/RoleTypes" component={() => <RoleTypeView />} />
+        <Route
+          exact
+          path="/Users/RoleTypes"
+          component={() => <RoleTypeView />}
+        />
         <PrivateRoute />
         <PrivateRoute />
         <Route path="*" />
@@ -47,6 +72,8 @@ function Routes() {
 
 Routes.propTypes = {
   user: PropTypes.any,
+  categories: PropTypes.any,
+  setCategories: PropTypes.func,
 };
 
 export default Routes;
