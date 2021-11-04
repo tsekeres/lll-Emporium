@@ -89,6 +89,7 @@ export const CategoryCardFooter = styled.div`
   justify-content: center;
   margin-top: 5px;
   width: 100%;
+  text-transform: lowercase;
 `;
 
 export const Modal1 = styled.div`

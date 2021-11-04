@@ -62,17 +62,27 @@ export default function NavBar({ toggle, user }) {
           <NavLink className="Link">
             <Link to="/Designers" style={styleObj}> designers</Link>
           </NavLink>
-          <NavLink className="Link">
-          <DropDown>
-                account
-              <DropDownContent className="dropdown-content">
-                <Link to="/PersonalProfile" style={styleObj}> my account </Link>
-                <Link to="/OrderHistory" style={styleObj}>order history</Link>
-                <Link to="/SellingHistory" style={styleObj}>selling history</Link>
-                <Link to="/Users" style={styleObj}> users</Link>
-              </DropDownContent>
-            </DropDown>
-          </NavLink>
+          {
+            user !== null
+            && <div className="NavItemsRight" id="authButtons">
+              {
+                (user)
+                  ? <NavLink className="Link">
+                      <DropDown>
+                        account
+                        <DropDownContent className="dropdown-content">
+                          <Link to="/PersonalProfile" style={styleObj}> my account </Link>
+                          <Link to="/OrderHistory" style={styleObj}>order history</Link>
+                          <Link to="/SellingHistory" style={styleObj}>selling history</Link>
+                          <Link to="/Users" style={styleObj}> users</Link>
+                        </DropDownContent>
+                      </DropDown>
+                    </NavLink>
+                  : <div>
+                    </div>
+              }
+              </div>
+            }
         </NavItemsLeft>
       </NavLeft>
       <NavMiddle className="NavMiddle">
