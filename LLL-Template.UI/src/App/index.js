@@ -20,7 +20,7 @@ export default function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed) {
-        user.getIdToken().then((token) => localStorage.setItem('token', token));
+        authed.getIdToken().then((token) => localStorage.setItem('token', token));
         setUser(authed);
         getCategories().then((categoryArray) => setCategories(categoryArray));
       } else if (user || user === null) {

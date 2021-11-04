@@ -18,12 +18,12 @@ const signInUser = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).then((user) => {
     if (user.additionalUserInfo?.isNewUser) {
-      const userInfo = {
-        display_Name: user.user?.displayName,
-        image_Url: user.user?.photoURL,
-        firebase_Uid: user.user?.uid,
-        email: user.user?.email,
-      };
+      // const userInfo = {
+      //   display_Name: user.user?.displayName,
+      //   image_Url: user.user?.photoURL,
+      //   firebase_Uid: user.user?.uid,
+      //   email: user.user?.email,
+      // };
       window.location.href = '/';
     }
   });

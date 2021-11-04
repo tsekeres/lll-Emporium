@@ -1,4 +1,3 @@
-// import userEvent from '@testing-library/user-event';
 import React, { useState, useEffect } from 'react';
 import { getProducts } from '../../helpers/data/ProductsData';
 import ProductCards from '../../components/Cards/ProductCards/ProductCards';
