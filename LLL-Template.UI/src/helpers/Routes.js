@@ -43,9 +43,11 @@ function Routes({ user, categories, setCategories }) {
           component={() => <ProductTypes
             categories={categories}
             setCategories={setCategories}
+            user={user}
           />}
           categories={categories}
           setCategories={setCategories}
+          user={user}
           />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
