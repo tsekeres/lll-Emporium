@@ -59,7 +59,6 @@ export const Categories = ({ user, categories, setCategories }) => {
                           categoryFormTitle="Add Category"
                           setCategories={setCategories}
                           categories={categories}
-                          user={user}
                         />
                       </Modal>
                     </div>
