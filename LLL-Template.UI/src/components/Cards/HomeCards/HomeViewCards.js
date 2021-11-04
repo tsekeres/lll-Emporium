@@ -1,12 +1,12 @@
 /* eslint-disable arrow-body-style */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Item } from './HomeViewCardElements';
+import { Item, Button } from './HomeViewCardElements';
 
 export const HomeViewCards = ({ id, categoryName }) => {
   return (
     <Item className="Item" key={id}>
-      {categoryName}
+      <Button>{categoryName}</Button>
     </Item>
   );
 };
