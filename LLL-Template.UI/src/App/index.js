@@ -18,13 +18,8 @@ export default function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed) {
-        const userInfoObj = {
-          fullName: authed.displayName,
-          profileImage: authed.photoURL,
-          uid: authed.uid,
-          user: authed.email.split('@')[0],
-        };
-        setUser(userInfoObj);
+        user.getIdToken().then((token) => localStorage.setItem('token', token));
+        setUser(authed);
       } else if (user || user === null) {
         setUser(false);
       }

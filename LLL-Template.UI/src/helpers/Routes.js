@@ -30,7 +30,7 @@ function Routes() {
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route exact path="/Products" component={() => <Products />} />
+        <Route exact path="/Products" component={Products} />
         <Route exact path="/Designers" component={Designers} />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />

@@ -69,7 +69,7 @@ export const ProductCardButtons = styled.div`
   margin-top: 5px;
 `;
 
-export const ProductCardEdit = styled.img`
+export const ProductCardEdit = styled.button`
   height: 15px;
   margin-left: 10px;
 `;
@@ -86,7 +86,6 @@ export const ProductCardImg = styled.img`
 
   @media screen and (max-width: 1150px) {
     width: 70%;
-  }
   }
 `;
 

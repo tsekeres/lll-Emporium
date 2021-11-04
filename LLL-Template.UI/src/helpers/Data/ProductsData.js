@@ -6,7 +6,7 @@ const dbURL = LLLConfig.baseUrl;
 const getProducts = () => new Promise((resolve, reject) => {
   axios
     .get(`${dbURL}/api/products`)
-    .then((response) => resolve(Object.values(response.data)))
+    .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 

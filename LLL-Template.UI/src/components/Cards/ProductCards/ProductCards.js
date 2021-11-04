@@ -5,7 +5,7 @@ import {
   ProductWrapper,
   Column1,
   ProductCard,
-  ProductCardImg,
+  // ProductCardImg,
   ProductCardHeader,
   ProductCardButtons,
   ProductCardEdit,
@@ -64,11 +64,11 @@ const ProductCards = ({
               ></ProductCardDelete>
             </ProductCardButtons>
           </ProductCardHeader>
-          <ProductCardImg
+          {/* <ProductCardImg
             className="product-image"
             src={product.productImageURL}
             alt="Product Card image cap"
-          />
+          /> */}
           <ProductCardBody>
             <CardTitle tag="h5">{product.productName}</CardTitle>
             <CardText>{product.productDescription}</CardText>
