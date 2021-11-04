@@ -8,6 +8,8 @@ import {
   NavigationBar,
   NavLeft,
   NavItemsLeft,
+  DropDown,
+  DropDownContent,
   NavLink,
   NavMiddle,
   NavItemsMiddle,
@@ -43,9 +45,14 @@ export default function NavBar({ toggle, user }) {
         <NavItemsLeft className="NavItemsLeft">
           <NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1>
           <NavLink className="Link">
-            <HashLink smooth to='/#Categories' scroll={scrollWithOffset} style={styleObj}>
-            shop
-            </HashLink>
+            <DropDown>
+                shop
+              <DropDownContent className="dropdown-content">
+                <HashLink smooth to="/#Categories" scroll={scrollWithOffset} style={styleObj}>categories</HashLink>
+                <Link to="/ProductTypes" style={styleObj}>product types</Link>
+                <Link to="/Products" style={styleObj}>products</Link>
+              </DropDownContent>
+            </DropDown>
           </NavLink>
           <NavLink className="Link">
           <HashLink smooth to='/#AboutUs' scroll={scrollWithOffset} style={styleObj}>
@@ -84,11 +91,11 @@ export default function NavBar({ toggle, user }) {
                   ? <div>
                       <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
+                      <BagImg className="BagImg" src={bag}></BagImg>
                     </div>
                   : <div>
                       <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
-                      <BagImg className="BagImg" src={bag}></BagImg>
                     </div>
               }
               </div>

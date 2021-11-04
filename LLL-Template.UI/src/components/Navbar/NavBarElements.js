@@ -189,6 +189,7 @@ export const HashLink = styled(LinkS)`
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
+  text-align: center;
 
   &.activeStyle {
     border-bottom: 3px solid #fff;
@@ -201,4 +202,22 @@ export const Button = styled.button`
   border: none;
   cursor:pointer;
   overflow: hidden; 
+`;
+
+export const DropDownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+`;
+
+export const DropDown = styled.div`
+  
+  &:hover ${DropDownContent} {
+    display: flex;
+    flex-direction: column;
+    color: white;
+  }
 `;
