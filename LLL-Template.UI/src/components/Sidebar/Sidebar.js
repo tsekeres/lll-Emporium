@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { HashLink } from 'react-router-hash-link';
+import { signInUser, signOutUser } from '../../helpers/auth';
 import {
   SidebarContainer,
   Icon,
@@ -11,7 +12,9 @@ import {
   SidebarLink,
   SideBtnWrap,
   SidebarRoute,
+  SidebarRoute2,
   NavBarImg1,
+  Button,
 } from './SidebarElements';
 import logo from '../../Assets/NavBarIcons/LOGO.png';
 
@@ -27,7 +30,8 @@ const scrollWithOffset = (el) => {
 
 export default function Sidebar({
   isOpen,
-  toggle
+  toggle,
+  user,
 }) {
   return (
     <SidebarContainer
@@ -69,9 +73,18 @@ export default function Sidebar({
           </SidebarRoute>
         </SidebarMenu>
         <SideBtnWrap className="SideBtnWrap">
-          <SidebarRoute className="SidebarRoute" onClick={toggle}>
-            sign in
-          </SidebarRoute>
+          <SidebarRoute2 className="SidebarRoute" onClick={toggle}>
+          {
+            user !== null
+            && <div className="SidebarRoute">
+              {
+                (user)
+                  ? <div><Button id="signOut" onClick={signOutUser}>sign out</Button></div>
+                  : <div><Button id="signIn" onClick={signInUser}>sign in</Button></div>
+              }
+              </div>
+            }
+          </SidebarRoute2>
           <NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1>
         </SideBtnWrap>
       </SidebarWrapper>
@@ -82,4 +95,5 @@ export default function Sidebar({
 Sidebar.propTypes = {
   isOpen: PropTypes.any,
   toggle: PropTypes.func,
+  user: PropTypes.any,
 };

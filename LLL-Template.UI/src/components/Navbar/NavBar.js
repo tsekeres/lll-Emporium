@@ -43,7 +43,7 @@ export default function NavBar({ toggle, user }) {
     <NavigationBar className="NavigationBar">
       <NavLeft className="NavLeft">
         <NavItemsLeft className="NavItemsLeft">
-          <NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1>
+          <HashLink smooth to="/#Home" scroll={scrollWithOffset} style={styleObj}><NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1></HashLink>
           <NavLink className="Link">
             <DropDown>
                 shop
@@ -77,7 +77,7 @@ export default function NavBar({ toggle, user }) {
       </NavLeft>
       <NavMiddle className="NavMiddle">
         <NavItemsMiddle className="NavItemsMiddle">
-          <NavBarImg className="NavBarImg" src={logo}></NavBarImg>
+          <HashLink smooth to="/#Home" scroll={scrollWithOffset} style={styleObj}><NavBarImg className="NavBarImg" src={logo}></NavBarImg></HashLink>
         </NavItemsMiddle>
       </NavMiddle>
       <NavRight className="NavRight">

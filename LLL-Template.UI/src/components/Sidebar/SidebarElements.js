@@ -72,7 +72,8 @@ export const SideBtnWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 48.5%;
+  align-items: center;
+  padding-left: 8%;
 `;
 
 export const SidebarRoute = styled(LinkR)`
@@ -85,8 +86,42 @@ export const SidebarRoute = styled(LinkR)`
   padding: 10px;
 `;
 
+export const SidebarRoute2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+  color: #010606;
+  font-size: .75rem;
+  padding: 10px;
+`;
+
 export const NavBarImg1 = styled.img`
   width: 50px;
   padding-top: 10px;
-  padding-left: 10px;
+`;
+
+export const SignIn = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: 30px;
+
+  @media screen and (max-width: 650px) {
+    width: 15px;
+    height: 15px;
+  }
+
+  @media screen and (max-width: 525px) {
+    width: 15px;
+    height: 15px;
+    margin-right: 15px;
+  }
+`;
+
+export const Button = styled.button`
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden; 
 `;

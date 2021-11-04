@@ -24,7 +24,7 @@ import yoga from '../../Assets/ViewStockPhotos/Yoga.jpeg';
 function Home({ categories, setCategories }) {
   return (
     <>
-    <HomePage className='Home'>
+    <HomePage className='Home' id="Home">
       <Top className="Top">
         <CategoryData className="CategoryData">
           <AlternateItem className="AlternateItem">

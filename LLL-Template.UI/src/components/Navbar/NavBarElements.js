@@ -29,7 +29,7 @@ export const NavItemsLeft = styled.div`
 `;
 
 export const NavBarImg1 = styled.img`
-  // width: 50px;
+  width: 50px;
   margin-left: 10px;
 
   @media screen and (min-width: 526px) {
