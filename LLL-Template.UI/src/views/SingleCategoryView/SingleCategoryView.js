@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { ProductTypeCards } from '../../components/Cards/ProductTypeCards/ProductTypeCards';
-import { getCategories, showCategoryProductTypes } from '../../helpers/data/categoryData';
+import { getCategoryProductTypes } from '../../helpers/data/categoryData';
 import ProductTypeForms from '../../components/Forms/ProductTypeForms/ProductTypeForms';
 import {
   CategoryContainer,
@@ -21,10 +21,9 @@ import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export default function SingleCategoryView({ user }) {
+export default function SingleCategoryView({ user, categories }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [categoryProductTypes, setCategoryProductTypes] = useState([]);
-  const [categories, setCategories] = useState([]);
   const { categoryId } = useParams();
 
   function openModal() {
@@ -36,8 +35,8 @@ export default function SingleCategoryView({ user }) {
   }
 
   useEffect(() => {
-    showCategoryProductTypes(categoryId).then((response) => setCategoryProductTypes(response));
-    getCategories().then((categoryArray) => setCategories(categoryArray));
+    getCategoryProductTypes().then((cPTArray) => setCategoryProductTypes(cPTArray));
+    console.warn(categoryId);
   }, []);
 
   return (
@@ -93,4 +92,5 @@ export default function SingleCategoryView({ user }) {
 
 SingleCategoryView.propTypes = {
   user: PropTypes.any,
+  categories: PropTypes.any,
 };
