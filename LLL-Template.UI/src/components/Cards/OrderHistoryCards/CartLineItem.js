@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 import { updateOrderLine } from '../../../helpers/data/lineItemData';
 import {
   LineItemOuterDiv,
   LineItemDescriptionDiv,
   ProductIconDiv,
   ProductIconImg,
-  LineItemCountSelect,
   LineItemCountDisplay,
-  LineItemRemoveButton
+  LineItemRemoveButton,
 } from './CartLineItemElements';
 
 const LineItemDetailCard = ({
@@ -18,13 +18,31 @@ const LineItemDetailCard = ({
   hasTransactions
 }) => {
   const [cardLineItem, setCardLineItem] = useState({});
+  const [quantityOptions, setQuantityOptions] = useState({});
 
   useEffect(() => {
     let mounted = true;
     if (mounted && lineItem) {
       setCardLineItem(lineItem);
-      console.warn(hasTransactions);
-      console.warn('hello');
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [lineItem]);
+
+  // setup quantity select
+  useEffect(() => {
+    let mounted = true;
+    const optionsArr = [];
+    if (mounted && lineItem) {
+      for (let i = 1; i <= lineItem.inventoryCount && i < 100; i += 1) {
+        const options = {
+          value: i,
+          label: i
+        };
+        optionsArr.push(options);
+      }
+      setQuantityOptions(optionsArr);
     }
     return () => {
       mounted = false;
@@ -38,10 +56,12 @@ const LineItemDetailCard = ({
   };
 
   const handleUpdateQuantities = (e) => {
+    /*
     setCardLineItem((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value ? e.target.value : ''
     }));
+    */
     // lineItem is a join of two tables, so we have to pare down
     // to an object corresponding to the OrderLine table model
     // The product id and order id are required due to constraints,
@@ -52,7 +72,7 @@ const LineItemDetailCard = ({
       orderId: lineItem.orderId,
       productId: lineItem.productId,
       unitPrice: lineItem.unitPrice,
-      quantity: e.target.value,
+      quantity: e.value,
       discount: lineItem.discount
     };
     updateOrderLine(lineItem.id, lineObj)
@@ -77,9 +97,10 @@ const LineItemDetailCard = ({
         name={cardLineItem.id}
         onClick={handleRemove}>Remove</LineItemRemoveButton> }
       { hasTransactions ? <LineItemCountDisplay>Qty: {cardLineItem.quantity}</LineItemCountDisplay>
-        : <LineItemCountSelect
-        type='number' id={cardLineItem.id} value={cardLineItem.quantity || ''}
-        name='quantity' min='1' max={cardLineItem.inventoryCount} onChange={handleUpdateQuantities} /> }
+        : <LineItemCountDisplay><Select
+          options={quantityOptions}
+          name='quantity' defaultInputValue='1'
+          onChange={handleUpdateQuantities} /> </LineItemCountDisplay> }
     </LineItemOuterDiv>
   );
 };
