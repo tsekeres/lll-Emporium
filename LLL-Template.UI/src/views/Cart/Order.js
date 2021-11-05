@@ -29,6 +29,7 @@ import {
 } from '../../helpers/data/calculators';
 // import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
+// import { getLineItemsByOrderId } from '../../helpers/data/lineItemData';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -76,6 +77,7 @@ const OrderDetailView = ({
     paymentDate: ''
   });
   const [totalPayments, setTotalPayments] = useState('');
+  const [lineItemsUpdated, setLineItemsUpdated] = useState(false);
   useEffect(() => {
     getOrderWithDetail(orderId)
       .then((resultObj) => {
@@ -212,6 +214,8 @@ const OrderDetailView = ({
         <OrderLineItemsDiv>
           <LineItemsCartForm
             lineItemsList={lineItemsList}
+            lineItemsUpdated={lineItemsUpdated}
+            setLineItemsUpdated={setLineItemsUpdated}
           />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>

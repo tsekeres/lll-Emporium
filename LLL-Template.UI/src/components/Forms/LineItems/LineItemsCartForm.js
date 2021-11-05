@@ -1,34 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import LineItemDetailCard from '../../Cards/OrderHistoryCards/LineItemDetailCard';
 
 import {
+  OrderLineItemsFormOuterDiv,
   OrderLineItemsUL,
   OrderLineItemsLI,
-  OrderLineCheckBox,
-  OrderLineCountSelect
 } from './LineItemsCartFormElements';
+import CartLineItem from '../../Cards/OrderHistoryCards/CartLineItem';
 
 const LineItemsCartForm = ({
-  lineItemsList
-}) => (
+  lineItemsList,
+  lineItemsUpdated,
+  setLineItemsUpdated
+}) => {
+  const [formList, setFormList] = useState([]);
+  // const [quantity, setQuantity] = useState([]);
 
-    <OrderLineItemsUL>
-        { lineItemsList ? lineItemsList.map((lineObj) => <OrderLineItemsLI
+  useEffect(() => {
+    let mounted = true;
+    if (mounted && lineItemsList) {
+      setFormList(lineItemsList);
+      setLineItemsUpdated(!lineItemsUpdated);
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [lineItemsList]);
+
+  return (
+    <OrderLineItemsFormOuterDiv>
+      <OrderLineItemsUL>
+        { formList.length ? formList?.map((lineObj) => <OrderLineItemsLI
           key={lineObj.id}>
-          <LineItemDetailCard
-            lineItem={lineObj} />
-          <OrderLineCheckBox
-            type='checkbox' name={lineObj.id} value='true'>
-          </OrderLineCheckBox>
-          <OrderLineCountSelect
-            type='number'id={lineObj.id} value={lineObj.quantity} />
+          <CartLineItem
+            lineItem={lineObj}
+            lineItemsUpdated={lineItemsUpdated}
+            setLineItemsUpdated={setLineItemsUpdated} />
           </OrderLineItemsLI>) : '' }
-        </OrderLineItemsUL>
-);
+      </OrderLineItemsUL>
+    </OrderLineItemsFormOuterDiv>
+  );
+};
 
 LineItemsCartForm.propTypes = {
-  lineItemsList: PropTypes.array
+  lineItemsList: PropTypes.array,
+  lineItemsUpdated: PropTypes.bool,
+  setLineItemsUpdated: PropTypes.func
 };
 
 export default LineItemsCartForm;

@@ -21,8 +21,16 @@ const getOrderLinesWithProduct = (orderId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const updateOrderLine = (orderId, orderObj) => new Promise((resolve, reject) => {
+  console.warn(orderObj);
+  axios.put(`${apiURL}/api/orders/orderLines/${orderId}`, orderObj)
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
 export {
   getLineItemsByOrderId,
   getOrderLineWithProduct,
-  getOrderLinesWithProduct
+  getOrderLinesWithProduct,
+  updateOrderLine
 };
