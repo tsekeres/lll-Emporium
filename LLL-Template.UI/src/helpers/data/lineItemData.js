@@ -22,7 +22,6 @@ const getOrderLinesWithProduct = (orderId) => new Promise((resolve, reject) => {
 });
 
 const updateOrderLine = (orderId, orderObj) => new Promise((resolve, reject) => {
-  console.warn(orderObj);
   axios.put(`${apiURL}/api/orders/orderLines/${orderId}`, orderObj)
     .then((response) => resolve(response))
     .catch((error) => reject(error));

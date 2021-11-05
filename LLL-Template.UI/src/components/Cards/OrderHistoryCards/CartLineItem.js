@@ -73,7 +73,7 @@ const LineItemDetailCard = ({
         onClick={handleDelete}>Delete</LineItemUpdateButton>
       <LineItemCountSelect
         type='number' id={cardLineItem.id} value={cardLineItem.quantity || ''}
-        name='quantity' onChange={handleUpdateQuantities} />
+        name='quantity' min='1' max={cardLineItem.inventoryCount} onChange={handleUpdateQuantities} />
     </LineItemOuterDiv>
   );
 };

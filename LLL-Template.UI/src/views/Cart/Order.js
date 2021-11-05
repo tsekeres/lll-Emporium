@@ -83,12 +83,7 @@ const OrderDetailView = ({
     let mounted = true;
     if (mounted && orderId) {
       getOrderById(orderId).then(setOrder);
-      getTransactionsByOrderId(orderId).then((resultList) => {
-        if (resultList) {
-          setTransactionList(resultList);
-        }
-      })
-        .catch(() => setTransactionList([]));
+      getTransactionsByOrderId(orderId).then(setTransactionList);
     }
     return () => {
       mounted = false;
