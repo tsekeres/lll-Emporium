@@ -4,7 +4,7 @@ import Select from 'react-select';
 import getPaymentTypes from '../../helpers/data/paymentTypeData';
 import getTransactionTypes from '../../helpers/data/transactionTypeData';
 import { addTransaction, getTransactionsByOrderId } from '../../helpers/data/transactionData';
-import { getOrderWithDetail, updateOrder } from '../../helpers/data/orderData';
+import { getOrderById, updateOrder } from '../../helpers/data/orderData';
 import {
   OrderOuterDiv,
   OrderDataDetailDiv,
@@ -29,6 +29,7 @@ import {
 } from '../../helpers/data/calculators';
 // import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
+import { getOrderLinesWithProduct } from '../../helpers/data/lineItemData';
 // import { getLineItemsByOrderId } from '../../helpers/data/lineItemData';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -79,12 +80,19 @@ const OrderDetailView = ({
   const [totalPayments, setTotalPayments] = useState('');
   const [lineItemsUpdated, setLineItemsUpdated] = useState(false);
   useEffect(() => {
-    getOrderWithDetail(orderId)
-      .then((resultObj) => {
-        setOrder(resultObj.order);
-        setLineItemsList(resultObj.lineItems);
-        setTransactionList(resultObj.transactionItems);
-      });
+    let mounted = true;
+    if (mounted && orderId) {
+      getOrderById(orderId).then(setOrder);
+      getTransactionsByOrderId(orderId).then((resultList) => {
+        if (resultList) {
+          setTransactionList(resultList);
+        }
+      })
+        .catch(() => setTransactionList([]));
+    }
+    return () => {
+      mounted = false;
+    };
   }, [orderId]);
 
   useEffect(() => {
@@ -113,8 +121,8 @@ const OrderDetailView = ({
   // order subtotal
   useEffect(() => {
     let mounted = true;
-    if (mounted && order && lineItemsList) {
-      setOrderSubTotal(calculateOrderSubtotal(order, lineItemsList));
+    if (mounted && lineItemsList) {
+      setOrderSubTotal(calculateOrderSubtotal(lineItemsList));
     }
     return function cleanup() {
       mounted = false;
@@ -156,6 +164,20 @@ const OrderDetailView = ({
     };
   }, [orderSubTotal]);
 
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      getOrderLinesWithProduct(orderId)
+        .then((listArr) => {
+          setLineItemsList(listArr);
+          setOrderSubTotal(calculateOrderSubtotal(listArr));
+        });
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [lineItemsUpdated]);
+
   // main form input
   const handleChange = (e) => {
     setOrder((prevState) => ({
@@ -178,6 +200,7 @@ const OrderDetailView = ({
     }));
   };
 
+  // update order
   const handleSubmit = () => {
     order.shippingCost = shippingCost;
     console.warn(newTransaction.paymentAmount);

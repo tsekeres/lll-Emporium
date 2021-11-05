@@ -20,7 +20,6 @@ const LineItemsCartForm = ({
     let mounted = true;
     if (mounted && lineItemsList) {
       setFormList(lineItemsList);
-      setLineItemsUpdated(!lineItemsUpdated);
     }
     return () => {
       mounted = false;

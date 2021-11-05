@@ -51,7 +51,7 @@ namespace LLL_Emporium.Controllers
             {
                 return Ok(result);
             }
-            else return NotFound($"Transactions for order with id {orderId} not found.");
+            else return BadRequest($"Error getting Transactions for order with id {orderId}.");
         }
 
         [HttpGet("paymentType/{paymentTypeId}")]

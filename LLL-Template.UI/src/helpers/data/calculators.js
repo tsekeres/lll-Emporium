@@ -8,10 +8,10 @@ const formatDate = (dateString) => {
   return output;
 };
 
-const calculateOrderSubtotal = (order, itemsList) => {
+const calculateOrderSubtotal = (itemsList) => {
   let total = 0.0;
   itemsList.forEach((item) => {
-    total += item.unitPrice;
+    total += item.unitPrice * item.quantity;
   });
   return total;
 };

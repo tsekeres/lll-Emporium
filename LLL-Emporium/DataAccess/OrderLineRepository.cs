@@ -62,7 +62,7 @@ namespace LLL_Emporium.DataAccess
         internal OrderLineDetail GetOrderLineWithProduct(Guid orderLineId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT OL.Id, OL.ProductId,
+            var sql = @"SELECT OL.Id, OL.OrderId, OL.ProductId,
 	                    OL.UnitPrice, OL.Quantity, OL.Discount,
 	                    PR.ProductName, PR.ProductDescription,
 	                    PR.ProductImageURL, PR.InventoryCount, PR.Price as CurrentPrice FROM OrderLines OL
@@ -79,7 +79,7 @@ namespace LLL_Emporium.DataAccess
         internal IEnumerable<OrderLineDetail> GetOrderLinesWithProduct(Guid orderId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT OL.Id, OL.ProductId,
+            var sql = @"SELECT OL.Id, OL.OrderId, OL.ProductId,
 	                    OL.UnitPrice, OL.Quantity, OL.Discount,
 	                    PR.ProductName, PR.ProductDescription,
 	                    PR.ProductImageURL, PR.InventoryCount, PR.Price as CurrentPrice FROM OrderLines OL

@@ -57,7 +57,7 @@ namespace LLL_Emporium.DataAccess
 
 
                 // Get list of line items
-                sql = @"SELECT OL.Id, OL.ProductId,
+                sql = @"SELECT OL.Id, OL.OrderId, OL.ProductId,
 	                    OL.UnitPrice, OL.Quantity, OL.Discount,
 	                    PR.ProductName, PR.ProductDescription,
 	                    PR.ProductImageURL, PR.InventoryCount, PR.Price as CurrentPrice FROM OrderLines OL
