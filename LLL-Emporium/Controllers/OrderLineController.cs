@@ -64,6 +64,17 @@ namespace LLL_Emporium.Controllers
             }
             else return NotFound($"Order line for order {orderId} with id {orderLineId} not found.");
         }
+        
+        [HttpGet("details/{orderLineId}")]
+        public IActionResult GetOrderLineWithProduct(Guid orderLineId)
+        {
+            var result = _orderLineRepository.GetOrderLineWithProduct(orderLineId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"Order line details with id {orderLineId} not found.");
+        }
 
 
         [HttpPost]
