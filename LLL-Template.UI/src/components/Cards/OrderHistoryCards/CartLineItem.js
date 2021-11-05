@@ -7,13 +7,15 @@ import {
   ProductIconDiv,
   ProductIconImg,
   LineItemCountSelect,
-  LineItemUpdateButton
+  LineItemCountDisplay,
+  LineItemRemoveButton
 } from './CartLineItemElements';
 
 const LineItemDetailCard = ({
   lineItem,
   lineItemsUpdated,
-  setLineItemsUpdated
+  setLineItemsUpdated,
+  hasTransactions
 }) => {
   const [cardLineItem, setCardLineItem] = useState({});
 
@@ -21,14 +23,16 @@ const LineItemDetailCard = ({
     let mounted = true;
     if (mounted && lineItem) {
       setCardLineItem(lineItem);
+      console.warn(hasTransactions);
+      console.warn('hello');
     }
     return () => {
       mounted = false;
     };
   }, [lineItem]);
 
-  const handleDelete = (e) => {
-    console.warn('Delete');
+  const handleRemove = (e) => {
+    console.warn('Remove');
     console.warn(e.target.id);
     // setLineItemsUpdated(!lineItemsUpdated);
   };
@@ -68,12 +72,14 @@ const LineItemDetailCard = ({
       <LineItemDescriptionDiv>
         {cardLineItem?.productDescription}
       </LineItemDescriptionDiv>
-      <LineItemUpdateButton
+      { hasTransactions ? ''
+        : <LineItemRemoveButton
         name={cardLineItem.id}
-        onClick={handleDelete}>Delete</LineItemUpdateButton>
-      <LineItemCountSelect
+        onClick={handleRemove}>Remove</LineItemRemoveButton> }
+      { hasTransactions ? <LineItemCountDisplay>Qty: {cardLineItem.quantity}</LineItemCountDisplay>
+        : <LineItemCountSelect
         type='number' id={cardLineItem.id} value={cardLineItem.quantity || ''}
-        name='quantity' min='1' max={cardLineItem.inventoryCount} onChange={handleUpdateQuantities} />
+        name='quantity' min='1' max={cardLineItem.inventoryCount} onChange={handleUpdateQuantities} /> }
     </LineItemOuterDiv>
   );
 };
@@ -81,7 +87,8 @@ const LineItemDetailCard = ({
 LineItemDetailCard.propTypes = {
   lineItem: PropTypes.object,
   lineItemsUpdated: PropTypes.bool,
-  setLineItemsUpdated: PropTypes.func
+  setLineItemsUpdated: PropTypes.func,
+  hasTransactions: PropTypes.bool
 };
 
 export default LineItemDetailCard;

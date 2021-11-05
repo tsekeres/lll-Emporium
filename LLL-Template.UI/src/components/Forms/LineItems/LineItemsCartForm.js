@@ -11,7 +11,8 @@ import CartLineItem from '../../Cards/OrderHistoryCards/CartLineItem';
 const LineItemsCartForm = ({
   lineItemsList,
   lineItemsUpdated,
-  setLineItemsUpdated
+  setLineItemsUpdated,
+  hasTransactions
 }) => {
   const [formList, setFormList] = useState([]);
   // const [quantity, setQuantity] = useState([]);
@@ -20,6 +21,7 @@ const LineItemsCartForm = ({
     let mounted = true;
     if (mounted && lineItemsList) {
       setFormList(lineItemsList);
+      console.warn(`Has Transactions: ${hasTransactions}`);
     }
     return () => {
       mounted = false;
@@ -34,7 +36,8 @@ const LineItemsCartForm = ({
           <CartLineItem
             lineItem={lineObj}
             lineItemsUpdated={lineItemsUpdated}
-            setLineItemsUpdated={setLineItemsUpdated} />
+            setLineItemsUpdated={setLineItemsUpdated}
+            hasTransactions={hasTransactions} />
           </OrderLineItemsLI>) : '' }
       </OrderLineItemsUL>
     </OrderLineItemsFormOuterDiv>
@@ -44,7 +47,8 @@ const LineItemsCartForm = ({
 LineItemsCartForm.propTypes = {
   lineItemsList: PropTypes.array,
   lineItemsUpdated: PropTypes.bool,
-  setLineItemsUpdated: PropTypes.func
+  setLineItemsUpdated: PropTypes.func,
+  hasTransactions: PropTypes.bool
 };
 
 export default LineItemsCartForm;

@@ -77,13 +77,19 @@ const OrderDetailView = ({
     paymentAmount: '0.0',
     paymentDate: ''
   });
+  const [hasTransactions, setHasTransactions] = useState(false);
   const [totalPayments, setTotalPayments] = useState('');
   const [lineItemsUpdated, setLineItemsUpdated] = useState(false);
   useEffect(() => {
     let mounted = true;
     if (mounted && orderId) {
       getOrderById(orderId).then(setOrder);
-      getTransactionsByOrderId(orderId).then(setTransactionList);
+      getTransactionsByOrderId(orderId).then((transactions) => {
+        setTransactionList(transactions);
+        if (transactions.length > 0) {
+          setHasTransactions(true);
+        } else setHasTransactions(false);
+      });
     }
     return () => {
       mounted = false;
@@ -198,8 +204,6 @@ const OrderDetailView = ({
   // update order
   const handleSubmit = () => {
     order.shippingCost = shippingCost;
-    console.warn(newTransaction.paymentAmount);
-    console.warn(orderSubTotal + shippingCost);
     if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
       order.completed = true;
     }
@@ -218,6 +222,9 @@ const OrderDetailView = ({
     addTransaction(transaction).then(() => {
       getTransactionsByOrderId(orderId).then((responseList) => {
         setTransactionList(responseList);
+        if (responseList.length > 0) {
+          setHasTransactions(true);
+        }
       });
     });
     // addTransaction(transaction);
@@ -234,6 +241,7 @@ const OrderDetailView = ({
             lineItemsList={lineItemsList}
             lineItemsUpdated={lineItemsUpdated}
             setLineItemsUpdated={setLineItemsUpdated}
+            hasTransactions={hasTransactions}
           />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>

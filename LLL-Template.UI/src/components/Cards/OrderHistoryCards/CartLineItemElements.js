@@ -9,11 +9,17 @@ const LineItemDescriptionDiv = styled.div`
 `;
 
 const LineItemCountSelect = styled.input`
-  width: 2em;
+  width: 2.5em;
 `;
 
-const LineItemUpdateButton = styled.button`
-  width: 15em;
+const LineItemCountDisplay = styled.div`
+  display: inline-block;
+  width 7em;
+`;
+
+const LineItemRemoveButton = styled.button`
+  width: 10em;
+  margin 5px 1em 0 0;
 `;
 
 const ProductIconDiv = styled.div`
@@ -37,5 +43,6 @@ export {
   ProductIconDiv,
   ProductIconImg,
   LineItemCountSelect,
-  LineItemUpdateButton
+  LineItemCountDisplay,
+  LineItemRemoveButton
 };
