@@ -17,18 +17,7 @@ const LineItemDetailCard = ({
   setLineItemsUpdated,
   hasTransactions
 }) => {
-  const [cardLineItem, setCardLineItem] = useState({});
-  const [quantityOptions, setQuantityOptions] = useState({});
-
-  useEffect(() => {
-    let mounted = true;
-    if (mounted && lineItem) {
-      setCardLineItem(lineItem);
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [lineItem]);
+  const [quantityOptions, setQuantityOptions] = useState([]);
 
   // setup quantity select
   useEffect(() => {
@@ -83,23 +72,23 @@ const LineItemDetailCard = ({
     <LineItemOuterDiv>
       <ProductIconDiv>
           <ProductIconImg
-            src={cardLineItem?.productImageUrl}
+            src={lineItem?.productImageUrl}
             alt="Product Image" />
         </ProductIconDiv>
       <LineItemDescriptionDiv>
-        {cardLineItem?.productName}
+        {lineItem?.productName}
       </LineItemDescriptionDiv>
       <LineItemDescriptionDiv>
-        {cardLineItem?.productDescription}
+        {lineItem?.productDescription}
       </LineItemDescriptionDiv>
       { hasTransactions ? ''
         : <LineItemRemoveButton
-        name={cardLineItem.id}
+        name={lineItem.id}
         onClick={handleRemove}>Remove</LineItemRemoveButton> }
-      { hasTransactions ? <LineItemCountDisplay>Qty: {cardLineItem.quantity}</LineItemCountDisplay>
+      { hasTransactions ? <LineItemCountDisplay>Qty: {lineItem.quantity}</LineItemCountDisplay>
         : <LineItemCountDisplay><Select
           options={quantityOptions}
-          name='quantity' defaultInputValue='1'
+          name='quantity' defaultValue={{ value: `${lineItem.quantity}`, label: `${lineItem.quantity}` }}
           onChange={handleUpdateQuantities} /> </LineItemCountDisplay> }
     </LineItemOuterDiv>
   );
