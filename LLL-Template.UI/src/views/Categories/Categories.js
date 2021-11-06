@@ -22,7 +22,7 @@ import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export const Categories = ({ categories, setCategories }) => {
+export const Categories = ({ user, categories, setCategories }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -36,23 +36,32 @@ export const Categories = ({ categories, setCategories }) => {
   return (
     <CategoryContainer className="CategoryContainer" id="CategoryContainer">
       <CategoryWrapper className="CategoryWrapper" id="Categories">
-      <AddButtonContainer className="AddButtonContainer">
-            <AddCategoryButton className="addCategory" onClick={openModal}>
-              <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
-              </AddCategoryButtonImg>
-            </AddCategoryButton>
-          </AddButtonContainer>
-          <Modal
-            isOpen={modalIsOpen}
-            className="Modal"
-          >
-            <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>
-                <CategoryForms
-                  categoryFormTitle="Add Category"
-                  setCategories={setCategories}
-                  categories={categories}
-                />
-          </Modal>
+          {
+            user !== null
+            && <AddButtonContainer className="AddButtonContainer">
+              {
+                (user)
+                  ? <AddCategoryButton className="addCategory" onClick={openModal}>
+                      <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
+                      </AddCategoryButtonImg>
+                    </AddCategoryButton>
+                  : <div></div>
+              }
+              </AddButtonContainer>
+            }
+            <Modal
+              isOpen={modalIsOpen}
+              className="Modal"
+            >
+              <Button className="modalClose" onClick={closeModal}>
+                <ButtonImg src={deleted}/>
+              </Button>
+              <CategoryForms
+                categoryFormTitle="Add Category"
+                setCategories={setCategories}
+                categories={categories}
+              />
+            </Modal>
         <Column1 className="CategoryColumn1">
           {categories?.map((categoryInfo) => (
             <CategoryCards
@@ -62,6 +71,7 @@ export const Categories = ({ categories, setCategories }) => {
               categoryName={categoryInfo.categoryName}
               setCategories={setCategories}
               categories={categories}
+              user={user}
             />
           ))}
         </Column1>
@@ -76,6 +86,7 @@ export const Categories = ({ categories, setCategories }) => {
 Categories.propTypes = {
   categories: PropTypes.any,
   setCategories: PropTypes.func,
+  user: PropTypes.any,
 };
 
 export default Categories;

@@ -71,7 +71,7 @@ export const CategoryCardButtons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  width: 50%;
+  width: 100%;
   height: 100%;
 `;
 
@@ -89,6 +89,7 @@ export const CategoryCardFooter = styled.div`
   justify-content: center;
   margin-top: 5px;
   width: 100%;
+  text-transform: lowercase;
 `;
 
 export const Modal1 = styled.div`

@@ -7,12 +7,12 @@ import ProductTypeForms from '../../components/Forms/ProductTypeForms/ProductTyp
 import { getProductTypes } from '../../helpers/data/productTypesData';
 import { ProductTypeCards } from '../../components/Cards/ProductTypeCards/ProductTypeCards';
 import {
-  CategoryContainer,
-  CategoryWrapper,
+  ProductTypeContainer,
+  ProductTypeWrapper,
   Column1,
   AddButtonContainer,
-  AddCategoryButton,
-  AddCategoryButtonImg,
+  AddProductTypeButton,
+  AddProductTypeButtonImg,
   Button,
   ButtonImg,
   Modal,
@@ -20,7 +20,7 @@ import {
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export const ProductTypes = ({ categories }) => {
+export const ProductTypes = ({ user, categories }) => {
   const [productTypes, setProductTypes] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -36,46 +36,55 @@ export const ProductTypes = ({ categories }) => {
     getProductTypes().then((response) => setProductTypes(response));
   }, []);
   return (
-    <CategoryContainer className="CategoryContainer" id="CategoryContainer">
-      <CategoryWrapper className="CategoryWrapper" id="Categories">
-      <AddButtonContainer className="AddButtonContainer">
-            <AddCategoryButton className="addCategory" onClick={openModal}>
-              <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
-              </AddCategoryButtonImg>
-            </AddCategoryButton>
-          </AddButtonContainer>
-          <Modal
-            isOpen={modalIsOpen}
-            className="Modal"
-          >
-            <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>
-                <ProductTypeForms
-                  productTypeFormTitle="Add Product Type"
+    <ProductTypeContainer className="ProductTypeContainer" id="ProductTypeContainer">
+      <ProductTypeWrapper className="ProductTypeWrapper" id="ProductType">
+          {
+            user !== null
+            && <AddButtonContainer className="AddButtonContainer">
+              {
+                (user)
+                  ? <AddProductTypeButton className="addProductType" onClick={openModal}>
+                      <AddProductTypeButtonImg className="AddProductTypeButtonImg" src={add}>
+                      </AddProductTypeButtonImg>
+                    </AddProductTypeButton>
+                  : <div></div>
+              }
+              </AddButtonContainer>
+            }
+            <Modal
+              isOpen={modalIsOpen}
+              className="Modal"
+            >
+              <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>
+              <ProductTypeForms
+                productTypeFormTitle="Add Product Type"
+                setProductTypes={setProductTypes}
+                productTypes={productTypes}
+                categories={categories}
+              />
+            </Modal>
+            <Column1 className="ProductTypeColumn1">
+              {productTypes?.map((productTypeInfo) => (
+                <ProductTypeCards
+                  key={productTypeInfo.id}
+                  id={productTypeInfo.id}
+                  categoryId={productTypeInfo.categoryId}
+                  typeName={productTypeInfo.typeName}
+                  productTypeImageUrl={productTypeInfo.productTypeImageUrl}
                   setProductTypes={setProductTypes}
                   productTypes={productTypes}
                   categories={categories}
+                  user={user}
                 />
-          </Modal>
-        <Column1 className="CategoryColumn1">
-          {productTypes?.map((productTypeInfo) => (
-            <ProductTypeCards
-              key={productTypeInfo.id}
-              id={productTypeInfo.id}
-              categoryId={productTypeInfo.categoryId}
-              typeName={productTypeInfo.typeName}
-              productTypeImageUrl={productTypeInfo.productTypeImageUrl}
-              setProductTypes={setProductTypes}
-              productTypes={productTypes}
-              categories={categories}
-            />
-          ))}
-        </Column1>
-        </CategoryWrapper>
-      </CategoryContainer>
+              ))}
+            </Column1>
+        </ProductTypeWrapper>
+      </ProductTypeContainer>
   );
 };
 
 ProductTypes.propTypes = {
+  user: PropTypes.any,
   productTypes: PropTypes.any,
   setProductTypes: PropTypes.func,
   categories: PropTypes.any,
