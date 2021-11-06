@@ -10,6 +10,8 @@ import OrderHistory from '../views/OrderHistory/OrderHistory';
 import SellingHistory from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
 import userCardView from '../views/Users/Users';
+import SingleCategoryView from '../views/SingleCategoryView/SingleCategoryView';
+// import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   // eslint-disable-next-line no-confusing-arrow
@@ -25,9 +27,8 @@ PrivateRoute.propTypes = {
   component: PropTypes.func,
   user: PropTypes.any,
 };
-function Routes({
-  categories, setCategories, productTypes, setProductTypes,
-}) {
+
+function Routes({ user, categories, setCategories }) {
   return (
     <div>
       <Switch>
@@ -35,11 +36,27 @@ function Routes({
           exact
           path="/"
           component={() => (
-            <Home categories={categories} setCategories={setCategories} />
+            <Home
+              categories={categories}
+              setCategories={setCategories}
+              user={user}
+            />
           )}
           categories={categories}
           setCategories={setCategories}
+          user={user}
         />
+        <Route
+          exact
+          path="/Categories/:categoryId"
+          user={user}
+          component={() => <SingleCategoryView user={user} />}
+        />
+        {/* <Route
+          exact path='/ProductTypes/:id'
+          user={user}
+          component={() => <SingleProductTypeView user={user}/>}
+        /> */}
         <Route exact path="/Designers" component={Designers} />
         <Route
           exact
@@ -48,10 +65,12 @@ function Routes({
             <ProductTypes
               categories={categories}
               setCategories={setCategories}
+              user={user}
             />
           )}
           categories={categories}
           setCategories={setCategories}
+          user={user}
         />
         <Route
           exact

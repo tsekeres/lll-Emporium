@@ -21,10 +21,10 @@ import dancing from '../../Assets/ViewStockPhotos/Dancing.jpeg';
 import man from '../../Assets/ViewStockPhotos/Man.jpeg';
 import yoga from '../../Assets/ViewStockPhotos/Yoga.jpeg';
 
-function Home({ categories, setCategories }) {
+function Home({ user, categories, setCategories }) {
   return (
     <>
-    <HomePage className='Home'>
+    <HomePage className='Home' id="Home">
       <Top className="Top">
         <CategoryData className="CategoryData">
           <AlternateItem className="AlternateItem">
@@ -48,7 +48,7 @@ function Home({ categories, setCategories }) {
         <SecondWelcomeImg src={yoga} className="SecondWelcomeImg"></SecondWelcomeImg>
       </Bottom>
     </HomePage>
-    <Categories categories={categories} setCategories={setCategories}/>
+    <Categories user={user} categories={categories} setCategories={setCategories}/>
     <AboutUs/>
    </>
   );

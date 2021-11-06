@@ -8,6 +8,8 @@ import {
   NavigationBar,
   NavLeft,
   NavItemsLeft,
+  DropDown,
+  DropDownContent,
   NavLink,
   NavMiddle,
   NavItemsMiddle,
@@ -41,11 +43,16 @@ export default function NavBar({ toggle, user }) {
     <NavigationBar className="NavigationBar">
       <NavLeft className="NavLeft">
         <NavItemsLeft className="NavItemsLeft">
-          <NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1>
+          <HashLink smooth to="/#Home" scroll={scrollWithOffset} style={styleObj}><NavBarImg1 className="NavBarImg" src={logo}></NavBarImg1></HashLink>
           <NavLink className="Link">
-            <HashLink smooth to='/#Categories' scroll={scrollWithOffset} style={styleObj}>
-            shop
-            </HashLink>
+            <DropDown>
+                shop
+              <DropDownContent className="dropdown-content">
+                <HashLink smooth to="/#Categories" scroll={scrollWithOffset} style={styleObj}>categories</HashLink>
+                <Link to="/ProductTypes" style={styleObj}>product types</Link>
+                <Link to="/Products" style={styleObj}>products</Link>
+              </DropDownContent>
+            </DropDown>
           </NavLink>
           <NavLink className="Link">
           <HashLink smooth to='/#AboutUs' scroll={scrollWithOffset} style={styleObj}>
@@ -55,23 +62,32 @@ export default function NavBar({ toggle, user }) {
           <NavLink className="Link">
             <Link to="/Designers" style={styleObj}> designers</Link>
           </NavLink>
-          <NavLink className="Link">
-            <Link to="/PersonalProfile" style={styleObj}> personal profile </Link>
-          </NavLink>
-          <NavLink className="Link">
-            <Link to="/OrderHistory" style={styleObj}> order history</Link>
-          </NavLink>
-          <NavLink className="Link">
-            <Link to="/SellingHistory" style={styleObj}> selling history</Link>
-          </NavLink>
-          <NavLink className="Link">
-            <Link to="/Users" style={styleObj}> users</Link>
-          </NavLink>
+          {
+            user !== null
+            && <div className="NavItemsRight" id="authButtons">
+              {
+                (user)
+                  ? <NavLink className="Link">
+                      <DropDown>
+                        account
+                        <DropDownContent className="dropdown-content">
+                          <Link to="/PersonalProfile" style={styleObj}> my account </Link>
+                          <Link to="/OrderHistory" style={styleObj}>order history</Link>
+                          <Link to="/SellingHistory" style={styleObj}>selling history</Link>
+                          <Link to="/Users" style={styleObj}> users</Link>
+                        </DropDownContent>
+                      </DropDown>
+                    </NavLink>
+                  : <div>
+                    </div>
+              }
+              </div>
+            }
         </NavItemsLeft>
       </NavLeft>
       <NavMiddle className="NavMiddle">
         <NavItemsMiddle className="NavItemsMiddle">
-          <NavBarImg className="NavBarImg" src={logo}></NavBarImg>
+          <HashLink smooth to="/#Home" scroll={scrollWithOffset} style={styleObj}><NavBarImg className="NavBarImg" src={logo}></NavBarImg></HashLink>
         </NavItemsMiddle>
       </NavMiddle>
       <NavRight className="NavRight">
@@ -84,11 +100,11 @@ export default function NavBar({ toggle, user }) {
                   ? <div>
                       <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
+                      <BagImg className="BagImg" src={bag}></BagImg>
                     </div>
                   : <div>
                       <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
-                      <BagImg className="BagImg" src={bag}></BagImg>
                     </div>
               }
               </div>

@@ -20,6 +20,7 @@ import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 export const CategoryCards = ({
+  user,
   setCategories,
   id,
   categoryImageUrl,
@@ -43,7 +44,7 @@ export const CategoryCards = ({
         deleteCategory(id).then(() => getCategories().then((response) => setCategories(response)));
         break;
       case 'view':
-        history.push(`api/categories/${id}`);
+        history.push(`/categories/${id}`);
         break;
       default:
         console.warn('Nothing selected');
@@ -53,20 +54,29 @@ export const CategoryCards = ({
   return (
     <CategoryCard className='CategoryCard' key={id} id='CategoryCard'>
       <CategoryCardHeader className='CategoryCardHeader'>
-        <CategoryCardButtons className='CategoryCardButtons'>
-          <Button1 className="editCategory" id='editCategory' onClick={openModal}>
-            <CategoryCardEdit
-              className='CategoryCardEditImage'
-              src={edit}
-            ></CategoryCardEdit>
-          </Button1>
-          <Button1 className='deleteCategory' id='deleteCategory' onClick={() => handleClick('delete')}>
-            <CategoryCardDelete
-              className='CategoryCardDeleteImage'
-              src={deleted}
-            ></CategoryCardDelete>
-          </Button1>
-        </CategoryCardButtons>
+      {
+            user !== null
+            && <div className="CategoryCardHeader" id="authButtons">
+              {
+                (user)
+                  ? <CategoryCardButtons className='CategoryCardButtons'>
+                      <Button1 className="editCategory" id='editCategory' onClick={openModal}>
+                        <CategoryCardEdit
+                          className='CategoryCardEditImage'
+                          src={edit}
+                        ></CategoryCardEdit>
+                      </Button1>
+                      <Button1 className='deleteCategory' id='deleteCategory' onClick={() => handleClick('delete')}>
+                        <CategoryCardDelete
+                          className='CategoryCardDeleteImage'
+                          src={deleted}
+                        ></CategoryCardDelete>
+                      </Button1>
+                    </CategoryCardButtons>
+                  : <div></div>
+              }
+              </div>
+            }
       </CategoryCardHeader>
       <Button className="CategoryCardButton">
         <CategoryCardImg className='CategoryCardImg' src={categoryImageUrl} onClick={() => handleClick('view')} />
@@ -95,6 +105,7 @@ export const CategoryCards = ({
 };
 
 CategoryCards.propTypes = {
+  user: PropTypes.any,
   id: PropTypes.string.isRequired,
   categoryName: PropTypes.string.isRequired,
   categoryImageUrl: PropTypes.string,

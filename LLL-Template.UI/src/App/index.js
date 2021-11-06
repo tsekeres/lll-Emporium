@@ -33,7 +33,7 @@ export default function App() {
   return (
     <div className="App">
       <Router>
-        <Sidebar isOpen={isOpen} toggle={toggle} />
+        <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
         <NavBar toggle={toggle} user={user}/>
         <Routes user={user} categories={categories} setCategories={setCategories}></Routes>
         <Footer />
