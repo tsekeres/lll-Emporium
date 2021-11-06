@@ -25,8 +25,9 @@ PrivateRoute.propTypes = {
   component: PropTypes.func,
   user: PropTypes.any,
 };
-
-function Routes({ categories, setCategories }) {
+function Routes({
+  categories, setCategories, productTypes, setProductTypes,
+}) {
   return (
     <div>
       <Switch>
@@ -52,7 +53,18 @@ function Routes({ categories, setCategories }) {
           categories={categories}
           setCategories={setCategories}
         />
-        <Route exact path="/Products" component={Products} />
+        <Route
+          exact
+          path="/Products"
+          component={() => (
+            <Products
+              productTypes={productTypes}
+              setProductTypes={setProductTypes}
+            />
+          )}
+          productTypes={productTypes}
+          setProductTypes={setProductTypes}
+        />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
@@ -74,6 +86,8 @@ Routes.propTypes = {
   user: PropTypes.any,
   categories: PropTypes.any,
   setCategories: PropTypes.func,
+  productTypes: PropTypes.any,
+  setProductTypes: PropTypes.func,
 };
 
 export default Routes;

@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import {
-  Button, Form, FormGroup, Label, Input
-} from 'reactstrap';
+import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { addProduct, updateProduct } from '../../../helpers/data/ProductsData';
+import { getProducts, addProduct, updateProduct } from '../../../helpers/data/ProductsData';
+import {
+  ProductFormTitle,
+  Button,
+  Form,
+  Label,
+  ButtonImg,
+  Option,
+} from './ProductFormElements';
+import add from '../../../Assets/ActionIcons/Add.png';
 
 const ProductForm = ({
-  formTitle,
+  productFormTitle,
   setProducts,
   productImageURL,
   productName,
   productDescription,
   price,
   productId,
+  productTypeId,
+  productTypes,
 }) => {
   const [product, setProduct] = useState({
     productImageURL: productImageURL || '',
@@ -21,8 +29,8 @@ const ProductForm = ({
     productDescription: productDescription || '',
     price: price || '',
     productId: productId || '',
+    productTypeId: productTypeId || '',
   });
-  const history = useHistory();
 
   const handleInputChange = (e) => {
     setProduct((prevState) => ({
@@ -34,10 +42,16 @@ const ProductForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (product.productId) {
-      updateProduct(product).then(setProducts);
+      updateProduct(productId, product).then(getProducts(setProducts));
     } else {
-      addProduct(product).then(setProduct);
-      history.push('/products');
+      const productObj = {
+        productImageURL: product.productImageURL,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        price: product.price,
+        productTypeId: product.productTypeId,
+      };
+      addProduct(productObj).then(getProducts(setProduct));
 
       setProduct({
         productImageURL: '',
@@ -45,73 +59,88 @@ const ProductForm = ({
         productDescription: '',
         price: '',
         productId: null,
+        productTypesId: '',
       });
     }
   };
 
   return (
-    <div className="product-form">
-      <Form id="addProductForm" autoComplete="off" onSubmit={handleSubmit}>
-        <h2>{formTitle}</h2>
-        <FormGroup>
-          <Label for="productName">Name:</Label>
-          <Input
-            name="productName"
-            id="productName"
-            value={product.productName}
-            type="text"
-            placeholder="Enter a Name"
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="productImageURL">Image URL: </Label>
-          <Input
-            name="productImageURL"
-            id="productImageURL"
-            value={product.productImageURL}
-            type="url"
-            placeholder="Enter an Image URL"
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="productDescription">Description: </Label>
-          <Input
-            name="productDescription"
-            id="productDescription"
-            value={product.productDescription}
-            type="text"
-            placeholder="Enter a Description"
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="price">Price: </Label>
-          <Input
-            name="price"
-            id="price"
-            value={product.price}
-            type="text"
-            placeholder="Enter a Price"
-            onChange={handleInputChange}
-          />
-        </FormGroup>
-
-        <Button type="submit">Submit</Button>
-      </Form>
-    </div>
+    <Form
+      id='addProductForm'
+      autoComplete='off'
+      onSubmit={handleSubmit}
+    >
+      <ProductFormTitle id='productFormTitle'>
+        {productFormTitle}
+      </ProductFormTitle>
+      <Label className='productNameLabel'>Name:</Label>
+      <Input
+        name='productName'
+        id='productName'
+        value={product.productName}
+        type='text'
+        placeholder='Enter a Name'
+        onChange={handleInputChange}
+      ></Input>
+      <Label for='productImageURL'>Image URL: </Label>
+      <Input
+        name='productImageURL'
+        id='productImageURL'
+        value={product.productImageURL}
+        type='url'
+        placeholder='Enter an Image URL'
+        onChange={handleInputChange}
+      ></Input>
+      <Label for='productDescription'>Description: </Label>
+      <Input
+        name='productDescription'
+        id='productDescription'
+        value={product.productDescription}
+        type='text'
+        placeholder='Enter a Description'
+        onChange={handleInputChange}
+      ></Input>
+      <Label for='price'>Price: </Label>
+      <Input
+        name='price'
+        id='price'
+        value={product.price}
+        type='text'
+        placeholder='Enter a Price'
+        onChange={handleInputChange}
+      ></Input>
+      <Label>Product Type:</Label>
+      <Input
+        className='item'
+        type='select'
+        name='productTypeId'
+        placeholder='Product Type'
+        id='exampleSelect'
+        onChange={handleInputChange}
+      >
+        {productTypes?.map((productType) => (
+          <Option key={productType.id} value={productType.id}>
+            {productType.productTypeName}
+          </Option>
+        ))}
+      </Input>
+      <Button className='addProductType' type='submit'>
+        <ButtonImg src={add}></ButtonImg>
+      </Button>
+    </Form>
   );
 };
 
 ProductForm.propTypes = {
-  formTitle: PropTypes.string.isRequired,
+  productFormTitle: PropTypes.string.isRequired,
   setProducts: PropTypes.func,
   productImageURL: PropTypes.string,
   productName: PropTypes.string,
   productDescription: PropTypes.string,
   price: PropTypes.string,
   productId: PropTypes.string,
+  productTypeId: PropTypes.string,
+  productTypes: PropTypes.any,
 };
 
 export default ProductForm;
