@@ -7,7 +7,7 @@ export const HomePage = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding-top: 200px;
+  padding-top: 100px;
   height: 734px;
   position: relative;
   z-index: 1;
