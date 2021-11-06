@@ -23,7 +23,7 @@ import deleted from '../../Assets/ActionIcons/Delete.png';
 
 export default function SingleCategoryView({ user, categories }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [categoryProductTypes, setCategoryProductTypes] = useState([]);
+  const [categoryProductTypes, setCategoryProductTypes] = useState([{}]);
   const { categoryId } = useParams();
 
   function openModal() {
@@ -35,8 +35,7 @@ export default function SingleCategoryView({ user, categories }) {
   }
 
   useEffect(() => {
-    getCategoryProductTypes().then((cPTArray) => setCategoryProductTypes(cPTArray));
-    console.warn(categoryId);
+    getCategoryProductTypes(categoryId).then((cPTArray) => setCategoryProductTypes(cPTArray));
   }, []);
 
   return (

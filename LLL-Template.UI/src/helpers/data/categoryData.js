@@ -34,8 +34,8 @@ const deleteCategory = (categoryId) => new Promise((resolve, reject) => {
 });
 
 const getCategoryProductTypes = (categoryId) => new Promise((resolve, reject) => {
-  axios.get(`${dbURL}/api/producttypes/categories/${categoryId}"`)
-    .then((response) => resolve(Object.values(response.data)))
+  axios.get(`${dbURL}/api/ProductTypes/categories/${categoryId}`)
+    .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 

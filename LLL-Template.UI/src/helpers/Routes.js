@@ -40,7 +40,7 @@ function Routes({ user, categories, setCategories }) {
           user={user}
          />
         <Route
-          exact path='/:categoryId'
+          exact path='/Categories/:categoryId'
           user={user}
           component={() => <SingleCategoryView user={user}/>}
         />
