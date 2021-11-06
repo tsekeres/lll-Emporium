@@ -1,10 +1,9 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CategoryForms from '../../components/Forms/CategoryForms/CategoryForms';
-import { getCategories } from '../../helpers/data/categoryData';
 import { CategoryCards } from '../../components/Cards/CatergoryCards/CategoryCards';
 import {
   CategoryContainer,
@@ -23,8 +22,7 @@ import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export const Categories = () => {
-  const [categories, setCategories] = useState([]);
+export const Categories = ({ categories, setCategories }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -35,21 +33,17 @@ export const Categories = () => {
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    getCategories().then((response) => setCategories(response));
-  }, []);
   return (
     <CategoryContainer className="CategoryContainer" id="CategoryContainer">
       <CategoryWrapper className="CategoryWrapper" id="Categories">
-      <AddButtonContainer>
+      <AddButtonContainer className="AddButtonContainer">
             <AddCategoryButton className="addCategory" onClick={openModal}>
-              <AddCategoryButtonImg src={add}>
+              <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
               </AddCategoryButtonImg>
             </AddCategoryButton>
           </AddButtonContainer>
           <Modal
             isOpen={modalIsOpen}
-            onRequestClose={closeModal}
             className="Modal"
           >
             <Button className="modalClose" onClick={closeModal}><ButtonImg src={deleted}/></Button>

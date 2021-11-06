@@ -16,3 +16,12 @@ export const Item = styled.div`
     display: none;
   }
 `;
+
+export const Button = styled.button`
+display: flex;
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden; 
+`;

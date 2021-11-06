@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Home from '../views/Home/Home';
 import Designers from '../views/Designers/Designers';
 import PersonalProfile from '../views/PersonalProfile/PersonalProfile';
+import { ProductTypes } from '../views/ProductTypes/ProductTypes';
 import OrderHistory from '../views/OrderHistory/OrderHistory';
 import SellingHistory from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
@@ -25,12 +26,26 @@ PrivateRoute.propTypes = {
   user: PropTypes.any,
 };
 
-function Routes() {
+function Routes({ categories, setCategories }) {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Home} />
+        <Route exact path="/" component={() => <Home
+            categories={categories}
+            setCategories={setCategories}
+          />}
+          categories={categories}
+          setCategories={setCategories}
+         />
         <Route exact path="/Designers" component={Designers} />
+        <Route exact path="/ProductTypes"
+          component={() => <ProductTypes
+            categories={categories}
+            setCategories={setCategories}
+          />}
+          categories={categories}
+          setCategories={setCategories}
+          />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
@@ -48,6 +63,8 @@ function Routes() {
 
 Routes.propTypes = {
   user: PropTypes.any,
+  categories: PropTypes.any,
+  setCategories: PropTypes.func,
 };
 
 export default Routes;
