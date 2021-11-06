@@ -11,7 +11,7 @@ const formatDate = (dateString) => {
 const calculateOrderSubtotal = (itemsList) => {
   let total = 0.0;
   itemsList.forEach((item) => {
-    total += item.unitPrice * item.quantity;
+    total += (item.unitPrice - item.discount) * item.quantity;
   });
   return total;
 };
@@ -29,22 +29,21 @@ const calculateTotalPayments = (transactionList) => {
 
 const calculateShippingCost = (subTotal) => {
   let shippingCost = 7.99;
-  const additional = 5.00;
   switch (true) {
     case (subTotal < 100.00):
-      shippingCost += additional;
+      shippingCost += 5;
       break;
     case (subTotal < 200.00):
       // 16.99
-      shippingCost += additional - 1;
+      shippingCost += 9;
       break;
     case (subTotal < 400.00):
       // 19.99
-      shippingCost += additional - 2;
+      shippingCost += 12;
       break;
     case (subTotal < 800.00):
       // 21.99
-      shippingCost += additional - 3;
+      shippingCost += 14;
       break;
     case (subTotal >= 800.00):
       shippingCost += Math.round((subTotal * 0.02));

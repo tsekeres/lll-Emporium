@@ -27,9 +27,16 @@ const updateOrderLine = (orderId, orderObj) => new Promise((resolve, reject) => 
     .catch((error) => reject(error));
 });
 
+const deleteOrderLine = (orderLineId) => new Promise((resolve, reject) => {
+  axios.delete(`${apiURL}/api/orders/orderLines/${orderLineId}`)
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
 export {
   getLineItemsByOrderId,
   getOrderLineWithProduct,
   getOrderLinesWithProduct,
-  updateOrderLine
+  updateOrderLine,
+  deleteOrderLine
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { updateOrderLine } from '../../../helpers/data/lineItemData';
+import { updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
 import {
   LineItemOuterDiv,
   LineItemDescriptionDiv,
@@ -43,18 +43,11 @@ const LineItemDetailCard = ({
   }, [lineItem]);
 
   const handleRemove = (e) => {
-    console.warn('Remove');
-    console.warn(e.target.id);
-    // setLineItemsUpdated(!lineItemsUpdated);
+    const removeId = e.target.id.split('_')[1];
+    deleteOrderLine(removeId).then(() => setLineItemsUpdated(!lineItemsUpdated));
   };
 
   const handleUpdateQuantities = (e) => {
-    /*
-    setCardLineItem((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value ? e.target.value : ''
-    }));
-    */
     // lineItem is a join of two tables, so we have to pare down
     // to an object corresponding to the OrderLine table model
     // The product id and order id are required due to constraints,
@@ -85,10 +78,11 @@ const LineItemDetailCard = ({
       <LineItemDescriptionDiv>
         {lineItem?.productDescription}
       </LineItemDescriptionDiv>
-      <div>{currencyFormatter.format(lineItem?.unitPrice)}</div>
+      <div>{`Each: ${currencyFormatter.format(lineItem?.unitPrice - lineItem?.discount)}`}
+        { lineItem?.discount ? ` (${currencyFormatter.format(lineItem?.discount)} discount)` : '' }</div>
       { hasTransactions ? ''
         : <LineItemRemoveButton
-        name={lineItem.id}
+        id={`remove_${lineItem.id}`}
         onClick={handleRemove}>Remove</LineItemRemoveButton> }
       { hasTransactions ? <LineItemCountDisplay>Qty: {lineItem.quantity}</LineItemCountDisplay>
         : <LineItemCountDisplay><Select
