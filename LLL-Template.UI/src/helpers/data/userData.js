@@ -10,4 +10,8 @@ const getUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+
+const getDesigners = () => new Promise((resolve, reject) => {
+axios.get(`${dbUrl}/api`)
+})
 export default getUsers;
