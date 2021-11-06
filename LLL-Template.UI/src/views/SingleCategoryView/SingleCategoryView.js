@@ -73,7 +73,7 @@ export default function SingleCategoryView({ user, categories }) {
               id={productTypeInfo.id}
               categoryId={productTypeInfo.categoryId}
               typeName={productTypeInfo.typeName}
-              productTypeImageUrl={productTypeInfo.productTypeImageUrl}
+              productTypeImageURL={productTypeInfo.productTypeImageURL}
               setCategoryProductTypes={setCategoryProductTypes}
               categoryProductTypes={categoryProductTypes}
               categories={categories}
