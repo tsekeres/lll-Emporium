@@ -11,7 +11,7 @@ const formatDate = (dateString) => {
 const calculateOrderSubtotal = (itemsList) => {
   let total = 0.0;
   itemsList.forEach((item) => {
-    total += (item.unitPrice - item.discount) * item.quantity;
+    total += (item.unitPrice - item.discount) * Math.min(item.quantity, item.inventoryCount);
   });
   return total;
 };
