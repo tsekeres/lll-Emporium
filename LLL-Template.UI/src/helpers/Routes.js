@@ -25,25 +25,29 @@ PrivateRoute.propTypes = {
   user: PropTypes.any,
 };
 
-function Routes({ categories, setCategories }) {
+function Routes({ user, categories, setCategories }) {
   return (
     <div>
       <Switch>
         <Route exact path="/" component={() => <Home
             categories={categories}
             setCategories={setCategories}
+            user={user}
           />}
           categories={categories}
           setCategories={setCategories}
+          user={user}
          />
         <Route exact path="/Designers" component={Designers} />
         <Route exact path="/ProductTypes"
           component={() => <ProductTypes
             categories={categories}
             setCategories={setCategories}
+            user={user}
           />}
           categories={categories}
           setCategories={setCategories}
+          user={user}
           />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
