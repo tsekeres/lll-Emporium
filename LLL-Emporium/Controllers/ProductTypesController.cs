@@ -86,6 +86,18 @@ namespace LLL_Emporium.Controllers
             return Ok(ProductType);
         }
 
+        [HttpGet("categories/{categoryId}")]
+        public IActionResult GetProductsByProductTypeId(Guid categoryId)
+        {
+            var result = _productTypesRepository.GetProductTypesByCategoryId(categoryId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound("This product type does not containe any associated products");
+        }
+
+
 
         [HttpPut("{id}/updateProductType")]
         public IActionResult UpdateProductTypeId(Guid id, ProductTypes productType)

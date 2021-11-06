@@ -33,10 +33,26 @@ const deleteCategory = (categoryId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getCategoryProductTypes = (categoryId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/api/ProductTypes/categories/${categoryId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+// const showCategoryProductTypes = (categoryId) => new Promise((resolve, reject) => {
+//   const category = getSingleCategory(categoryId);
+//   const categoryProductType = getCategoryProductTypes(categoryId);
+//   Promise.all([category, categoryProductType])
+//     .then(([categoryResponse, categoryProductTypeResponse]) => resolve({ category: categoryResponse, categoryProductTypes: categoryProductTypeResponse }))
+//     .catch((error) => reject(error));
+// });
+
 export {
   getCategories,
   getSingleCategory,
   addCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  getCategoryProductTypes,
+  // showCategoryProductTypes
 };

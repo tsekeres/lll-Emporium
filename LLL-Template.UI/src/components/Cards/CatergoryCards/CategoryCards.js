@@ -44,7 +44,7 @@ export const CategoryCards = ({
         deleteCategory(id).then(() => getCategories().then((response) => setCategories(response)));
         break;
       case 'view':
-        history.push(`api/categories/${id}`);
+        history.push(`/categories/${id}`);
         break;
       default:
         console.warn('Nothing selected');
