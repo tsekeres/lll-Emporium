@@ -64,6 +64,7 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT OL.Id, OL.OrderId, OL.ProductId,
 	                    OL.UnitPrice, OL.Quantity, OL.Discount,
+                        PR.ProductTypeId, PR.DesignerId,
 	                    PR.ProductName, PR.ProductDescription,
 	                    PR.ProductImageURL, PR.InventoryCount, PR.Price as CurrentPrice FROM OrderLines OL
                         JOIN Products PR
@@ -81,6 +82,7 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT OL.Id, OL.OrderId, OL.ProductId,
 	                    OL.UnitPrice, OL.Quantity, OL.Discount,
+                        PR.ProductTypeId, PR.DesignerId,
 	                    PR.ProductName, PR.ProductDescription,
 	                    PR.ProductImageURL, PR.InventoryCount, PR.Price as CurrentPrice FROM OrderLines OL
                         JOIN Products PR

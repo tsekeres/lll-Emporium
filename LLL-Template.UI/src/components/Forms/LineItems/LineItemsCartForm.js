@@ -21,7 +21,6 @@ const LineItemsCartForm = ({
     let mounted = true;
     if (mounted && lineItemsList) {
       setFormList(lineItemsList);
-      console.warn(`Has Transactions: ${hasTransactions}`);
     }
     return () => {
       mounted = false;

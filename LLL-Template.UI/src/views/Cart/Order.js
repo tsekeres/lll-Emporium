@@ -5,6 +5,7 @@ import getPaymentTypes from '../../helpers/data/paymentTypeData';
 import getTransactionTypes from '../../helpers/data/transactionTypeData';
 import { addTransaction, getTransactionsByOrderId } from '../../helpers/data/transactionData';
 import { getOrderById, updateOrder } from '../../helpers/data/orderData';
+import updateProduct from '../../helpers/data/productData';
 import {
   OrderOuterDiv,
   OrderDataDetailDiv,
@@ -201,13 +202,29 @@ const OrderDetailView = ({
     }));
   };
 
+  const updateQuantities = () => {
+    lineItemsList.forEach((item) => {
+      const tempObj = {
+        productTypeId: item.productTypeId,
+        designerId: item.designerId,
+        productName: item.productName,
+        productDescription: item.productDescription,
+        productImageUrl: item.productImageUrl,
+        price: item.currentPrice,
+        inventoryCount: item.inventoryCount - item.quantity
+      };
+      console.warn(item);
+      console.warn(tempObj);
+      updateProduct(item.productId, tempObj);
+    });
+  };
+
   // update order
   const handleSubmit = () => {
     order.shippingCost = shippingCost;
     if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
       order.completed = true;
     }
-    updateOrder(order);
     const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
       totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + shippingCost);
     const timeStamp = new Date();
@@ -220,6 +237,10 @@ const OrderDetailView = ({
       paymentDate: timeStamp.toISOString()
     };
     addTransaction(transaction).then(() => {
+      updateOrder(order);
+      if (!hasTransactions) {
+        updateQuantities();
+      }
       getTransactionsByOrderId(orderId).then((responseList) => {
         setTransactionList(responseList);
         if (responseList.length > 0) {
