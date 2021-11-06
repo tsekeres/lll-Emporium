@@ -208,6 +208,7 @@ const OrderDetailView = ({
       order.completed = true;
     }
     updateOrder(order);
+    debugger;
     const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
       totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + shippingCost);
     const timeStamp = new Date();

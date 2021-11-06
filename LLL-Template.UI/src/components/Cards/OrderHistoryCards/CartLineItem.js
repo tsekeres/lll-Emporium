@@ -18,6 +18,10 @@ const LineItemDetailCard = ({
   hasTransactions
 }) => {
   const [quantityOptions, setQuantityOptions] = useState([]);
+  const currencyFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
 
   // setup quantity select
   useEffect(() => {
@@ -81,6 +85,7 @@ const LineItemDetailCard = ({
       <LineItemDescriptionDiv>
         {lineItem?.productDescription}
       </LineItemDescriptionDiv>
+      <div>{currencyFormatter.format(lineItem?.unitPrice)}</div>
       { hasTransactions ? ''
         : <LineItemRemoveButton
         name={lineItem.id}
