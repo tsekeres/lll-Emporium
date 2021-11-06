@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { useParams } from 'react-router-dom';
 import getPaymentTypes from '../../helpers/data/paymentTypeData';
 import getTransactionTypes from '../../helpers/data/transactionTypeData';
 import { addTransaction, getTransactionsByOrderId } from '../../helpers/data/transactionData';
@@ -56,9 +57,8 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
   return id;
 }
 
-const OrderDetailView = ({
-  orderId
-}) => {
+const OrderDetailView = () => {
+  const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [orderSubTotal, setOrderSubTotal] = useState(0.0);
   const [lineItemsList, setLineItemsList] = useState([]);

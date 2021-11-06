@@ -66,8 +66,7 @@ function Routes({ user, categories, setCategories }) {
         <Route exact path="/OrderHistory" component={OrderHistory} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
         <Route exact path="/Users" component={userCardView} />
-        <Route exact path="/orders" component={() => <OrderDetailView
-            orderId='c64dbdf8-4de0-4b5d-93ed-177dfd4d6e65' /> } />
+        <Route exact path="/orders/:orderId" component={() => <OrderDetailView /> } />
         <Route exact path="/Users/RoleTypes" component={() => <RoleTypeView />} />
         <PrivateRoute />
         <PrivateRoute />
