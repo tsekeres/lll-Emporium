@@ -33,6 +33,7 @@ function Home({ user, categories, setCategories }) {
           {categories?.map((categoryInfo) => (
             <HomeViewCards
               key={categoryInfo.id}
+              id={categoryInfo.id}
               categoryName={categoryInfo.categoryName}
             />
           ))}
