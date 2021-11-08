@@ -14,7 +14,7 @@ import {
   Column2,
 } from './DesignersElements';
 import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
-import jewelry from '../../Assets/CategoryIcons/Jewelry.png';
+import jewelry from '../../Assets/CategoryIcons/Accessories.png';
 // import add from '../../Assets/ActionIcons/Add.png';
 import edit from '../../Assets/ActionIcons/Edit.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
