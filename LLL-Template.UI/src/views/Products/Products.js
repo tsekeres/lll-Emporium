@@ -17,7 +17,7 @@ import {
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-function Products({ productTypes }) {
+function Products({ user, productTypes }) {
   const [products, setProducts] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -30,20 +30,26 @@ function Products({ productTypes }) {
   }
 
   useEffect(() => {
-    getProducts().then(setProducts);
+    getProducts().then((response) => setProducts(response));
   }, []);
 
   return (
     <ProductContainer className='ProductContainer' id='ProductContainer'>
-      <ProductWrapper className='ProductWrapper' id='Products'>
-        <AddButtonContainer className='AddButtonContainer'>
-          <AddProductButton className='addProduct' onClick={openModal}>
+      <ProductWrapper className='ProductWrapper' id='Products'> {
+        user !== null
+        && <AddButtonContainer className='AddButtonContainer'>
+          {
+          (user)
+            ? <AddProductButton className='addProduct' onClick={openModal}>
             <AddProductButtonImg
               className='AddProductButtonImg'
               src={add}
             ></AddProductButtonImg>
           </AddProductButton>
+            : <div></div>
+          }
         </AddButtonContainer>
+      }
         <Modal isOpen={modalIsOpen} className='Modal'>
           <Button className='modalClose' onClick={closeModal}>
             <ButtonImg src={deleted} />
@@ -61,9 +67,11 @@ function Products({ productTypes }) {
               key={productInfo.id}
               id={productInfo.id}
               product={productInfo}
-              categoryId={productInfo.categoryId}
+              products={products}
+              setProducts={setProducts}
               productTypeId={productInfo.productTypeId}
               productTypes={productTypes}
+              user={user}
             />
           ))}
         </Column1>
@@ -73,6 +81,7 @@ function Products({ productTypes }) {
 }
 
 Products.propTypes = {
+  user: PropTypes.any,
   productTypes: PropTypes.any,
   products: PropTypes.any,
   setProducts: PropTypes.func,

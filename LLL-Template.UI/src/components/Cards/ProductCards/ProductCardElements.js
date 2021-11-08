@@ -7,9 +7,9 @@ export const ProductCard = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   width: 25%;
-  height: 20%;
+  height: 50%;
   opacity: 0.5;
-  margin-left: 75px;
+  margin: 30px;
 
   @media screen and (max-width: 525px) {
     margin-left: 25px;
@@ -87,6 +87,7 @@ export const Modal1 = styled.div``;
 
 export const ProductCardBody = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-top: 5px;
   width: 100%;

@@ -7,7 +7,6 @@ export const Form = styled.form`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 200px;
   width: 100%;
 `;
 

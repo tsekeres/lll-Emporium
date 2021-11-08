@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { getProducts, addProduct, updateProduct } from '../../../helpers/data/ProductsData';
+import { addProduct, updateProduct } from '../../../helpers/data/ProductsData';
 import {
   ProductFormTitle,
   Button,
@@ -31,6 +32,7 @@ const ProductForm = ({
     productId: productId || '',
     productTypeId: productTypeId || '',
   });
+  const history = useHistory();
 
   const handleInputChange = (e) => {
     setProduct((prevState) => ({
@@ -42,16 +44,24 @@ const ProductForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (product.productId) {
-      updateProduct(productId, product).then(getProducts(setProducts));
+      updateProduct(product.productId, product).then((response) => {
+        setProducts(response);
+      }).then(() => {
+        history.push('/Products');
+      });
     } else {
-      const productObj = {
-        productImageURL: product.productImageURL,
-        productName: product.productName,
-        productDescription: product.productDescription,
-        price: product.price,
-        productTypeId: product.productTypeId,
-      };
-      addProduct(productObj).then(getProducts(setProduct));
+      // const productObj = {
+      //   productImageURL: product.productImageURL,
+      //   productName: product.productName,
+      //   productDescription: product.productDescription,
+      //   price: product.price,
+      //   productTypeId: product.productTypeId,
+      // };
+      addProduct(product)
+        .then((response) => {
+          setProducts(response);
+          history.push('/Products');
+        });
 
       setProduct({
         productImageURL: '',
@@ -120,11 +130,11 @@ const ProductForm = ({
       >
         {productTypes?.map((productType) => (
           <Option key={productType.id} value={productType.id}>
-            {productType.productTypeName}
+            {productType.typeName}
           </Option>
         ))}
       </Input>
-      <Button className='addProductType' type='submit'>
+      <Button className='addProduct' type='submit'>
         <ButtonImg src={add}></ButtonImg>
       </Button>
     </Form>

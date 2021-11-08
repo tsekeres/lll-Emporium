@@ -22,8 +22,6 @@ import deleted from '../../../Assets/ActionIcons/Delete.png';
 const ProductCards = ({
   product,
   setProducts,
-  categoryId,
-  categories,
   productTypeId,
   productTypes,
 }) => {
@@ -95,8 +93,6 @@ const ProductCards = ({
         </Button>
         <ProductForm
           productFormTitle="Edit Product"
-          categoryId={categoryId}
-          categories={categories}
           productTypeId={productTypeId}
           productTypes={productTypes}
           setProducts={setProducts}
@@ -114,8 +110,6 @@ const ProductCards = ({
 ProductCards.propTypes = {
   product: PropTypes.object,
   setProducts: PropTypes.func,
-  categoryId: PropTypes.string,
-  categories: PropTypes.any,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
 };
