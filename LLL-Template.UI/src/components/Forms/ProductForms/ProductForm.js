@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { addProduct, updateProduct, getProducts } from '../../../helpers/data/ProductsData';
+import { addProduct, updateProduct, getProducts } from '../../../helpers/data/productData';
 import {
   ProductFormTitle,
   Button,
@@ -15,7 +15,7 @@ import add from '../../../Assets/ActionIcons/Add.png';
 const ProductForm = ({
   productFormTitle,
   setProducts,
-  productImageURL,
+  productImageUrl,
   productName,
   productDescription,
   price,
@@ -24,7 +24,7 @@ const ProductForm = ({
   productTypes,
 }) => {
   const [product, setProduct] = useState({
-    productImageURL: productImageURL || '',
+    productImageUrl: productImageUrl || '',
     productName: productName || '',
     productDescription: productDescription || '',
     price: price || '',
@@ -45,7 +45,7 @@ const ProductForm = ({
       updateProduct(product.id, product).then(() => getProducts().then((response) => setProducts(response)));
     } else {
       const productObj = {
-        productImageURL: product.productImageURL,
+        productImageUrl: product.productImageUrl,
         productName: product.productName,
         productDescription: product.productDescription,
         price: product.price,
@@ -55,7 +55,7 @@ const ProductForm = ({
         .then(() => getProducts().then((response) => setProducts(response)));
 
       setProduct({
-        productImageURL: '',
+        productImageUrl: '',
         productName: '',
         productDescription: '',
         price: '',
@@ -87,7 +87,7 @@ const ProductForm = ({
       <Input
         name='productImageURL'
         id='productImageURL'
-        value={product.productImageURL}
+        value={product.productImageUrl}
         type='url'
         placeholder='Enter an Image URL'
         onChange={handleInputChange}
@@ -135,7 +135,7 @@ const ProductForm = ({
 ProductForm.propTypes = {
   productFormTitle: PropTypes.string.isRequired,
   setProducts: PropTypes.func,
-  productImageURL: PropTypes.string,
+  productImageUrl: PropTypes.string,
   productName: PropTypes.string,
   productDescription: PropTypes.string,
   price: PropTypes.number,

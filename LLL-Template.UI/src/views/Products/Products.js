@@ -13,7 +13,7 @@ import {
   ButtonImg,
   Modal,
 } from './ProductElements';
-import { getProducts } from '../../helpers/data/ProductsData';
+import { getProducts } from '../../helpers/data/productData';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
@@ -67,7 +67,7 @@ function Products({
             <ProductCards
               key={productInfo.id}
               id={productInfo.id}
-              productImageURL={productInfo.productImageURL}
+              productImageUrl={productInfo.productImageUrl}
               productName={productInfo.productName}
               productDescription={productInfo.productDescription}
               price={productInfo.price}

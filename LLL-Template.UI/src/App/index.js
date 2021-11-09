@@ -4,7 +4,7 @@ import 'firebase/auth';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { getCategories } from '../helpers/data/categoryData';
 import { getProductTypes } from '../helpers/data/productTypesData';
-import { getProducts } from '../helpers/data/ProductsData';
+import { getProducts } from '../helpers/data/productData';
 import Sidebar from '../components/Sidebar/Sidebar';
 import { Footer } from '../components/Footer/Footer';
 import Routes from '../helpers/Routes';

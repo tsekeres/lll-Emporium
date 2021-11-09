@@ -14,7 +14,7 @@ import {
   Button1,
   Modal,
 } from './ProductCardElements';
-import { getProducts, deleteProduct, getSingleProduct } from '../../../helpers/data/ProductsData';
+import { getProducts, deleteProduct, getSingleProduct } from '../../../helpers/data/productData';
 import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
@@ -23,7 +23,7 @@ const ProductCards = ({
   setProducts,
   productTypeId,
   productTypes,
-  productImageURL,
+  productImageUrl,
   productName,
   productDescription,
   price,
@@ -86,7 +86,7 @@ const ProductCards = ({
       <Button>
         <ProductCardImg
           className="ProductCardImg"
-          src={productImageURL}
+          src={productImageUrl}
           onClick={() => handleClick('view')}
         />
       </Button>
@@ -110,7 +110,7 @@ const ProductCards = ({
           setProducts={setProducts}
           id={id}
           productDescription={productDescription}
-          productImageURL={productImageURL}
+          productImageUrl={productImageUrl}
           productName={productName}
           price={price}
         />
@@ -123,7 +123,7 @@ ProductCards.propTypes = {
   setProducts: PropTypes.func,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
-  productImageURL: PropTypes.string,
+  productImageUrl: PropTypes.string,
   productName: PropTypes.string.isRequired,
   productDescription: PropTypes.string,
   price: PropTypes.number,
