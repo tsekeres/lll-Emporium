@@ -112,6 +112,7 @@ const OrderDetailView = () => {
         setPaymentTypeOptions(optionsArr);
       })
         .catch(setPaymentTypeOptions([]));
+      // transaction types are not a user input option, unlike payment types
       getTransactionTypes().then((resultArr) => setTransactionTypeOptions(resultArr))
         .catch(setTransactionTypeOptions([]));
     }
