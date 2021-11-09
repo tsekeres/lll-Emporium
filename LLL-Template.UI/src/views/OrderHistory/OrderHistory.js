@@ -8,7 +8,7 @@ import {
 } from './OrderHistoryElements';
 import { getOrdersByUserId } from '../../helpers/data/orderData';
 import { getSingleRoleType } from '../../helpers/data/roleTypeData';
-import getAllUsers from '../../helpers/data/userData';
+import { getAllUsers } from '../../helpers/data/userData';
 
 const OrderHistory = () => {
   const [orderList, setOrderList] = useState([]);
