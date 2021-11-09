@@ -89,7 +89,9 @@ const LineItemDetailCard = ({
           options={quantityOptions}
           name='quantity' defaultValue={{ value: `${lineItem.quantity}`, label: `${lineItem.quantity}` }}
           onChange={handleUpdateQuantities} /> </LineItemCountDisplay>))
-          || (!lineItem.inventoryCount && (<LineItemCountDisplay>Out of Stock</LineItemCountDisplay>)) }
+          || (!lineItem.inventoryCount
+                && (hasTransactions ? <LineItemCountDisplay>Qty {lineItem.quantity}</LineItemCountDisplay>
+                  : <LineItemCountDisplay>Out of Stock</LineItemCountDisplay>)) }
     </LineItemOuterDiv>
   );
 };

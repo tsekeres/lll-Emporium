@@ -126,7 +126,7 @@ const OrderDetailView = () => {
   useEffect(() => {
     let mounted = true;
     if (mounted && lineItemsList) {
-      setOrderSubTotal(calculateOrderSubtotal(lineItemsList));
+      setOrderSubTotal(calculateOrderSubtotal(lineItemsList, hasTransactions));
     }
     return function cleanup() {
       mounted = false;
@@ -268,7 +268,7 @@ const OrderDetailView = () => {
           />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>
-        {(totalPayments !== orderSubTotal + shippingCost) ? (
+        {!(totalPayments >= orderSubTotal + shippingCost) ? (
           <>
             <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>
             <OrderFormInput
@@ -298,15 +298,16 @@ const OrderDetailView = () => {
             <OrderFormInput
               type='text' name='paymentAmount' value={newTransaction.paymentAmount}
               label='paymentAmount' onChange={handleTransactionChange} />
-              <div>Past Payments</div>
+                        <OrderSubTotalDiv>SubTotal: {currencyFormatter.format(orderSubTotal)}</OrderSubTotalDiv>
+            <OrderShippingCostDiv>Shipping: {currencyFormatter.format(shippingCost)}</OrderShippingCostDiv>
+            <OrderSubTotalDiv>Order Total {currencyFormatter.format(orderSubTotal + shippingCost)}</OrderSubTotalDiv>
+            <div>Past Payments</div>
             <OrderTransactionList>
               { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
                 key={transaction.id}>
                 {currencyFormatter.format(transaction.paymentAmount)}
               </OrderTransactionLine>)) : '' }
             </OrderTransactionList>
-            <OrderSubTotalDiv>SubTotal: {currencyFormatter.format(orderSubTotal)}</OrderSubTotalDiv>
-            <OrderShippingCostDiv>Shipping: {currencyFormatter.format(shippingCost)}</OrderShippingCostDiv>
             <OrderTotalPaymentsDiv>Total Payments:
               {currencyFormatter.format(totalPayments)}
             </OrderTotalPaymentsDiv>

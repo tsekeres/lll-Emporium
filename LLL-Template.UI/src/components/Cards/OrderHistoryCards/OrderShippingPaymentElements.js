@@ -8,6 +8,12 @@ const BillingLineDiv = styled.div`
   margin: 5px;
 `;
 
+const BillingLineFigure = styled.div`
+  display: inline-block;
+  float: right;
+  text-align: right;
+`;
+
 const MessageLineDiv = styled.div`
   margin: 5px;
 `;
@@ -15,5 +21,6 @@ const MessageLineDiv = styled.div`
 export {
   ShippingLineDiv,
   BillingLineDiv,
+  BillingLineFigure,
   MessageLineDiv
 };

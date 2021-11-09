@@ -8,10 +8,15 @@ const formatDate = (dateString) => {
   return output;
 };
 
-const calculateOrderSubtotal = (itemsList) => {
+const calculateOrderSubtotal = (itemsList, hasTransactions) => {
   let total = 0.0;
   itemsList.forEach((item) => {
-    total += (item.unitPrice - item.discount) * Math.min(item.quantity, item.inventoryCount);
+    if (!hasTransactions) {
+      total += (item.unitPrice - item.discount) * Math.min(item.quantity, item.inventoryCount);
+    // once a transaction exists, the inventory has been reduced and is no longer considered
+    } else {
+      total += (item.unitPrice - item.discount) * item.quantity;
+    }
   });
   return total;
 };
