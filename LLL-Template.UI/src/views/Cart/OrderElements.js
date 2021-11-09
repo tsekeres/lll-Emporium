@@ -45,6 +45,7 @@ const OrderLineCountSelect = styled.input`
 `;
 
 const OrderAddressPaymentDiv = styled.div`
+  margin: 10px 10px 5px;
   width: 30%;
   background-color: #ba9e9b;
   padding: 5px;

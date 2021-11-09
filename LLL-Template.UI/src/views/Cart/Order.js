@@ -267,7 +267,7 @@ const OrderDetailView = () => {
             hasTransactions={hasTransactions}
           />
         </OrderLineItemsDiv>
-          <OrderAddressPaymentDiv>
+        <OrderAddressPaymentDiv>
         {(totalPayments !== orderSubTotal + shippingCost) ? (
           <>
             <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>
@@ -318,7 +318,7 @@ const OrderDetailView = () => {
               totalPayments={totalPayments}
               orderSubTotal={orderSubTotal}
               shippingCost={shippingCost} />) }
-          </OrderAddressPaymentDiv>
+        </OrderAddressPaymentDiv>
       </OrderOuterDiv>
     ) : '' }
     </>
