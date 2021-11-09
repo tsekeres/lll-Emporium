@@ -14,8 +14,11 @@ import {
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
+  // OrderFinanceOutputDiv,
   OrderTransactionList,
   OrderTransactionLine,
+  OrderFinancialFigure,
+  OrderPaymentFigure,
   OrderSubTotalDiv,
   OrderShippingCostDiv,
   OrderTotalDue,
@@ -213,7 +216,7 @@ const OrderDetailView = () => {
         productDescription: item.productDescription,
         productImageUrl: item.productImageUrl,
         price: item.currentPrice,
-        inventoryCount: item.inventoryCount - item.quantity
+        inventoryCount: item.inventoryCount - item.quantity <= 0 ? 0 : item.inventoryCount - item.quantity
       };
       console.warn(item);
       console.warn(tempObj);
@@ -268,7 +271,7 @@ const OrderDetailView = () => {
           />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>
-        {!(totalPayments >= orderSubTotal + shippingCost) ? (
+        {(totalPayments < (orderSubTotal + shippingCost)) ? (
           <>
             <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>
             <OrderFormInput
@@ -298,20 +301,20 @@ const OrderDetailView = () => {
             <OrderFormInput
               type='text' name='paymentAmount' value={newTransaction.paymentAmount}
               label='paymentAmount' onChange={handleTransactionChange} />
-                        <OrderSubTotalDiv>SubTotal: {currencyFormatter.format(orderSubTotal)}</OrderSubTotalDiv>
-            <OrderShippingCostDiv>Shipping: {currencyFormatter.format(shippingCost)}</OrderShippingCostDiv>
-            <OrderSubTotalDiv>Order Total {currencyFormatter.format(orderSubTotal + shippingCost)}</OrderSubTotalDiv>
+            <OrderSubTotalDiv>SubTotal:<OrderFinancialFigure> {currencyFormatter.format(orderSubTotal)}</OrderFinancialFigure></OrderSubTotalDiv>
+            <OrderShippingCostDiv>Shipping:<OrderFinancialFigure>{currencyFormatter.format(shippingCost)}</OrderFinancialFigure></OrderShippingCostDiv>
+            <OrderSubTotalDiv>Order Total<OrderFinancialFigure>{currencyFormatter.format(orderSubTotal + shippingCost)}</OrderFinancialFigure></OrderSubTotalDiv>
             <div>Past Payments</div>
             <OrderTransactionList>
               { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
                 key={transaction.id}>
-                {currencyFormatter.format(transaction.paymentAmount)}
+                <OrderPaymentFigure>{currencyFormatter.format(transaction.paymentAmount)}</OrderPaymentFigure>
               </OrderTransactionLine>)) : '' }
             </OrderTransactionList>
             <OrderTotalPaymentsDiv>Total Payments:
-              {currencyFormatter.format(totalPayments)}
+              <OrderFinancialFigure>{currencyFormatter.format(totalPayments)}</OrderFinancialFigure>
             </OrderTotalPaymentsDiv>
-            <OrderTotalDue>Balance Due: {currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}
+            <OrderTotalDue>Balance Due:<OrderFinancialFigure>{currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}</OrderFinancialFigure>
               </OrderTotalDue>
             <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton> </>)
           : (<OrderShippingPayment

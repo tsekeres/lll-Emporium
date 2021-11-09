@@ -61,12 +61,26 @@ const OrderFormInput = styled.input`
   width: 90%;
 `;
 
+const OrderFinanceOutputDiv = styled.div`
+  margin: 1px 5px;
+`;
+
 const OrderTransactionList = styled.div`
-  width: 90%;
+  width: 100%;
 `;
 
 const OrderTransactionLine = styled.div`
   width: 100%;
+`;
+
+const OrderFinancialFigure = styled.div`
+  display: inline-block;
+  float: right;
+  text-align: right;
+`;
+
+const OrderPaymentFigure = styled.div`
+  text-align: right;
 `;
 
 const OrderTotalPaymentsDiv = styled.div`
@@ -74,15 +88,15 @@ const OrderTotalPaymentsDiv = styled.div`
 `;
 
 const OrderSubTotalDiv = styled.div`
-  width: 80%;
+  width: 100%;
 `;
 
 const OrderShippingCostDiv = styled.div`
-  width: 80%;
+  width: 100%;
 `;
 
 const OrderTotalDue = styled.div`
-  width: 80%;
+  width: 100%;
 `;
 
 const OrderSubmitButton = styled.button`
@@ -101,8 +115,11 @@ export {
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
+  OrderFinanceOutputDiv,
   OrderTransactionList,
   OrderTransactionLine,
+  OrderFinancialFigure,
+  OrderPaymentFigure,
   OrderTotalPaymentsDiv,
   OrderSubTotalDiv,
   OrderShippingCostDiv,
