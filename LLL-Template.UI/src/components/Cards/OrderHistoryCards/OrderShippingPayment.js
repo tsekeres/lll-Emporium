@@ -23,6 +23,7 @@ const OrderShippingPaymentCard = ({
     <div>Order Total: {currencyFormatter.format(orderSubTotal + shippingCost)}</div>
     <div>Total Payments: {currencyFormatter.format(totalPayments)}</div>
     <div>Balance Due: {currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}</div>
+    <div>Thank you for your order!</div>
   </>
 );
 
