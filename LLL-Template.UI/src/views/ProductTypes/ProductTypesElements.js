@@ -4,18 +4,23 @@ import styled from 'styled-components';
 export const ProductTypeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 125px;
-  height: 1000px;
-  padding-bottom: 125px;
+  color: #00000;
+  background: #fff;
+  height: 1400px;
+  padding-top: 100px;
 `;
 
 export const ProductTypeWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  height: 1000px;
+display: flex;
+flex-direction: row;
+width: 100%;
+align-items: center;
+justify-content: center;
+
+@media screen and (max-width: 800px) {
+  flex-direction: column;
+  align-items: center;
+}
 `;
 
 export const Modal = styled.div`
@@ -34,9 +39,18 @@ top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
 `;
 
 export const Column1 = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  width: 90%;
+display: flex;
+flex-flow: row wrap;
+align-self: center;
+justify-content: space-around;
+align-items: center;
+width: 80%;
+height: 634px;
+margin-top: 48px;
+
+@media screen and (max-width: 1150px) {
+  width: 70%;
+}
 `;
 
 export const AddProductTypeButtonImg = styled.img`
@@ -44,7 +58,7 @@ export const AddProductTypeButtonImg = styled.img`
 `;
 
 export const AddButtonContainer = styled.div`
-width: 10%;
+width: 5%;
 `;
 
 export const AddProductTypeButton = styled.button`

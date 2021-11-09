@@ -7,7 +7,6 @@ flex-direction: column;
   color: #00000;
   background: #fff;
   height: 734px;
-  padding-top: 50px;
 `;
 
 export const Modal = styled.div`

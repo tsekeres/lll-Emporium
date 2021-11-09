@@ -17,7 +17,7 @@ import {
   ButtonImg,
   Modal,
 } from './SingleCategoryViewElements';
-import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
+import category from '../../Assets/ViewStockPhotos/Shopping.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
@@ -73,7 +73,7 @@ export default function SingleCategoryView({ user, categories }) {
               id={productTypeInfo.id}
               categoryId={productTypeInfo.categoryId}
               typeName={productTypeInfo.typeName}
-              productTypeImageURL={productTypeInfo.productTypeImageURL}
+              productTypeImageUrl={productTypeInfo.productTypeImageUrl}
               setCategoryProductTypes={setCategoryProductTypes}
               categoryProductTypes={categoryProductTypes}
               categories={categories}
