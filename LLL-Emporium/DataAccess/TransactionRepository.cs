@@ -51,11 +51,7 @@ namespace LLL_Emporium.DataAccess
             };
 
             var result = db.Query<Transaction>(sql, parameters);
-            if (result.Count() == 0)
-            {
-                return null;
-            }
-            else return result;
+            return result;
         }
         internal IEnumerable<Transaction> GetTransactionsByPaymentTypeId(Guid paymentTypeId)
         {

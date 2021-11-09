@@ -125,7 +125,8 @@ namespace LLL_Emporium.DataAccess
                             ShippingState = @ShippingState,
                             ShippingZip = @ShippingZip,
                             ShippingCost = @ShippingCost,
-                            OrderDate = @OrderDate
+                            OrderDate = @OrderDate,
+                            Completed = @Completed
                             Output Inserted.*
                         WHERE Id = @Id";
 
@@ -137,7 +138,8 @@ namespace LLL_Emporium.DataAccess
                 ShippingState = order.ShippingState,
                 ShippingZip = order.ShippingZip,
                 ShippingCost = order.ShippingCost,
-                OrderDate = order.OrderDate
+                OrderDate = order.OrderDate,
+                Completed = order.Completed
             };
 
             var result = db.Query<Order>(sql, parameters);

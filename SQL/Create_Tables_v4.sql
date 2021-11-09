@@ -55,7 +55,7 @@ CREATE TABLE dbo.Categories
 (
 	Id uniqueidentifier NOT NULL Primary Key default(newid()),
 	CategoryName varchar(50) NOT NULL,
-	CategoryImageUrl varchar(500) NULL
+	CategoryImageUrl varchar(800) NULL
 )
 
 DROP TABLE IF EXISTS dbo.ProductTypes;
@@ -65,7 +65,7 @@ CREATE TABLE dbo.ProductTypes
 	Id uniqueidentifier NOT NULL Primary Key default(newid()),
 	CategoryId uniqueidentifier NOT NULL,
 	TypeName varchar(50),
-	ProductTypeImageURL varchar(500) NULL,
+	ProductTypeImageURL varchar(800) NULL,
 	CONSTRAINT FK_ProductTypes_CategoryId FOREIGN KEY (CategoryId)
 		REFERENCES dbo.Categories (Id)
 )
@@ -87,7 +87,7 @@ CREATE TABLE Users
 	FirstName varchar(50),
 	LastName varchar(50),
 	EmailAddress varchar(100),
-	ProfilePicURL varchar(500),
+	ProfilePicURL varchar(800),
 	Bio varchar(1000),
 	CONSTRAINT FK_Users_RoleTypes FOREIGN KEY (RoleTypeId)
 		REFERENCES dbo.RoleTypes (Id)
@@ -102,7 +102,7 @@ CREATE TABLE dbo.Products
 	DesignerId uniqueidentifier NOT NULL,
 	ProductName varchar(100) NOT NULL,
 	ProductDescription varchar(500) NULL,
-	ProductImageURL varchar(500) NULL,
+	ProductImageURL varchar(800) NULL,
 	Price decimal(12,2),
 	InventoryCount integer,
 	CONSTRAINT FK_Products_ProductTypes FOREIGN KEY (ProductTypeId)
