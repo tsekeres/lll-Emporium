@@ -6,7 +6,6 @@ import { FaTimes } from 'react-icons/fa';
 // in styled components you can do if else / ternerary operators
 export const SidebarContainer = styled.aside`
   position: fixed;
-  z-index: 999;
   width: 100%;
   height: 100%;
   background: #fff;
