@@ -23,5 +23,6 @@ background-color: Transparent;
 background-repeat:no-repeat;
 border: none;
 cursor:pointer;
-overflow: hidden; 
+overflow: hidden;
+text-transform: lowercase;
 `;

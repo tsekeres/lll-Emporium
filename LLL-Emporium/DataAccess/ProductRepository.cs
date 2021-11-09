@@ -130,6 +130,7 @@ namespace LLL_Emporium.DataAccess
                             ProductImageUrl = @ProductImageUrl,
                             Price = @Price,
                             InventoryCount = @InventoryCount
+                        OUTPUT Inserted.*
                         WHERE Id = @Id";
 
             product.Id = id;

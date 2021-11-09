@@ -52,7 +52,22 @@ namespace LLL_Emporium.DataAccess
             return ProductType;
         }
 
-       internal void Delete(Guid id)
+        internal IEnumerable<ProductTypes> GetProductTypesByCategoryId(Guid categoryId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from ProductTypes
+                        WHERE CategoryId = @CategoryId";
+
+            var parameters = new
+            {
+                CategoryId = categoryId
+            };
+
+            var result = db.Query<ProductTypes>(sql, parameters);
+            return result;
+        }
+
+        internal void Delete(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"Delete From ProductTypes Where Id = @id";

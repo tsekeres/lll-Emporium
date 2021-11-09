@@ -29,7 +29,7 @@ export const NavItemsLeft = styled.div`
 `;
 
 export const NavBarImg1 = styled.img`
-  // width: 50px;
+  width: 50px;
   margin-left: 10px;
 
   @media screen and (min-width: 526px) {
@@ -38,36 +38,36 @@ export const NavBarImg1 = styled.img`
 `;
 
 export const NavLink = styled.div`
-  font-size: 12px;
+  font-size: 18px;
   margin-left: 15px;
   margin-right: 15px;
 
   @media screen and (max-width: 1150px) {
-    font-size: 12px;
+    font-size: 18px;
     margin-left: 5px;
     margin-right: 5px;
   }
 
   @media screen and (max-width: 950px) {
-    font-size: 10px;
+    font-size: 15px;
     margin-left: 5px;
     margin-right: 5px;
   }
 
   @media screen and (max-width: 840px) {
-    font-size: 8px;
+    font-size: 15px;
     margin-left: 5px;
     margin-right: 5px;
   }
 
   @media screen and (max-width: 720px) {
-    font-size: 8px;
+    font-size: 15px;
     margin-left: 3px;
     margin-right: 3px;
   }
 
   @media screen and (max-width: 650px) {
-    font-size: 6px;
+    font-size: 12px;
     margin-left: 3px;
     margin-right: 3px;
   }
@@ -189,6 +189,7 @@ export const HashLink = styled(LinkS)`
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
+  text-align: center;
 
   &.activeStyle {
     border-bottom: 3px solid #fff;
@@ -201,4 +202,24 @@ export const Button = styled.button`
   border: none;
   cursor:pointer;
   overflow: hidden; 
+`;
+
+export const DropDownContent = styled.div`
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  align-items: center;
+  z-index: 1;
+`;
+
+export const DropDown = styled.div`
+  
+  &:hover ${DropDownContent} {
+    display: flex;
+    flex-direction: column;
+    // color: white;
+  }
 `;

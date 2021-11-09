@@ -5,13 +5,13 @@ import { useHistory } from 'react-router-dom';
 import { getProductTypes, deleteProductType } from '../../../helpers/data/productTypesData';
 import ProductTypeForms from '../../Forms/ProductTypeForms/ProductTypeForms';
 import {
-  CategoryCard,
-  CategoryCardImg,
-  CategoryCardHeader,
-  CategoryCardButtons,
-  CategoryCardEdit,
-  CategoryCardDelete,
-  CategoryCardFooter,
+  PTCard,
+  PTCardImg,
+  PTCardHeader,
+  PTCardButtons,
+  PTCardEdit,
+  PTCardDelete,
+  PTCardFooter,
   Button,
   Button1,
   Modal,
@@ -20,6 +20,7 @@ import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 export const ProductTypeCards = ({
+  user,
   setProductTypes,
   id,
   categoryId,
@@ -28,6 +29,7 @@ export const ProductTypeCards = ({
   categories,
 }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  console.warn(categories);
 
   function openModal() {
     setIsOpen(true);
@@ -53,36 +55,45 @@ export const ProductTypeCards = ({
   };
 
   return (
-    <CategoryCard className='CategoryCard' key={id} id='CategoryCard'>
-      <CategoryCardHeader className='CategoryCardHeader'>
-        <CategoryCardButtons className='CategoryCardButtons'>
-          <Button1 id='editCategory' onClick={openModal}>
-            <CategoryCardEdit
-              className='CategoryCardEdit'
-              src={edit}
-            ></CategoryCardEdit>
-          </Button1>
-          <Button1 id='deleteCategory' onClick={() => handleClick('delete')}>
-            <CategoryCardDelete
-              className='CategoryCardDelete'
-              src={deleted}
-            ></CategoryCardDelete>
-          </Button1>
-        </CategoryCardButtons>
-      </CategoryCardHeader>
+    <PTCard className='PTCard' key={id} id='PTCard'>
+      <PTCardHeader className='PTCardHeader'>
+      {
+            user !== null
+            && <div className="PTCardHeader" id="authButtons">
+              {
+                (user)
+                  ? <PTCardButtons className='PTCardButtons'>
+                      <Button1 id='editProductType' onClick={openModal}>
+                      <PTCardEdit
+                        className='PTCardEdit'
+                        src={edit}
+                      ></PTCardEdit>
+                      </Button1>
+                      <Button1 id='deletePT' onClick={() => handleClick('delete')}>
+                        <PTCardDelete
+                          className='PTCardDelete'
+                          src={deleted}
+                        ></PTCardDelete>
+                      </Button1>
+                    </PTCardButtons>
+                  : <div></div>
+              }
+              </div>
+            }
+      </PTCardHeader>
       <Button>
-        <CategoryCardImg className='CategoryCardImg' src={productTypeImageUrl} onClick={() => handleClick('view')} />
+        <PTCardImg className='PTCardImg' src={productTypeImageUrl} onClick={() => handleClick('view')} />
       </Button>
-      <CategoryCardFooter className='CategoryCardFooter'>
+      <PTCardFooter className='PTCardFooter'>
         {typeName}
-      </CategoryCardFooter>
+      </PTCardFooter>
         <Modal
           isOpen={modalIsOpen}
           className='Modal'
           parentSelector={() => document.querySelector('#CategoryContainer')}
         >
           <Button className='modalClose' onClick={closeModal}>
-            <CategoryCardDelete src={deleted}/>
+            <PTCardDelete src={deleted}/>
           </Button>
           <ProductTypeForms
             productTypeFormTitle='Edit Product Type'
@@ -94,11 +105,12 @@ export const ProductTypeCards = ({
             categories={categories}
           />
         </Modal>
-    </CategoryCard>
+    </PTCard>
   );
 };
 
 ProductTypeCards.propTypes = {
+  user: PropTypes.any,
   id: PropTypes.string.isRequired,
   typeName: PropTypes.string.isRequired,
   productTypeImageUrl: PropTypes.string,
