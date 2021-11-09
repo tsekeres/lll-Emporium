@@ -29,7 +29,7 @@ PrivateRoute.propTypes = {
 };
 
 function Routes({
-  user, categories, setCategories, productTypes, setProductTypes,
+  user, categories, setCategories, productTypes, setProductTypes, products, setProducts,
 }) {
   return (
     <div>
@@ -85,11 +85,15 @@ function Routes({
             <Products
               productTypes={productTypes}
               setProductTypes={setProductTypes}
+              products={products}
+              setProducts={setProducts}
               user={user}
             />
           )}
           productTypes={productTypes}
           setProductTypes={setProductTypes}
+          products={products}
+          setProducts={setProducts}
           user={user}
         />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
@@ -113,6 +117,8 @@ Routes.propTypes = {
   user: PropTypes.any,
   categories: PropTypes.any,
   setCategories: PropTypes.func,
+  products: PropTypes.any,
+  setProducts: PropTypes.func,
   productTypes: PropTypes.any,
   setProductTypes: PropTypes.func,
 };

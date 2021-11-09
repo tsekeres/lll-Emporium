@@ -20,10 +20,15 @@ import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 const ProductCards = ({
-  product,
   setProducts,
   productTypeId,
   productTypes,
+  productImageURL,
+  productName,
+  productDescription,
+  price,
+  id,
+  user,
 }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
@@ -38,11 +43,11 @@ const ProductCards = ({
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteProduct(product.productId)
+        deleteProduct(id)
           .then(getProducts(setProducts));
         break;
       case 'view':
-        getSingleProduct(product.productId);
+        getSingleProduct(id);
         break;
       default:
         console.warn('nothing selected');
@@ -52,11 +57,14 @@ const ProductCards = ({
   return (
     <ProductCard
       className="ProductCard"
-      key={product.productId}
+      key={id}
       id="ProductCard"
     >
-      <ProductCardHeader className="ProductCardHeader">
-        <ProductCardButtons className="ProductCardButtons">
+      <ProductCardHeader className="ProductCardHeader"> {
+        user !== null
+        && <div className='ProductCardHeader' id='authButtons'> {
+          (user)
+            ? <ProductCardButtons className="ProductCardButtons">
           <Button1 id="editProduct" onClick={openModal}>
             <ProductCardEdit
               className="ProductCardEdit"
@@ -70,18 +78,22 @@ const ProductCards = ({
             ></ProductCardDelete>
           </Button1>
         </ProductCardButtons>
+            : <div></div>
+        }
+        </div>
+      }
       </ProductCardHeader>
       <Button>
         <ProductCardImg
           className="ProductCardImg"
-          src={product.productImageURL}
+          src={productImageURL}
           onClick={() => handleClick('view')}
         />
       </Button>
       <ProductCardBody>
-        <CardTitle tag="h5">{product.productName}</CardTitle>
-        <CardText>{product.productDescription}</CardText>
-        <CardText>{product.price}</CardText>
+        <CardTitle tag="h5">{productName}</CardTitle>
+        <CardText>{productDescription}</CardText>
+        <CardText>{price}</CardText>
       </ProductCardBody>
       <Modal
         isOpen={modalIsOpen}
@@ -96,11 +108,11 @@ const ProductCards = ({
           productTypeId={productTypeId}
           productTypes={productTypes}
           setProducts={setProducts}
-          productId={product.productId}
-          productDescription={product.productDescription}
-          productImageURL={product.productImageURL}
-          productName={product.productName}
-          price={product.price}
+          id={id}
+          productDescription={productDescription}
+          productImageURL={productImageURL}
+          productName={productName}
+          price={price}
         />
       </Modal>
     </ProductCard>
@@ -108,10 +120,15 @@ const ProductCards = ({
 };
 
 ProductCards.propTypes = {
-  product: PropTypes.object,
   setProducts: PropTypes.func,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
+  productImageURL: PropTypes.string,
+  productName: PropTypes.string.isRequired,
+  productDescription: PropTypes.string,
+  price: PropTypes.number,
+  id: PropTypes.string,
+  user: PropTypes.any,
 };
 
 export default ProductCards;

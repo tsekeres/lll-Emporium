@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { addProduct, updateProduct } from '../../../helpers/data/ProductsData';
+import { addProduct, updateProduct, getProducts } from '../../../helpers/data/ProductsData';
 import {
   ProductFormTitle,
   Button,
@@ -20,7 +19,7 @@ const ProductForm = ({
   productName,
   productDescription,
   price,
-  productId,
+  id,
   productTypeId,
   productTypes,
 }) => {
@@ -29,10 +28,9 @@ const ProductForm = ({
     productName: productName || '',
     productDescription: productDescription || '',
     price: price || '',
-    productId: productId || '',
+    id: id || '',
     productTypeId: productTypeId || '',
   });
-  const history = useHistory();
 
   const handleInputChange = (e) => {
     setProduct((prevState) => ({
@@ -43,32 +41,25 @@ const ProductForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (product.productId) {
-      updateProduct(product.productId, product).then((response) => {
-        setProducts(response);
-      }).then(() => {
-        history.push('/Products');
-      });
+    if (product.id) {
+      updateProduct(product.id, product).then(() => getProducts().then((response) => setProducts(response)));
     } else {
-      // const productObj = {
-      //   productImageURL: product.productImageURL,
-      //   productName: product.productName,
-      //   productDescription: product.productDescription,
-      //   price: product.price,
-      //   productTypeId: product.productTypeId,
-      // };
-      addProduct(product)
-        .then((response) => {
-          setProducts(response);
-          history.push('/Products');
-        });
+      const productObj = {
+        productImageURL: product.productImageURL,
+        productName: product.productName,
+        productDescription: product.productDescription,
+        price: product.price,
+        productTypeId: product.productTypeId,
+      };
+      addProduct(productObj)
+        .then(() => getProducts().then((response) => setProducts(response)));
 
       setProduct({
         productImageURL: '',
         productName: '',
         productDescription: '',
         price: '',
-        productId: null,
+        id: null,
         productTypesId: '',
       });
     }
@@ -147,8 +138,8 @@ ProductForm.propTypes = {
   productImageURL: PropTypes.string,
   productName: PropTypes.string,
   productDescription: PropTypes.string,
-  price: PropTypes.string,
-  productId: PropTypes.string,
+  price: PropTypes.number,
+  id: PropTypes.string,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
 };
