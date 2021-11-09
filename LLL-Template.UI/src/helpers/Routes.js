@@ -11,7 +11,7 @@ import SellingHistory from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
 import userCardView from '../views/Users/Users';
 import SingleCategoryView from '../views/SingleCategoryView/SingleCategoryView';
-// import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
+import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
 import OrderDetailView from '../views/Cart/Order';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
@@ -55,11 +55,12 @@ function Routes({
           user={user}
           component={() => <SingleCategoryView user={user} />}
         />
-        {/* <Route
-          exact path='/ProductTypes/:id'
+                <Route
+          exact
+          path="/ProductTypes/:productTypeId"
           user={user}
-          component={() => <SingleProductTypeView user={user}/>}
-        /> */}
+          component={() => <SingleProductTypeView user={user} />}
+        />
         <Route exact path="/Designers" component={Designers} />
         <Route
           exact
