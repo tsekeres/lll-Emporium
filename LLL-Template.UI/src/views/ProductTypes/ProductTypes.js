@@ -1,10 +1,9 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ProductTypeForms from '../../components/Forms/ProductTypeForms/ProductTypeForms';
-import { getProductTypes } from '../../helpers/data/productTypesData';
 import { ProductTypeCards } from '../../components/Cards/ProductTypeCards/ProductTypeCards';
 import {
   ProductTypeContainer,
@@ -20,8 +19,9 @@ import {
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export const ProductTypes = ({ user, categories }) => {
-  const [productTypes, setProductTypes] = useState([]);
+export const ProductTypes = ({
+  user, categories, productTypes, setProductTypes
+}) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -32,9 +32,6 @@ export const ProductTypes = ({ user, categories }) => {
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    getProductTypes().then((response) => setProductTypes(response));
-  }, []);
   return (
     <ProductTypeContainer className="ProductTypeContainer" id="ProductTypeContainer">
       <ProductTypeWrapper className="ProductTypeWrapper" id="ProductType">

@@ -6,7 +6,7 @@ import getPaymentTypes from '../../helpers/data/paymentTypeData';
 import getTransactionTypes from '../../helpers/data/transactionTypeData';
 import { addTransaction, getTransactionsByOrderId } from '../../helpers/data/transactionData';
 import { getOrderById, updateOrder } from '../../helpers/data/orderData';
-import updateProduct from '../../helpers/data/productData';
+import { updateProduct } from '../../helpers/data/productData';
 import {
   OrderOuterDiv,
   OrderDataDetailDiv,
