@@ -29,6 +29,7 @@ export const ProductTypeCards = ({
   categories,
 }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  console.warn(categories);
 
   function openModal() {
     setIsOpen(true);

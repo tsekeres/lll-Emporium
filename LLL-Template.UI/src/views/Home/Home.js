@@ -7,7 +7,6 @@ import {
   AlternateItem,
   CategoryData,
   Bottom,
-  WelcomeImg,
   AlternateWelcomeContainer,
   AlternateWelcomeImg,
   SecondWelcomeImg,
@@ -15,7 +14,8 @@ import {
 import { Categories } from '../Categories/Categories';
 import { AboutUs } from '../AboutUs/AboutUs';
 import { HomeViewCards } from '../../components/Cards/HomeCards/HomeViewCards';
-import welcomeImg from '../../Assets/ViewStockPhotos/WelcomeImg.jpeg';
+import { SlideShowComponent } from '../../components/Cards/WelcomeImgSlideShow/WelcomeImgSlideShow';
+// import welcomeImg from '../../Assets/ViewStockPhotos/WelcomeImg.jpeg';
 import knitting from '../../Assets/ViewStockPhotos/Knitting.jpeg';
 import dancing from '../../Assets/ViewStockPhotos/Dancing.jpeg';
 import man from '../../Assets/ViewStockPhotos/Man.jpeg';
@@ -33,13 +33,14 @@ function Home({ user, categories, setCategories }) {
           {categories?.map((categoryInfo) => (
             <HomeViewCards
               key={categoryInfo.id}
+              id={categoryInfo.id}
               categoryName={categoryInfo.categoryName}
             />
           ))}
         </CategoryData>
       </Top>
       <Bottom className="Bottom">
-        <WelcomeImg src={welcomeImg} className="WelcomeImg"></WelcomeImg>
+        <SlideShowComponent/>
         <AlternateWelcomeContainer>
           <AlternateWelcomeImg src={dancing} className="AlternateWelcomeImg"></AlternateWelcomeImg>
           <AlternateWelcomeImg src={man} className="AlternateWelcomeImg"></AlternateWelcomeImg>
