@@ -21,7 +21,12 @@ import category from '../../Assets/ProfileImages/Three.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export default function SingleProductTypeView({ user, productTypes }) {
+export default function SingleProductTypeView({
+  user,
+  productTypes,
+  products,
+  setProducts
+}) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [productTypeProducts, setProductTypeProducts] = useState([{}]);
   const { productTypeId } = useParams();
@@ -64,6 +69,8 @@ export default function SingleProductTypeView({ user, productTypes }) {
             setProductTypeProductss={setProductTypeProducts}
             productTypeProducts={productTypeProducts}
             productTypes={productTypes}
+            products={products}
+            setProducts={setProducts}
           />
         </Modal>
         <Column1 className='ProductTypeColumn1'>
@@ -78,8 +85,10 @@ export default function SingleProductTypeView({ user, productTypes }) {
             productTypeId={productInfo.productTypeId}
             productTypeProducts={productTypeProducts}
             user={user}
-            setProductTypeProductss={setProductTypeProducts}
+            setProductTypeProducts={setProductTypeProducts}
             productTypes={productTypes}
+            products={products}
+            setProducts={setProducts}
             />
           ))}
         </Column1>
@@ -94,4 +103,6 @@ export default function SingleProductTypeView({ user, productTypes }) {
 SingleProductTypeView.propTypes = {
   user: PropTypes.any,
   productTypes: PropTypes.any,
+  products: PropTypes.any,
+  setProducts: PropTypes.func,
 };

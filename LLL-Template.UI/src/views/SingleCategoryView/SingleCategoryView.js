@@ -21,7 +21,12 @@ import category from '../../Assets/ViewStockPhotos/Shopping.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
-export default function SingleCategoryView({ user, categories }) {
+export default function SingleCategoryView({
+  user,
+  categories,
+  productTypes,
+  setProductTypes
+}) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [categoryProductTypes, setCategoryProductTypes] = useState([{}]);
   const { categoryId } = useParams();
@@ -58,13 +63,15 @@ export default function SingleCategoryView({ user, categories }) {
         <Modal isOpen={modalIsOpen} className='Modal'>
           <Button className='modalClose' onClick={closeModal}>
             <ButtonImg src={deleted} />
-          </Button>
           <ProductTypeForms
             productTypeFormTitle='Add Product Type'
             setCategoryProductTypes={setCategoryProductTypes}
             categoryProductTypes={categoryProductTypes}
             categories={categories}
-          />
+            productTypes={productTypes}
+            setProductTypes={setProductTypes}
+          />          </Button>
+
         </Modal>
         <Column1 className='ProductTypeColumn1'>
           {categoryProductTypes?.map((productTypeInfo) => (
@@ -78,6 +85,8 @@ export default function SingleCategoryView({ user, categories }) {
               categoryProductTypes={categoryProductTypes}
               categories={categories}
               user={user}
+              productTypes={productTypes}
+              setProductTypes={setProductTypes}
             />
           ))}
         </Column1>
@@ -92,4 +101,6 @@ export default function SingleCategoryView({ user, categories }) {
 SingleCategoryView.propTypes = {
   user: PropTypes.any,
   categories: PropTypes.any,
+  productTypes: PropTypes.any,
+  setProductTypes: PropTypes.func,
 };
