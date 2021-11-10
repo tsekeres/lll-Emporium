@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   ProductCard,
@@ -11,9 +12,8 @@ import {
   Button,
   Button1,
 } from './ProductCardElements';
-import { getProducts, deleteProduct, getSingleProduct } from '../../../helpers/data/productData';
+import { getProducts, deleteProduct } from '../../../helpers/data/productData';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
-import { useHistory } from 'react-router';
 
 const ProductCards = ({
   setProducts,
@@ -40,18 +40,18 @@ const ProductCards = ({
 
   return (
     <ProductCard
-      className="ProductCard"
+      className='ProductCard'
       key={id}
-      id="ProductCard"
+      id='ProductCard'
     >
-      <ProductCardHeader className="ProductCardHeader"> {
+      <ProductCardHeader className='ProductCardHeader'> {
         user !== null
         && <div className='ProductCardHeader' id='authButtons'> {
           (user)
-            ? <ProductCardButtons className="ProductCardButtons">
-          <Button1 id="deleteProduct" onClick={() => handleClick('delete')}>
+            ? <ProductCardButtons className='ProductCardButtons'>
+          <Button1 id='deleteProduct' onClick={() => handleClick('delete')}>
             <ProductCardDelete
-              className="ProductCardDelete"
+              className='ProductCardDelete'
               src={deleted}
             ></ProductCardDelete>
           </Button1>
@@ -63,13 +63,13 @@ const ProductCards = ({
       </ProductCardHeader>
       <Button>
         <ProductCardImg
-          className="ProductCardImg"
+          className='ProductCardImg'
           src={productImageUrl}
           onClick={() => handleClick('view')}
         />
       </Button>
       <ProductCardBody>
-        <CardTitle tag="h5">{productName}</CardTitle>
+        <CardTitle tag='h5'>{productName}</CardTitle>
       </ProductCardBody>
     </ProductCard>
   );

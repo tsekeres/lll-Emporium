@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  SingleProductCard,
+  SingleProductCards,
   SingleProductCardImg,
   SingleProductCardHeader,
   SingleProductCardButtons,
@@ -13,7 +13,7 @@ import {
   Button,
   Button1,
   Modal,
-} from './ProductCardElements';
+} from './SingleProductCardElements';
 import {
   getProducts,
   deleteProduct,
@@ -57,33 +57,33 @@ const SingleProductCard = ({
   };
 
   return (
-    <SingleProductCard
-      className="SingleProductCard"
+    <SingleProductCards
+      className='SingleProductCard'
       key={id}
-      id="SingleProductCard"
+      id='SingleProductCard'
     >
-      <SingleProductCardHeader className="SingleProductCardHeader">
+      <SingleProductCardHeader className='SingleProductCardHeader'>
         {user !== null && (
-          <div className="SingleProductCardHeader" id="authButtons">
+          <div className='SingleProductCardHeader' id='authButtons'>
             {user ? (
-              <SingleProductCardButtons className="SingleProductCardButtons">
-                <Button1 id="editSingleProduct" onClick={openModal}>
+              <SingleProductCardButtons className='SingleProductCardButtons'>
+                <Button1 id='editSingleProduct' onClick={openModal}>
                   <SingleProductCardEdit
-                    className="SingleProductCardEdit"
+                    className='SingleProductCardEdit'
                     src={edit}
                   ></SingleProductCardEdit>
                 </Button1>
                 <Button1
-                  id="add-to-cart"
-                  onClick={() => handleClick("add-to-cart")}
+                  id='add-to-cart'
+                  onClick={() => handleClick('add-to-cart')}
                 >
                 </Button1>
                 <Button1
-                  id="deleteSingleProduct"
-                  onClick={() => handleClick("delete")}
+                  id='deleteSingleProduct'
+                  onClick={() => handleClick('delete')}
                 >
                   <SingleProductCardDelete
-                    className="SingleProductCardDelete"
+                    className='SingleProductCardDelete'
                     src={deleted}
                   ></SingleProductCardDelete>
                 </Button1>
@@ -96,26 +96,26 @@ const SingleProductCard = ({
       </SingleProductCardHeader>
       <Button>
         <SingleProductCardImg
-          className="SingleProductCardImg"
+          className='SingleProductCardImg'
           src={productImageUrl}
-          onClick={() => handleClick("view")}
+          onClick={() => handleClick('view')}
         />
       </Button>
       <SingleProductCardBody>
-        <CardTitle tag="h5">{productName}</CardTitle>
+        <CardTitle tag='h5'>{productName}</CardTitle>
         <CardText>{productDescription}</CardText>
         <CardText>{price}</CardText>
       </SingleProductCardBody>
       <Modal
         isOpen={modalIsOpen}
-        className="Modal"
-        parentSelector={() => document.querySelector("#ProductContainer")}
+        className='Modal'
+        parentSelector={() => document.querySelector('#ProductContainer')}
       >
-        <Button className="modalClose" onClick={closeModal}>
+        <Button className='modalClose' onClick={closeModal}>
           <SingleProductCardDelete src={deleted} />
         </Button>
         <ProductForm
-          productFormTitle="Edit Product"
+          productFormTitle='Edit Product'
           productTypeId={productTypeId}
           productTypes={productTypes}
           setProducts={setProducts}
@@ -126,7 +126,7 @@ const SingleProductCard = ({
           price={price}
         />
       </Modal>
-    </SingleProductCard>
+    </SingleProductCards>
   );
 };
 

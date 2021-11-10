@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SingleProductCard = styled.div`
+export const SingleProductCards = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,8 +16,8 @@ export const SingleProductCard = styled.div`
     margin-right: 20px;
   }
 
-  opacity: ${({ isOpen }) => (isOpen ? "0" : "100%")};
-  top: ${({ isOpen }) => (isOpen ? "100%" : "0")};
+  opacity: ${({ isOpen }) => (isOpen ? '0' : '100%')};
+  top: ${({ isOpen }) => (isOpen ? '100%' : '0')};
 `;
 
 export const Modal = styled.div`
@@ -31,8 +31,8 @@ align-items: center;
 top: 0;
 left: 0;
 transitionL 0.3s ease-in-out;
-opacity:  ${({ isOpen }) => (isOpen ? "100%" : "0")};
-top: ${({ isOpen }) => (isOpen ? "0" : "100%")};
+opacity:  ${({ isOpen }) => (isOpen ? '100%' : '0')};
+top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
 `;
 
 export const Button = styled.button`

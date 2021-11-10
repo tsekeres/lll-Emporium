@@ -12,6 +12,7 @@ import RoleTypeView from '../views/RoleTypes/RoleTypes';
 import userCardView from '../views/Users/Users';
 import SingleCategoryView from '../views/SingleCategoryView/SingleCategoryView';
 import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
+import SingleProductView from '../views/SingleProductView/SingleProductView';
 import OrderDetailView from '../views/Cart/Order';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
@@ -135,7 +136,6 @@ function Routes({
           setProductTypes={setProductTypes}
           products={products}
           setProducts={setProducts}
-          user={user}
         />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
