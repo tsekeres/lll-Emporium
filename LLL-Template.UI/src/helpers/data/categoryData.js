@@ -39,14 +39,6 @@ const getCategoryProductTypes = (categoryId) => new Promise((resolve, reject) =>
     .catch((error) => reject(error));
 });
 
-// const showCategoryProductTypes = (categoryId) => new Promise((resolve, reject) => {
-//   const category = getSingleCategory(categoryId);
-//   const categoryProductType = getCategoryProductTypes(categoryId);
-//   Promise.all([category, categoryProductType])
-//     .then(([categoryResponse, categoryProductTypeResponse]) => resolve({ category: categoryResponse, categoryProductTypes: categoryProductTypeResponse }))
-//     .catch((error) => reject(error));
-// });
-
 export {
   getCategories,
   getSingleCategory,
