@@ -99,16 +99,37 @@ function Routes({
         />
         <Route
           exact
-          path='/Products/:id'
+          path="/Products/:productId"
           user={user}
-          component={() => <SingleProductView user={user} />}
+          component={() => (
+            <SingleProductView
+              productTypes={productTypes}
+              setProductTypes={setProductTypes}
+              products={products}
+              setProducts={setProducts}
+              user={user}
+            />
+          )}
+          productTypes={productTypes}
+          setProductTypes={setProductTypes}
+          products={products}
+          setProducts={setProducts}
+          user={user}
         />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
         <Route exact path="/Users" component={userCardView} />
-        <Route exact path="/orders/:orderId" component={() => <OrderDetailView /> } />
-        <Route exact path="/Users/RoleTypes" component={() => <RoleTypeView />} />
+        <Route
+          exact
+          path="/orders/:orderId"
+          component={() => <OrderDetailView />}
+        />
+        <Route
+          exact
+          path="/Users/RoleTypes"
+          component={() => <RoleTypeView />}
+        />
         <PrivateRoute />
         <PrivateRoute />
         <Route path="*" />

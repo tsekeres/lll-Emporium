@@ -9,19 +9,20 @@ function SingleProduct({ user }) {
   const { id } = useParams();
 
   useEffect(() => {
-    getSingleTrip(id).then(setTrip);
+    getSingleProduct(id).then(setProduct);
   }, []);
 
   return (
     <div className='single-product-view'>
-      <SingleProductCard trip={trip} user={user} admin={admin} />
+      <SingleProductCard product={product} user={user}/>
     </div>
   );
 }
 
-SingleTrip.propTypes = {
+SingleProduct.propTypes = {
   user: PropTypes.any,
-  admin: PropTypes.any,
+  product: PropTypes.any,
+  setProduct: PropTypes.func,
 };
 
-export default SingleTrip;
+export default SingleProduct;
