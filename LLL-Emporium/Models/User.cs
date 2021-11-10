@@ -11,6 +11,7 @@ namespace LLL_Emporium.Models
         public Guid RoleTypeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string DisplayName { get; set; }
         public string EmailAddress { get; set; }
         public string ProfilePicUrl { get; set; }
         public string Bio { get; set; }

@@ -33,13 +33,19 @@ namespace LLL_Emporium.DataAccess
             var sql = @"INSERT INTO [dbo].[Users]
                         ([FirstName],
                          [LastName],
+                         [DisplayName],
                          [RoleTypeId],
+                         [EmailAddress],
+                         [ProfilePicUrl],
                          [Bio])
                             OUTPUT inserted.Id
                             VALUES
                          (@FirstName,
                           @LastName,
+                          @DisplayName,
                           @RoleTypeId,
+                          @EmailAddress,
+                          @ProfilePicUrl,
                           @Bio)";
         
 

@@ -10,4 +10,10 @@ const getUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default getUsers;
+const addUser = (user) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/api/users`, user)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+export { getUsers, addUser };

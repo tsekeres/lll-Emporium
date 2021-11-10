@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -14,7 +15,7 @@ export default function App() {
   const [categories, setCategories] = useState([]);
   const [productTypes, setProductTypes] = useState([]);
   const [products, setProducts] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => {
@@ -22,14 +23,14 @@ export default function App() {
   };
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((authed) => {
-      if (authed) {
-        authed.getIdToken().then((token) => localStorage.setItem('token', token));
-        setUser(authed);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        user.getIdToken().then((token) => sessionStorage.setItem('token', token));
+        setUser(user);
         getCategories().then((categoryArray) => setCategories(categoryArray));
         getProductTypes().then((response) => setProductTypes(response));
         getProducts().then((response) => setProducts(response));
-      } else if (user || user === null) {
+      } else {
         setUser(false);
         getCategories().then((categoryArray) => setCategories(categoryArray));
         getProductTypes().then((response) => setProductTypes(response));
@@ -39,9 +40,9 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Router>
-        <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
+        <Sidebar isOpen={isOpen} toggle={toggle} user={user}/>
         <NavBar toggle={toggle} user={user}/>
         <Routes user={user} categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes} products={products} setProducts={setProducts}></Routes>
         <Footer />

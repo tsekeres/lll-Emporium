@@ -8,7 +8,7 @@ import {
 } from './OrderHistoryElements';
 import { getOrdersByUserId } from '../../helpers/data/orderData';
 import { getSingleRoleType } from '../../helpers/data/roleTypeData';
-import getAllUsers from '../../helpers/data/userData';
+import { getUsers } from '../../helpers/data/userData';
 
 const OrderHistory = () => {
   const [orderList, setOrderList] = useState([]);
@@ -34,7 +34,7 @@ const OrderHistory = () => {
       })
       .catch(setIsAdmin(false));
     // setup list of user names for the select drop down
-    getAllUsers().then((resultArr) => {
+    getUsers().then((resultArr) => {
       for (let i = 0; i < resultArr.length; i += 1) {
         const option = {
           value: resultArr[i].id,
