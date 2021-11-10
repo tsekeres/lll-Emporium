@@ -5,16 +5,16 @@ import SingleProductCard from '../../components/Cards/ProductCards/SingleProduct
 import { getSingleProduct } from '../../helpers/data/productData.js';
 
 function SingleProduct({ user }) {
-  const [trip, setTrip] = useState({});
-  const { firebaseKey } = useParams();
+  const [product, setProduct] = useState({});
+  const { id } = useParams();
 
   useEffect(() => {
-    getSingleTrip(firebaseKey).then(setTrip);
+    getSingleTrip(id).then(setTrip);
   }, []);
 
   return (
-    <div className='card-container-b trip-view'>
-      <SingleTripCard trip={trip} user={user} admin={admin} />
+    <div className='single-product-view'>
+      <SingleProductCard trip={trip} user={user} admin={admin} />
     </div>
   );
 }
