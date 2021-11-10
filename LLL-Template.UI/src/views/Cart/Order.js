@@ -218,8 +218,6 @@ const OrderDetailView = () => {
         price: item.currentPrice,
         inventoryCount: item.inventoryCount - item.quantity <= 0 ? 0 : item.inventoryCount - item.quantity
       };
-      console.warn(item);
-      console.warn(tempObj);
       updateProduct(item.productId, tempObj);
     });
   };

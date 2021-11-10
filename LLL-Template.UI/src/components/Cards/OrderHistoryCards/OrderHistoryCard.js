@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import GetLineItemsByOrderId from '../../../helpers/data/lineItemData';
 import { getOrderWithDetail } from '../../../helpers/data/orderData';
@@ -33,6 +34,7 @@ const OrderHistoryCard = ({
 }) => {
   const [lineItems, setLineItems] = useState([]);
   const [orderTotal, setOrderTotal] = useState('');
+  const history = useHistory();
   useEffect(() => {
     getOrderWithDetail(order.id).then((itemsObj) => {
       setLineItems(itemsObj.lineItems);
@@ -40,9 +42,13 @@ const OrderHistoryCard = ({
     });
   }, []);
 
+  const handleOrderDivClick = () => {
+    history.push(`/orders/${order.id}`);
+  };
+
   return (
     <OrderHistoryCardOuterDiv>
-      <OrderDataDiv>
+      <OrderDataDiv onClick={handleOrderDivClick}>
         <OrderDataDetailDiv>Order Number: {order?.id}</OrderDataDetailDiv>
         <OrderDataDetailDiv>Order Date: {FormatDate(order?.orderDate)}</OrderDataDetailDiv>
        </OrderDataDiv>
@@ -53,7 +59,7 @@ const OrderHistoryCard = ({
           />) }
       </OrderLineItemsDiv>
       <OrderTotalDiv>
-        {'\u0024'}{orderTotal}
+        Order Total: {'\u0024'}{orderTotal}
       </OrderTotalDiv>
     </OrderHistoryCardOuterDiv>
   );
