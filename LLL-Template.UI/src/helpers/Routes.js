@@ -97,6 +97,12 @@ function Routes({
           setProducts={setProducts}
           user={user}
         />
+        <Route
+          exact
+          path='/Products/:id'
+          user={user}
+          component={() => <SingleProductView user={user} />}
+        />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
         <Route exact path="/OrderHistory" component={OrderHistory} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
