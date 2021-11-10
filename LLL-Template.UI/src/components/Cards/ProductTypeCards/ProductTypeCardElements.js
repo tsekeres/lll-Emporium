@@ -2,26 +2,21 @@
 import styled from 'styled-components';
 
 export const PTCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 20%;
-  margin: 5px;
-  opacity: .5;
+display: flex;
+flex-direction: column;
+align-items: center;
+border: 1px solid black;
+border-radius: 10px;
+width: 25%;
+height: 20%;
+opacity: .5;
+margin-left: 75px;
+margin-bottom: 75px;
 
-  @media screen and (max-width: 920px) {
-    width: 30%;
-  }
-
-  @media screen and (max-width: 833px) {
-    width: 20%;
-  }
-
-  @media screen and (max-width: 630px) {
-    width: 45%;
-  }
+@media screen and (max-width: 525px) {
+  margin-left: 25px;
+  margin-right: 20px;
+}
 
 opacity:  ${({ isOpen }) => (isOpen ? '0' : '100%')};
 top: ${({ isOpen }) => (isOpen ? '100%' : '0')};
@@ -43,25 +38,22 @@ top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
 `;
 
 export const Button = styled.button`
-  display: flex;
-  justify-content: flex-end;
-  height: 50%;
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  border: none;
-  cursor:pointer;
-  overflow: hidden; 
+display: flex;
+justify-content: flex-end;
+height: 50%;
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden; 
 `;
 
 export const Button1 = styled.button`
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  border: none;
-  cursor:pointer;
-  overflow: hidden; 
-
-  @media screen and (max-width: 630px) {
-  }
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden; 
 `;
 
 export const PTCardImg = styled.img`
@@ -69,40 +61,28 @@ export const PTCardImg = styled.img`
 `;
 
 export const PTCardHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 20%;
-  width: 100%;
-  justify-content: flex-end;
+display: flex;
+flex-direction: row;
+height: 20%;
+width: 100%;
+justify-content: flex-end;
 `;
 
 export const PTCardButtons = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  width: 100%;
-  height: 100%;
-  @media screen and (max-width: 630px) {
-    width: 100%;
-    height: 150%;
-  }
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+width: 100%;
+height: 100%;
 `;
 
 export const PTCardEdit = styled.img`
   height: 15px;
-
-  @media screen and (max-width: 920px) {
-    height: 10px;
-  }
 `;
 
 export const PTCardDelete = styled.img`
   height: 13px;
   margin-right: 5px;
-
-  @media screen and (max-width: 920px) {
-    height: 10px;
-  }
 `;
 
 export const PTCardFooter = styled.div`

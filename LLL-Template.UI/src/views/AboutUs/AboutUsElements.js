@@ -110,7 +110,7 @@ export const LogoImg = styled.img`
 export const Bio = styled.div`
   height: 50%;
   justify-content: center;
-  margin-top: 100px;
+  margin-top: 200px;
   text-align: center;
 
   @media screen and (max-width: 1150px) {
