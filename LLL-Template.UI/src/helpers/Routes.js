@@ -11,7 +11,7 @@ import SellingHistory from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
 import userCardView from '../views/Users/Users';
 import SingleCategoryView from '../views/SingleCategoryView/SingleCategoryView';
-// import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
+import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
 import OrderDetailView from '../views/Cart/Order';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
@@ -53,13 +53,34 @@ function Routes({
           exact
           path="/Categories/:categoryId"
           user={user}
-          component={() => <SingleCategoryView user={user} />}
+          categories={categories}
+          setCategories={setCategories}
+          productTypes={productTypes}
+          setProductTypes={setProductTypes}
+          component={() => <SingleCategoryView
+            user={user}
+            categories={categories}
+            setCategories={setCategories}
+            productTypes={productTypes}
+            setProductTypes={setProductTypes}
+            />}
         />
-        {/* <Route
-          exact path='/ProductTypes/:id'
+                <Route
+          exact
+          path="/ProductTypes/:productTypeId"
           user={user}
-          component={() => <SingleProductTypeView user={user}/>}
-        /> */}
+          products={products}
+          setProducts={setProducts}
+          productTypes={productTypes}
+          setProductTypes={setProductTypes}
+          component={() => <SingleProductTypeView
+            user={user}
+            productTypes={productTypes}
+            setProductTypes={setProductTypes}
+            products={products}
+            setProducts={setProducts}
+            />}
+        />
         <Route exact path="/Designers" component={Designers} />
         <Route
           exact

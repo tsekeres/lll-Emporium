@@ -29,7 +29,6 @@ export const ProductTypeCards = ({
   categories,
 }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  console.warn(categories);
 
   function openModal() {
     setIsOpen(true);
@@ -47,7 +46,7 @@ export const ProductTypeCards = ({
         deleteProductType(id).then(() => getProductTypes().then((response) => setProductTypes(response)));
         break;
       case 'view':
-        history.push(`api/ProductTypes/${id}`);
+        history.push(`/ProductTypes/${id}`);
         break;
       default:
         console.warn('Nothing selected');
