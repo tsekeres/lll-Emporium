@@ -13,6 +13,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using LLL_Emporium;
 using LLL_Emporium.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace LLL_Emporium
 {
@@ -41,6 +44,22 @@ namespace LLL_Emporium
             services.AddTransient<RoleTypeRepository>();
             services.AddTransient<ProductTypesRepository>();
             services.AddTransient<OrderWithDetailRepository>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+               {
+                   options.IncludeErrorDetails = true;
+                   options.Authority = "https://securetoken.google.com/lll-emporium";
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateLifetime = true,
+                       ValidateAudience = true,
+                       ValidateIssuer = true,
+                       ValidAudience = "lll-emporium.appspot.com",
+                       ValidIssuer = "https://securetoken.google.com/lll-emporium"
+                   };
+               });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

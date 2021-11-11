@@ -34,12 +34,14 @@ namespace LLL_Emporium.DataAccess
                         ([FirstName],
                          [LastName],
                          [RoleTypeId],
+                         [ProfilePicURL],
                          [Bio])
                             OUTPUT inserted.Id
                             VALUES
                          (@FirstName,
                           @LastName,
                           @RoleTypeId,
+                          @ProfilePicURL],
                           @Bio)";
         
 
@@ -78,15 +80,11 @@ namespace LLL_Emporium.DataAccess
             return userUpdate;
         }
 
-        internal User GetByRoleType(Guid roleTypeId)
+        internal User GetByRoleType(string roleTypeId)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"Select * From User where RoleTypeId = @RoleTypeId";
-            var parameter = new
-            {
-                Id = roleTypeId
-            };
-            var GetRoleType = db.QuerySingleOrDefault<User>(sql, parameter);
+            var GetRoleType = db.QuerySingleOrDefault<User>(sql, roleTypeId);
             return GetRoleType;
         }
 

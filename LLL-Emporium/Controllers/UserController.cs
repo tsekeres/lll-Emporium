@@ -6,10 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using LLL_Emporium.DataAccess;
 using LLL_Emporium.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LLL_Emporium.Controllers
 {
     [Route("api/users")]
+    [Authorize]
     [ApiController]
     public class UserController : ControllerBase
 
@@ -36,6 +38,7 @@ namespace LLL_Emporium.Controllers
         [HttpGet]
         public IActionResult GetAllUsers()
         {
+            var fbUserId = User.FindFirst(claim => claim.Type == "user_id").Value;
             var result = _userRepository.GetAll();
             if (result.Count() >= 0)
             {
@@ -77,15 +80,15 @@ namespace LLL_Emporium.Controllers
         }
 
 
-        [HttpGet("{RoleTypeId}/roletypeId")]
-        public IActionResult GetRoleTypeByName(Guid RoleType)
+        [HttpGet("{id}/RoleTypeId")]
+        public IActionResult GetRoleTypeById(string id)
         {
-            var RoleTypeId = _userRepository.GetByRoleType(RoleType);
+            var RoleTypeId = _userRepository.GetByRoleType(id);
             if (RoleTypeId != null)
             {
-                return NotFound("No Role Type");
+                return Ok(RoleTypeId);
             }
-            return Ok(RoleTypeId);
+            return NotFound("This Id is not found");
         }
 
     }
