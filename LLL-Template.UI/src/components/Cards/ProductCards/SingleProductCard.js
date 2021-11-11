@@ -24,12 +24,9 @@ import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 const SingleProductCard = ({
   setProducts,
+  product,
   productTypeId,
   productTypes,
-  productImageUrl,
-  productName,
-  productDescription,
-  price,
   id,
   user,
 }) => {
@@ -76,8 +73,7 @@ const SingleProductCard = ({
                 <Button1
                   id='add-to-cart'
                   onClick={() => handleClick('add-to-cart')}
-                >
-                </Button1>
+                ></Button1>
                 <Button1
                   id='deleteSingleProduct'
                   onClick={() => handleClick('delete')}
@@ -97,14 +93,14 @@ const SingleProductCard = ({
       <Button>
         <SingleProductCardImg
           className='SingleProductCardImg'
-          src={productImageUrl}
+          src={product.productImageUrl}
           onClick={() => handleClick('view')}
         />
       </Button>
       <SingleProductCardBody>
-        <CardTitle tag='h5'>{productName}</CardTitle>
-        <CardText>{productDescription}</CardText>
-        <CardText>{price}</CardText>
+        <CardTitle tag='h5'>{product.productName}</CardTitle>
+        <CardText>{product.productDescription}</CardText>
+        <CardText>Price: {product.price}</CardText>
       </SingleProductCardBody>
       <Modal
         isOpen={modalIsOpen}
@@ -119,11 +115,11 @@ const SingleProductCard = ({
           productTypeId={productTypeId}
           productTypes={productTypes}
           setProducts={setProducts}
-          id={id}
-          productDescription={productDescription}
-          productImageUrl={productImageUrl}
-          productName={productName}
-          price={price}
+          id={product.id}
+          productDescription={product.productDescription}
+          productImageUrl={product.productImageUrl}
+          productName={product.productName}
+          price={product.price}
         />
       </Modal>
     </SingleProductCards>
@@ -131,13 +127,10 @@ const SingleProductCard = ({
 };
 
 SingleProductCard.propTypes = {
+  product: PropTypes.any,
   setProducts: PropTypes.func,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
-  productImageUrl: PropTypes.string,
-  productName: PropTypes.string.isRequired,
-  productDescription: PropTypes.string,
-  price: PropTypes.number,
   id: PropTypes.string,
   user: PropTypes.any,
 };

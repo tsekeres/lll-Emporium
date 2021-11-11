@@ -11,10 +11,14 @@ function SingleProduct({ user }) {
   useEffect(() => {
     getSingleProduct(id).then(setProduct);
   }, []);
-
   return (
-    <div className='single-product-view'>
-      <SingleProductCard product={product} user={user}/>
+    <div className="single-product-view">
+      <SingleProductCard
+        key={id}
+        id={id}
+        product={product}
+        user={user}
+      />
     </div>
   );
 }

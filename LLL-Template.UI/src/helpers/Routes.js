@@ -58,15 +58,17 @@ function Routes({
           setCategories={setCategories}
           productTypes={productTypes}
           setProductTypes={setProductTypes}
-          component={() => <SingleCategoryView
-            user={user}
-            categories={categories}
-            setCategories={setCategories}
-            productTypes={productTypes}
-            setProductTypes={setProductTypes}
-            />}
+          component={() => (
+            <SingleCategoryView
+              user={user}
+              categories={categories}
+              setCategories={setCategories}
+              productTypes={productTypes}
+              setProductTypes={setProductTypes}
+            />
+          )}
         />
-                <Route
+        <Route
           exact
           path="/ProductTypes/:productTypeId"
           user={user}
@@ -74,13 +76,15 @@ function Routes({
           setProducts={setProducts}
           productTypes={productTypes}
           setProductTypes={setProductTypes}
-          component={() => <SingleProductTypeView
-            user={user}
-            productTypes={productTypes}
-            setProductTypes={setProductTypes}
-            products={products}
-            setProducts={setProducts}
-            />}
+          component={() => (
+            <SingleProductTypeView
+              user={user}
+              productTypes={productTypes}
+              setProductTypes={setProductTypes}
+              products={products}
+              setProducts={setProducts}
+            />
+          )}
         />
         <Route exact path="/Designers" component={Designers} />
         <Route
@@ -121,7 +125,7 @@ function Routes({
         />
         <Route
           exact
-          path="/Products/:productId"
+          path="/Products/:id"
           user={user}
           component={() => (
             <SingleProductView
