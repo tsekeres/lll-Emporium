@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import SingleProductCard from '../../components/Cards/ProductCards/SingleProductCard';
 import { getSingleProduct } from '../../helpers/data/productData';
+import { SingleProductContainer } from './SingleProductElements';
 
 function SingleProduct({ user }) {
   const [product, setProduct] = useState({});
@@ -12,14 +13,14 @@ function SingleProduct({ user }) {
     getSingleProduct(id).then(setProduct);
   }, []);
   return (
-    <div className="single-product-view">
+    <SingleProductContainer className="single-product-view">
       <SingleProductCard
         key={id}
         id={id}
         product={product}
         user={user}
       />
-    </div>
+    </SingleProductContainer>
   );
 }
 

@@ -38,6 +38,7 @@ top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
 export const Button = styled.button`
   display: flex;
   justify-content: flex-end;
+  width: 100%;
   height: 50%;
   background-color: Transparent;
   background-repeat: no-repeat;
@@ -55,7 +56,8 @@ export const Button1 = styled.button`
 `;
 
 export const SingleProductCardImg = styled.img`
-  height: 60%;
+  display: flex;
+  width: 100%;
 `;
 
 export const SingleProductCardHeader = styled.div`
@@ -90,6 +92,7 @@ export const SingleProductCardBody = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-top: 5px;
+  height: 20%;
   width: 100%;
 `;
 
