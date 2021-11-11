@@ -51,7 +51,7 @@ function Routes({ user, categories, setCategories }) {
           user={user}
           component={() => <SingleProductTypeView user={user}/>}
         /> */}
-        <Route exact path="/Designers" component={Designers} />
+       <Route exact path="/Designers" component={Designers} />
         <Route exact path="/ProductTypes"
           component={() => <ProductTypes
             categories={categories}
@@ -68,6 +68,7 @@ function Routes({ user, categories, setCategories }) {
         <Route exact path="/Users" component={userCardView} />
         <Route exact path="/orders/:orderId" component={() => <OrderDetailView /> } />
         <Route exact path="/Users/RoleTypes" component={() => <RoleTypeView />} />
+        <Route exact path="/Designers" component={Designers} />
         <PrivateRoute />
         <PrivateRoute />
         <Route path="*" />
