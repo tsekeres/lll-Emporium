@@ -53,7 +53,6 @@ const ProductForm = ({
       };
       addProduct(productObj)
         .then(() => getProducts().then((response) => setProducts(response)));
-
       setProduct({
         productImageUrl: '',
         productName: '',

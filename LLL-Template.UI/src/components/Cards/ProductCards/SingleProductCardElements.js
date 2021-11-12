@@ -6,8 +6,8 @@ export const SingleProductCards = styled.div`
   align-items: center;
   border: 1px solid black;
   border-radius: 10px;
-  width: 25%;
-  height: 50%;
+  width: 35%;
+  height: 80%;
   opacity: 0.5;
   margin: 30px;
 
@@ -55,6 +55,14 @@ export const Button1 = styled.button`
   overflow: hidden;
 `;
 
+export const CartButton = styled.button`
+  background-color: red;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+`;
+
 export const SingleProductCardImg = styled.img`
   display: flex;
   width: 100%;
@@ -72,7 +80,7 @@ export const SingleProductCardButtons = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  width: 50%;
+  width: 100%;
   height: 100%;
 `;
 
@@ -92,13 +100,19 @@ export const SingleProductCardBody = styled.div`
   flex-direction: column;
   justify-content: center;
   margin-top: 5px;
-  height: 20%;
+  margin-bottom: 5px;
   width: 100%;
+  text-transform: lowercase;
+
+  @media screen and (max-width: 920px) {
+    font-size: 10px;
+  }
 `;
 
 export const CardTitle = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   height: 15%;
   width: 100%;
   justify-content: flex-end;
@@ -106,7 +120,8 @@ export const CardTitle = styled.div`
 
 export const CardText = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
   height: 15%;
   width: 100%;
   justify-content: flex-end;

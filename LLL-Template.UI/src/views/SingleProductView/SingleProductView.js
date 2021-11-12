@@ -12,6 +12,7 @@ function SingleProduct({ user }) {
   useEffect(() => {
     getSingleProduct(id).then(setProduct);
   }, []);
+
   return (
     <SingleProductContainer className="single-product-view">
       <SingleProductCard

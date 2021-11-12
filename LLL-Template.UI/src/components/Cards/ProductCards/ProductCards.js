@@ -78,7 +78,7 @@ const ProductCards = ({
 ProductCards.propTypes = {
   setProducts: PropTypes.func,
   productImageUrl: PropTypes.string,
-  productName: PropTypes.string.isRequired,
+  productName: PropTypes.string,
   id: PropTypes.string,
   user: PropTypes.any,
 };

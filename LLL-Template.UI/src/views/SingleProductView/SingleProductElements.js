@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const SingleProductContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   color: #00000;
   background: #fff;
-  padding-top: 150px;
+  padding-top: 100px;
   height: 734px;
 `;
 

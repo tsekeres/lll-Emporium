@@ -12,6 +12,7 @@ import {
   CardText,
   Button,
   Button1,
+  CartButton,
   Modal,
 } from './SingleProductCardElements';
 import {
@@ -70,10 +71,15 @@ const SingleProductCard = ({
                     src={edit}
                   ></SingleProductCardEdit>
                 </Button1>
-                <Button1
+                <CartButton
                   id='add-to-cart'
                   onClick={() => handleClick('add-to-cart')}
-                ></Button1>
+                >
+                  <SingleProductCardEdit
+                    className='SingleProductCardEdit'
+                    src={edit}
+                  ></SingleProductCardEdit>
+                </CartButton>
                 <Button1
                   id='deleteSingleProduct'
                   onClick={() => handleClick('delete')}
@@ -99,7 +105,9 @@ const SingleProductCard = ({
       </Button>
       <SingleProductCardBody>
         <CardTitle tag='h5'>{product.productName}</CardTitle>
+        <hr></hr>
         <CardText>{product.productDescription}</CardText>
+        <hr></hr>
         <CardText>Price: {product.price}</CardText>
       </SingleProductCardBody>
       <Modal
