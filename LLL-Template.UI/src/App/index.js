@@ -24,10 +24,10 @@ export default function App() {
   };
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((userObj) => {
-      if (userObj) {
-        userObj.getIdToken().then((token) => sessionStorage.setItem('token', token));
-        getUserWithRoleByEmail(userObj.email).then((responseObj) => {
+    firebase.auth().onAuthStateChanged((authed) => {
+      if (authed) {
+        authed.getIdToken().then((token) => sessionStorage.setItem('token', token));
+        getUserWithRoleByEmail(authed.email).then((responseObj) => {
           // getUserWithRoleByEmail can be called before a new
           // user is entered into the database due to a promise delay.
           // When the user is entered, useEffect will be called again
