@@ -15,7 +15,7 @@ axios.interceptors.request.use((request) => {
   return Promise.reject(error);
 });
 
-const signInUser = (setUser) => {
+const signInUser = () => {
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider).then((user) => {
     const us = user.user;
@@ -31,7 +31,7 @@ const signInUser = (setUser) => {
           EmailAddress: us?.email,
           Bio: '',
         };
-        addUser(userInfo).then(setUser);
+        addUser(userInfo);
         window.location.href = '/';
       });
     }

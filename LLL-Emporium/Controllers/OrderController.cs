@@ -47,11 +47,7 @@ namespace LLL_Emporium.Controllers
         public IActionResult GetOrdersByCustomerId(Guid customerId)
         {
             var result = _orderRepository.GetOrdersByCustomerId(customerId);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            else return NotFound($"Orders for customer with id {customerId} not found.");
+            return Ok(result);
         }
 
         [HttpGet("customers/{customerId}/shoppingcart")]

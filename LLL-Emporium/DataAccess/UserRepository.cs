@@ -62,6 +62,33 @@ namespace LLL_Emporium.DataAccess
             return user;
         }
 
+        internal User GetByEmail(string email)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"Select * From Users where EmailAddress = @EmailAddress";
+            var parameter = new
+            {
+                EmailAddress = email
+            };
+            var user = db.QuerySingleOrDefault<User>(sql, parameter);
+            return user;
+        }
+
+        internal UserWithRole GetUserWithRoleByUserEmail(string email)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Users US
+                        JOIN RoleTypes RT
+                            ON RT.Id = US.RoleTypeId
+                        WHERE US.EmailAddress = @EmailAddress";
+            var parameter = new
+            {
+                EmailAddress = email
+            };
+            var user = db.QuerySingleOrDefault<UserWithRole>(sql, parameter);
+            return user;
+        }
+
         internal void Delete(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
