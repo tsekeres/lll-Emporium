@@ -54,8 +54,7 @@ export default function App() {
         <Sidebar isOpen={isOpen} toggle={toggle} user={user}/>
         <NavBar toggle={toggle} user={user}/>
         <Routes user={user} categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
-                products={products} setProducts={setProducts}
-                setUser={setUser}></Routes>
+                products={products} setProducts={setProducts} />
         <Footer />
       </Router>
     </div>
