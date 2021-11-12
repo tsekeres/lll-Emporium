@@ -16,9 +16,6 @@ const OrderHistory = ({
   const [orderList, setOrderList] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [options, setOptions] = useState([]);
-  // const userId = 'A0B230B1-CCA4-4B3D-999C-0F3ED334EA54';
-  // const userRoleTypeId = '7E5CE76B-67E8-4C34-9B2D-4BD61432A70A';
-  // const userRoleTypeId = '50FA8B54-8C02-4440-844E-43AAE0F74B73';
 
   useEffect(() => {
     const optionsArr = [];
