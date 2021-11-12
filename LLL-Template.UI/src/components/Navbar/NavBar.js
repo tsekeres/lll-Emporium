@@ -38,7 +38,7 @@ const scrollWithOffset = (el) => {
   const yOffset = -10;
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 };
-export default function NavBar({ toggle, user, setUser }) {
+export default function NavBar({ toggle, user }) {
   return (
     <NavigationBar className="NavigationBar">
       <NavLeft className="NavLeft">
@@ -104,7 +104,7 @@ export default function NavBar({ toggle, user, setUser }) {
                     </div>
                   : <div>
                       <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
-                      <Button id="signOut" onClick={() => signInUser(setUser)}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
+                      <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
                     </div>
               }
               </div>
@@ -120,6 +120,5 @@ export default function NavBar({ toggle, user, setUser }) {
 
 NavBar.propTypes = {
   toggle: PropTypes.any,
-  user: PropTypes.any,
-  setUser: PropTypes.func
+  user: PropTypes.any
 };
