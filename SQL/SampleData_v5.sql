@@ -23,8 +23,8 @@ INSERT INTO Categories (CategoryName, CategoryImageURL)
 VALUES ('Clothing', 'https://storage.googleapis.com/lll-emporium/CategoryIcons/Clothing.png'),
 	   ('Accessories','https://storage.googleapis.com/lll-emporium/CategoryIcons/Accessories.png');
 
-INSERT INTO Users (FirstName, LastName, RoleTypeId, ProfilePicURL, Bio)
-VALUES ('Honey-Rae', 'Swan', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
+INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
+VALUES ('Honey-Rae', 'Swan', 'Honey-Ray Swan', 'HR@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
 		'https://avatars.githubusercontent.com/u/76716670?v=4',
 		'Honey-Rae is a designer with a passion for making sure “Live, Laugh, Love” is close to our hearts or worn on our sleeve. She designs luxury tees, tracksuits, and jewelry.')
 
@@ -96,8 +96,8 @@ INSERT INTO Categories (CategoryName, CategoryImageURL)
 VALUES ('Construction', 'https://storage.googleapis.com/lll-emporium/CategoryIcons/Construction.png'),
 	   ('Biker Gear', 'https://storage.googleapis.com/lll-emporium/CategoryIcons/BikerGear.png');
 
-INSERT INTO Users (FirstName, LastName, RoleTypeId, ProfilePicURL, Bio)
-VALUES ('John', 'Maple', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
+INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
+VALUES ('John', 'Maple', 'John Maple', 'JM@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
 		'https://avatars.githubusercontent.com/u/51683901?v=4',
 		'John Maple is a designer with a passion for making sure “Live, Laugh, Love” is displayed in unexpected places.')
 
@@ -169,8 +169,8 @@ INSERT INTO Categories (CategoryName, CategoryImageURL)
 VALUES ('Kitchen','https://storage.googleapis.com/lll-emporium/CategoryIcons/Kitchen.png'),
 	('Lawn and Garden', 'https://storage.googleapis.com/lll-emporium/CategoryIcons/LawnIcon.png');
 
-INSERT INTO Users (FirstName, LastName, RoleTypeId, ProfilePicURL, Bio)
-VALUES ('Tad', 'Sekeres', (Select Id from RoleTypes where RoleTypeName = 'Super User'), 
+INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
+VALUES ('Tad', 'Sekeres', 'Tad Sekeres', 'TS@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'), 
 		'https://avatars.githubusercontent.com/u/74842096?v=4',
 		'Tad is a designer with an eye for the subtle touch that will let your friends and family know that “Live, Laugh, Love” is close to your heart and displayed for your neighbors to see. He is in our Kitchen and Bath department but also loves to dabble in the Garden!')
 
@@ -242,8 +242,8 @@ INSERT INTO Categories (CategoryName, CategoryImageUrl)
 VALUES ('Bathroom Decor', 'https://storage.googleapis.com/lll-emporium/CategoryIcons/Bath.png'),
 	('Auto Accessories', 'https://storage.googleapis.com/lll-emporium/CategoryIcons/AutoAccessories.png');
 
-INSERT INTO Users (FirstName, LastName, RoleTypeId, ProfilePicURL, Bio)
-VALUES ('Jonathon', 'Joyner', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
+INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
+VALUES ('Jonathon', 'Joyner', 'Jonathon Joyner', 'JJ@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
 		'https://avatars.githubusercontent.com/u/67886630?v=4',
 		'Johathan is a designer with an eye for ways to let your friends and family know that “Live, Laugh, Love” is close to your heart. He designs for bath and auto accessories!')
 
