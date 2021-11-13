@@ -22,6 +22,7 @@ import {
   deleteProduct,
   getSingleProduct,
 } from '../../../helpers/data/productData';
+import { createOrder, getShoppingCart } from '../../../helpers/data/orderData';
 import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
@@ -37,6 +38,7 @@ const SingleProductCard = ({
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [product, setProduct] = useState({});
   const { id } = useParams();
+  const timeStamp = new Date();
 
   useEffect(() => {
     getSingleProduct(id).then(setProduct);
@@ -57,6 +59,22 @@ const SingleProductCard = ({
         break;
       case 'add-to-cart':
         console.warn('Add To Cart');
+        console.warn(user);
+        getShoppingCart(user.id).then((cart) => {
+          // no cart exists, so we create one
+          if (cart.length === 0) {
+            const cartObj = {
+              customerId: user.id,
+              // shippingCity: '',
+              // shippingState: '',
+              // shippingZip: '',
+              // shippingCost: '',
+              orderDate: timeStamp.toISOString()
+              // completed: false
+            };
+            createOrder(cartObj);
+          }
+        });
         break;
       default:
         console.warn('nothing selected');

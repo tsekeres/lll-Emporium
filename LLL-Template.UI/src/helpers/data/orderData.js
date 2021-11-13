@@ -21,15 +21,35 @@ const getOrderWithDetail = (orderId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getShoppingCart = (customerId) => new Promise((resolve, reject) => {
+  axios.get(`${apiURL}/api/orders/customers/${customerId}/shoppingCart`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 const updateOrder = (order) => new Promise((resolve, reject) => {
   axios.put(`${apiURL}/api/orders/${order.id}`, order)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
+const createOrder = (orderObj) => new Promise((resolve, reject) => {
+  axios.post(`${apiURL}/api/orders`, orderObj)
+    .then((response) => {
+      console.warn(response.data);
+      resolve(response.data);
+    })
+    .catch((error) => {
+      console.warn(error);
+      reject(error);
+    });
+});
+
 export {
   getOrderById,
   getOrdersByUserId,
   getOrderWithDetail,
-  updateOrder
+  getShoppingCart,
+  updateOrder,
+  createOrder,
 };
