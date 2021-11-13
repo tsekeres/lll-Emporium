@@ -10,7 +10,6 @@ const getAllUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-<<<<<<< HEAD
 const getDesigners = (RoleTypeId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/api/users/{id}/RoleTypeId`, RoleTypeId)
     .then((response) => resolve(response.data))
@@ -35,13 +34,6 @@ const updateUser = (userId, userObj) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export {
-  getAllUsers,
-  deleteUser,
-  addUsers,
-  updateUser,
-  getDesigners
-=======
 const getUserByEmail = (emailAddress) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/api/users/email/${emailAddress}`)
     .then((response) => resolve(response.data))
@@ -61,9 +53,12 @@ const addUser = (user) => new Promise((resolve, reject) => {
 });
 
 export {
-  getUsers,
+  getAllUsers,
+  deleteUser,
+  addUsers,
+  updateUser,
+  getDesigners,
   getUserByEmail,
   getUserWithRoleByEmail,
   addUser
->>>>>>> main
 };

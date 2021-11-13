@@ -20,4 +20,6 @@ const Designers = () => {
       ))}
     </>
   )
-}
+};
+
+export default { Designers };
