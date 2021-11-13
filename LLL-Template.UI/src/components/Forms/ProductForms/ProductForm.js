@@ -84,8 +84,8 @@ const ProductForm = ({
       ></Input>
       <Label for='productImageURL'>Image URL: </Label>
       <Input
-        name='productImageURL'
-        id='productImageURL'
+        name='productImageUrl'
+        id='productImageUrl'
         value={product.productImageUrl}
         type='url'
         placeholder='Enter an Image URL'

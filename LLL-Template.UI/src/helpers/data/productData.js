@@ -17,10 +17,10 @@ const getSingleProduct = (productId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const addProduct = (productObj) => new Promise((resolve, reject) => {
+const addProduct = (productName) => new Promise((resolve, reject) => {
   axios
-    .post(`${apiURL}/api/products`, productObj)
-    .then((response) => console.warn(response.data))
+    .post(`${apiURL}/api/products`, productName)
+    .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 

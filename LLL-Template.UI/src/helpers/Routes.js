@@ -12,8 +12,8 @@ import RoleTypeView from '../views/RoleTypes/RoleTypes';
 import userCardView from '../views/Users/Users';
 import SingleCategoryView from '../views/SingleCategoryView/SingleCategoryView';
 import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
-import SingleProductView from '../views/SingleProductView/SingleProductView';
 import OrderDetailView from '../views/Cart/Order';
+import SingleProductCard from '../components/Cards/ProductCards/SingleProductCard';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   // eslint-disable-next-line no-confusing-arrow
@@ -128,7 +128,7 @@ function Routes({
           path="/Products/:id"
           user={user}
           component={() => (
-            <SingleProductView
+            <SingleProductCard
               productTypes={productTypes}
               setProductTypes={setProductTypes}
               products={products}

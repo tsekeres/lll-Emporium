@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
+  SingleProductContainer,
   SingleProductCards,
   SingleProductCardImg,
   SingleProductCardHeader,
@@ -18,6 +20,7 @@ import {
 import {
   getProducts,
   deleteProduct,
+  getSingleProduct,
 } from '../../../helpers/data/productData';
 import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
@@ -25,13 +28,17 @@ import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 const SingleProductCard = ({
   setProducts,
-  product,
   productTypeId,
   productTypes,
-  id,
   user,
 }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [product, setProduct] = useState({});
+  const { id } = useParams();
+
+  useEffect(() => {
+    getSingleProduct(id).then(setProduct);
+  }, []);
 
   function openModal() {
     setIsOpen(true);
@@ -55,82 +62,85 @@ const SingleProductCard = ({
   };
 
   return (
-    <SingleProductCards
-      className='SingleProductCard'
-      key={id}
-      id='SingleProductCard'
-    >
-      <SingleProductCardHeader className='SingleProductCardHeader'>
-        {user !== null && (
-          <div className='SingleProductCardHeader' id='authButtons'>
-            {user ? (
-              <SingleProductCardButtons className='SingleProductCardButtons'>
-                <Button1 id='editSingleProduct' onClick={openModal}>
-                  <SingleProductCardEdit
-                    className='SingleProductCardEdit'
-                    src={edit}
-                  ></SingleProductCardEdit>
-                </Button1>
-                <CartButton
-                  id='add-to-cart'
-                  onClick={() => handleClick('add-to-cart')}
-                >
-                  <SingleProductCardEdit
-                    className='SingleProductCardEdit'
-                    src={edit}
-                  ></SingleProductCardEdit>
-                </CartButton>
-                <Button1
-                  id='deleteSingleProduct'
-                  onClick={() => handleClick('delete')}
-                >
-                  <SingleProductCardDelete
-                    className='SingleProductCardDelete'
-                    src={deleted}
-                  ></SingleProductCardDelete>
-                </Button1>
-              </SingleProductCardButtons>
-            ) : (
-              <div></div>
-            )}
-          </div>
-        )}
-      </SingleProductCardHeader>
-      <Button>
-        <SingleProductCardImg
-          className='SingleProductCardImg'
-          src={product.productImageUrl}
-          onClick={() => handleClick('view')}
-        />
-      </Button>
-      <SingleProductCardBody>
-        <CardTitle tag='h5'>{product.productName}</CardTitle>
-        <hr></hr>
-        <CardText>{product.productDescription}</CardText>
-        <hr></hr>
-        <CardText>Price: {product.price}</CardText>
-      </SingleProductCardBody>
-      <Modal
-        isOpen={modalIsOpen}
-        className='Modal'
-        parentSelector={() => document.querySelector('#ProductContainer')}
+    <SingleProductContainer className='single-product-view'>
+      <SingleProductCards
+        className='SingleProductCard'
+        key={id}
+        id='SingleProductCard'
       >
-        <Button className='modalClose' onClick={closeModal}>
-          <SingleProductCardDelete src={deleted} />
+        <SingleProductCardHeader className='SingleProductCardHeader'>
+          {user !== null && (
+            <div className='SingleProductCardHeader' id='authButtons'>
+              {user ? (
+                <SingleProductCardButtons className='SingleProductCardButtons'>
+                  <Button1 id='editSingleProduct' onClick={openModal}>
+                    <SingleProductCardEdit
+                      className='SingleProductCardEdit'
+                      src={edit}
+                    ></SingleProductCardEdit>
+                  </Button1>
+                  <CartButton
+                    id='add-to-cart'
+                    onClick={() => handleClick('add-to-cart')}
+                  >
+                    <SingleProductCardEdit
+                      className='SingleProductCardEdit'
+                      src={edit}
+                    ></SingleProductCardEdit>
+                  </CartButton>
+                  <Button1
+                    id='deleteSingleProduct'
+                    onClick={() => handleClick('delete')}
+                  >
+                    <SingleProductCardDelete
+                      className='SingleProductCardDelete'
+                      src={deleted}
+                    ></SingleProductCardDelete>
+                  </Button1>
+                </SingleProductCardButtons>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          )}
+        </SingleProductCardHeader>
+        <Button>
+          <SingleProductCardImg
+            className='SingleProductCardImg'
+            src={product.productImageUrl}
+            onClick={() => handleClick('view')}
+          />
         </Button>
-        <ProductForm
-          productFormTitle='Edit Product'
-          productTypeId={productTypeId}
-          productTypes={productTypes}
-          setProducts={setProducts}
-          id={product.id}
-          productDescription={product.productDescription}
-          productImageUrl={product.productImageUrl}
-          productName={product.productName}
-          price={product.price}
-        />
-      </Modal>
-    </SingleProductCards>
+        <SingleProductCardBody>
+          <CardTitle tag='h5'>{product.productName}</CardTitle>
+          <hr></hr>
+          <CardText>{product.productDescription}</CardText>
+          <hr></hr>
+          <CardText>Price: {product.price}</CardText>
+        </SingleProductCardBody>
+        <Modal
+          isOpen={modalIsOpen}
+          className='Modal'
+          parentSelector={() => document.querySelector('#ProductContainer')}
+        >
+          <Button className='modalClose' onClick={closeModal}>
+            <SingleProductCardDelete src={deleted} />
+          </Button>
+          <ProductForm
+            productFormTitle='Edit Product'
+            productTypeId={productTypeId}
+            productTypes={productTypes}
+            setProducts={setProducts}
+            // product={product}
+            id={product.id}
+            productDescription={product.productDescription}
+            productImageUrl={product.productImageUrl}
+            productName={product.productName}
+            price={product.price}
+          />
+        </Modal>
+      </SingleProductCards>
+    </SingleProductContainer>
   );
 };
 
