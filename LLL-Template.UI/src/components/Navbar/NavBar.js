@@ -107,7 +107,7 @@ export default function NavBar({ toggle, user }) {
               {
                 (user)
                   ? <div>
-                      <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
+                      <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
                       <BagImg className="BagImg" src={bag}></BagImg>
                     </div>
