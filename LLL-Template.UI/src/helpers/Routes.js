@@ -53,20 +53,12 @@ function Routes({
           exact
           path="/Categories/:categoryId"
           user={user}
-<<<<<<< HEAD
-          component={() => <SingleProductTypeView user={user}/>}
-        /> */}
-       <Route exact path="/Designers" component={Designers} />
-        <Route exact path="/ProductTypes"
-          component={() => <ProductTypes
-=======
           categories={categories}
           setCategories={setCategories}
           productTypes={productTypes}
           setProductTypes={setProductTypes}
           component={() => <SingleCategoryView
             user={user}
->>>>>>> main
             categories={categories}
             setCategories={setCategories}
             productTypes={productTypes}
