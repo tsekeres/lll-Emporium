@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import UserCard from '../../components/Cards/UserCards/UserCards';
-<<<<<<< HEAD
 import { getAllUsers } from '../../helpers/data/userData';
-import { userForm } from '../../components/Forms/UserForms/UserForms';
-=======
 import { getUsers } from '../../helpers/data/userData';
->>>>>>> main
+// import { userForm } from '../../components/Forms/UserForms/UserForms';
 
 const userCardView = () => {
   const [userGroup, setUserGroup] = useState([]);
@@ -19,7 +16,7 @@ const userCardView = () => {
   return (
     <>
       {userGroup.map((userObj) => (
-        <UserCard key={userObj.id} userForm={userForm} bio={userObj.bio} profilePicUrl={userObj.profilePicUrl} />
+        <UserCard key={userObj.id} bio={userObj.bio} profilePicUrl={userObj.profilePicUrl} />
       ))}
     </>
   );
