@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   SingleProductContainer,
@@ -32,6 +32,8 @@ const SingleProductCard = ({
   productTypes,
   user,
 }) => {
+  const history = useHistory();
+
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [product, setProduct] = useState({});
   const { id } = useParams();
@@ -51,7 +53,7 @@ const SingleProductCard = ({
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteProduct(id).then(getProducts(setProducts));
+        deleteProduct(id).then(getProducts(setProducts)).then(history.push('/products'));
         break;
       case 'add-to-cart':
         console.warn('Add To Cart');
@@ -132,7 +134,7 @@ const SingleProductCard = ({
             productTypes={productTypes}
             setProducts={setProducts}
             product={product}
-            id={product.id}
+            id={id}
             productDescription={product.productDescription}
             productImageUrl={product.productImageUrl}
             productName={product.productName}

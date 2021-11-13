@@ -72,7 +72,7 @@ function Products({
               productName={productInfo.productName}
               productDescription={productInfo.productDescription}
               price={productInfo.price}
-              products={products}
+              // products={products}
               setProducts={setProducts}
               productTypeId={productInfo.productTypeId}
               productTypes={productTypes}
