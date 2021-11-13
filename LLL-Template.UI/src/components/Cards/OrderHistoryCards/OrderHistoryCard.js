@@ -34,10 +34,15 @@ const OrderHistoryCard = ({
   const [lineItems, setLineItems] = useState([]);
   const [orderTotal, setOrderTotal] = useState('');
   useEffect(() => {
+    let mounted = true;
     getOrderWithDetail(order.id).then((itemsObj) => {
       setLineItems(itemsObj.lineItems);
       setOrderTotal(CalculateTotal(itemsObj));
     });
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, []);
 
   return (
