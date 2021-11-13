@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  SearchBarContainer,
+  SearchBarBar,
 } from './SearchBarElements';
 
-// eslint-disable-next-line import/no-named-as-default-member
-export default function SearchBar1({ toggle2, isOpen }) {
+export default function SearchBar({ toggle2, isOpen2 }) {
   return (
-    // eslint-disable-next-line import/no-named-as-default-member
-    <SearchBarContainer className="SearchBar"
-    isOpen={isOpen}
-    onClick={toggle2}>
-    </SearchBarContainer>
+    <SearchBarBar
+    className="SearchBarBar"
+    toggle2={toggle2}
+    isOpen2={isOpen2}
+    // isOpen2={isOpen2}
+    >
+    </SearchBarBar>
   );
 }
 
-SearchBar1.propTypes = {
+SearchBar.propTypes = {
   toggle2: PropTypes.any,
-  isOpen: PropTypes.any,
+  isOpen2: PropTypes.any,
 };
