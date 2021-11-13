@@ -142,7 +142,8 @@ function Routes({
           setProducts={setProducts}
         />
         <Route exact path="/PersonalProfile" component={PersonalProfile} />
-        <Route exact path="/OrderHistory" component={OrderHistory} />
+        <Route exact path="/OrderHistory" component={() => <OrderHistory
+          user={user} />} />
         <Route exact path="/SellingHistory" component={SellingHistory} />
         <Route exact path="/Users" component={userCardView} />
         <Route

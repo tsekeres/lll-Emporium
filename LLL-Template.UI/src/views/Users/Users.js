@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UserCard from '../../components/Cards/UserCards/UserCards';
-import getUsers from '../../helpers/data/userData';
+import { getUsers } from '../../helpers/data/userData';
 
 const userCardView = () => {
   const [userGroup, setUserGroup] = useState([]);

@@ -44,6 +44,19 @@ namespace LLL_Emporium.DataAccess
             return result;
         }
 
+        internal RoleType GetRoleTypeByName(string roleName)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM RoleTypes 
+                        WHERE RoleTypeName = @RoleTypeName";
+            var parameter = new
+            {
+                RoleTypeName = roleName
+            };
+            var result = db.QueryFirstOrDefault<RoleType>(sql, parameter);
+            return result;
+        }
+
         internal bool UpdateRoleType(Guid roleTypeId, RoleType roleType)
         {
             bool returnVal = false;

@@ -120,5 +120,5 @@ export default function NavBar({ toggle, user }) {
 
 NavBar.propTypes = {
   toggle: PropTypes.any,
-  user: PropTypes.any,
+  user: PropTypes.any
 };
