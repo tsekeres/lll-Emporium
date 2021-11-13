@@ -15,6 +15,12 @@ const getSingleRoleType = (roleId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getRoleTypeByName = (roleName) => new Promise((resolve, reject) => {
+  axios.get(`${apiURL}/api/roleTypes/roleName/${roleName}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 const addRoleType = (typeName) => new Promise((resolve, reject) => {
   axios.post(`${apiURL}/api/roleTypes`, typeName)
     .then((response) => resolve(response.data))
@@ -36,6 +42,7 @@ const deleteRoleType = (roleId) => new Promise((resolve, reject) => {
 export {
   getRoleTypes,
   getSingleRoleType,
+  getRoleTypeByName,
   addRoleType,
   updateRoleType,
   deleteRoleType

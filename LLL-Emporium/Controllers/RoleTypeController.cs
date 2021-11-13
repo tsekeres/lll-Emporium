@@ -44,6 +44,17 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Role type with id {roleTypeId} not found.");
         }
 
+        [HttpGet("roleName/{roleName}")]
+        public IActionResult GetRoleTypeByName(string roleName)
+        {
+            var result = _roleTypeRepository.GetRoleTypeByName(roleName);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"Role type with name ${roleName} not found");
+        }
+
         [HttpPut("{roleTypeId}")]
         public IActionResult updateRoleType(Guid roleTypeId, RoleType roleType)
         {

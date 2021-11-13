@@ -36,10 +36,15 @@ const OrderHistoryCard = ({
   const [orderTotal, setOrderTotal] = useState('');
   const history = useHistory();
   useEffect(() => {
+    let mounted = true;
     getOrderWithDetail(order.id).then((itemsObj) => {
       setLineItems(itemsObj.lineItems);
       setOrderTotal(CalculateTotal(itemsObj));
     });
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, []);
 
   const handleOrderDivClick = () => {

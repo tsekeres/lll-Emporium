@@ -56,11 +56,7 @@ namespace LLL_Emporium.DataAccess
             };
 
             var result = db.Query<Order>(sql, parameters);
-            if (result.Any())
-            {
-                return result;
-            }
-            else return null;
+            return result;
         }
 
         internal Guid AddOrder(Order order)
