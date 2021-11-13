@@ -20,7 +20,7 @@ const getSingleProduct = (productId) => new Promise((resolve, reject) => {
 const addProduct = (productObj) => new Promise((resolve, reject) => {
   axios
     .post(`${apiURL}/api/products`, productObj)
-    .then((response) => resolve(response.data))
+    .then((response) => console.warn(response.data))
     .catch((error) => reject(error));
 });
 
