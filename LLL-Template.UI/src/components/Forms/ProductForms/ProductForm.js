@@ -22,6 +22,7 @@ const ProductForm = ({
   id,
   productTypeId,
   productTypes,
+  user,
 }) => {
   const [product, setProduct] = useState({
     productImageUrl: productImageUrl || '',
@@ -50,10 +51,10 @@ const ProductForm = ({
         productDescription: product.productDescription,
         price: product.price,
         productTypeId: product.productTypeId,
+        designerId: user.id,
       };
       addProduct(productObj)
         .then(() => getProducts().then((response) => setProducts(response)));
-
       setProduct({
         productImageUrl: '',
         productName: '',
@@ -85,8 +86,8 @@ const ProductForm = ({
       ></Input>
       <Label for='productImageURL'>Image URL: </Label>
       <Input
-        name='productImageURL'
-        id='productImageURL'
+        name='productImageUrl'
+        id='productImageUrl'
         value={product.productImageUrl}
         type='url'
         placeholder='Enter an Image URL'
@@ -142,6 +143,8 @@ ProductForm.propTypes = {
   id: PropTypes.string,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
+  user: PropTypes.any,
+  product: PropTypes.any,
 };
 
 export default ProductForm;
