@@ -77,7 +77,11 @@ namespace LLL_Emporium.DataAccess
         internal UserWithRole GetUserWithRoleByUserEmail(string email)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT * FROM Users US
+            var sql = @"SELECT US.Id, US.RoleTypeId, RT.RoleTypeName, 
+                        US.FirstName, US.LastName, 
+                        US.DisplayName, US.EmailAddress,
+                        US.ProfilePicURL, US.Bio
+                        FROM Users US
                         JOIN RoleTypes RT
                             ON RT.Id = US.RoleTypeId
                         WHERE US.EmailAddress = @EmailAddress";

@@ -35,6 +35,10 @@ const OrderHistoryCard = ({
   const [lineItems, setLineItems] = useState([]);
   const [orderTotal, setOrderTotal] = useState('');
   const history = useHistory();
+  const currencyFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
   useEffect(() => {
     let mounted = true;
     getOrderWithDetail(order.id).then((itemsObj) => {
@@ -64,7 +68,7 @@ const OrderHistoryCard = ({
           />) }
       </OrderLineItemsDiv>
       <OrderTotalDiv>
-        Order Total: {'\u0024'}{orderTotal}
+        Order Total: {currencyFormatter.format(orderTotal)}
       </OrderTotalDiv>
     </OrderHistoryCardOuterDiv>
   );
