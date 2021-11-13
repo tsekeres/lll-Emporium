@@ -22,10 +22,11 @@ import {
   deleteProduct,
   getSingleProduct,
 } from '../../../helpers/data/productData';
-import { createOrder, getShoppingCart } from '../../../helpers/data/orderData';
+import { getShoppingCart } from '../../../helpers/data/orderData';
 import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
+import { addOrderLine } from '../../../helpers/data/lineItemData';
 
 const SingleProductCard = ({
   setProducts,
@@ -41,7 +42,12 @@ const SingleProductCard = ({
   const timeStamp = new Date();
 
   useEffect(() => {
+    let mounted = true;
     getSingleProduct(id).then(setProduct);
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, []);
 
   function openModal() {
@@ -59,9 +65,10 @@ const SingleProductCard = ({
         break;
       case 'add-to-cart':
         console.warn('Add To Cart');
-        console.warn(user);
         getShoppingCart(user.id).then((cart) => {
           // no cart exists, so we create one
+          debugger;
+          console.warn(cart.id != null);
           if (cart.length === 0) {
             const cartObj = {
               customerId: user.id,
@@ -72,9 +79,18 @@ const SingleProductCard = ({
               orderDate: timeStamp.toISOString()
               // completed: false
             };
-            createOrder(cartObj);
-          } else {
+            console.warn(cartObj);
+            // createOrder(cartObj);
+          } else if (cart.id != null) {
             console.warn('Found cart');
+            const lineItemObj = {
+              orderId: cart.id,
+              productID: product.id,
+              unitPrice: product.price,
+              quantity: product.inventoryCount ? 1 : 0
+            };
+            console.warn(lineItemObj);
+            addOrderLine(lineItemObj);
           }
         });
         break;
@@ -101,7 +117,7 @@ const SingleProductCard = ({
                       src={edit}
                     ></SingleProductCardEdit>
                   </Button1>
-                  <CartButton
+                  { product.inventoryCount > 0 ? <CartButton
                     id='add-to-cart'
                     onClick={() => handleClick('add-to-cart')}
                   >
@@ -109,7 +125,7 @@ const SingleProductCard = ({
                       className='SingleProductCardEdit'
                       src={edit}
                     ></SingleProductCardEdit>
-                  </CartButton>
+                  </CartButton> : '' }
                   <Button1
                     id='deleteSingleProduct'
                     onClick={() => handleClick('delete')}

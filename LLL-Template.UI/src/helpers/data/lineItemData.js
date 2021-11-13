@@ -33,10 +33,17 @@ const deleteOrderLine = (orderLineId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const addOrderLine = (lineObj) => new Promise((resolve, reject) => {
+  axios.post(`${apiURL}/api/orders/orderLines`, lineObj)
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
 export {
   getLineItemsByOrderId,
   getOrderLineWithProduct,
   getOrderLinesWithProduct,
   updateOrderLine,
-  deleteOrderLine
+  deleteOrderLine,
+  addOrderLine
 };
