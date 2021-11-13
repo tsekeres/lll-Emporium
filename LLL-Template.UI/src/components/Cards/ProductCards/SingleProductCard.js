@@ -73,6 +73,8 @@ const SingleProductCard = ({
               // completed: false
             };
             createOrder(cartObj);
+          } else {
+            console.warn('Found cart');
           }
         });
         break;
