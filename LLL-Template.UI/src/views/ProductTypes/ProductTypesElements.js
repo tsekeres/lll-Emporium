@@ -6,7 +6,7 @@ export const ProductTypeContainer = styled.div`
   flex-direction: column;
   color: #00000;
   background: #fff;
-  height: 1400px;
+  height: 2100px;
   padding-top: 100px;
 `;
 
