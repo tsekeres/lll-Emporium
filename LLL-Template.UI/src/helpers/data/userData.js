@@ -10,6 +10,7 @@ const getAllUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+<<<<<<< HEAD
 const getDesigners = (RoleTypeId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/api/users/{id}/RoleTypeId`, RoleTypeId)
     .then((response) => resolve(response.data))
@@ -40,4 +41,29 @@ export {
   addUsers,
   updateUser,
   getDesigners
+=======
+const getUserByEmail = (emailAddress) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/api/users/email/${emailAddress}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const getUserWithRoleByEmail = (emailAddress) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/api/users/withRole/email/${emailAddress}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const addUser = (user) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/api/users`, user)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+export {
+  getUsers,
+  getUserByEmail,
+  getUserWithRoleByEmail,
+  addUser
+>>>>>>> main
 };

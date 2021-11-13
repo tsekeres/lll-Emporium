@@ -13,9 +13,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using LLL_Emporium;
 using LLL_Emporium.DataAccess;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
+=======
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+>>>>>>> main
 
 namespace LLL_Emporium
 {
@@ -46,6 +51,7 @@ namespace LLL_Emporium
             services.AddTransient<OrderWithDetailRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+<<<<<<< HEAD
                .AddJwtBearer(options =>
                {
                    options.IncludeErrorDetails = true;
@@ -59,6 +65,21 @@ namespace LLL_Emporium
                        ValidIssuer = "https://securetoken.google.com/lll-emporium"
                    };
                });
+=======
+                .AddJwtBearer(options =>
+                {
+                    options.IncludeErrorDetails = true;
+                    options.Authority = "https://securetoken.google.com/lll-emporium";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidAudience = "lll-emporium",
+                        ValidIssuer = "https://securetoken.google.com/lll-emporium"
+                    };
+                });
+>>>>>>> main
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -78,9 +99,12 @@ namespace LLL_Emporium
             }
 
             app.UseCors(cfg => cfg.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

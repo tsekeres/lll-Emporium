@@ -34,6 +34,29 @@ namespace LLL_Emporium.Controllers
             return Ok(user);
         }
 
+        [HttpGet("email/{emailAddress}")]
+        public IActionResult GetUserByEmail(string emailAddress)
+        {
+            var user = _userRepository.GetByEmail(emailAddress);
+            if (user == null)
+            {
+                return NotFound("No user found.");
+            }
+            return Ok(user);
+        }
+
+        [HttpGet("withRole/email/{emailAddress}")]
+        public IActionResult GetUserWithRoleByEmail(string emailAddress)
+        {
+            var user = _userRepository.GetUserWithRoleByUserEmail(emailAddress);
+            if (user == null)
+            {
+                return NotFound("No user found.");
+            }
+            return Ok(user);
+        }
+
+
 
         [HttpGet]
         public IActionResult GetAllUsers()

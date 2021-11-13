@@ -33,10 +33,17 @@ const deleteProductType = (id) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getProductTypeProducts = (productTypeId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/api/products/productTypes/${productTypeId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 export {
   getProductTypes,
   getSingleProductType,
   addProductType,
   updateProductType,
-  deleteProductType
+  deleteProductType,
+  getProductTypeProducts
 };

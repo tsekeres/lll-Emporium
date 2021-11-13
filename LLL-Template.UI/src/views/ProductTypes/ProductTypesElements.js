@@ -4,18 +4,21 @@ import styled from 'styled-components';
 export const ProductTypeContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 125px;
-  height: 1000px;
-  padding-bottom: 125px;
+  color: #00000;
+  background: #fff;
+  height: 1400px;
+  padding-top: 100px;
 `;
 
 export const ProductTypeWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 80%;
-  height: 1000px;
+display: flex;
+flex-direction: row;
+width: 100%;
+
+@media screen and (max-width: 800px) {
+  flex-direction: column;
+  align-items: center;
+}
 `;
 
 export const Modal = styled.div`
@@ -34,9 +37,21 @@ top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
 `;
 
 export const Column1 = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  width: 90%;
+display: flex;
+flex-flow: row wrap;
+justify-content: space-around;
+align-items: center;
+width: 50%;
+height: 634px;
+margin-top: 48px;
+
+@media screen and (max-width: 1150px) {
+  width: 70%;
+}
+
+@media screen and (max-width: 525px) {
+  width: 100%;
+}
 `;
 
 export const AddProductTypeButtonImg = styled.img`
@@ -44,21 +59,35 @@ export const AddProductTypeButtonImg = styled.img`
 `;
 
 export const AddButtonContainer = styled.div`
-width: 10%;
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+width: 5%;
+padding-top: 150px;
 `;
 
 export const AddProductTypeButton = styled.button`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  border: none;
-  cursor:pointer;
-  overflow: hidden;
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden;
 `;
 
 export const Button = styled.button`
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+background-color: Transparent;
+background-repeat:no-repeat;
+border: none;
+cursor:pointer;
+overflow: hidden;
 `;
 
-export const ButtonImg = styled.img``;
+export const ButtonImg = styled.img`
+height: 15px;
+`;

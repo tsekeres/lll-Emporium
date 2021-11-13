@@ -3,10 +3,45 @@ import { LLLConfig } from '../apiKeys';
 
 const apiURL = LLLConfig.baseUrl;
 
-const updateProduct = (productId, productObj) => new Promise((resolve, reject) => {
-  axios.put(`${apiURL}/api/products/${productId}`, productObj)
+const getProducts = () => new Promise((resolve, reject) => {
+  axios
+    .get(`${apiURL}/api/products`)
     .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
-export default updateProduct;
+const getSingleProduct = (productId) => new Promise((resolve, reject) => {
+  axios
+    .get(`${apiURL}/api/products/${productId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const addProduct = (productName) => new Promise((resolve, reject) => {
+  axios
+    .post(`${apiURL}/api/products`, productName)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const updateProduct = (productId, productObj) => new Promise((resolve, reject) => {
+  axios
+    .put(`${apiURL}/api/products/${productId}`, productObj)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
+const deleteProduct = (productId) => new Promise((resolve, reject) => {
+  axios
+    .delete(`${apiURL}/api/products/${productId}`)
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
+export {
+  getProducts,
+  getSingleProduct,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+};

@@ -99,7 +99,8 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"update ProductTypes 
                         SET TypeName = @TypeName,
-                            ProductTypeImageUrl = @ProductTypeImageUrl
+                            ProductTypeImageUrl = @ProductTypeImageUrl,
+                            categoryId = @categoryId     
                             WHERE Id = @Id";
             productType.Id = id;
             var productTypeUpdated = db.QuerySingleOrDefault<ProductTypes>(sql, productType);

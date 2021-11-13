@@ -84,10 +84,11 @@ CREATE TABLE Users
 (
 	Id uniqueidentifier NOT NULL Primary Key default(newid()),
 	RoleTypeId uniqueidentifier NOT NULL,
+	DisplayName varchar(100) NOT NULL,
 	FirstName varchar(50),
 	LastName varchar(50),
-	EmailAddress varchar(100),
-	ProfilePicURL varchar(800),
+	EmailAddress varchar(100) NOT NULL,
+	ProfilePicURL varchar(800) NOT NULL,
 	Bio varchar(1000),
 	CONSTRAINT FK_Users_RoleTypes FOREIGN KEY (RoleTypeId)
 		REFERENCES dbo.RoleTypes (Id)
