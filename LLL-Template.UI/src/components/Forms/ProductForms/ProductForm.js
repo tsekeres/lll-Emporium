@@ -22,6 +22,7 @@ const ProductForm = ({
   id,
   productTypeId,
   productTypes,
+  user,
 }) => {
   const [product, setProduct] = useState({
     productImageUrl: productImageUrl || '',
@@ -50,6 +51,7 @@ const ProductForm = ({
         productDescription: product.productDescription,
         price: product.price,
         productTypeId: product.productTypeId,
+        designerId: user.id,
       };
       addProduct(productObj)
         .then(() => getProducts().then((response) => setProducts(response)));
@@ -141,6 +143,8 @@ ProductForm.propTypes = {
   id: PropTypes.string,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
+  user: PropTypes.any,
+  product: PropTypes.any,
 };
 
 export default ProductForm;

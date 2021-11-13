@@ -60,6 +60,7 @@ function Products({
             setProducts={setProducts}
             products={products}
             productTypes={productTypes}
+            user={user}
           />
         </Modal>
         <Column1 className='product-view'>
