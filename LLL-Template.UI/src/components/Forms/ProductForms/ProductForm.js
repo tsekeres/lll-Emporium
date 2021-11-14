@@ -43,9 +43,11 @@ const ProductForm = ({
       id: id || '',
       productTypeId: productTypeId || '',
     };
-    setProduct(productObj);
+    if (mounted) {
+      setProduct(productObj);
+    }
     return () => {
-      mounted = true;
+      mounted = false;
       return mounted;
     };
   }, [productImageUrl, productName, productDescription, price, productTypeId]);
