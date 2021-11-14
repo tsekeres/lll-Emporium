@@ -67,7 +67,6 @@ const SingleProductCard = ({
         console.warn('Add To Cart');
         getShoppingCart(user.id).then((cart) => {
           // no cart exists, so we create one
-          debugger;
           console.warn(cart.id != null);
           if (cart.length === 0) {
             const cartObj = {
