@@ -24,6 +24,7 @@ import {
   OrderTotalDue,
   OrderSubmitButton,
   OrderTotalPaymentsDiv,
+  EmptyCartDiv
 } from './OrderElements';
 
 import {
@@ -61,7 +62,10 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
   return id;
 }
 
-const OrderDetailView = () => {
+const OrderDetailView = ({
+  setCartCount,
+  setCartId
+}) => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [orderSubTotal, setOrderSubTotal] = useState(0.0);
@@ -248,6 +252,9 @@ const OrderDetailView = () => {
         setTransactionList(responseList);
         if (responseList.length > 0) {
           setHasTransactions(true);
+          // This is not a cart anymore if there are payments.
+          setCartCount(0);
+          setCartId('');
         }
       });
     });
@@ -322,13 +329,17 @@ const OrderDetailView = () => {
               shippingCost={shippingCost} />) }
         </OrderAddressPaymentDiv>
       </OrderOuterDiv>
-    ) : '' }
+    ) : <OrderOuterDiv>
+          <EmptyCartDiv>Your Cart is empty</EmptyCartDiv>
+        </OrderOuterDiv> }
     </>
   );
 };
 
 OrderDetailView.propTypes = {
-  orderId: PropTypes.string
+  orderId: PropTypes.string,
+  setCartCount: PropTypes.func,
+  setCartId: PropTypes.func
 };
 
 export default OrderDetailView;

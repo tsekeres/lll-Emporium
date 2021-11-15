@@ -103,6 +103,10 @@ const OrderSubmitButton = styled.button`
   width: 10em
 `;
 
+const EmptyCartDiv = styled.div`
+  text-align: center;
+`;
+
 export {
   OrderOuterDiv,
   OrderDataDiv,
@@ -124,5 +128,6 @@ export {
   OrderSubTotalDiv,
   OrderShippingCostDiv,
   OrderTotalDue,
-  OrderSubmitButton
+  OrderSubmitButton,
+  EmptyCartDiv
 };

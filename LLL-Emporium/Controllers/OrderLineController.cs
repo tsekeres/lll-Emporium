@@ -43,7 +43,7 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Orderline with id {orderLineId} not found.");
         }
 
-        [HttpGet("/orders/{orderId}/orderLines")]
+        [HttpGet("/api/orders/{orderId}/orderLines")]
         public IActionResult GetAllOrderLines(Guid orderId)
         {
             var result = _orderLineRepository.GetOrderLines(orderId);
@@ -54,7 +54,7 @@ namespace LLL_Emporium.Controllers
             else return NotFound($"Order line items for order with id {orderId} not found.");
         }
         
-        [HttpGet("/orders/{orderId}/orderLines/{orderLineId}")]
+        [HttpGet("/api/orders/{orderId}/orderLines/{orderLineId}")]
         public IActionResult GetAllOrderLines(Guid orderId, Guid orderLineId)
         {
             var result = _orderLineRepository.GetSingleOrderLine(orderLineId);
@@ -100,7 +100,7 @@ namespace LLL_Emporium.Controllers
                 return Created($"/api/orders/{lineItem.OrderId}/orderLines/{result}", result);
             }
         }
-        [HttpPost("/orders/multipleOrderLines")]
+        [HttpPost("/api/orders/multipleOrderLines")]
         public IActionResult NewOrderLines(OrderLineMultiple orderList)
         {
             var result = _orderLineRepository.AddMultipleLineItems(orderList);
@@ -136,7 +136,7 @@ namespace LLL_Emporium.Controllers
             else return BadRequest($"LineItem with id {lineItemId} was not deleted");
         }
         
-        [HttpDelete("/orders/{orderId}/orderLines")]
+        [HttpDelete("/api/orders/{orderId}/orderLines")]
         public IActionResult DeleteByOrderId(Guid orderId)
         {
             var result = _orderLineRepository.DeleteByOrderId(orderId);

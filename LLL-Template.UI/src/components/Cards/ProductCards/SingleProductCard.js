@@ -22,17 +22,19 @@ import {
   deleteProduct,
   getSingleProduct,
 } from '../../../helpers/data/productData';
-import { getShoppingCart } from '../../../helpers/data/orderData';
+import { getShoppingCart, createOrder } from '../../../helpers/data/orderData';
 import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
-import { addOrderLine } from '../../../helpers/data/lineItemData';
+import { addOrderLine, getLineItemsByOrderId } from '../../../helpers/data/lineItemData';
 
 const SingleProductCard = ({
   setProducts,
   productTypeId,
   productTypes,
   user,
+  setCartCount,
+  setCartId
 }) => {
   const history = useHistory();
 
@@ -79,8 +81,10 @@ const SingleProductCard = ({
               // completed: false
             };
             console.warn(cartObj);
-            // createOrder(cartObj);
+            createOrder(cartObj)
+              .then((cartId) => setCartId(cartId));
           } else if (cart.id != null) {
+            setCartId(cart.id);
             console.warn('Found cart');
             const lineItemObj = {
               orderId: cart.id,
@@ -89,7 +93,12 @@ const SingleProductCard = ({
               quantity: product.inventoryCount ? 1 : 0
             };
             console.warn(lineItemObj);
-            addOrderLine(lineItemObj);
+            addOrderLine(lineItemObj)
+              .then(() => {
+                debugger;
+                getLineItemsByOrderId(cart.id)
+                  .then((lineItemList) => setCartCount(lineItemList.length));
+              });
           }
         });
         break;
@@ -187,6 +196,8 @@ SingleProductCard.propTypes = {
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
   id: PropTypes.string,
+  setCartCount: PropTypes.func,
+  setCartId: PropTypes.func,
   user: PropTypes.any,
 };
 

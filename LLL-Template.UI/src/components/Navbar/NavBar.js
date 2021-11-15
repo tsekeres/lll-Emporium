@@ -39,7 +39,10 @@ const scrollWithOffset = (el) => {
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 };
 
-export default function NavBar({ toggle, user }) {
+export default function NavBar({
+  toggle, user,
+  cartCount, cartId
+}) {
   const [isOpen2, setIsOpen2] = useState(false);
 
   const toggle2 = () => {
@@ -108,7 +111,7 @@ export default function NavBar({ toggle, user }) {
                   ? <div>
                       <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
-                      <CartIcon count={2} />
+                      <CartIcon cartCount={cartCount} cartId={cartId} />
                     </div>
                   : <div>
                       <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
@@ -129,5 +132,7 @@ export default function NavBar({ toggle, user }) {
 NavBar.propTypes = {
   toggle: PropTypes.any,
   toggle2: PropTypes.any,
-  user: PropTypes.any
+  user: PropTypes.any,
+  cartCount: PropTypes.number,
+  cartId: PropTypes.string
 };

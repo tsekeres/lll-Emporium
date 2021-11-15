@@ -27,7 +27,7 @@ const OrderLineItemsDiv = styled.div`
   flex-basis: 30em
 `;
 
-const OrderTotalDiv = styled.div`
+const FinanceDiv = styled.div`
   margin: 5px;
   background-color: #ba9e9b;
   height: 77px;
@@ -35,10 +35,15 @@ const OrderTotalDiv = styled.div`
   flex-basis: 10em;
 `;
 
+const FinanceLineDiv = styled.div`
+  width: 100%;
+`;
+
 export {
   OrderHistoryCardOuterDiv,
   OrderDataDiv,
   OrderDataDetailDiv,
   OrderLineItemsDiv,
-  OrderTotalDiv,
+  FinanceDiv,
+  FinanceLineDiv
 };
