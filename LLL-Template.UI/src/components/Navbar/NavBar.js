@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaBars } from 'react-icons/fa';
 import { HashLink } from '../../../node_modules/react-router-hash-link';
 import { signInUser, signOutUser } from '../../helpers/auth';
+import SearchBar from '../SearchBar/SearchBar';
 import {
   NavigationBar,
   NavLeft,
@@ -38,7 +39,14 @@ const scrollWithOffset = (el) => {
   const yOffset = -10;
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 };
+
 export default function NavBar({ toggle, user }) {
+  const [isOpen2, setIsOpen2] = useState(false);
+
+  const toggle2 = () => {
+    setIsOpen2(!isOpen2);
+  };
+
   return (
     <NavigationBar className="NavigationBar">
       <NavLeft className="NavLeft">
@@ -92,18 +100,19 @@ export default function NavBar({ toggle, user }) {
       </NavMiddle>
       <NavRight className="NavRight">
       <NavItemsRight className="NavItemsRight" id="authButtons">
+        { isOpen2 && <SearchBar/>}
           {
             user !== null
             && <div className="NavItemsRight" id="authButtons">
               {
                 (user)
                   ? <div>
-                      <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
+                      <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
                       <BagImg className="BagImg" src={bag}></BagImg>
                     </div>
                   : <div>
-                      <SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg>
+                      <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
                     </div>
               }
@@ -120,5 +129,6 @@ export default function NavBar({ toggle, user }) {
 
 NavBar.propTypes = {
   toggle: PropTypes.any,
+  toggle2: PropTypes.any,
   user: PropTypes.any
 };
