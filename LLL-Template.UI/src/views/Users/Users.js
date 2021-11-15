@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UserCard from '../../components/Cards/UserCards/UserCards';
 import { getAllUsers } from '../../helpers/data/userData';
-import { getUsers } from '../../helpers/data/userData';
 // import { userForm } from '../../components/Forms/UserForms/UserForms';
 
 const userCardView = () => {
