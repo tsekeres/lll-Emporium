@@ -16,6 +16,7 @@ import { getProducts, deleteProduct } from '../../../helpers/data/productData';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 const ProductCards = ({
+  // products,
   setProducts,
   productImageUrl,
   productName,
@@ -27,8 +28,7 @@ const ProductCards = ({
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteProduct(id)
-          .then(getProducts(setProducts));
+        deleteProduct(id).then(() => getProducts().then((response) => setProducts(response)));
         break;
       case 'view':
         history.push(`/products/${id}`);
@@ -76,6 +76,7 @@ const ProductCards = ({
 };
 
 ProductCards.propTypes = {
+  // products: PropTypes.any,
   setProducts: PropTypes.func,
   productImageUrl: PropTypes.string,
   productName: PropTypes.string,

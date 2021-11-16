@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { addProduct, updateProduct, getProducts } from '../../../helpers/data/productData';
@@ -32,6 +32,25 @@ const ProductForm = ({
     id: id || '',
     productTypeId: productTypeId || '',
   });
+
+  useEffect(() => {
+    let mounted = true;
+    const productObj = {
+      productImageUrl: productImageUrl || '',
+      productName: productName || '',
+      productDescription: productDescription || '',
+      price: price || '',
+      id: id || '',
+      productTypeId: productTypeId || '',
+    };
+    if (mounted) {
+      setProduct(productObj);
+    }
+    return () => {
+      mounted = false;
+      return mounted;
+    };
+  }, [productImageUrl, productName, productDescription, price, productTypeId]);
 
   const handleInputChange = (e) => {
     setProduct((prevState) => ({

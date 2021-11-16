@@ -53,7 +53,8 @@ const SingleProductCard = ({
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteProduct(id).then(getProducts(setProducts)).then(history.push('/products'));
+        deleteProduct(id).then(() => getProducts().then((response) => setProducts(response)));
+        history.push('/products');
         break;
       case 'add-to-cart':
         console.warn('Add To Cart');
