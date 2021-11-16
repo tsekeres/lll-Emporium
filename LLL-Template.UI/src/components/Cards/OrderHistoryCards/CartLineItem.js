@@ -66,7 +66,7 @@ const LineItemDetailCard = ({
       discount: lineItem.discount
     };
     updateOrderLine(lineItem.id, lineObj)
-      .then(setLineItemsUpdated(!lineItemsUpdated));
+      .then(() => setLineItemsUpdated(!lineItemsUpdated));
   };
 
   return (
