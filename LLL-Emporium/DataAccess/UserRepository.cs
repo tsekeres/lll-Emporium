@@ -35,12 +35,8 @@ namespace LLL_Emporium.DataAccess
                          [LastName],
                          [DisplayName],
                          [RoleTypeId],
-<<<<<<< HEAD
-                         [ProfilePicURL],
-=======
                          [EmailAddress],
                          [ProfilePicUrl],
->>>>>>> main
                          [Bio])
                             OUTPUT inserted.Id
                             VALUES
@@ -48,14 +44,10 @@ namespace LLL_Emporium.DataAccess
                           @LastName,
                           @DisplayName,
                           @RoleTypeId,
-<<<<<<< HEAD
-                          @ProfilePicURL],
-=======
                           @EmailAddress,
                           @ProfilePicUrl,
->>>>>>> main
                           @Bio)";
-        
+
 
             id = db.ExecuteScalar<Guid>(sql, newUser);
             newUser.Id = id;
@@ -103,8 +95,8 @@ namespace LLL_Emporium.DataAccess
             var sql = @"Delete From Users Where Id = @id";
             db.Execute(sql, new { id });
         }
-       
-       internal User Update(Guid id, User user)
+
+        internal User Update(Guid id, User user)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"update Users
@@ -119,11 +111,15 @@ namespace LLL_Emporium.DataAccess
             return userUpdate;
         }
 
-        internal User GetByRoleType(string roleTypeId)
+        internal User GetByRoleType(Guid roleTypeId)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"Select * From User where RoleTypeId = @RoleTypeId";
-            var GetRoleType = db.QuerySingleOrDefault<User>(sql, roleTypeId);
+            var parameter = new
+            {
+                Id = roleTypeId
+            };
+            var GetRoleType = db.QuerySingleOrDefault<User>(sql, parameter);
             return GetRoleType;
         }
 

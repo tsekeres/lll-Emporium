@@ -104,7 +104,7 @@ namespace LLL_Emporium.Controllers
 
 
         [HttpGet("{id}/RoleTypeId")]
-        public IActionResult GetRoleTypeById(string id)
+        public IActionResult GetRoleTypeById(Guid id)
         {
             var RoleTypeId = _userRepository.GetByRoleType(id);
             if (RoleTypeId != null)
