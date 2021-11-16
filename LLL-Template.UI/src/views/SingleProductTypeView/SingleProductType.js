@@ -66,11 +66,12 @@ export default function SingleProductTypeView({
           </Button>
           <ProductForm
             productFormTitle='Add Product'
-            setProductTypeProductss={setProductTypeProducts}
+            setProductTypeProducts={setProductTypeProducts}
             productTypeProducts={productTypeProducts}
             productTypes={productTypes}
             products={products}
             setProducts={setProducts}
+            user={user}
           />
         </Modal>
         <Column1 className='ProductTypeColumn1'>
