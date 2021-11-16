@@ -88,7 +88,7 @@ export default function App() {
                 products={products} setProducts={setProducts}
                 cartCount={cartCount} setCartCount={setCartCount}
                 cartId={cartId} setCartId={setCartId}
-                lineItemsUpdatedi={lineItemsUpdated} setLineItemsUpdated = {setLineItemsUpdated}/>
+                lineItemsUpdated={lineItemsUpdated} setLineItemsUpdated = {setLineItemsUpdated}/>
         <Footer />
       </Router>
     </div>
