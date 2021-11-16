@@ -48,8 +48,16 @@ const getUserWithRoleByEmail = (emailAddress) => new Promise((resolve, reject) =
 
 const addUser = (user) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/api/users`, user)
-    .then((response) => resolve(response.data))
-    .catch((error) => reject(error));
+    .then((response) => {
+      console.warn(response.data);
+      debugger;
+      resolve(response.data);
+    })
+    .catch((error) => {
+      debugger;
+      console.warn(error);
+      reject(error);
+    });
 });
 
 export {
