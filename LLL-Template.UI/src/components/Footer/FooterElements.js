@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 export const FooterContainer = styled.div`
   background-color: #000000;
   height: 80px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 `;
 
 export const FooterLinksContainer = styled.div`

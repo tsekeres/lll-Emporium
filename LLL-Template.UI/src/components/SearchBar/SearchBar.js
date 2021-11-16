@@ -7,10 +7,10 @@ import {
 export default function SearchBar({ toggle2, isOpen2 }) {
   return (
     <SearchBarBar
-    className="SearchBarBar"
-    toggle2={toggle2}
-    isOpen2={isOpen2}
-    // isOpen2={isOpen2}
+      className="SearchBarBar"
+      toggle2={toggle2}
+      isOpen2={isOpen2}
+      // isOpen2={isOpen2}
     >
     </SearchBarBar>
   );
