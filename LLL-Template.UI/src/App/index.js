@@ -22,6 +22,7 @@ export default function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [cartId, setCartId] = useState('');
   const [cartCount, setCartCount] = useState(0);
+  const [lineItemsUpdated, setLineItemsUpdated] = useState(false);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -75,7 +76,7 @@ export default function App() {
       mounted = false;
       return mounted;
     };
-  }, [user]);
+  }, [user, lineItemsUpdated]);
 
   return (
     <div className='App'>
@@ -86,7 +87,8 @@ export default function App() {
         <Routes user={user} categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
                 products={products} setProducts={setProducts}
                 cartCount={cartCount} setCartCount={setCartCount}
-                cartId={cartId} setCartId={setCartId}/>
+                cartId={cartId} setCartId={setCartId}
+                lineItemsUpdatedi={lineItemsUpdated} setLineItemsUpdated = {setLineItemsUpdated}/>
         <Footer />
       </Router>
     </div>

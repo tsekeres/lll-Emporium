@@ -95,7 +95,6 @@ const SingleProductCard = ({
             console.warn(lineItemObj);
             addOrderLine(lineItemObj)
               .then(() => {
-                debugger;
                 getLineItemsByOrderId(cart.id)
                   .then((lineItemList) => setCartCount(lineItemList.length));
               });
