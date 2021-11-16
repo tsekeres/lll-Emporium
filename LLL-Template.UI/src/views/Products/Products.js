@@ -13,14 +13,12 @@ import {
   ButtonImg,
   Modal,
 } from './ProductElements';
-// import { getProducts } from '../../helpers/data/productData';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
 function Products({
   user, productTypes, products, setProducts
 }) {
-  // const [products, setProducts] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -31,9 +29,6 @@ function Products({
     setIsOpen(false);
   }
 
-  // useEffect(() => {
-  //   getProducts().then((response) => setProducts(response));
-  // }, []);
   return (
     <ProductContainer className='ProductContainer' id='ProductContainer'>
       <ProductWrapper className='ProductWrapper' id='Products'>
@@ -72,7 +67,6 @@ function Products({
               productName={productInfo.productName}
               productDescription={productInfo.productDescription}
               price={productInfo.price}
-              // products={products}
               setProducts={setProducts}
               productTypeId={productInfo.productTypeId}
               productTypes={productTypes}

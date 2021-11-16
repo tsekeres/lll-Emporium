@@ -16,7 +16,6 @@ import { getProducts, deleteProduct } from '../../../helpers/data/productData';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 const ProductCards = ({
-  // products,
   setProducts,
   productImageUrl,
   productName,
@@ -76,7 +75,6 @@ const ProductCards = ({
 };
 
 ProductCards.propTypes = {
-  // products: PropTypes.any,
   setProducts: PropTypes.func,
   productImageUrl: PropTypes.string,
   productName: PropTypes.string,
