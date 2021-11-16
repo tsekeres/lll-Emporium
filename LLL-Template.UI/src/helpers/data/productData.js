@@ -38,10 +38,18 @@ const deleteProduct = (productId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getProductByDesignerId = (designerId) => new Promise((resolve, reject) => {
+  axios
+    .get(`${apiURL}/api/products/designers/${designerId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 export {
   getProducts,
   getSingleProduct,
   addProduct,
   updateProduct,
   deleteProduct,
+  getProductByDesignerId
 };

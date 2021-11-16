@@ -33,7 +33,7 @@ export default function App() {
           // When the user is entered, useEffect will be called again
           // and we can set the user;
           if (responseObj !== '') {
-            setUser(responseObj);
+            console.warn(responseObj);
           } else setUser(false);
         });
         getCategories().then((categoryArray) => setCategories(categoryArray));
