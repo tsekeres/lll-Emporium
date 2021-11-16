@@ -140,7 +140,7 @@ const ProductForm = ({
         onChange={handleInputChange}
       >
         {productTypes?.map((productType) => (
-          <Option key={productType.id} value={productType.id}>
+          <Option key={productTypeId} value={productTypeId}>
             {productType.typeName}
           </Option>
         ))}

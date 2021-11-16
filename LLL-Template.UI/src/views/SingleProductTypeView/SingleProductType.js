@@ -71,6 +71,7 @@ export default function SingleProductTypeView({
             productTypes={productTypes}
             products={products}
             setProducts={setProducts}
+            productTypeId={productTypeId}
             user={user}
           />
         </Modal>
