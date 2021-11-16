@@ -269,10 +269,12 @@ const OrderDetailView = ({
         <OrderDataDetailDiv>Order Date: {formatDate(order.orderDate)}</OrderDataDetailDiv>
         <OrderLineItemsDiv>
           <LineItemsCartForm
+            orderId={order.id}
             lineItemsList={lineItemsList}
             lineItemsUpdated={lineItemsUpdated}
             setLineItemsUpdated={setLineItemsUpdated}
             hasTransactions={hasTransactions}
+            setCartCount={setCartCount}
           />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>

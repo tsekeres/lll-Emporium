@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
+import { getLineItemsByOrderId, updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
 import {
   LineItemOuterDiv,
   LineItemDescriptionDiv,
@@ -12,10 +12,12 @@ import {
 } from './CartLineItemElements';
 
 const LineItemDetailCard = ({
+  orderId,
   lineItem,
   lineItemsUpdated,
   setLineItemsUpdated,
-  hasTransactions
+  hasTransactions,
+  setCartCount
 }) => {
   const [quantityOptions, setQuantityOptions] = useState([]);
   const currencyFormatter = new Intl.NumberFormat('en-US', {
@@ -44,7 +46,9 @@ const LineItemDetailCard = ({
 
   const handleRemove = (e) => {
     const removeId = e.target.id.split('_')[1];
-    deleteOrderLine(removeId).then(() => setLineItemsUpdated(!lineItemsUpdated));
+    deleteOrderLine(removeId)
+      .then(() => getLineItemsByOrderId(orderId)
+        .then((lineItemList) => setCartCount(lineItemList.length)));
   };
 
   const handleUpdateQuantities = (e) => {
@@ -97,10 +101,12 @@ const LineItemDetailCard = ({
 };
 
 LineItemDetailCard.propTypes = {
+  orderId: PropTypes.string,
   lineItem: PropTypes.object,
   lineItemsUpdated: PropTypes.bool,
   setLineItemsUpdated: PropTypes.func,
-  hasTransactions: PropTypes.bool
+  hasTransactions: PropTypes.bool,
+  setCartCount: PropTypes.func
 };
 
 export default LineItemDetailCard;
