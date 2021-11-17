@@ -156,7 +156,8 @@ function Routes({
           path="/orders/:orderId"
           component={() => <OrderDetailView
             cartCount={cartCount}
-            setCartCount={setCartCount} />}
+            setCartCount={setCartCount}
+            setCartId={setCartId} />}
         />
         <Route
           exact
