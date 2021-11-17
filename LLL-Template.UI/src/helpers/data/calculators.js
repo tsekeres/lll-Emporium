@@ -64,6 +64,8 @@ const calculateShippingCost = (subTotal) => {
     default:
       break;
   }
+  // get rid of .00000000002 etc
+  shippingCost = parseFloat(shippingCost.toFixed(2));
   return shippingCost;
 };
 

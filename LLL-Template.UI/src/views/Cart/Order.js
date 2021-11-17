@@ -279,7 +279,7 @@ const OrderDetailView = ({
           />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>
-        {(totalPayments < (orderSubTotal + shippingCost)) ? (
+        {(totalPayments < parseFloat((orderSubTotal + shippingCost).toFixed(2))) ? (
           <>
             <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>
             <OrderFormInput
