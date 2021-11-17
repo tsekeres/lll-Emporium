@@ -9,6 +9,12 @@ const getLineItemsByOrderId = (orderId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getLineItemByProductId = (orderId, productId) => new Promise((resolve, reject) => {
+  axios.get(`${apiURL}/api/orders/${orderId}/orderLineByProduct/${productId}`)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 const getOrderLineWithProduct = (orderLineId) => new Promise((resolve, reject) => {
   axios.get(`${apiURL}/api/order/orderLines/details/${orderLineId}`)
     .then((response) => resolve(response.data))
@@ -41,6 +47,7 @@ const addOrderLine = (lineObj) => new Promise((resolve, reject) => {
 
 export {
   getLineItemsByOrderId,
+  getLineItemByProductId,
   getOrderLineWithProduct,
   getOrderLinesWithProduct,
   updateOrderLine,

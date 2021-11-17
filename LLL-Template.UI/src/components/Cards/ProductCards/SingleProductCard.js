@@ -27,8 +27,9 @@ import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 import bag from '../../../Assets/NavBarIcons/bag.png';
-import { addOrderLine, getLineItemsByOrderId } from '../../../helpers/data/lineItemData';
+import { addOrderLine, getLineItemByProductId, getLineItemsByOrderId, updateOrderLine } from '../../../helpers/data/lineItemData';
 import { calculateCartCount } from '../../../helpers/data/calculators';
+import axios from 'axios';
 
 const SingleProductCard = ({
   setProducts,
@@ -97,19 +98,32 @@ const SingleProductCard = ({
                     });
                 }
               });
+            // cart already exists
           } else if (cart.id != null) {
+            // set link for cart icon
             setCartId(cart.id);
-            const lineItemObj = {
-              orderId: cart.id,
-              productId: product.id,
-              unitPrice: product.price,
-              quantity: product.inventoryCount ? 1 : 0
-            };
-            addOrderLine(lineItemObj)
-              .then(() => {
-                getLineItemsByOrderId(cart.id)
-                  .then((lineItemList) => setCartCount(lineItemList.length));
-              });
+            // see if this product is already in the cart
+            getLineItemByProductId(cart.id, product.id).then((resultObj) => {
+              if (resultObj) {
+                const lineItemObj = {
+                  orderId: cart.id,
+                  productId: product.id,
+                  unitPrice: product.price,
+                  quantity: resultObj.quantity + 1
+                };
+                updateOrderLine(cart.id, lineItemObj);
+              } else { // not already in cart
+                const newLineItemObj = {
+                  orderId: cart.id,
+                  productId: product.id,
+                  unitPrice: product.price,
+                  quantity: product.quantity
+                };
+                addOrderLine(newLineItemObj)
+                  .then(() => {
+                    getLineItemsByOrderId(cart.id)
+                      .then((lineItemList) => setCartCount(lineItemList.length));
+                  });
           }
         });
         break;
