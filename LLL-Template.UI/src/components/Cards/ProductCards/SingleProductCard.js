@@ -67,10 +67,8 @@ const SingleProductCard = ({
         history.push('/products');
         break;
       case 'add-to-cart':
-        console.warn('Add To Cart');
         getShoppingCart(user.id).then((cart) => {
           // no cart exists, so we create one
-          console.warn(cart.id != null);
           if (cart.length === 0) {
             const cartObj = {
               customerId: user.id,
