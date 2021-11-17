@@ -43,6 +43,7 @@ namespace LLL_Emporium
             services.AddTransient<RoleTypeRepository>();
             services.AddTransient<ProductTypesRepository>();
             services.AddTransient<OrderWithDetailRepository>();
+            services.AddTransient<ProductWithDetailRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
