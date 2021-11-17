@@ -28,7 +28,6 @@ import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 const SingleProductCard = ({
   setProducts,
-  productTypeId,
   productTypes,
   user,
 }) => {
@@ -131,7 +130,7 @@ const SingleProductCard = ({
           </Button>
           <ProductForm
             productFormTitle='Edit Product'
-            productTypeId={productTypeId}
+            productTypeId={product.productTypeId}
             productTypes={productTypes}
             setProducts={setProducts}
             product={product}
@@ -140,6 +139,7 @@ const SingleProductCard = ({
             productImageUrl={product.productImageUrl}
             productName={product.productName}
             price={product.price}
+            user={user}
           />
         </Modal>
       </SingleProductCards>
