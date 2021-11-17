@@ -27,8 +27,7 @@ const ProductCards = ({
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteProduct(id)
-          .then(getProducts(setProducts));
+        deleteProduct(id).then(() => getProducts().then((response) => setProducts(response)));
         break;
       case 'view':
         history.push(`/products/${id}`);

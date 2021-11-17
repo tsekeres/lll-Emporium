@@ -30,7 +30,6 @@ import { addOrderLine, getLineItemsByOrderId } from '../../../helpers/data/lineI
 
 const SingleProductCard = ({
   setProducts,
-  productTypeId,
   productTypes,
   user,
   setCartCount,
@@ -63,7 +62,8 @@ const SingleProductCard = ({
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteProduct(id).then(getProducts(setProducts)).then(history.push('/products'));
+        deleteProduct(id).then(() => getProducts().then((response) => setProducts(response)));
+        history.push('/products');
         break;
       case 'add-to-cart':
         console.warn('Add To Cart');
@@ -173,7 +173,7 @@ const SingleProductCard = ({
           </Button>
           <ProductForm
             productFormTitle='Edit Product'
-            productTypeId={productTypeId}
+            productTypeId={product.productTypeId}
             productTypes={productTypes}
             setProducts={setProducts}
             product={product}
@@ -182,6 +182,7 @@ const SingleProductCard = ({
             productImageUrl={product.productImageUrl}
             productName={product.productName}
             price={product.price}
+            user={user}
           />
         </Modal>
       </SingleProductCards>
