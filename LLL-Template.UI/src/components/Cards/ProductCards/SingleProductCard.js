@@ -27,9 +27,11 @@ import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 import bag from '../../../Assets/NavBarIcons/bag.png';
-import { addOrderLine, getLineItemByProductId, getLineItemsByOrderId, updateOrderLine } from '../../../helpers/data/lineItemData';
+import {
+  addOrderLine, getLineItemByProductId,
+  getLineItemsByOrderId, updateOrderLine
+} from '../../../helpers/data/lineItemData';
 import { calculateCartCount } from '../../../helpers/data/calculators';
-import axios from 'axios';
 
 const SingleProductCard = ({
   setProducts,
@@ -111,19 +113,25 @@ const SingleProductCard = ({
                   unitPrice: product.price,
                   quantity: resultObj.quantity + 1
                 };
-                updateOrderLine(cart.id, lineItemObj);
+                updateOrderLine(resultObj.id, lineItemObj)
+                  .then(() => {
+                    getLineItemsByOrderId(cart.id)
+                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                  });
               } else { // not already in cart
                 const newLineItemObj = {
                   orderId: cart.id,
                   productId: product.id,
                   unitPrice: product.price,
-                  quantity: product.quantity
+                  quantity: product.inventoryCount ? 1 : 0
                 };
                 addOrderLine(newLineItemObj)
                   .then(() => {
                     getLineItemsByOrderId(cart.id)
-                      .then((lineItemList) => setCartCount(lineItemList.length));
+                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
                   });
+              }
+            });
           }
         });
         break;
