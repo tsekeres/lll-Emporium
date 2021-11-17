@@ -81,19 +81,16 @@ const SingleProductCard = ({
               orderDate: timeStamp.toISOString()
               // completed: false
             };
-            console.warn(cartObj);
             createOrder(cartObj)
               .then((cartId) => setCartId(cartId));
           } else if (cart.id != null) {
             setCartId(cart.id);
-            console.warn('Found cart');
             const lineItemObj = {
               orderId: cart.id,
               productID: product.id,
               unitPrice: product.price,
               quantity: product.inventoryCount ? 1 : 0
             };
-            console.warn(lineItemObj);
             addOrderLine(lineItemObj)
               .then(() => {
                 getLineItemsByOrderId(cart.id)
@@ -103,7 +100,6 @@ const SingleProductCard = ({
         });
         break;
       default:
-        console.warn('nothing selected');
     }
   };
 
