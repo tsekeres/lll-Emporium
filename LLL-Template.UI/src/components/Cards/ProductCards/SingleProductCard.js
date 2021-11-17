@@ -28,6 +28,7 @@ import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 import bag from '../../../Assets/NavBarIcons/bag.png';
 import { addOrderLine, getLineItemsByOrderId } from '../../../helpers/data/lineItemData';
+import { calculateCartCount } from '../../../helpers/data/calculators';
 
 const SingleProductCard = ({
   setProducts,
@@ -92,7 +93,7 @@ const SingleProductCard = ({
                   addOrderLine(lineItemObj)
                     .then(() => {
                       getLineItemsByOrderId(cartId)
-                        .then((lineItemList) => setCartCount(lineItemList.length));
+                        .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
                     });
                 }
               });
