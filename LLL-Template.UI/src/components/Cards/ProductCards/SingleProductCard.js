@@ -26,6 +26,7 @@ import { getShoppingCart, createOrder } from '../../../helpers/data/orderData';
 import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
+import bag from '../../../Assets/NavBarIcons/bag.png';
 import { addOrderLine, getLineItemsByOrderId } from '../../../helpers/data/lineItemData';
 
 const SingleProductCard = ({
@@ -130,7 +131,7 @@ const SingleProductCard = ({
                   >
                     <SingleProductCardEdit
                       className='SingleProductCardEdit'
-                      src={edit}
+                      src={bag}
                     ></SingleProductCardEdit>
                   </CartButton> : '' }
                   <Button1
