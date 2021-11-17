@@ -35,14 +35,8 @@ const updateOrder = (order) => new Promise((resolve, reject) => {
 
 const createOrder = (orderObj) => new Promise((resolve, reject) => {
   axios.post(`${apiURL}/api/orders`, orderObj)
-    .then((response) => {
-      console.warn(response.data);
-      resolve(response.data);
-    })
-    .catch((error) => {
-      console.warn(error);
-      reject(error);
-    });
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
 });
 
 export {

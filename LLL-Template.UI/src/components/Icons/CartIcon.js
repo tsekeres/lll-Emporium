@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
   BagDiv,
-  BagImage
+  BagImage,
+  CartCountDiv
 } from './CartIconsElements';
 import bag from '../../Assets/NavBarIcons/bag.png';
 
@@ -21,7 +22,7 @@ const CartIcon = ({
     <>
     <BagDiv onClick={handleClick}>
       <BagImage src={bag} />
-      <div>{cartCount}</div>
+      <CartCountDiv>{cartCount}</CartCountDiv>
     </BagDiv>
     </>
   );

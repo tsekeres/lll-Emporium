@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { getLineItemsByOrderId, updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
@@ -10,12 +11,11 @@ import {
   LineItemCountDisplay,
   LineItemRemoveButton,
 } from './CartLineItemElements';
+import { calculateCartCount } from '../../../helpers/data/calculators';
 
 const LineItemDetailCard = ({
   orderId,
   lineItem,
-  lineItemsUpdated,
-  setLineItemsUpdated,
   hasTransactions,
   setCartCount
 }) => {
@@ -24,6 +24,7 @@ const LineItemDetailCard = ({
     style: 'currency',
     currency: 'USD'
   });
+  const history = useHistory();
 
   // setup quantity select
   useEffect(() => {
@@ -48,7 +49,9 @@ const LineItemDetailCard = ({
     const removeId = e.target.id.split('_')[1];
     deleteOrderLine(removeId)
       .then(() => getLineItemsByOrderId(orderId)
-        .then((lineItemList) => setCartCount(lineItemList.length)));
+        .then((lineItemList) => {
+          setCartCount(calculateCartCount(lineItemList));
+        }));
   };
 
   const handleUpdateQuantities = (e) => {
@@ -66,13 +69,21 @@ const LineItemDetailCard = ({
       discount: lineItem.discount
     };
     updateOrderLine(lineItem.id, lineObj)
-      .then(() => setLineItemsUpdated(!lineItemsUpdated));
+      .then(() => getLineItemsByOrderId(orderId)
+        .then((lineItemList) => {
+          setCartCount(calculateCartCount(lineItemList));
+        }));
+  };
+
+  const handleImageClick = () => {
+    history.push(`/products/${lineItem.productId}`);
   };
 
   return (
-    <LineItemOuterDiv>
+    <LineItemOuterDiv >
       <ProductIconDiv>
           <ProductIconImg
+            onClick={handleImageClick}
             src={lineItem?.productImageUrl}
             alt="Product Image" />
         </ProductIconDiv>
@@ -103,8 +114,6 @@ const LineItemDetailCard = ({
 LineItemDetailCard.propTypes = {
   orderId: PropTypes.string,
   lineItem: PropTypes.object,
-  lineItemsUpdated: PropTypes.bool,
-  setLineItemsUpdated: PropTypes.func,
   hasTransactions: PropTypes.bool,
   setCartCount: PropTypes.func
 };

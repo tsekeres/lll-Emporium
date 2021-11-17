@@ -123,6 +123,10 @@ export const NavItemsRight = styled.div`
   margin-right: 10px;
 `;
 
+export const NavItemsRightFlexDiv = styled.div`
+  display: flex;
+`;
+
 export const SignIn = styled.img`
   width: 20px;
   height: 20px;

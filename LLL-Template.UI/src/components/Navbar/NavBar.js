@@ -16,6 +16,7 @@ import {
   NavItemsMiddle,
   NavRight,
   NavItemsRight,
+  NavItemsRightFlexDiv,
   NavBarImg,
   NavBarImg1,
   SearchImg,
@@ -108,11 +109,11 @@ export default function NavBar({
             && <div className="NavItemsRight" id="authButtons">
               {
                 (user)
-                  ? <div>
+                  ? <NavItemsRightFlexDiv>
                       <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
                       <CartIcon cartCount={cartCount} cartId={cartId} />
-                    </div>
+                    </NavItemsRightFlexDiv>
                   : <div>
                       <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>

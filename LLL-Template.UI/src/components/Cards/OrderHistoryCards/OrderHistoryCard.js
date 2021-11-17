@@ -48,7 +48,6 @@ const OrderHistoryCard = ({
       setLineItems(itemsObj.lineItems);
       const total = calculateTotal(itemsObj);
       const payments = calculateTotalPayments(itemsObj.transactionItems);
-      console.warn(total - payments);
       setBalanceDue(parseFloat((total - payments).toFixed(2)));
       setOrderTotal(total);
     });

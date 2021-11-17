@@ -11,7 +11,12 @@ const BagImage = styled.img`
   width: 20px;
 `;
 
+const CartCountDiv = styled.div`
+  text-align: center;
+`;
+
 export {
   BagDiv,
-  BagImage
+  BagImage,
+  CartCountDiv
 };
