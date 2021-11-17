@@ -32,13 +32,13 @@ const calculateTotalPayments = (transactionList) => {
   return total;
 };
 
-calculateCartCount = (lineItemsList) => {
+function calcCartCount(lineItemsList) {
   let cartCount = 0;
   for (let i = 0; i < lineItemsList.length; i += 1) {
     cartCount += lineItemsList[i].quantity;
   }
   return cartCount;
-};
+}
 
 const calculateShippingCost = (subTotal) => {
   let shippingCost = 7.99;
@@ -68,9 +68,9 @@ const calculateShippingCost = (subTotal) => {
 };
 
 export {
+  calcCartCount,
   formatDate,
   calculateOrderSubtotal,
   calculateTotalPayments,
   calculateShippingCost,
-  calculateCartCount
 };
