@@ -81,18 +81,20 @@ const SingleProductCard = ({
             };
             createOrder(cartObj)
               .then((cartId) => {
-                setCartId(cartId);
-                const lineItemObj = {
-                  orderId: cartId,
-                  productId: product.id,
-                  unitPrice: product.price,
-                  quantity: product.inventoryCount ? 1 : 0
-                };
-                addOrderLine(lineItemObj)
-                  .then(() => {
-                    getLineItemsByOrderId(cart.id)
-                      .then((lineItemList) => setCartCount(lineItemList.length));
-                  });
+                if (cartId !== '') {
+                  setCartId(cartId);
+                  const lineItemObj = {
+                    orderId: cartId,
+                    productId: product.id,
+                    unitPrice: product.price,
+                    quantity: product.inventoryCount ? 1 : 0
+                  };
+                  addOrderLine(lineItemObj)
+                    .then(() => {
+                      getLineItemsByOrderId(cartId)
+                        .then((lineItemList) => setCartCount(lineItemList.length));
+                    });
+                }
               });
           } else if (cart.id != null) {
             setCartId(cart.id);

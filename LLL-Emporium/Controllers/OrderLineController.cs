@@ -47,11 +47,7 @@ namespace LLL_Emporium.Controllers
         public IActionResult GetAllOrderLines(Guid orderId)
         {
             var result = _orderLineRepository.GetOrderLines(orderId);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            else return NotFound($"Order line items for order with id {orderId} not found.");
+            return Ok(result);
         }
         
         [HttpGet("/api/orders/{orderId}/orderLines/{orderLineId}")]

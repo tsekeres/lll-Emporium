@@ -61,6 +61,10 @@ export default function App() {
           getLineItemsByOrderId(cart.id)
             .then((itemList) => {
               setCartCount(itemList.length);
+            })
+            .catch(() => {
+              setCartCount(0);
+              setCartId(cart.id);
             });
         } else {
           setCartId('');

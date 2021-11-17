@@ -63,6 +63,7 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
 }
 
 const OrderDetailView = ({
+  cartCount,
   setCartCount,
   setCartId
 }) => {
@@ -263,7 +264,7 @@ const OrderDetailView = ({
 
   return (
     <>
-    { order ? (
+    { order && cartCount !== 0 ? (
       <OrderOuterDiv>
         <OrderDataDetailDiv>Order Number: {order.id}</OrderDataDetailDiv>
         <OrderDataDetailDiv>Order Date: {formatDate(order.orderDate)}</OrderDataDetailDiv>
@@ -340,6 +341,7 @@ const OrderDetailView = ({
 
 OrderDetailView.propTypes = {
   orderId: PropTypes.string,
+  cartCount: PropTypes.number,
   setCartCount: PropTypes.func,
   setCartId: PropTypes.func
 };
