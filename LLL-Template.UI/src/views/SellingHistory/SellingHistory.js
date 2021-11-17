@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 // import { SHCards } from '../../components/Cards/SellingHistoryCards/SellingHistoryCards';
 import {
@@ -12,14 +12,16 @@ import {
   Column2,
 } from './SellingHIstoryElements';
 import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
-// import { getProductByDesignerId } from '../../helpers/data/productData';
+import { getProductByDesignerId } from '../../helpers/data/productData';
 
 export const SellingHistory = ({ user }) => {
-  //   const [designerProducts, setDesignerProducts] = useState([]);
-  //   const designerId = user.id;
+  const [designerProducts, setDesignerProducts] = useState([]);
+  const designerId = user.id;
+  console.warn(designerProducts);
+  console.warn(setDesignerProducts);
 
   useEffect(() => {
-    console.warn(user);
+    getProductByDesignerId(designerId).then((dProductsArray) => console.warn(dProductsArray));
   });
 
   return (
