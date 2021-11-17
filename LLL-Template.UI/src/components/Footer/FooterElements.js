@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 
 export const FooterContainer = styled.div`
   background-color: #000000;
-  height: 80px;
+  height: 30px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 `;
 
 export const FooterLinksContainer = styled.div`
@@ -36,9 +39,9 @@ export const FooterLink = styled(Link)`
 `;
 
 export const FooterImg = styled.img`
-  height: 2rem;
+  height: 1.25rem;
   justify-content: space-between;
-  margin: 1.25rem;
+  margin: .5rem;
 `;
 
 export const FooterItem = styled.div`
