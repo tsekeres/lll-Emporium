@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ProductForms from '../../components/Forms/ProductForms/ProductForm';
 import ProductCards from '../../components/Cards/ProductCards/ProductCards';
@@ -13,14 +13,12 @@ import {
   ButtonImg,
   Modal,
 } from './ProductElements';
-import { getProducts } from '../../helpers/data/productData';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
 function Products({
-  user, productTypes
+  user, productTypes, products, setProducts
 }) {
-  const [products, setProducts] = useState([]);
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   function openModal() {
@@ -31,9 +29,6 @@ function Products({
     setIsOpen(false);
   }
 
-  useEffect(() => {
-    getProducts().then((response) => setProducts(response));
-  }, []);
   return (
     <ProductContainer className='ProductContainer' id='ProductContainer'>
       <ProductWrapper className='ProductWrapper' id='Products'>
@@ -60,6 +55,7 @@ function Products({
             setProducts={setProducts}
             products={products}
             productTypes={productTypes}
+            user={user}
           />
         </Modal>
         <Column1 className='product-view'>
@@ -71,7 +67,6 @@ function Products({
               productName={productInfo.productName}
               productDescription={productInfo.productDescription}
               price={productInfo.price}
-              products={products}
               setProducts={setProducts}
               productTypeId={productInfo.productTypeId}
               productTypes={productTypes}
