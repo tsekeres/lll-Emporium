@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 // import GetLineItemsByOrderId from '../../../helpers/data/lineItemData';
 import { getOrderWithDetail } from '../../../helpers/data/orderData';
-import { calculateTotalPayments } from '../../../helpers/data/calculators';
+import { calculateTotalPayments, calculateOrderSubtotal } from '../../../helpers/data/calculators';
 import LineItemHistoryCard from './LineItemHistoryCard';
 import {
   OrderHistoryCardOuterDiv,
@@ -23,10 +23,7 @@ const formatDate = (dateString) => {
 };
 
 const calculateTotal = (itemsObj) => {
-  let total = 0.0;
-  itemsObj.lineItems.forEach((item) => {
-    total += item.unitPrice;
-  });
+  let total = calculateOrderSubtotal(itemsObj.lineItems, true);
   total += itemsObj.order.shippingCost;
   return total;
 };

@@ -13,6 +13,7 @@ import NavBar from '../components/Navbar/NavBar';
 import { getUserWithRoleByEmail } from '../helpers/data/userData';
 import { getShoppingCart } from '../helpers/data/orderData';
 import { getLineItemsByOrderId } from '../helpers/data/lineItemData';
+import { calculateCartCount } from '../helpers/data/calculators';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
@@ -60,7 +61,7 @@ export default function App() {
           setCartId(cart.id);
           getLineItemsByOrderId(cart.id)
             .then((itemList) => {
-              setCartCount(itemList.length);
+              setCartCount(calculateCartCount(itemList));
             })
             .catch(() => {
               setCartCount(0);

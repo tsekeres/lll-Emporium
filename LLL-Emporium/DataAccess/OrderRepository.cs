@@ -49,7 +49,7 @@ namespace LLL_Emporium.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * from Orders
                         WHERE CustomerId = @CustomerId
-                        Order BY OrderDate";
+                        Order BY OrderDate DESC";
             var parameters = new
             {
                 CustomerId = customerId 
