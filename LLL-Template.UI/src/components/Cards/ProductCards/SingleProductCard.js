@@ -111,7 +111,8 @@ const SingleProductCard = ({
                   orderId: cart.id,
                   productId: product.id,
                   unitPrice: product.price,
-                  quantity: resultObj.quantity + 1
+                  // add only if the inventory allows
+                  quantity: product.inventoryCount > resultObj.quantity ? resultObj.quantity + 1 : resultObj.quantity
                 };
                 updateOrderLine(resultObj.id, lineItemObj)
                   .then(() => {
