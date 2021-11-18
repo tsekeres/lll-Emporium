@@ -8,10 +8,15 @@ const formatDate = (dateString) => {
   return output;
 };
 
-const calculateOrderSubtotal = (itemsList) => {
+const calculateOrderSubtotal = (itemsList, hasTransactions) => {
   let total = 0.0;
   itemsList.forEach((item) => {
-    total += (item.unitPrice - item.discount) * Math.min(item.quantity, item.inventoryCount);
+    if (!hasTransactions) {
+      total += (item.unitPrice - item.discount) * Math.min(item.quantity, item.inventoryCount);
+    // once a transaction exists, the inventory has been reduced and is no longer considered
+    } else {
+      total += (item.unitPrice - item.discount) * item.quantity;
+    }
   });
   return total;
 };
@@ -26,6 +31,14 @@ const calculateTotalPayments = (transactionList) => {
   total = parseFloat(total.toFixed(2));
   return total;
 };
+
+function calculateCartCount(lineItemsList) {
+  let cartCount = 0;
+  for (let i = 0; i < lineItemsList.length; i += 1) {
+    cartCount += lineItemsList[i].quantity;
+  }
+  return cartCount;
+}
 
 const calculateShippingCost = (subTotal) => {
   let shippingCost = 7.99;
@@ -51,6 +64,8 @@ const calculateShippingCost = (subTotal) => {
     default:
       break;
   }
+  // get rid of .00000000002 etc
+  shippingCost = parseFloat(shippingCost.toFixed(2));
   return shippingCost;
 };
 
@@ -58,5 +73,6 @@ export {
   formatDate,
   calculateOrderSubtotal,
   calculateTotalPayments,
-  calculateShippingCost
+  calculateShippingCost,
+  calculateCartCount,
 };
