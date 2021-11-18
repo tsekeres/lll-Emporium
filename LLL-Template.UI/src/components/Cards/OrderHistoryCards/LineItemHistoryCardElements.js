@@ -9,16 +9,10 @@ const LineItemOuterDiv = styled.div`
 const ProductsIconDiv = styled.div`
   display: inline-block;
   width: 15%;
-  margin 0 5px 5px 0;
+  margin 5px 5px 0 0;
   height: auto;
   text-align: center;
   border-radius: 5px;
-  vertical-align: top;
-`;
-
-const ProductsHelperSpan = styled.span`
-  display: inline-block;
-  height: 100%;
   vertical-align: top;
 `;
 
@@ -31,12 +25,12 @@ const ProductsIconImg = styled.img`
 const LineItemDescriptionDiv = styled.div`
   width: 78%;
   display: inline-block;
+  vertical-align: bottom;
 `;
 
 export {
   LineItemOuterDiv,
   ProductsIconDiv,
-  ProductsHelperSpan,
   ProductsIconImg,
   LineItemDescriptionDiv
 };

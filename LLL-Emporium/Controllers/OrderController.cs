@@ -54,11 +54,7 @@ namespace LLL_Emporium.Controllers
         public IActionResult GetCustomerShoppingCart(Guid customerId)
         {
             var result = _orderRepository.GetShoppingCart(customerId);
-            if (result != null)
-            {
-                return Ok(result);
-            }
-            else return NotFound($"No shopping cart for customer with id {customerId}.");
+            return Ok(result);
         }
 
 

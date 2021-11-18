@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import bag from '../../../Assets/NavBarIcons/bag.png';
 
 export const SingleProductContainer = styled.div`
   display: flex;
@@ -65,11 +66,12 @@ export const Button1 = styled.button`
 `;
 
 export const CartButton = styled.button`
-  background-color: red;
+  background-color: Transparent;
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
   overflow: hidden;
+  background-image: ${bag}
 `;
 
 export const SingleProductCardImg = styled.img`

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
+import { getLineItemsByOrderId, updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
 import {
   LineItemOuterDiv,
   LineItemDescriptionDiv,
@@ -10,18 +11,20 @@ import {
   LineItemCountDisplay,
   LineItemRemoveButton,
 } from './CartLineItemElements';
+import { calculateCartCount } from '../../../helpers/data/calculators';
 
 const LineItemDetailCard = ({
+  orderId,
   lineItem,
-  lineItemsUpdated,
-  setLineItemsUpdated,
-  hasTransactions
+  hasTransactions,
+  setCartCount
 }) => {
   const [quantityOptions, setQuantityOptions] = useState([]);
   const currencyFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD'
   });
+  const history = useHistory();
 
   // setup quantity select
   useEffect(() => {
@@ -44,7 +47,11 @@ const LineItemDetailCard = ({
 
   const handleRemove = (e) => {
     const removeId = e.target.id.split('_')[1];
-    deleteOrderLine(removeId).then(() => setLineItemsUpdated(!lineItemsUpdated));
+    deleteOrderLine(removeId)
+      .then(() => getLineItemsByOrderId(orderId)
+        .then((lineItemList) => {
+          setCartCount(calculateCartCount(lineItemList));
+        }));
   };
 
   const handleUpdateQuantities = (e) => {
@@ -62,13 +69,21 @@ const LineItemDetailCard = ({
       discount: lineItem.discount
     };
     updateOrderLine(lineItem.id, lineObj)
-      .then(setLineItemsUpdated(!lineItemsUpdated));
+      .then(() => getLineItemsByOrderId(orderId)
+        .then((lineItemList) => {
+          setCartCount(calculateCartCount(lineItemList));
+        }));
+  };
+
+  const handleImageClick = () => {
+    history.push(`/products/${lineItem.productId}`);
   };
 
   return (
-    <LineItemOuterDiv>
+    <LineItemOuterDiv >
       <ProductIconDiv>
           <ProductIconImg
+            onClick={handleImageClick}
             src={lineItem?.productImageUrl}
             alt="Product Image" />
         </ProductIconDiv>
@@ -89,16 +104,18 @@ const LineItemDetailCard = ({
           options={quantityOptions}
           name='quantity' defaultValue={{ value: `${lineItem.quantity}`, label: `${lineItem.quantity}` }}
           onChange={handleUpdateQuantities} /> </LineItemCountDisplay>))
-          || (!lineItem.inventoryCount && (<LineItemCountDisplay>Out of Stock</LineItemCountDisplay>)) }
+          || (!lineItem.inventoryCount
+                && (hasTransactions ? <LineItemCountDisplay>Qty {lineItem.quantity}</LineItemCountDisplay>
+                  : <LineItemCountDisplay>Out of Stock</LineItemCountDisplay>)) }
     </LineItemOuterDiv>
   );
 };
 
 LineItemDetailCard.propTypes = {
+  orderId: PropTypes.string,
   lineItem: PropTypes.object,
-  lineItemsUpdated: PropTypes.bool,
-  setLineItemsUpdated: PropTypes.func,
-  hasTransactions: PropTypes.bool
+  hasTransactions: PropTypes.bool,
+  setCartCount: PropTypes.func
 };
 
 export default LineItemDetailCard;

@@ -22,23 +22,38 @@ import {
   deleteProduct,
   getSingleProduct,
 } from '../../../helpers/data/productData';
+import { getShoppingCart, createOrder } from '../../../helpers/data/orderData';
 import ProductForm from '../../Forms/ProductForms/ProductForm';
 import edit from '../../../Assets/ActionIcons/Edit.png';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
+import bag from '../../../Assets/NavBarIcons/bag.png';
+import {
+  addOrderLine, getLineItemByProductId,
+  getLineItemsByOrderId, updateOrderLine
+} from '../../../helpers/data/lineItemData';
+import { calculateCartCount } from '../../../helpers/data/calculators';
 
 const SingleProductCard = ({
   setProducts,
   productTypes,
   user,
+  setCartCount,
+  setCartId
 }) => {
   const history = useHistory();
 
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [product, setProduct] = useState({});
   const { id } = useParams();
+  const timeStamp = new Date();
 
   useEffect(() => {
+    let mounted = true;
     getSingleProduct(id).then(setProduct);
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, []);
 
   function openModal() {
@@ -56,10 +71,72 @@ const SingleProductCard = ({
         history.push('/products');
         break;
       case 'add-to-cart':
-        console.warn('Add To Cart');
+        getShoppingCart(user.id).then((cart) => {
+          // no cart exists, so we create one
+          if (cart.length === 0) {
+            const cartObj = {
+              customerId: user.id,
+              // shippingCity: '',
+              // shippingState: '',
+              // shippingZip: '',
+              // shippingCost: '',
+              orderDate: timeStamp.toISOString()
+              // completed: false
+            };
+            createOrder(cartObj)
+              .then((cartId) => {
+                if (cartId !== '') {
+                  setCartId(cartId);
+                  const lineItemObj = {
+                    orderId: cartId,
+                    productId: product.id,
+                    unitPrice: product.price,
+                    quantity: product.inventoryCount ? 1 : 0
+                  };
+                  addOrderLine(lineItemObj)
+                    .then(() => {
+                      getLineItemsByOrderId(cartId)
+                        .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                    });
+                }
+              });
+            // cart already exists
+          } else if (cart.id != null) {
+            // set link for cart icon
+            setCartId(cart.id);
+            // see if this product is already in the cart
+            getLineItemByProductId(cart.id, product.id).then((resultObj) => {
+              if (resultObj) {
+                const lineItemObj = {
+                  orderId: cart.id,
+                  productId: product.id,
+                  unitPrice: product.price,
+                  // add only if the inventory allows
+                  quantity: product.inventoryCount > resultObj.quantity ? resultObj.quantity + 1 : resultObj.quantity
+                };
+                updateOrderLine(resultObj.id, lineItemObj)
+                  .then(() => {
+                    getLineItemsByOrderId(cart.id)
+                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                  });
+              } else { // not already in cart
+                const newLineItemObj = {
+                  orderId: cart.id,
+                  productId: product.id,
+                  unitPrice: product.price,
+                  quantity: product.inventoryCount ? 1 : 0
+                };
+                addOrderLine(newLineItemObj)
+                  .then(() => {
+                    getLineItemsByOrderId(cart.id)
+                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                  });
+              }
+            });
+          }
+        });
         break;
       default:
-        console.warn('nothing selected');
     }
   };
 
@@ -81,15 +158,15 @@ const SingleProductCard = ({
                       src={edit}
                     ></SingleProductCardEdit>
                   </Button1>
-                  <CartButton
+                  { product.inventoryCount > 0 ? <CartButton
                     id='add-to-cart'
                     onClick={() => handleClick('add-to-cart')}
                   >
                     <SingleProductCardEdit
                       className='SingleProductCardEdit'
-                      src={edit}
+                      src={bag}
                     ></SingleProductCardEdit>
-                  </CartButton>
+                  </CartButton> : '' }
                   <Button1
                     id='deleteSingleProduct'
                     onClick={() => handleClick('delete')}
@@ -153,6 +230,8 @@ SingleProductCard.propTypes = {
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,
   id: PropTypes.string,
+  setCartCount: PropTypes.func,
+  setCartId: PropTypes.func,
   user: PropTypes.any,
 };
 

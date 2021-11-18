@@ -14,13 +14,17 @@ import {
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
+  // OrderFinanceOutputDiv,
   OrderTransactionList,
   OrderTransactionLine,
+  OrderFinancialFigure,
+  OrderPaymentFigure,
   OrderSubTotalDiv,
   OrderShippingCostDiv,
   OrderTotalDue,
   OrderSubmitButton,
   OrderTotalPaymentsDiv,
+  EmptyCartDiv
 } from './OrderElements';
 
 import {
@@ -31,6 +35,7 @@ import {
 } from '../../helpers/data/calculators';
 // import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
+import OrderShippingPayment from '../../components/Cards/OrderHistoryCards/OrderShippingPayment';
 import { getOrderLinesWithProduct } from '../../helpers/data/lineItemData';
 // import { getLineItemsByOrderId } from '../../helpers/data/lineItemData';
 
@@ -57,7 +62,11 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
   return id;
 }
 
-const OrderDetailView = () => {
+const OrderDetailView = ({
+  cartCount,
+  setCartCount,
+  setCartId
+}) => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
   const [orderSubTotal, setOrderSubTotal] = useState(0.0);
@@ -112,6 +121,7 @@ const OrderDetailView = () => {
         setPaymentTypeOptions(optionsArr);
       })
         .catch(setPaymentTypeOptions([]));
+      // transaction types are not a user input option, unlike payment types
       getTransactionTypes().then((resultArr) => setTransactionTypeOptions(resultArr))
         .catch(setTransactionTypeOptions([]));
     }
@@ -124,7 +134,7 @@ const OrderDetailView = () => {
   useEffect(() => {
     let mounted = true;
     if (mounted && lineItemsList) {
-      setOrderSubTotal(calculateOrderSubtotal(lineItemsList));
+      setOrderSubTotal(calculateOrderSubtotal(lineItemsList, hasTransactions));
     }
     return function cleanup() {
       mounted = false;
@@ -211,7 +221,7 @@ const OrderDetailView = () => {
         productDescription: item.productDescription,
         productImageUrl: item.productImageUrl,
         price: item.currentPrice,
-        inventoryCount: item.inventoryCount - item.quantity
+        inventoryCount: item.inventoryCount - item.quantity <= 0 ? 0 : item.inventoryCount - item.quantity
       };
       updateProduct(item.productId, tempObj);
     });
@@ -243,6 +253,9 @@ const OrderDetailView = () => {
         setTransactionList(responseList);
         if (responseList.length > 0) {
           setHasTransactions(true);
+          // This is not a cart anymore if there are payments.
+          setCartCount(0);
+          setCartId('');
         }
       });
     });
@@ -251,71 +264,86 @@ const OrderDetailView = () => {
 
   return (
     <>
-    { order ? (
+    { order && cartCount !== 0 ? (
       <OrderOuterDiv>
         <OrderDataDetailDiv>Order Number: {order.id}</OrderDataDetailDiv>
         <OrderDataDetailDiv>Order Date: {formatDate(order.orderDate)}</OrderDataDetailDiv>
         <OrderLineItemsDiv>
           <LineItemsCartForm
+            orderId={order.id}
             lineItemsList={lineItemsList}
             lineItemsUpdated={lineItemsUpdated}
             setLineItemsUpdated={setLineItemsUpdated}
             hasTransactions={hasTransactions}
+            setCartCount={setCartCount}
           />
         </OrderLineItemsDiv>
         <OrderAddressPaymentDiv>
-          <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>
-          <OrderFormInput
-            type='text' name='shippingAddress' value={order.shippingAddress}
-            label='shippingAddress' onChange={handleChange}/>
-          <InputLabel htmlFor='shippingCity'>City</InputLabel>
-          <OrderFormInput
-            type='text' name='shippingCity' value={order.shippingCity}
-            label='shippingCity' onChange={handleChange}/>
-          <InputLabel htmlFor="shippingState">State</InputLabel>
-          <OrderFormInput
-            type='text' name='shippingState' value={order.shippingState}
-            label='shippingState' onChange={handleChange}/>
-          <InputLabel htmlFor='shippingZip'>Zip Code</InputLabel>
-          <OrderFormInput
-            type='text' name='shippingZip' value={order.shippingZip}
-            label='shippingZip' onChange={handleChange}/>
-          <InputLabel htmlFor='paymentType'>Payment Type</InputLabel>
-          <Select
-            options={paymentTypeOptions}
-            onChange={handlePaymentTypeChange} />
-          <InputLabel htmlFor='paymentAccount'>Account Number</InputLabel>
-          <OrderFormInput
-            type='text' name='paymentAccount' value={newTransaction.paymentAccount}
-            label='paymentAccount' onChange={handleTransactionChange} />
-          <InputLabel htmlFor='paymentAmount'>Payment Amount</InputLabel>
-          <OrderFormInput
-            type='text' name='paymentAmount' value={newTransaction.paymentAmount}
-            label='paymentAmount' onChange={handleTransactionChange} />
+        {(totalPayments < parseFloat((orderSubTotal + shippingCost).toFixed(2))) ? (
+          <>
+            <InputLabel htmlFor='shippingAddress'>Street Address</InputLabel>
+            <OrderFormInput
+              type='text' name='shippingAddress' value={order.shippingAddress}
+              label='shippingAddress' onChange={handleChange}/>
+            <InputLabel htmlFor='shippingCity'>City</InputLabel>
+            <OrderFormInput
+              type='text' name='shippingCity' value={order.shippingCity}
+              label='shippingCity' onChange={handleChange}/>
+            <InputLabel htmlFor="shippingState">State</InputLabel>
+            <OrderFormInput
+              type='text' name='shippingState' value={order.shippingState}
+              label='shippingState' onChange={handleChange}/>
+            <InputLabel htmlFor='shippingZip'>Zip Code</InputLabel>
+            <OrderFormInput
+              type='text' name='shippingZip' value={order.shippingZip}
+              label='shippingZip' onChange={handleChange}/>
+            <InputLabel htmlFor='paymentType'>Payment Type</InputLabel>
+            <Select
+              options={paymentTypeOptions}
+              onChange={handlePaymentTypeChange} />
+            <InputLabel htmlFor='paymentAccount'>Account Number</InputLabel>
+            <OrderFormInput
+              type='text' name='paymentAccount' value={newTransaction.paymentAccount}
+              label='paymentAccount' onChange={handleTransactionChange} />
+            <InputLabel htmlFor='paymentAmount'>Payment Amount</InputLabel>
+            <OrderFormInput
+              type='text' name='paymentAmount' value={newTransaction.paymentAmount}
+              label='paymentAmount' onChange={handleTransactionChange} />
+            <OrderSubTotalDiv>SubTotal:<OrderFinancialFigure> {currencyFormatter.format(orderSubTotal)}</OrderFinancialFigure></OrderSubTotalDiv>
+            <OrderShippingCostDiv>Shipping:<OrderFinancialFigure>{currencyFormatter.format(shippingCost)}</OrderFinancialFigure></OrderShippingCostDiv>
+            <OrderSubTotalDiv>Order Total<OrderFinancialFigure>{currencyFormatter.format(orderSubTotal + shippingCost)}</OrderFinancialFigure></OrderSubTotalDiv>
             <div>Past Payments</div>
-          <OrderTransactionList>
-            { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
-              key={transaction.id}>
-              {currencyFormatter.format(transaction.paymentAmount)}
-            </OrderTransactionLine>)) : '' }
-          </OrderTransactionList>
-          <OrderSubTotalDiv>SubTotal: {currencyFormatter.format(orderSubTotal)}</OrderSubTotalDiv>
-          <OrderShippingCostDiv>Shipping: {currencyFormatter.format(shippingCost)}</OrderShippingCostDiv>
-          <OrderTotalPaymentsDiv>Total Payments:
-            {currencyFormatter.format(totalPayments)}
-          </OrderTotalPaymentsDiv>
-          <OrderTotalDue>Balance Due: {currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}
-            </OrderTotalDue>
-          <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton>
+            <OrderTransactionList>
+              { transactionList.length ? (transactionList.map((transaction) => <OrderTransactionLine
+                key={transaction.id}>
+                <OrderPaymentFigure>{currencyFormatter.format(transaction.paymentAmount)}</OrderPaymentFigure>
+              </OrderTransactionLine>)) : '' }
+            </OrderTransactionList>
+            <OrderTotalPaymentsDiv>Total Payments:
+              <OrderFinancialFigure>{currencyFormatter.format(totalPayments)}</OrderFinancialFigure>
+            </OrderTotalPaymentsDiv>
+            <OrderTotalDue>Balance Due:<OrderFinancialFigure>{currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}</OrderFinancialFigure>
+              </OrderTotalDue>
+            <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton> </>)
+          : (<OrderShippingPayment
+              order={order}
+              totalPayments={totalPayments}
+              orderSubTotal={orderSubTotal}
+              shippingCost={shippingCost} />) }
         </OrderAddressPaymentDiv>
       </OrderOuterDiv>
-    ) : '' }
+    ) : <OrderOuterDiv>
+          <EmptyCartDiv>Your Cart is empty</EmptyCartDiv>
+        </OrderOuterDiv> }
     </>
   );
 };
 
 OrderDetailView.propTypes = {
-  orderId: PropTypes.string
+  orderId: PropTypes.string,
+  cartCount: PropTypes.number,
+  setCartCount: PropTypes.func,
+  setCartId: PropTypes.func
 };
 
 export default OrderDetailView;
