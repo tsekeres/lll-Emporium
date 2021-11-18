@@ -11,7 +11,7 @@ const getAllUsers = () => new Promise((resolve, reject) => {
 });
 
 const getDesigners = (RoleTypeId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/api/users/{id}/RoleTypeId`, RoleTypeId)
+  axios.get(`${dbUrl}/api/users/${RoleTypeId}/RoleTypeId`)
     .then((response) => resolve(response.data))
     .catch((err) => reject(err));
 });
@@ -48,16 +48,8 @@ const getUserWithRoleByEmail = (emailAddress) => new Promise((resolve, reject) =
 
 const addUser = (user) => new Promise((resolve, reject) => {
   axios.post(`${dbUrl}/api/users`, user)
-    .then((response) => {
-      console.warn(response.data);
-      debugger;
-      resolve(response.data);
-    })
-    .catch((error) => {
-      debugger;
-      console.warn(error);
-      reject(error);
-    });
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
 });
 
 export {

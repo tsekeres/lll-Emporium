@@ -33,7 +33,6 @@ export default function App() {
           // When the user is entered, useEffect will be called again
           // and we can set the user;
           console.warn(responseObj);
-          debugger;
           if (responseObj !== '') {
             setUser(responseObj);
           } else setUser(false);

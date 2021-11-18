@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import DesignerCard from '../../components/Cards/DesignerCards/DesignerCards';
+import { getRoleTypeByName } from '../../helpers/data/roleTypeData';
 import { getDesigners } from '../../helpers/data/userData';
 
 const Designers = () => {
   const [designers, ViewDesigners] = useState([]);
 
   useEffect(() => {
-    getDesigners().then((response) => {
-      ViewDesigners(response);
+    getRoleTypeByName('Designer').then((roleObj) => {
+      getDesigners(roleObj.id).then((response) => {
+        ViewDesigners(response);
+      });
     });
   }, []);
 
@@ -20,4 +23,4 @@ const Designers = () => {
   );
 };
 
-export default { Designers };
+export default Designers;

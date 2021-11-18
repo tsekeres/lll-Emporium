@@ -114,7 +114,7 @@ namespace LLL_Emporium.DataAccess
         internal User GetByRoleType(Guid roleTypeId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"Select * From User where RoleTypeId = @RoleTypeId";
+            var sql = @"Select * From User where RoleTypeId = @Id";
             var parameter = new
             {
                 Id = roleTypeId
