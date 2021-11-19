@@ -154,7 +154,9 @@ function Routes({
         <Route
           exact
           path="/orders/:orderId"
+          user={user}
           component={() => <OrderDetailView
+            user={user}
             cartCount={cartCount}
             setCartCount={setCartCount}
             setCartId={setCartId} />}

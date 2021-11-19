@@ -63,11 +63,13 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
 }
 
 const OrderDetailView = ({
+  user,
   cartCount,
   setCartCount,
   setCartId
 }) => {
   const { orderId } = useParams();
+  const [authed, setAuthed] = useState(false);
   const [order, setOrder] = useState(null);
   const [orderSubTotal, setOrderSubTotal] = useState(0.0);
   const [lineItemsList, setLineItemsList] = useState([]);
@@ -190,6 +192,18 @@ const OrderDetailView = ({
     };
   }, [lineItemsUpdated]);
 
+  useEffect(() => {
+    let mounted = true;
+    if (user && order && (user.id === order.customerId || user.roleTypeName === 'Administrator'
+        || user.roleTypeName === 'Super User')) {
+      setAuthed(true);
+    } else setAuthed(false);
+    return () => {
+      mounted = false;
+      return mounted;
+    };
+  }, [user, order]);
+
   // main form input
   const handleChange = (e) => {
     setOrder((prevState) => ({
@@ -264,7 +278,8 @@ const OrderDetailView = ({
 
   return (
     <>
-    { order && cartCount !== 0 ? (
+    { authed
+    && (order && cartCount !== 0 ? (
       <OrderOuterDiv>
         <OrderDataDetailDiv>Order Number: {order.id}</OrderDataDetailDiv>
         <OrderDataDetailDiv>Order Date: {formatDate(order.orderDate)}</OrderDataDetailDiv>
@@ -334,12 +349,16 @@ const OrderDetailView = ({
       </OrderOuterDiv>
     ) : <OrderOuterDiv>
           <EmptyCartDiv>Your Cart is empty</EmptyCartDiv>
-        </OrderOuterDiv> }
+        </OrderOuterDiv>) }
+    { !authed && <OrderOuterDiv>
+          <EmptyCartDiv>You are not authorized to view this page.</EmptyCartDiv>
+        </OrderOuterDiv>}
     </>
   );
 };
 
 OrderDetailView.propTypes = {
+  user: PropTypes.any,
   orderId: PropTypes.string,
   cartCount: PropTypes.number,
   setCartCount: PropTypes.func,
