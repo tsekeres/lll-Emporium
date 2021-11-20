@@ -19,8 +19,8 @@ text-align: right;
 export const Card = styled.div`
 width: 50em;
 display: flex;
-align-items: flex-start;
 display: wrap;
+margin: 100px;
 `;
 
 export const CardImg = styled.img`
