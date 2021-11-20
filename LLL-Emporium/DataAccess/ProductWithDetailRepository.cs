@@ -18,61 +18,25 @@ namespace LLL_Emporium.DataAccess
             _connectionString = config.GetConnectionString("LLL-Emporium");
         }
 
-        internal ProductWithDetail GetProductWithDetails(Guid productId)
+        internal IEnumerable<ProductWithDetail> GetProductWithDetails(Guid designerId)
         {
             using var db = new SqlConnection(_connectionString);
-            ProductWithDetail resultObj = new ProductWithDetail();
-            resultObj.LineItems = new List<OrderLineDetailP>();
-            resultObj.OrderItems = new List<OrderDetail>();
-
-
-            var sql = @"SELECT * FROM Products
-                        WHERE Id = @Id";
+            var sql = @"SELECT PR.Id, PR.ProductTypeId, PR.DesignerId, PR.ProductName,
+                                                        PR.ProductDescription, PR.ProductImageUrl, PR.Price,
+                                                        PR.InventoryCount, OL.Id AS OrderIdOl, OL.OrderId, OL.ProductId,
+                                                        OL.UnitPrice, OL.Quantity, OL.Discount, O.Id AS OrderIdO, O.CustomerId,
+                                                        O.ShippingAddress, O.ShippingCity, O.ShippingState,
+                                                        O.ShippingCost, O.OrderDate, O.Completed FROM Products PR
+		                        JOIN OrderLines OL
+			                        ON OL.ProductId = PR.Id
+		                        JOIN Orders O on O.Id = OL.OrderId
+		                            WHERE DesignerId = @DesignerId";
             var parameter = new
             {
-                Id = productId
+                DesignerId = designerId
             };
-            var result = db.QueryFirstOrDefault<Product>(sql, parameter);
-            if (result != null)
-            {
-                resultObj.Product = result;
-                }
-                sql = @"SELECT PR.Id, PR.ProductTypeId, PR.DesignerId,
-								PR.ProductName, PR.ProductDescription, PR.ProductImageUrl,
-								PR.InventoryCount, PR.Price, OL.Id, OL.OrderId, OL.ProductId,
-								OL.UnitPrice, OL.Quantity, OL.Discount FROM Products PR
-								JOIN OrderLines OL
-								ON PR.Id = OL.ProductId
-								WHERE OL.ProductId = @Id";
-                var orderLineResult = db.Query<OrderLineDetailP>(sql, parameter);
-                if (orderLineResult.Any())
-                {
-                    foreach (var lineItem in orderLineResult)
-                    {
-                        resultObj.LineItems.Add(lineItem);
-                    }
-            
-
-            sql = @"SELECT OL.Id, OL.OrderId, OL.ProductId,
-						OL.UnitPrice, OL.Quantity, OL.Discount,
-						O.Id, O.CustomerId, O.OrderDate FROM OrderLines OL
-						JOIN Orders O
-						ON OL.OrderId = O.Id
-						WHERE O.Id = OL.OrderId";
-                var orderResult = db.Query<OrderDetail>(sql, parameter);
-                if (orderResult.Any())
-                {
-                    foreach (var order in orderResult)
-                    {
-                        resultObj.OrderItems.Add(order);
-                    }
-                }
-            }
-            if (result == null)
-            {
-                return null;
-            }
-            else return resultObj;
+            var result = db.Query<ProductWithDetail>(sql, parameter);
+            return result;
         }
     }
 }

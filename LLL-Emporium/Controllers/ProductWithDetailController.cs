@@ -20,16 +20,15 @@ namespace LLL_Emporium.Controllers
             _productWithDetailRepository = productWithDetailRepo;
         }
 
-        [HttpGet("{productId}")]
-
-        public IActionResult GetProductWithDetails(Guid productId)
+        [HttpGet("{designerId}")]
+        public IActionResult GetAllOrderLines(Guid designerId)
         {
-            var result = _productWithDetailRepository.GetProductWithDetails(productId);
+            var result = _productWithDetailRepository.GetProductWithDetails(designerId);
             if (result != null)
             {
                 return Ok(result);
             }
-            else return NotFound($"Order with id {productId} not found");
+            else return NotFound($"Designer Id {designerId} not found.");
         }
     }
 }

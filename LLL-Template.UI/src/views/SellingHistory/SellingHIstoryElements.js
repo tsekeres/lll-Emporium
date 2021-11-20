@@ -6,8 +6,9 @@ display: flex;
 flex-direction: column;
   color: #00000;
   background: #fff;
-  height: 734px;
+  height: 800px;
   padding-top: 50px;
+  padding-bottom: 50px;
 `;
 
 export const SHWrapper = styled.div`
@@ -26,33 +27,8 @@ export const Column1 = styled.div`
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 100%;
   height: 634px;
   margin-top: 48px;
-
-  @media screen and (max-width: 1150px) {
-    width: 70%;
-  }
-
-  @media screen and (max-width: 525px) {
-    width: 100%;
-  }
-`;
-
-export const SHImg = styled.img`
-  display: flex;
-  align-self: center;
-  width: 60%;
-`;
-
-export const Column2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
-  height: 734px;
-
-  @media screen and (max-width: 800px) {
-    display: none;
   }
 `;

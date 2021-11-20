@@ -7,9 +7,8 @@ export const SHCard = styled.div`
   align-items: center;
   border: 1px solid black;
   border-radius: 10px;
-  width: 25%;
-  height: 20%;
-  opacity: .5;
+  width: 50%;
+  height: 50%;
   margin-left: 75px;
 
   @media screen and (max-width: 525px) {
@@ -20,8 +19,17 @@ export const SHCard = styled.div`
 
 export const SHCardFooter = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   margin-top: 5px;
   width: 100%;
-  text-transform: lowercase;
+  height: 75%;
+`;
+
+export const SHCardImg = styled.img`
+  height: 25%;
+`;
+
+export const SHCardFooterLine = styled.div`
+  height:10%;
 `;
