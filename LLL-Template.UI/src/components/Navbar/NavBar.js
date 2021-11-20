@@ -16,18 +16,18 @@ import {
   NavItemsMiddle,
   NavRight,
   NavItemsRight,
+  NavItemsRightFlexDiv,
   NavBarImg,
   NavBarImg1,
   SearchImg,
   SignIn,
-  BagImg,
   MobileIcon,
   Button,
 } from './NavBarElements';
 import logo from '../../Assets/NavBarIcons/LOGO.png';
 import loggedin from '../../Assets/NavBarIcons/LoggedIn.png';
 import loggedOut from '../../Assets/NavBarIcons/LoggedOut.png';
-import bag from '../../Assets/NavBarIcons/bag.png';
+import CartIcon from '../Icons/CartIcon';
 import magnifyingGlass from '../../Assets/NavBarIcons/SearchIcons.png';
 
 const styleObj = {
@@ -40,7 +40,10 @@ const scrollWithOffset = (el) => {
   window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 };
 
-export default function NavBar({ toggle, user }) {
+export default function NavBar({
+  toggle, user,
+  cartCount, cartId
+}) {
   const [isOpen2, setIsOpen2] = useState(false);
 
   const toggle2 = () => {
@@ -106,11 +109,11 @@ export default function NavBar({ toggle, user }) {
             && <div className="NavItemsRight" id="authButtons">
               {
                 (user)
-                  ? <div>
+                  ? <NavItemsRightFlexDiv>
                       <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
-                      <BagImg className="BagImg" src={bag}></BagImg>
-                    </div>
+                      <CartIcon cartCount={cartCount} cartId={cartId} />
+                    </NavItemsRightFlexDiv>
                   : <div>
                       <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
@@ -130,5 +133,7 @@ export default function NavBar({ toggle, user }) {
 NavBar.propTypes = {
   toggle: PropTypes.any,
   toggle2: PropTypes.any,
-  user: PropTypes.any
+  user: PropTypes.any,
+  cartCount: PropTypes.number,
+  cartId: PropTypes.string
 };

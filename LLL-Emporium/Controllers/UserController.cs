@@ -6,12 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using LLL_Emporium.DataAccess;
 using LLL_Emporium.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace LLL_Emporium.Controllers
 {
     [Route("api/users")]
-    [Authorize]
     [ApiController]
     public class UserController : ControllerBase
 
@@ -53,11 +51,9 @@ namespace LLL_Emporium.Controllers
         }
 
 
-
-        [HttpGet]
+       [HttpGet]
         public IActionResult GetAllUsers()
         {
-            var fbUserId = User.FindFirst(claim => claim.Type == "user_id").Value;
             var result = _userRepository.GetAll();
             if (result.Count() >= 0)
             {

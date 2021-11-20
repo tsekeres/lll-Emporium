@@ -1,53 +1,36 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   ProductCard,
   ProductCardImg,
   ProductCardHeader,
   ProductCardButtons,
-  ProductCardEdit,
   ProductCardDelete,
   ProductCardBody,
   CardTitle,
-  CardText,
   Button,
   Button1,
-  Modal,
 } from './ProductCardElements';
-import { getProducts, deleteProduct, getSingleProduct } from '../../../helpers/data/productData';
-import ProductForm from '../../Forms/ProductForms/ProductForm';
-import edit from '../../../Assets/ActionIcons/Edit.png';
+import { getProducts, deleteProduct } from '../../../helpers/data/productData';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
 
 const ProductCards = ({
   setProducts,
-  productTypeId,
-  productTypes,
   productImageUrl,
   productName,
-  productDescription,
-  price,
   id,
   user,
 }) => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+  const history = useHistory();
 
   const handleClick = (type) => {
     switch (type) {
       case 'delete':
-        deleteProduct(id)
-          .then(getProducts(setProducts));
+        deleteProduct(id).then(() => getProducts().then((response) => setProducts(response)));
         break;
       case 'view':
-        getSingleProduct(id);
+        history.push(`/products/${id}`);
         break;
       default:
         console.warn('nothing selected');
@@ -56,24 +39,18 @@ const ProductCards = ({
 
   return (
     <ProductCard
-      className="ProductCard"
+      className='ProductCard'
       key={id}
-      id="ProductCard"
+      id='ProductCard'
     >
-      <ProductCardHeader className="ProductCardHeader"> {
+      <ProductCardHeader className='ProductCardHeader'> {
         user !== null
         && <div className='ProductCardHeader' id='authButtons'> {
           (user)
-            ? <ProductCardButtons className="ProductCardButtons">
-          <Button1 id="editProduct" onClick={openModal}>
-            <ProductCardEdit
-              className="ProductCardEdit"
-              src={edit}
-            ></ProductCardEdit>
-          </Button1>
-          <Button1 id="deleteProduct" onClick={() => handleClick('delete')}>
+            ? <ProductCardButtons className='ProductCardButtons'>
+          <Button1 id='deleteProduct' onClick={() => handleClick('delete')}>
             <ProductCardDelete
-              className="ProductCardDelete"
+              className='ProductCardDelete'
               src={deleted}
             ></ProductCardDelete>
           </Button1>
@@ -85,48 +62,22 @@ const ProductCards = ({
       </ProductCardHeader>
       <Button>
         <ProductCardImg
-          className="ProductCardImg"
+          className='ProductCardImg'
           src={productImageUrl}
           onClick={() => handleClick('view')}
         />
       </Button>
       <ProductCardBody>
-        <CardTitle tag="h5">{productName}</CardTitle>
-        <CardText>{productDescription}</CardText>
-        <CardText>{price}</CardText>
+        <CardTitle tag='h5'>{productName}</CardTitle>
       </ProductCardBody>
-      <Modal
-        isOpen={modalIsOpen}
-        className="Modal"
-        parentSelector={() => document.querySelector('#ProductContainer')}
-      >
-        <Button className="modalClose" onClick={closeModal}>
-          <ProductCardDelete src={deleted} />
-        </Button>
-        <ProductForm
-          productFormTitle="Edit Product"
-          productTypeId={productTypeId}
-          productTypes={productTypes}
-          setProducts={setProducts}
-          id={id}
-          productDescription={productDescription}
-          productImageUrl={productImageUrl}
-          productName={productName}
-          price={price}
-        />
-      </Modal>
     </ProductCard>
   );
 };
 
 ProductCards.propTypes = {
   setProducts: PropTypes.func,
-  productTypeId: PropTypes.string,
-  productTypes: PropTypes.any,
   productImageUrl: PropTypes.string,
-  productName: PropTypes.string.isRequired,
-  productDescription: PropTypes.string,
-  price: PropTypes.number,
+  productName: PropTypes.string,
   id: PropTypes.string,
   user: PropTypes.any,
 };

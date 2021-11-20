@@ -9,10 +9,12 @@ import {
 import CartLineItem from '../../Cards/OrderHistoryCards/CartLineItem';
 
 const LineItemsCartForm = ({
+  orderId,
   lineItemsList,
   lineItemsUpdated,
   setLineItemsUpdated,
-  hasTransactions
+  hasTransactions,
+  setCartCount
 }) => {
   const [formList, setFormList] = useState([]);
   // const [quantity, setQuantity] = useState([]);
@@ -33,10 +35,12 @@ const LineItemsCartForm = ({
         { formList.length ? formList?.map((lineObj) => <OrderLineItemsLI
           key={lineObj.id}>
           <CartLineItem
+            orderId={orderId}
             lineItem={lineObj}
             lineItemsUpdated={lineItemsUpdated}
             setLineItemsUpdated={setLineItemsUpdated}
-            hasTransactions={hasTransactions} />
+            hasTransactions={hasTransactions}
+            setCartCount={setCartCount} />
           </OrderLineItemsLI>) : '' }
       </OrderLineItemsUL>
     </OrderLineItemsFormOuterDiv>
@@ -44,10 +48,12 @@ const LineItemsCartForm = ({
 };
 
 LineItemsCartForm.propTypes = {
+  orderId: PropTypes.string,
   lineItemsList: PropTypes.array,
   lineItemsUpdated: PropTypes.bool,
   setLineItemsUpdated: PropTypes.func,
-  hasTransactions: PropTypes.bool
+  hasTransactions: PropTypes.bool,
+  setCartCount: PropTypes.func
 };
 
 export default LineItemsCartForm;

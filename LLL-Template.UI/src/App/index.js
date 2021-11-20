@@ -11,6 +11,9 @@ import { Footer } from '../components/Footer/Footer';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/Navbar/NavBar';
 import { getUserWithRoleByEmail } from '../helpers/data/userData';
+import { getShoppingCart } from '../helpers/data/orderData';
+import { getLineItemsByOrderId } from '../helpers/data/lineItemData';
+import { calculateCartCount } from '../helpers/data/calculators';
 
 export default function App() {
   const [categories, setCategories] = useState([]);
@@ -18,6 +21,8 @@ export default function App() {
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [cartId, setCartId] = useState('');
+  const [cartCount, setCartCount] = useState(0);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -49,13 +54,46 @@ export default function App() {
     });
   }, []);
 
+  useEffect(() => {
+    let mounted = true;
+    if (user) {
+      getShoppingCart(user.id).then((cart) => {
+        if (cart.length !== 0 && cart.id != null) {
+          setCartId(cart.id);
+          getLineItemsByOrderId(cart.id)
+            .then((itemList) => {
+              setCartCount(calculateCartCount(itemList));
+            })
+            .catch(() => {
+              setCartCount(0);
+              setCartId(cart.id);
+            });
+        } else {
+          setCartId('');
+          setCartCount(0);
+        }
+      });
+    } else {
+      setCartId('');
+      setCartCount(0);
+    }
+    return () => {
+      mounted = false;
+      return mounted;
+    };
+  }, [user]);
+
   return (
     <div className='App'>
       <Router>
-        <Sidebar isOpen={isOpen} toggle={toggle} user={user}/>
-        <NavBar toggle={toggle} user={user}/>
+        <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
+        <NavBar toggle={toggle} user={user}
+          cartCount={cartCount} cartId={cartId}/>
         <Routes user={user} categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
-                products={products} setProducts={setProducts} />
+                products={products} setProducts={setProducts}
+                cartCount={cartCount} setCartCount={setCartCount}
+                cartId={cartId} setCartId={setCartId}
+        />
         <Footer />
       </Router>
     </div>
