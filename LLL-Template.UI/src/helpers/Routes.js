@@ -90,7 +90,6 @@ function Routes({
             />
           )}
         />
-        <Route exact path="/Designers" component={Designers} />
         <Route
           exact
           path="/ProductTypes"
@@ -161,6 +160,7 @@ function Routes({
           setProducts={setProducts}
           />
         <Route exact path="/Users" component={userCardView} />
+        <Route exact path="/Designers" component={() => <Designers />} />
         <Route
           exact
           path="/orders/:orderId"
