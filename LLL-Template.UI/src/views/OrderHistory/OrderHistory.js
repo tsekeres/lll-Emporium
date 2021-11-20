@@ -62,7 +62,7 @@ const OrderHistory = ({
       options={options}
       onChange={handleSelectClick}/> : '' }
     </OrderHistorySearchUserOuterDiv>
-    <OrderHistoryOuterDiv>
+    <OrderHistoryOuterDiv className='order-history-outer-div'>
     { orderList.map((order) => <OrderHistoryCard
         key={order.id}
         order={order} />) }

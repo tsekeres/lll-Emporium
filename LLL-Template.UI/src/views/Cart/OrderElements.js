@@ -5,23 +5,27 @@ const OrderOuterDiv = styled.div`
   margin 100px 3em;
 `;
 
-const OrderDataDiv = styled.div`
-  width: 28%;
-  margin: 10px 5px;
-  display: inline-block;
-  border: 1px solid black;
-  border-radius: 5px;
-  vertical-align: top;
+const OrderBaseInfoDiv = styled.div`
+  width: 100%;
+`;
+
+const OrderItemsPaymentDiv = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
 `;
 
 const OrderDataDetailDiv = styled.div`
   width: 90%;
 `;
 
+const OrderLineItemsOuterDiv = styled.div`
+  flex-basis: 50%;
+`;
+
 const OrderLineItemsDiv = styled.div`
-  margin: 10px 10px 5px;
-  display: inline-block;
-  width: 50%; 
+  margin: 10px 0 5px;
   padding-left: 1%;
   background-color: #c4c4c4;
 `;
@@ -44,9 +48,12 @@ const OrderLineCountSelect = styled.input`
   width: 2em;
 `;
 
+const OrderAddressPaymentOuterDiv = styled.div`
+  flex-basis: 40%;
+`;
+
 const OrderAddressPaymentDiv = styled.div`
   margin: 10px 10px 5px;
-  width: 30%;
   background-color: #ba9e9b;
   padding: 5px;
   float: right;
@@ -109,13 +116,16 @@ const EmptyCartDiv = styled.div`
 
 export {
   OrderOuterDiv,
-  OrderDataDiv,
+  OrderBaseInfoDiv,
   OrderDataDetailDiv,
+  OrderItemsPaymentDiv,
+  OrderLineItemsOuterDiv,
   OrderLineItemsDiv,
   OrderLineItemsUL,
   OrderLineItemsLI,
   OrderLineCheckBox,
   OrderLineCountSelect,
+  OrderAddressPaymentOuterDiv,
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
