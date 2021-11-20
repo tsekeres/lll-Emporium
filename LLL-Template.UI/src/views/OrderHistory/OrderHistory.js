@@ -8,7 +8,7 @@ import {
   OrderHistoryTitle,
 } from './OrderHistoryElements';
 import { getOrdersByUserId } from '../../helpers/data/orderData';
-import { getUsers } from '../../helpers/data/userData';
+import { getAllUsers } from '../../helpers/data/userData';
 
 const OrderHistory = ({
   user
@@ -31,7 +31,7 @@ const OrderHistory = ({
           .then((orderListResponse) => setOrderList(orderListResponse));
       }
       // setup list of user names for the select drop down
-      getUsers().then((resultArr) => {
+      getAllUsers().then((resultArr) => {
         for (let i = 0; i < resultArr.length; i += 1) {
           const option = {
             value: resultArr[i].id,

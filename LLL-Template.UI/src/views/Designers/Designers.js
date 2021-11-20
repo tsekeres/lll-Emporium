@@ -1,202 +1,31 @@
-import React from 'react';
-import {
-  CategoryContainer,
-  CategoryWrapper,
-  Column1,
-  CategoryCard,
-  CategoryCardImg,
-  CategoryCardHeader,
-  CategoryCardButtons,
-  CategoryCardEdit,
-  CategoryCardDelete,
-  CategoryImg,
-  CategoryCardFooter,
-  Column2,
-} from './DesignersElements';
-import category from '../../Assets/ViewStockPhotos/CategoryViewStock.jpeg';
-import jewelry from '../../Assets/CategoryIcons/Accessories.png';
-// import add from '../../Assets/ActionIcons/Add.png';
-import edit from '../../Assets/ActionIcons/Edit.png';
-import deleted from '../../Assets/ActionIcons/Delete.png';
+import React, { useEffect, useState } from 'react';
+import DesignerCard from '../../components/Cards/DesignerCards/DesignerCards';
+import { getRoleTypeByName } from '../../helpers/data/roleTypeData';
+import { getDesigners } from '../../helpers/data/userData';
+import logo from '../../Assets/NavBarIcons/LOGO.png';
+import { LogoImg, CardContainer } from './DesignersElements';
 
-const Designers = () => (
-  <CategoryContainer className='AboutUsContainer'>
-    <CategoryWrapper className='AboutUsWrapper'>
-      <Column1 className='Column1'>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-        <CategoryCard className='CategoryCard'>
-          <CategoryCardHeader className='CategoryCardHeader'>
-            <CategoryCardButtons className='CategoryCardButtons'>
-              <CategoryCardEdit
-                className='CategoryCardEdit'
-                src={edit}
-              ></CategoryCardEdit>
-              <CategoryCardDelete
-                className='CategoryCardDelete'
-                src={deleted}
-              ></CategoryCardDelete>
-            </CategoryCardButtons>
-          </CategoryCardHeader>
-          <CategoryCardImg
-            className='CategoryCardImg'
-            src={jewelry}
-          ></CategoryCardImg>
-          <CategoryCardFooter className='CategoryCardFooter'>
-            jewelry
-          </CategoryCardFooter>
-        </CategoryCard>
-      </Column1>
-      <Column2 className='Column2'>
-        <CategoryImg src={category} className='CategoryImg'></CategoryImg>
-      </Column2>
-    </CategoryWrapper>
-  </CategoryContainer>
-);
+const Designers = () => {
+  const [designers, ViewDesigners] = useState([]);
+
+  useEffect(() => {
+    getRoleTypeByName('Designer').then((roleObj) => {
+      getDesigners(roleObj.id).then((response) => {
+        ViewDesigners(response);
+      });
+    });
+  }, []);
+
+  return (
+    <>
+    <CardContainer>
+    <LogoImg src={logo} />
+    {designers?.map((designerObj) => (
+        <DesignerCard key={designerObj.id} bio={designerObj.bio} profilePicUrl={designerObj.profilePicUrl} />
+    ))}
+    </CardContainer>
+  </>
+  );
+};
 
 export default Designers;

@@ -47,16 +47,11 @@ namespace LLL_Emporium.Controllers
         public IActionResult GetUserWithRoleByEmail(string emailAddress)
         {
             var user = _userRepository.GetUserWithRoleByUserEmail(emailAddress);
-            if (user == null)
-            {
-                return NotFound("No user found.");
-            }
             return Ok(user);
         }
 
 
-
-        [HttpGet]
+       [HttpGet]
         public IActionResult GetAllUsers()
         {
             var result = _userRepository.GetAll();
@@ -100,15 +95,15 @@ namespace LLL_Emporium.Controllers
         }
 
 
-        [HttpGet("{RoleTypeId}/roletypeId")]
-        public IActionResult GetRoleTypeByName(Guid RoleType)
+        [HttpGet("{id}/RoleTypeId")]
+        public IActionResult GetRoleTypeById(Guid id)
         {
-            var RoleTypeId = _userRepository.GetByRoleType(RoleType);
+            var RoleTypeId = _userRepository.GetByRoleType(id);
             if (RoleTypeId != null)
             {
-                return NotFound("No Role Type");
+                return Ok(RoleTypeId);
             }
-            return Ok(RoleTypeId);
+            return NotFound("This Id is not found");
         }
 
     }

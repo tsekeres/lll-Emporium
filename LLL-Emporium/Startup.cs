@@ -13,8 +13,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using LLL_Emporium;
 using LLL_Emporium.DataAccess;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
 
 namespace LLL_Emporium
 {
@@ -45,6 +46,7 @@ namespace LLL_Emporium
             services.AddTransient<OrderWithDetailRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
                 .AddJwtBearer(options =>
                 {
                     options.IncludeErrorDetails = true;
