@@ -7,6 +7,7 @@ import Designers from '../views/Designers/Designers';
 import PersonalProfile from '../views/PersonalProfile/PersonalProfile';
 import { ProductTypes } from '../views/ProductTypes/ProductTypes';
 import OrderHistory from '../views/OrderHistory/OrderHistory';
+import EmptyCart from '../views/Cart/EmptyCart';
 import { SellingHistory } from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
 import userCardView from '../views/Users/Users';
@@ -169,8 +170,10 @@ function Routes({
             user={user}
             cartCount={cartCount}
             setCartCount={setCartCount}
+            cartId={cartId}
             setCartId={setCartId} />}
         />
+        <Route exact path = "/emptyCart" component={() => <EmptyCart />} />
         <Route
           exact
           path="/Users/RoleTypes"

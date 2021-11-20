@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
+import validator from 'validator';
 import getPaymentTypes from '../../helpers/data/paymentTypeData';
 import getTransactionTypes from '../../helpers/data/transactionTypeData';
 import { addTransaction, getTransactionsByOrderId } from '../../helpers/data/transactionData';
@@ -70,11 +71,13 @@ const OrderDetailView = ({
   user,
   cartCount,
   setCartCount,
+  cartId,
   setCartId
 }) => {
   const { orderId } = useParams();
   const [authed, setAuthed] = useState(null);
   const [order, setOrder] = useState(null);
+  const [validOrderId, setIsValidOrderId] = useState(true);
   const [orderSubTotal, setOrderSubTotal] = useState(0.0);
   const [lineItemsList, setLineItemsList] = useState([]);
   const [transactionList, setTransactionList] = useState([]);
@@ -99,13 +102,15 @@ const OrderDetailView = ({
   useEffect(() => {
     let mounted = true;
     if (mounted && orderId) {
-      getOrderById(orderId).then(setOrder);
-      getTransactionsByOrderId(orderId).then((transactions) => {
-        setTransactionList(transactions);
-        if (transactions.length > 0) {
-          setHasTransactions(true);
-        } else setHasTransactions(false);
-      });
+      if (validator.isUUID(orderId)) {
+        getOrderById(orderId).then(setOrder);
+        getTransactionsByOrderId(orderId).then((transactions) => {
+          setTransactionList(transactions);
+          if (transactions.length > 0) {
+            setHasTransactions(true);
+          } else setHasTransactions(false);
+        });
+      } else setIsValidOrderId(false);
     }
     return () => {
       mounted = false;
@@ -283,7 +288,7 @@ const OrderDetailView = ({
   return (
     <>
     { authed
-    && (order && cartCount !== 0 ? (
+    && (order && (cartCount !== 0 || order.id !== cartId) ? (
       <OrderOuterDiv className='order-outer-div'>
         <OrderBaseInfoDiv className='order-basic-info'>
           <OrderDataDetailDiv>Order Number: {order.id}</OrderDataDetailDiv>
@@ -363,9 +368,12 @@ const OrderDetailView = ({
     ) : <OrderOuterDiv>
           <EmptyCartDiv>Your Cart is empty</EmptyCartDiv>
         </OrderOuterDiv>) }
-    { (authed === false) && <OrderOuterDiv>
+    { (authed === false && order) && <OrderOuterDiv>
           <EmptyCartDiv>You are not authorized to view this page.</EmptyCartDiv>
         </OrderOuterDiv>}
+    { (authed === false && !validOrderId) && <OrderOuterDiv>
+        <EmptyCartDiv>Invalid Order</EmptyCartDiv>
+      </OrderOuterDiv>}
     </>
   );
 };
@@ -375,6 +383,7 @@ OrderDetailView.propTypes = {
   orderId: PropTypes.string,
   cartCount: PropTypes.number,
   setCartCount: PropTypes.func,
+  cartId: PropTypes.string,
   setCartId: PropTypes.func
 };
 
