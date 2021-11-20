@@ -59,6 +59,7 @@ namespace LLL_Emporium.DataAccess
             }
             else return null;
         }
+
         internal OrderLineDetail GetOrderLineWithProduct(Guid orderLineId)
         {
             using var db = new SqlConnection(_connectionString);
@@ -95,7 +96,6 @@ namespace LLL_Emporium.DataAccess
             var result = db.Query<OrderLineDetail>(sql, parameter);
             return result;
         }
-
         internal OrderLine GetOrderLineByProductId(Guid orderId, Guid productId)
         {
             using var db = new SqlConnection(_connectionString);
@@ -110,6 +110,7 @@ namespace LLL_Emporium.DataAccess
             var result = db.QueryFirstOrDefault<OrderLine>(sql, parameters);
             return result;
         }
+
         internal Guid AddLineItem(OrderLine lineItem)
         {
             using var db = new SqlConnection(_connectionString);

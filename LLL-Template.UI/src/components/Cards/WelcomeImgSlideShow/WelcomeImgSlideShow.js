@@ -9,9 +9,9 @@ import {
 } from './WelcomeImgSlideShowElements';
 import welcomeImg from '../../../Assets/ViewStockPhotos/WelcomeImg.jpeg';
 import couple from '../../../Assets/ViewStockPhotos/coupleonbeach.jpeg';
-import ironing from '../../../Assets/ViewStockPhotos/womanironing.jpeg';
-import driving from '../../../Assets/ViewStockPhotos/womandriving.jpeg';
-import cleaning from '../../../Assets/ViewStockPhotos/womancleaning.jpeg';
+import ironing from '../../../Assets/ViewStockPhotos/womenfoldingclothes.jpeg';
+import driving from '../../../Assets/ViewStockPhotos/manworking.jpeg';
+import cleaning from '../../../Assets/ViewStockPhotos/womencooking.jpeg';
 // import 'react-slideshow-image/dist/styles.css';
 
 const colors = ['#FFBB28', '#0088FE', '#FFBB28', '#00C49F', '#FFBB28'];
