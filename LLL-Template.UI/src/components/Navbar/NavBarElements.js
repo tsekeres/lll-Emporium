@@ -121,10 +121,13 @@ export const NavItemsRight = styled.div`
   flex-direction: row;
   margin-top: 10px;
   margin-right: 10px;
+  width: 100%;
 `;
 
 export const NavItemsRightFlexDiv = styled.div`
+  flex-direction: row;
   display: flex;
+  width: 75%;
 `;
 
 export const SignIn = styled.img`
@@ -144,21 +147,17 @@ export const SignIn = styled.img`
   }
 `;
 
-export const SearchImg = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 30px;
-
-  @media screen and (max-width: 650px) {
-    width: 15px;
-    height: 15px;
-  }
-
-  @media screen and (max-width: 525px) {
-    width: 15px;
-    height: 15px;
-    margin-right: 15px;
-  }
+export const SearchBar = styled.img`
+  width: 200px;
+  height: 15px;
+  background: #fff;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-top: 8px;
+  margin-right: 5px;
+  transitionL 0.3s ease-in-out;
+//   opacity:  ${({ isOpen2 }) => (isOpen2 ? '100%' : '0')};
+//   top: ${({ isOpen2 }) => (isOpen2 ? '0' : '-100%')};
 `;
 
 export const BagImg = styled.img`

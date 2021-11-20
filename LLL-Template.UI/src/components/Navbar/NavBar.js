@@ -97,20 +97,20 @@ export default function NavBar({
       <NavItemsRight className="NavItemsRight" id="authButtons">
           {
             user !== null
-            && <div className="NavItemsRight" id="authButtons">
+            && <NavItemsRightFlexDiv className="NavItemsRight" id="authButtons">
               {
                 (user)
-                  ? <NavItemsRightFlexDiv>
+                  ? <div>
                       <SearchBar/>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
                       <CartIcon cartCount={cartCount} cartId={cartId} />
-                    </NavItemsRightFlexDiv>
+                    </div>
                   : <div>
                       <SearchBar/>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
                     </div>
               }
-              </div>
+              </NavItemsRightFlexDiv>
             }
           <MobileIcon className="MobileIcon" onClick={toggle}>
             <FaBars className="FaBars" />
