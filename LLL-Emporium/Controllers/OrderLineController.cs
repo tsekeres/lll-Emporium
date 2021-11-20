@@ -82,11 +82,6 @@ namespace LLL_Emporium.Controllers
             }
             else return NotFound($"Order lines for order {orderId} not found.");
         }
-<<<<<<< HEAD
-
-        [HttpPost]
-=======
->>>>>>> origin
 
         [HttpGet("/api/orders/{orderId}/orderLineByProduct/{productId}")]
         public IActionResult GetOrderLineByProductId(Guid orderId, Guid productId)
