@@ -35,6 +35,7 @@ const ProductIconImg = styled.img`
   width: 80%;
   object-fit: contain;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 export {

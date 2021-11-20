@@ -21,7 +21,8 @@ namespace LLL_Emporium.DataAccess
         internal IEnumerable<PaymentType> GetAllPaymentTypes()
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT * FROM PaymentTypes";
+            var sql = @"SELECT * FROM PaymentTypes
+                        ORDER BY PaymentTypeName";
             var result = db.Query<PaymentType>(sql);
             return result;
         }

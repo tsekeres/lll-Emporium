@@ -1,16 +1,19 @@
 import styled from 'styled-components';
 
 const OrderHistoryCardOuterDiv = styled.div`
-  width: 90%:
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const OrderDataDiv = styled.div`
-  width: 28%;
-  margin: 10px 5px;
-  display: inline-block;
+  margin: 5px;
   border: 1px solid black;
   border-radius: 5px;
   vertical-align: top;
+  cursor: pointer;
+  flex-basis: 20em;
+  max-height: 6em;
 `;
 
 const OrderDataDetailDiv = styled.div`
@@ -18,21 +21,22 @@ const OrderDataDetailDiv = styled.div`
 `;
 
 const OrderLineItemsDiv = styled.div`
-  margin: 10px 10px 5px;
-  display: inline-block;
-  width: 50%; 
+  margin: 5px;
   padding-left: 1%;
   background-color: #c4c4c4;
+  flex-basis: 30em
 `;
 
-const OrderTotalDiv = styled.div`
-  display: inline-block;
-  width: 8%;
+const FinanceDiv = styled.div`
+  margin: 5px;
   background-color: #ba9e9b;
   height: 77px;
-  vertical-align: top;
   padding: 5px;
-  float: right;
+  flex-basis: 10em;
+`;
+
+const FinanceLineDiv = styled.div`
+  width: 100%;
 `;
 
 export {
@@ -40,5 +44,6 @@ export {
   OrderDataDiv,
   OrderDataDetailDiv,
   OrderLineItemsDiv,
-  OrderTotalDiv,
+  FinanceDiv,
+  FinanceLineDiv
 };

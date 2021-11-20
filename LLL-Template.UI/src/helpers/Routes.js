@@ -31,7 +31,11 @@ PrivateRoute.propTypes = {
 };
 
 function Routes({
-  user, categories, setCategories, productTypes, setProductTypes, products, setProducts,
+  user, categories, setCategories,
+  productTypes, setProductTypes,
+  products, setProducts,
+  cartCount, setCartCount,
+  cartId, setCartId
 }) {
   return (
     <div>
@@ -131,8 +135,9 @@ function Routes({
             <SingleProductCard
               productTypes={productTypes}
               setProductTypes={setProductTypes}
-              products={products}
-              setProducts={setProducts}
+              products={products} setProducts={setProducts}
+              cartCount={cartCount} setCartCount={setCartCount}
+              cartId={cartId} setCartId={setCartId}
               user={user}
             />
           )}
@@ -159,7 +164,10 @@ function Routes({
         <Route
           exact
           path="/orders/:orderId"
-          component={() => <OrderDetailView />}
+          component={() => <OrderDetailView
+            cartCount={cartCount}
+            setCartCount={setCartCount}
+            setCartId={setCartId} />}
         />
         <Route
           exact
@@ -182,6 +190,10 @@ Routes.propTypes = {
   setProducts: PropTypes.func,
   productTypes: PropTypes.any,
   setProductTypes: PropTypes.func,
+  cartCount: PropTypes.number,
+  setCartCount: PropTypes.func,
+  cartId: PropTypes.string,
+  setCartId: PropTypes.func
 };
 
 export default Routes;

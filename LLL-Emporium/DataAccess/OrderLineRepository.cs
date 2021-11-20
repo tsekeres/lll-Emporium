@@ -97,6 +97,23 @@ namespace LLL_Emporium.DataAccess
             return result;
         }
 
+<<<<<<< HEAD
+=======
+        internal OrderLine GetOrderLineByProductId(Guid orderId, Guid productId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * from OrderLines
+                        WHERE OrderId = @OrderId
+                        AND ProductId = @ProductId";
+            var parameters = new
+            {
+                OrderId = orderId,
+                ProductId = productId
+            };
+            var result = db.QueryFirstOrDefault<OrderLine>(sql, parameters);
+            return result;
+        }
+>>>>>>> origin
         internal Guid AddLineItem(OrderLine lineItem)
         {
             using var db = new SqlConnection(_connectionString);
