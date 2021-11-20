@@ -11,7 +11,6 @@ const Designers = () => {
   useEffect(() => {
     getRoleTypeByName('Designer').then((roleObj) => {
       getDesigners(roleObj.id).then((response) => {
-        console.warn(roleObj.id);
         ViewDesigners(response);
       });
     });

@@ -37,7 +37,6 @@ export default function App() {
           // user is entered into the database due to a promise delay.
           // When the user is entered, useEffect will be called again
           // and we can set the user;
-          console.warn(responseObj);
           if (responseObj !== '') {
             setUser(responseObj);
           } else setUser(false);
