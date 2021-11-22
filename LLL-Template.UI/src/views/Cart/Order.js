@@ -98,7 +98,17 @@ const OrderDetailView = ({
   });
   const [hasTransactions, setHasTransactions] = useState(false);
   const [totalPayments, setTotalPayments] = useState('');
-  const [lineItemsUpdated, setLineItemsUpdated] = useState(false);
+  const [lineItemRemoved, setLineItemRemoved] = useState(false);
+  const [quantitiesUpdated, setQuantitiesUpdated] = useState(false);
+
+  const toggleQuantitiesUpdated = () => {
+    setQuantitiesUpdated(!quantitiesUpdated);
+  };
+
+  const toggleLineItemRemoved = () => {
+    setLineItemRemoved(!lineItemRemoved);
+  };
+
   useEffect(() => {
     let mounted = true;
     if (mounted && orderId) {
@@ -117,6 +127,7 @@ const OrderDetailView = ({
     };
   }, [orderId]);
 
+  // setup payment options
   useEffect(() => {
     let mounted = true;
     const optionsArr = [];
@@ -145,7 +156,9 @@ const OrderDetailView = ({
   useEffect(() => {
     let mounted = true;
     if (mounted && lineItemsList) {
-      setOrderSubTotal(calculateOrderSubtotal(lineItemsList, hasTransactions));
+      const tempSubTotal = calculateOrderSubtotal(lineItemsList, hasTransactions);
+      setOrderSubTotal(tempSubTotal);
+      setShippingCost(calculateShippingCost(tempSubTotal));
     }
     return function cleanup() {
       mounted = false;
@@ -177,30 +190,38 @@ const OrderDetailView = ({
     };
   }, [orderSubTotal, totalPayments, shippingCost]);
 
-  useEffect(() => {
-    let mounted = true;
-    if (mounted && orderSubTotal) {
-      setShippingCost(calculateShippingCost(orderSubTotal));
-    }
-    return function cleanup() {
-      mounted = false;
-    };
-  }, [orderSubTotal]);
-
+  // update order when line item removed
   useEffect(() => {
     let mounted = true;
     if (mounted) {
       getOrderLinesWithProduct(orderId)
         .then((listArr) => {
           setLineItemsList(listArr);
+          const tempSubTotal = calculateOrderSubtotal(listArr);
+          setOrderSubTotal(tempSubTotal);
+          setShippingCost(calculateShippingCost(tempSubTotal));
+        });
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [lineItemRemoved, orderId, quantitiesUpdated]);
+
+  // update subtotal with quantity change
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      getOrderLinesWithProduct(orderId)
+        .then((listArr) => {
           setOrderSubTotal(calculateOrderSubtotal(listArr));
         });
     }
     return () => {
       mounted = false;
     };
-  }, [lineItemsUpdated, orderId]);
+  }, [orderId]);
 
+  // setup access to the order
   useEffect(() => {
     let mounted = true;
     if (user && order && (user.id === order.customerId || user.roleTypeName === 'Administrator'
@@ -237,6 +258,7 @@ const OrderDetailView = ({
 
   const updateQuantities = () => {
     lineItemsList.forEach((item) => {
+      // update the inventory
       const tempObj = {
         productTypeId: item.productTypeId,
         designerId: item.designerId,
@@ -298,10 +320,11 @@ const OrderDetailView = ({
           <OrderLineItemsOuterDiv className='line-items-outer-div'>
             <OrderLineItemsDiv className='order-line-items'>
               <LineItemsCartForm
-                orderId={order.id}
+                order={order}
+                user={user}
                 lineItemsList={lineItemsList}
-                lineItemsUpdated={lineItemsUpdated}
-                setLineItemsUpdated={setLineItemsUpdated}
+                toggleQuantitiesUpdated={toggleQuantitiesUpdated}
+                toggleLineItemRemoved={toggleLineItemRemoved}
                 hasTransactions={hasTransactions}
                 setCartCount={setCartCount}
               />
@@ -357,6 +380,7 @@ const OrderDetailView = ({
                   </OrderTotalDue>
                 <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton> </>)
               : (<OrderShippingPayment
+                  user={user}
                   order={order}
                   totalPayments={totalPayments}
                   orderSubTotal={orderSubTotal}

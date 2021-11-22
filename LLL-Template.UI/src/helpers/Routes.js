@@ -168,7 +168,7 @@ function Routes({
           user={user}
           component={() => <OrderDetailView
             user={user}
-            cartCount={cartCount}
+            // cartCount={cartCount}
             setCartCount={setCartCount}
             cartId={cartId}
             setCartId={setCartId} />}
