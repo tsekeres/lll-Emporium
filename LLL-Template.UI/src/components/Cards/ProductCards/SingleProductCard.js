@@ -38,7 +38,7 @@ const SingleProductCard = ({
   productTypes,
   user,
   setCartCount,
-  setCartId
+  setCartId,
 }) => {
   const history = useHistory();
 
@@ -152,12 +152,16 @@ const SingleProductCard = ({
             <div className='SingleProductCardHeader' id='authButtons'>
               {user ? (
                 <SingleProductCardButtons className='SingleProductCardButtons'>
-                  <Button1 id='editSingleProduct' onClick={openModal}>
-                    <SingleProductCardEdit
-                      className='SingleProductCardEdit'
-                      src={edit}
-                    ></SingleProductCardEdit>
-                  </Button1>
+                  {
+                    (user.roleTypeName === 'Designer' && user.id === product.designerId) || user.roleTypeName === 'Administrator'
+                      ? <Button1 id='editSingleProduct' onClick={openModal}>
+                          <SingleProductCardEdit
+                            className='SingleProductCardEdit'
+                            src={edit}
+                          ></SingleProductCardEdit>
+                        </Button1>
+                      : <div></div>
+                  }
                   { product.inventoryCount > 0 ? <CartButton
                     id='add-to-cart'
                     onClick={() => handleClick('add-to-cart')}
@@ -167,15 +171,18 @@ const SingleProductCard = ({
                       src={bag}
                     ></SingleProductCardEdit>
                   </CartButton> : '' }
-                  <Button1
-                    id='deleteSingleProduct'
-                    onClick={() => handleClick('delete')}
-                  >
-                    <SingleProductCardDelete
-                      className='SingleProductCardDelete'
-                      src={deleted}
-                    ></SingleProductCardDelete>
-                  </Button1>
+                  {
+                    (user.roleTypeName === 'Designer' && user.id === product.designerId) || user.roleTypeName === 'Administrator'
+                      ? <Button1
+                            id='deleteSingleProduct'
+                            onClick={() => handleClick('delete')}>
+                            <SingleProductCardDelete
+                              className='SingleProductCardDelete'
+                              src={deleted}
+                            ></SingleProductCardDelete>
+                          </Button1>
+                      : <div></div>
+                  }
                 </SingleProductCardButtons>
               ) : (
                 <div></div>

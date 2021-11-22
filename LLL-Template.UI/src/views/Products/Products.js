@@ -71,6 +71,7 @@ function Products({
               productTypeId={productInfo.productTypeId}
               productTypes={productTypes}
               user={user}
+              designerId={productInfo.designerId}
             />
           ))}
         </Column1>

@@ -58,7 +58,7 @@ export const CategoryCards = ({
             user !== null
             && <div className="CategoryCardHeader" id="authButtons">
               {
-                (user)
+                (user.roleTypeName === 'Administrator')
                   ? <CategoryCardButtons className='CategoryCardButtons'>
                       <Button1 className="editCategory" id='editCategory' onClick={openModal}>
                         <CategoryCardEdit
