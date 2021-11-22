@@ -34,7 +34,7 @@ function Products({
       <ProductWrapper className='ProductWrapper' id='Products'>
         {user !== null && (
           <AddButtonContainer className='AddButtonContainer'>
-            {user ? (
+            {user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator' ? (
               <AddProductButton className='addProduct' onClick={openModal}>
                 <AddProductButtonImg
                   className='AddProductButtonImg'

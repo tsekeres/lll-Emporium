@@ -40,7 +40,7 @@ export const Categories = ({ user, categories, setCategories }) => {
             user !== null
             && <AddButtonContainer className="AddButtonContainer">
               {
-                (user)
+                (user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator')
                   ? <AddCategoryButton className="addCategory" onClick={openModal}>
                       <AddCategoryButtonImg className="AddCategoryButtonImg" src={add}>
                       </AddCategoryButtonImg>
