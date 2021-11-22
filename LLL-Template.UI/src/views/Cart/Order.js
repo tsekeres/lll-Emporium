@@ -69,7 +69,6 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
 
 const OrderDetailView = ({
   user,
-  cartCount,
   setCartCount,
   cartId,
   setCartId
@@ -207,20 +206,6 @@ const OrderDetailView = ({
     };
   }, [lineItemRemoved, orderId, quantitiesUpdated]);
 
-  // update subtotal with quantity change
-  useEffect(() => {
-    let mounted = true;
-    if (mounted) {
-      getOrderLinesWithProduct(orderId)
-        .then((listArr) => {
-          setOrderSubTotal(calculateOrderSubtotal(listArr));
-        });
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [orderId]);
-
   // setup access to the order
   useEffect(() => {
     let mounted = true;
@@ -310,7 +295,7 @@ const OrderDetailView = ({
   return (
     <>
     { authed
-    && (order && (cartCount !== 0 || order.id !== cartId) ? (
+    && (order && (lineItemsList.length || order.id !== cartId) ? (
       <OrderOuterDiv className='order-outer-div'>
         <OrderBaseInfoDiv className='order-basic-info'>
           <OrderDataDetailDiv>Order Number: {order.id}</OrderDataDetailDiv>
@@ -405,7 +390,6 @@ const OrderDetailView = ({
 OrderDetailView.propTypes = {
   user: PropTypes.any,
   orderId: PropTypes.string,
-  cartCount: PropTypes.number,
   setCartCount: PropTypes.func,
   cartId: PropTypes.string,
   setCartId: PropTypes.func

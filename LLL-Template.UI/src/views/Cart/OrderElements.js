@@ -22,6 +22,7 @@ const OrderDataDetailDiv = styled.div`
 
 const OrderLineItemsOuterDiv = styled.div`
   flex-basis: 50%;
+  min-width: 20em;
 `;
 
 const OrderLineItemsDiv = styled.div`
@@ -50,10 +51,10 @@ const OrderLineCountSelect = styled.input`
 
 const OrderAddressPaymentOuterDiv = styled.div`
   flex-basis: 40%;
+  min-width: 20em;
 `;
 
 const OrderAddressPaymentDiv = styled.div`
-  margin: 10px 10px 5px;
   background-color: #ba9e9b;
   padding: 5px;
   float: right;

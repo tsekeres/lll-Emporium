@@ -35,7 +35,7 @@ function Routes({
   user, categories, setCategories,
   productTypes, setProductTypes,
   products, setProducts,
-  cartCount, setCartCount,
+  setCartCount,
   cartId, setCartId
 }) {
   return (
@@ -136,7 +136,7 @@ function Routes({
               productTypes={productTypes}
               setProductTypes={setProductTypes}
               products={products} setProducts={setProducts}
-              cartCount={cartCount} setCartCount={setCartCount}
+              setCartCount={setCartCount}
               cartId={cartId} setCartId={setCartId}
               user={user}
             />
@@ -168,7 +168,6 @@ function Routes({
           user={user}
           component={() => <OrderDetailView
             user={user}
-            // cartCount={cartCount}
             setCartCount={setCartCount}
             cartId={cartId}
             setCartId={setCartId} />}
@@ -195,7 +194,6 @@ Routes.propTypes = {
   setProducts: PropTypes.func,
   productTypes: PropTypes.any,
   setProductTypes: PropTypes.func,
-  cartCount: PropTypes.number,
   setCartCount: PropTypes.func,
   cartId: PropTypes.string,
   setCartId: PropTypes.func
