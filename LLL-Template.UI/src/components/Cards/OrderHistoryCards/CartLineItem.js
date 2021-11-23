@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { getLineItemsByOrderId, updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
 import {
   LineItemOuterDiv,
+  LineItemDescriptionOuterDiv,
   LineItemDescriptionDiv,
   ProductIconDiv,
   ProductIconImg,
@@ -85,24 +86,26 @@ const LineItemDetailCard = ({
         }));
   };
 
-  const handleImageClick = () => {
+  const handleClick = () => {
     history.push(`/products/${lineItem.productId}`);
   };
 
   return (
     <LineItemOuterDiv >
       <ProductIconDiv>
-          <ProductIconImg
-            onClick={handleImageClick}
+          <ProductIconImg className='product-icon-img'
+            onClick={handleClick}
             src={lineItem?.productImageUrl}
             alt="Product Image" />
         </ProductIconDiv>
-      <LineItemDescriptionDiv>
-        {lineItem?.productName}
-      </LineItemDescriptionDiv>
-      <LineItemDescriptionDiv>
-        {lineItem?.productDescription}
-      </LineItemDescriptionDiv>
+      <LineItemDescriptionOuterDiv className='line-item-outer-div'>
+        <LineItemDescriptionDiv onClick={handleClick}>
+          {lineItem?.productName}
+        </LineItemDescriptionDiv>
+        <LineItemDescriptionDiv onClick={handleClick}>
+          {lineItem?.productDescription}
+        </LineItemDescriptionDiv>
+      </LineItemDescriptionOuterDiv>
       <div>{`Each: ${currencyFormatter.format(lineItem?.unitPrice - lineItem?.discount)}`}
         { lineItem?.discount ? ` (${currencyFormatter.format(lineItem?.discount)} discount)` : '' }</div>
       { hasTransactions ? ''
