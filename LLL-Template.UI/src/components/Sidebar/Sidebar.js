@@ -59,18 +59,39 @@ export default function Sidebar({
           <SidebarRoute className="Link" to="/Designers" onClick={toggle}>
             designers
           </SidebarRoute>
-          <SidebarRoute className="Link" to="/PersonalProfile" onClick={toggle}>
-            account
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/OrderHistory" onClick={toggle}>
-            order history
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/SellingHistory" onClick={toggle}>
-            sales
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/Users" onClick={toggle}>
-            users
-          </SidebarRoute>
+          {
+            user !== null
+            && <div>
+              {
+                (user)
+                  ? <div>
+                      <SidebarRoute className="Link" to="/PersonalProfile" onClick={toggle}>
+                        account
+                      </SidebarRoute>
+                      <SidebarRoute className="Link" to="/OrderHistory" onClick={toggle}>
+                        order history
+                      </SidebarRoute>
+                      {
+                        user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+                          ? <div>
+                              <SidebarRoute className="Link" to="/SellingHistory" onClick={toggle}>
+                                sales
+                              </SidebarRoute>
+                              {
+                                user.roleTypeName === 'Administrator'
+                                  ? <SidebarRoute className="Link" to="/Users" onClick={toggle}>
+                                      users
+                                    </SidebarRoute>
+                                  : <div></div>
+                              }
+                            </div>
+                          : <div></div>
+                      }
+                    </div>
+                  : <div></div>
+              }
+              </div>
+            }
         </SidebarMenu>
         <SideBtnWrap className="SideBtnWrap">
           <SidebarRoute2 className="SidebarRoute" onClick={toggle}>

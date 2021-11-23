@@ -21,6 +21,7 @@ const ProductCards = ({
   productName,
   id,
   user,
+  designerId,
 }) => {
   const history = useHistory();
 
@@ -43,20 +44,22 @@ const ProductCards = ({
       key={id}
       id='ProductCard'
     >
-      <ProductCardHeader className='ProductCardHeader'> {
+      <ProductCardHeader className='ProductCardHeader'>
+        {
         user !== null
-        && <div className='ProductCardHeader' id='authButtons'> {
-          (user)
-            ? <ProductCardButtons className='ProductCardButtons'>
-          <Button1 id='deleteProduct' onClick={() => handleClick('delete')}>
-            <ProductCardDelete
-              className='ProductCardDelete'
-              src={deleted}
-            ></ProductCardDelete>
-          </Button1>
-        </ProductCardButtons>
-            : <div></div>
-        }
+        && <div className='ProductCardHeader' id='authButtons'>
+          {
+            ((user.roleTypeName === 'Designer' && user.id === designerId) || user.roleTypeName === 'Administrator')
+              ? <ProductCardButtons className='ProductCardButtons'>
+                  <Button1 id='deleteProduct' onClick={() => handleClick('delete')}>
+                  <ProductCardDelete
+                    className='ProductCardDelete'
+                    src={deleted}
+                  ></ProductCardDelete>
+                  </Button1>
+                </ProductCardButtons>
+              : <div></div>
+          }
         </div>
       }
       </ProductCardHeader>
@@ -80,6 +83,7 @@ ProductCards.propTypes = {
   productName: PropTypes.string,
   id: PropTypes.string,
   user: PropTypes.any,
+  designerId: PropTypes.any,
 };
 
 export default ProductCards;

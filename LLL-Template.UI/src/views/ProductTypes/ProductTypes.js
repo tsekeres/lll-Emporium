@@ -39,7 +39,7 @@ export const ProductTypes = ({
             user !== null
             && <AddButtonContainer className="AddButtonContainer">
               {
-                (user)
+                (user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator')
                   ? <AddProductTypeButton className="addProductType" onClick={openModal}>
                       <AddProductTypeButtonImg className="AddProductTypeButtonImg" src={add}>
                       </AddProductTypeButtonImg>
