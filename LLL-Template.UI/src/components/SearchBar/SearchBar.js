@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Select from 'react-select';
 import { getProducts } from '../../helpers/data/productData';
+import { SearchBarBar } from './SearchBarElements';
 
 const SearchBar = () => {
   const history = useHistory();
@@ -27,9 +28,9 @@ const SearchBar = () => {
   });
 
   return (
-    <SearchBar>
+    <SearchBarBar>
       <Select options={options} onChange={handleSelectClick} />
-    </SearchBar>
+    </SearchBarBar>
   );
 };
 
