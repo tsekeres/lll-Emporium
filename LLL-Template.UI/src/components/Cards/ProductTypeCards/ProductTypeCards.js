@@ -60,7 +60,7 @@ export const ProductTypeCards = ({
             user !== null
             && <div className="PTCardHeader" id="authButtons">
               {
-                (user)
+                (user.roleTypeName === 'Administrator')
                   ? <PTCardButtons className='PTCardButtons'>
                       <Button1 id='editProductType' onClick={openModal}>
                       <PTCardEdit
