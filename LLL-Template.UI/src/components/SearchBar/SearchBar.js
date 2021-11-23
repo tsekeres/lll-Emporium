@@ -24,12 +24,13 @@ const SearchBar = () => {
   }, []);
 
   const handleSelectClick = ((e) => {
-    history.push(`/products/${e.value}`);
+    history.replace(`/products/${e.value}`);
+    window.location.reload(false);
   });
 
   return (
     <SearchBarBar>
-      <Select options={options} onChange={handleSelectClick} />
+      <Select options={options} onChange={handleSelectClick} defaultValue={{ value: '', label: 'Search Our Products' }}/>
     </SearchBarBar>
   );
 };

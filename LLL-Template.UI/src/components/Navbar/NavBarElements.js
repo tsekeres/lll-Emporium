@@ -127,13 +127,22 @@ export const NavItemsRight = styled.div`
 export const NavItemsRightFlexDiv = styled.div`
   flex-direction: row;
   display: flex;
-  width: 75%;
+  width: 100%;
+`;
+
+export const NavRightButtonsDiv = styled.div`
+  flex-direction: row;
+  display: flex;
+  width: 100%;
 `;
 
 export const SignIn = styled.img`
   width: 20px;
-  height: 20px;
+  // height: 20px;
+  margin-top: -25px;
+  margin-bottom: 33px;
   margin-right: 30px;
+  margin-left: 30px;
 
   @media screen and (max-width: 650px) {
     width: 15px;
@@ -148,7 +157,7 @@ export const SignIn = styled.img`
 `;
 
 export const SearchBar = styled.img`
-  width: 200px;
+  width: 400px;
   height: 15px;
   background: #fff;
   border: 1px solid black;
@@ -204,7 +213,8 @@ export const Button = styled.button`
   background-repeat:no-repeat;
   border: none;
   cursor:pointer;
-  overflow: hidden; 
+  overflow: hidden;
+  align-items: start;
 `;
 
 export const DropDownContent = styled.div`

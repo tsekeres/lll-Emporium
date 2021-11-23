@@ -17,6 +17,7 @@ import {
   NavRight,
   NavItemsRight,
   NavItemsRightFlexDiv,
+  NavRightButtonsDiv,
   NavBarImg,
   NavBarImg1,
   SignIn,
@@ -109,15 +110,15 @@ export default function NavBar({
             && <NavItemsRightFlexDiv className="NavItemsRight" id="authButtons">
               {
                 (user)
-                  ? <div>
+                  ? <NavRightButtonsDiv>
                       <SearchBar/>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
                       <CartIcon cartCount={cartCount} cartId={cartId} />
-                    </div>
-                  : <div>
+                    </NavRightButtonsDiv>
+                  : <NavRightButtonsDiv>
                       <SearchBar/>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
-                    </div>
+                    </NavRightButtonsDiv>
               }
               </NavItemsRightFlexDiv>
             }
