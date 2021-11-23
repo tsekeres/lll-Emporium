@@ -110,16 +110,18 @@ const OrderDetailView = ({
 
   useEffect(() => {
     let mounted = true;
-    if (mounted && orderId) {
+    if (orderId) {
       if (validator.isUUID(orderId)) {
-        getOrderById(orderId).then(setOrder);
-        getTransactionsByOrderId(orderId).then((transactions) => {
-          setTransactionList(transactions);
-          if (transactions.length > 0) {
-            setHasTransactions(true);
-          } else setHasTransactions(false);
+        getOrderById(orderId).then((orderObj) => {
+          if (mounted) setOrder(orderObj);
         });
-      } else setIsValidOrderId(false);
+        getTransactionsByOrderId(orderId).then((transactions) => {
+          if (mounted) setTransactionList(transactions);
+          if (transactions.length > 0) {
+            if (mounted) setHasTransactions(true);
+          } else if (mounted) setHasTransactions(false);
+        });
+      } else if (mounted) setIsValidOrderId(false);
     }
     return () => {
       mounted = false;
@@ -130,22 +132,26 @@ const OrderDetailView = ({
   useEffect(() => {
     let mounted = true;
     const optionsArr = [];
-    if (mounted) {
-      getPaymentTypes().then((resultArr) => {
-        for (let i = 0; i < resultArr.length; i += 1) {
-          const option = {
-            value: resultArr[i].id,
-            label: `${resultArr[i].paymentTypeName}`
-          };
-          optionsArr.push(option);
-        }
-        setPaymentTypeOptions(optionsArr);
-      })
-        .catch(setPaymentTypeOptions([]));
-      // transaction types are not a user input option, unlike payment types
-      getTransactionTypes().then((resultArr) => setTransactionTypeOptions(resultArr))
-        .catch(setTransactionTypeOptions([]));
-    }
+    getPaymentTypes().then((resultArr) => {
+      for (let i = 0; i < resultArr.length; i += 1) {
+        const option = {
+          value: resultArr[i].id,
+          label: `${resultArr[i].paymentTypeName}`
+        };
+        optionsArr.push(option);
+      }
+      if (mounted) setPaymentTypeOptions(optionsArr);
+    })
+      .catch(() => {
+        if (mounted) setPaymentTypeOptions([]);
+      });
+    // transaction types are not a user input option, unlike payment types
+    getTransactionTypes().then((resultArr) => {
+      if (mounted) setTransactionTypeOptions(resultArr);
+    })
+      .catch(() => {
+        if (mounted) setTransactionTypeOptions([]);
+      });
     return function cleanup() {
       mounted = false;
     };
@@ -154,10 +160,12 @@ const OrderDetailView = ({
   // order subtotal
   useEffect(() => {
     let mounted = true;
-    if (mounted && lineItemsList) {
+    if (lineItemsList) {
       const tempSubTotal = calculateOrderSubtotal(lineItemsList, hasTransactions);
-      setOrderSubTotal(tempSubTotal);
-      setShippingCost(calculateShippingCost(tempSubTotal));
+      if (mounted) {
+        setOrderSubTotal(tempSubTotal);
+        setShippingCost(calculateShippingCost(tempSubTotal));
+      }
     }
     return function cleanup() {
       mounted = false;
@@ -192,15 +200,15 @@ const OrderDetailView = ({
   // update order when line item removed
   useEffect(() => {
     let mounted = true;
-    if (mounted) {
-      getOrderLinesWithProduct(orderId)
-        .then((listArr) => {
+    getOrderLinesWithProduct(orderId)
+      .then((listArr) => {
+        if (mounted) {
           setLineItemsList(listArr);
           const tempSubTotal = calculateOrderSubtotal(listArr);
           setOrderSubTotal(tempSubTotal);
           setShippingCost(calculateShippingCost(tempSubTotal));
-        });
-    }
+        }
+      });
     return () => {
       mounted = false;
     };
