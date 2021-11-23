@@ -24,25 +24,27 @@ const OrderHistory = ({
       if (user.roleTypeName === 'Super User'
         || user.roleTypeName === 'Administrator') {
         if (mounted) setIsAdmin(true);
-        setOrderList([]);
-        getOrdersByUserId(user.id)
-          .then((orderListResponse) => {
-            if (mounted) setOrderList(orderListResponse);
-          });
-      }
-      // setup list of user names for the select drop down
-      getAllUsers().then((resultArr) => {
-        for (let i = 0; i < resultArr.length; i += 1) {
-          const option = {
-            value: resultArr[i].id,
-            label: `${resultArr[i].lastName}, ${resultArr[i].firstName}`
-          };
-          optionsArr.push(option);
-        }
-        if (mounted) setOptions(optionsArr);
-      })
-        .catch(setOptions([]));
-    } else setOptions([]);
+        // setup list of user names for the select drop down
+        getAllUsers().then((resultArr) => {
+          for (let i = 0; i < resultArr.length; i += 1) {
+            const option = {
+              value: resultArr[i].id,
+              label: `${resultArr[i].lastName}, ${resultArr[i].firstName}`
+            };
+            optionsArr.push(option);
+          }
+          if (mounted) setOptions(optionsArr);
+        })
+          .catch(setOptions([]));
+      } else if (mounted) setOptions([]);
+      getOrdersByUserId(user.id)
+        .then((orderListResponse) => {
+          if (mounted) setOrderList(orderListResponse);
+        })
+        .catch(() => {
+          if (mounted) setOrderList([]);
+        });
+    }
     return function cleanup() {
       mounted = false;
     };
