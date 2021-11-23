@@ -76,8 +76,17 @@ export default function NavBar({
                         <DropDownContent className="dropdown-content">
                           <Link to="/PersonalProfile" style={styleObj}> my account </Link>
                           <Link to="/OrderHistory" style={styleObj}>order history</Link>
-                          <Link to="/SellingHistory" style={styleObj}>selling history</Link>
-                          <Link to="/Users" style={styleObj}> users</Link>
+                            {
+                              user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+                                ? <div><Link to="/SellingHistory" style={styleObj}>selling history</Link>
+                                  {
+                                    user.roleTypeName === 'Administrator'
+                                      ? <Link to="/Users" style={styleObj}> users</Link>
+                                      : <div></div>
+                                  }
+                                  </div>
+                                : <div></div>
+                            }
                         </DropDownContent>
                       </DropDown>
                     </NavLink>
