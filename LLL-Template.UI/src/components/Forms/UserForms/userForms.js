@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
- import { updateUser, addUsers, getUsers } from '../../../helpers/data/userData';
-import { Label } from '../CategoryForms/CategoryFormElements';
+import { updateUser, getUsers } from '../../../helpers/data/userData';
 
 const userForm = () => {
   const [users, setUsers] = useState({
@@ -11,18 +10,24 @@ const userForm = () => {
     Bio: Bio || " ",
   });
 
-  const [updateUser, updateUserShown] = useState();
+  const [updateUsers, updateUserShown] = useState([]);
   // Show the updated user on screen
-  const [userUpdated, setUserUpdate] = useState();
+  const [userUpdated, setUserUpdate] = useState([]);
   // populate the update on the user so we can see it
   const [deleteUser, RemoveFromList] = useState([]);
   // remove user from database and site, only show delete if user is an admin 
 
   const handleUpdate = (e) => {
     e.preventDefault;
-    if (users.id === updateUser.id) {
+    if (users.id === updateUsers.id) {
+      const userObj = {
+        FirstName: FirstName || '',
+        LastName: LastName || '',
+        roleTypeId: roleTypeId || '',
+        Bio: Bio || '',
+      }
       setShowMessage(true);
-     updateUser(selected, id).then(() =>  getUsers().then((response) => setUsers(response)))
+     updateUser(id).then(() =>  getUsers().then((response) => setUsers(response)))
         .then(() => {
           setMessage(`Updated user ${FirstName} ${LastName}`);
           setUserUpdate(userUpdated);
@@ -32,12 +37,14 @@ const userForm = () => {
   };
 
   const handleDelete = () => {
+    let canIDelete = false;
     if (users.roleTypeName === 'Administrator') {
-    deleteUser(selected, id).then(() => getUsers().then((response) => setUsers(response)))
-    }
+    canIDelete = true;
+    deleteUser(id, userObj).then(() => getUsers().then((response) => RemoveFromList(response)))
+    };
     return (
       <div>
-        
+         'user{users.id} Has been removed.'
       </div>
     )
   }
@@ -95,4 +102,4 @@ userForm.propTypes = {
   ProfilePicURL: PropTypes.string,
 };
 
-export { userForm };
+ export default { userForm };

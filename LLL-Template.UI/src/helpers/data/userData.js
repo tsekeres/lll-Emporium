@@ -10,6 +10,30 @@ const getUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getDesigners = (RoleTypeId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/api/users/${RoleTypeId}/RoleTypeId`)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
+const addUsers = (User) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/api/users`, User)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
+const deleteUser = (userId) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/api/users/${userId}`)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
+const updateUser = (userId, userObj) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/api/users/${userId}`, userObj)
+    .then((response) => resolve(response.data))
+    .catch((err) => reject(err));
+});
+
 const getUserByEmail = (emailAddress) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/api/users/email/${emailAddress}`)
     .then((response) => resolve(response.data))
@@ -30,6 +54,10 @@ const addUser = (user) => new Promise((resolve, reject) => {
 
 export {
   getUsers,
+  deleteUser,
+  addUsers,
+  updateUser,
+  getDesigners,
   getUserByEmail,
   getUserWithRoleByEmail,
   addUser

@@ -15,7 +15,7 @@ const userCardView = () => {
   return (
     <>
       {userGroup.map((userObj) => (
-        <UserCard key={userObj.id} userForm={<UserForm />} bio={userObj.bio} profilePicUrl={userObj.profilePicUrl} />
+        <UserCard key={userObj.id} userForm={<userForm />} bio={userObj.bio} profilePicUrl={userObj.profilePicUrl} />
       ))}
     </>
   );
