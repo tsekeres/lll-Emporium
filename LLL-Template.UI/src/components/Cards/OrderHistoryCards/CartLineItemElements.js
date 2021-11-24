@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 
 const LineItemOuterDiv = styled.div`
-  margin 5px;
+  margin: 5px 5px 10px 5px;
+`;
+
+const LineItemDescriptionOuterDiv = styled.div`
+  margin: 10px 5px 10px 0
 `;
 
 const LineItemDescriptionDiv = styled.div`
-  margin 5px;
+  cursor: pointer;
 `;
 
 const LineItemCountSelect = styled.input`
@@ -19,12 +23,11 @@ const LineItemCountDisplay = styled.div`
 
 const LineItemRemoveButton = styled.button`
   width: 10em;
-  margin 5px 1em 0 0;
+  margin: 5px 1em 0 0;
 `;
 
 const ProductIconDiv = styled.div`
   width: 15%;
-  margin 0 5px 5px 0;
   height: auto;
   text-align: center;
   border-radius: 5px;
@@ -32,6 +35,7 @@ const ProductIconDiv = styled.div`
 `;
 
 const ProductIconImg = styled.img`
+  margin: 10px 0 0 0;
   width: 80%;
   object-fit: contain;
   border-radius: 5px;
@@ -40,6 +44,7 @@ const ProductIconImg = styled.img`
 
 export {
   LineItemOuterDiv,
+  LineItemDescriptionOuterDiv,
   LineItemDescriptionDiv,
   ProductIconDiv,
   ProductIconImg,

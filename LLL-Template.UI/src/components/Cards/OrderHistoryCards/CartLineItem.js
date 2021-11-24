@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { getLineItemsByOrderId, updateOrderLine, deleteOrderLine } from '../../../helpers/data/lineItemData';
 import {
   LineItemOuterDiv,
+  LineItemDescriptionOuterDiv,
   LineItemDescriptionDiv,
   ProductIconDiv,
   ProductIconImg,
@@ -14,8 +15,11 @@ import {
 import { calculateCartCount } from '../../../helpers/data/calculators';
 
 const LineItemDetailCard = ({
-  orderId,
+  order,
+  user,
   lineItem,
+  toggleQuantitiesUpdated,
+  toggleLineItemRemoved,
   hasTransactions,
   setCartCount
 }) => {
@@ -48,9 +52,12 @@ const LineItemDetailCard = ({
   const handleRemove = (e) => {
     const removeId = e.target.id.split('_')[1];
     deleteOrderLine(removeId)
-      .then(() => getLineItemsByOrderId(orderId)
+      .then(() => getLineItemsByOrderId(order.id)
         .then((lineItemList) => {
-          setCartCount(calculateCartCount(lineItemList));
+          toggleLineItemRemoved();
+          if (order.customerId === user.id) {
+            setCartCount(calculateCartCount(lineItemList));
+          }
         }));
   };
 
@@ -69,30 +76,36 @@ const LineItemDetailCard = ({
       discount: lineItem.discount
     };
     updateOrderLine(lineItem.id, lineObj)
-      .then(() => getLineItemsByOrderId(orderId)
+      .then(() => getLineItemsByOrderId(order.id)
         .then((lineItemList) => {
-          setCartCount(calculateCartCount(lineItemList));
+          toggleQuantitiesUpdated();
+          // update the cart icon if this is the cart owner and not an admin
+          if (order.customerId === user.id) {
+            setCartCount(calculateCartCount(lineItemList));
+          }
         }));
   };
 
-  const handleImageClick = () => {
+  const handleClick = () => {
     history.push(`/products/${lineItem.productId}`);
   };
 
   return (
     <LineItemOuterDiv >
       <ProductIconDiv>
-          <ProductIconImg
-            onClick={handleImageClick}
+          <ProductIconImg className='product-icon-img'
+            onClick={handleClick}
             src={lineItem?.productImageUrl}
             alt="Product Image" />
         </ProductIconDiv>
-      <LineItemDescriptionDiv>
-        {lineItem?.productName}
-      </LineItemDescriptionDiv>
-      <LineItemDescriptionDiv>
-        {lineItem?.productDescription}
-      </LineItemDescriptionDiv>
+      <LineItemDescriptionOuterDiv className='line-item-outer-div'>
+        <LineItemDescriptionDiv onClick={handleClick}>
+          {lineItem?.productName}
+        </LineItemDescriptionDiv>
+        <LineItemDescriptionDiv onClick={handleClick}>
+          {lineItem?.productDescription}
+        </LineItemDescriptionDiv>
+      </LineItemDescriptionOuterDiv>
       <div>{`Each: ${currencyFormatter.format(lineItem?.unitPrice - lineItem?.discount)}`}
         { lineItem?.discount ? ` (${currencyFormatter.format(lineItem?.discount)} discount)` : '' }</div>
       { hasTransactions ? ''
@@ -112,8 +125,11 @@ const LineItemDetailCard = ({
 };
 
 LineItemDetailCard.propTypes = {
-  orderId: PropTypes.string,
+  order: PropTypes.object,
+  user: PropTypes.any,
   lineItem: PropTypes.object,
+  toggleQuantitiesUpdated: PropTypes.func,
+  toggleLineItemRemoved: PropTypes.func,
   hasTransactions: PropTypes.bool,
   setCartCount: PropTypes.func
 };

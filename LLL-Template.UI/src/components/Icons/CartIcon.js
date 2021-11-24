@@ -16,7 +16,7 @@ const CartIcon = ({
   const handleClick = () => {
     if (cartId !== '') {
       history.push(`/orders/${cartId}`);
-    } else history.push('/orders/emptyCart');
+    } else history.push('/emptyCart');
   };
   return (
     <>

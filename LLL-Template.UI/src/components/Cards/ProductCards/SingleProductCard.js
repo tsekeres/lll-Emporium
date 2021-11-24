@@ -76,12 +76,13 @@ const SingleProductCard = ({
           if (cart.length === 0) {
             const cartObj = {
               customerId: user.id,
-              // shippingCity: '',
-              // shippingState: '',
-              // shippingZip: '',
-              // shippingCost: '',
-              orderDate: timeStamp.toISOString()
-              // completed: false
+              shippingAddress: '',
+              shippingCity: '',
+              shippingState: '',
+              shippingZip: '',
+              shippingCost: 0,
+              orderDate: timeStamp.toISOString(),
+              completed: false
             };
             createOrder(cartObj)
               .then((cartId) => {

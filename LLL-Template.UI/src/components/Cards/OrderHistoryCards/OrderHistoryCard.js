@@ -72,7 +72,7 @@ const OrderHistoryCard = ({
       </OrderLineItemsDiv>
       <FinanceDiv>
         <FinanceLineDiv>
-          Order Total: {currencyFormatter.format(orderTotal)}
+          Order Total: <div>{currencyFormatter.format(orderTotal)}</div>
         </FinanceLineDiv>
       { balanceDue !== 0.00 ? (<FinanceLineDiv>
           Balance Due: {currencyFormatter.format(balanceDue)}
