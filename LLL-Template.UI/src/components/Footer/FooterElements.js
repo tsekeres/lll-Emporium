@@ -7,6 +7,7 @@ export const FooterContainer = styled.div`
   position: fixed;
   width: 100%;
   bottom: 0;
+  // margin-top: 100px
 `;
 
 export const FooterLinksContainer = styled.div`
