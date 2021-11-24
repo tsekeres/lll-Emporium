@@ -70,9 +70,7 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
 const testButtonEnabled = (order, paymentType, transaction) => {
   let enabled = false;
   let validAccount = false;
-  let zipValid = false;
-  if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa'
-      || paymentType.label === 'American Express') {
+  let zipValid = false; if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa' || paymentType.label === 'American Express') {
     validAccount = validator.isCreditCard(transaction.paymentAccount);
   } else if (paymentType.label === 'BitCoin') {
     validAccount = validator.isBtcAddress(transaction.paymentAccount);
@@ -82,7 +80,7 @@ const testButtonEnabled = (order, paymentType, transaction) => {
 
   zipValid = validator.isPostalCode(order.shippingZip, 'US');
   enabled = (order.shippingAddress.length > 0 && order.shippingCity.length > 0
-      && order.shippingState.length > 0 && paymentType.value.length > 0 && transaction.paymentAmount > 0);
+      && (order.shippingState.length === 2 && order.shippingState.match(/[A-Z]/i)) && paymentType.value.length > 0 && transaction.paymentAmount > 0);
   return (enabled && validAccount && zipValid);
 };
 
