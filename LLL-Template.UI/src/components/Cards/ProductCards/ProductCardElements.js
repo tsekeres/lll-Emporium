@@ -62,7 +62,7 @@ export const ProductCardImg = styled.img`
 export const ProductCardHeader = styled.div`
   display: flex;
   flex-direction: row;
-  height: 20%;
+  height: 30%;
   width: 100%;
   justify-content: flex-end;
 `;

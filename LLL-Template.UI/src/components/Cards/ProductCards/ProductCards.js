@@ -44,6 +44,12 @@ const ProductCards = ({
   return (
     <ProductCard className='ProductCard' key={id} id='ProductCard'>
       <ProductCardHeader className='ProductCardHeader'>
+        <Button
+          className='DesignerId'
+          onClick={() => handleClick('designerview')}
+        >
+          Designer&apos;s Products
+        </Button>
         {user !== null && (
           <div className='ProductCardHeader' id='authButtons'>
             {(user.roleTypeName === 'Designer' && user.id === designerId) || user.roleTypeName === 'Administrator' ? (
@@ -73,12 +79,6 @@ const ProductCards = ({
       </Button>
       <ProductCardBody>
         <CardTitle tag='h5'>{productName}</CardTitle>
-        <Button
-          className='DesignerId'
-          defaultValue={{ value: { designerId }, label: 'Designer Products' }}
-          onClick={() => handleClick('designerview')}
-        >Designer
-        </Button>
       </ProductCardBody>
     </ProductCard>
   );
