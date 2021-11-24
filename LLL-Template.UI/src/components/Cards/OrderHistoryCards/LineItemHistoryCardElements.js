@@ -20,12 +20,14 @@ const ProductsIconImg = styled.img`
   width: 80%;
   object-fit: contain;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 const LineItemDescriptionDiv = styled.div`
   width: 78%;
   display: inline-block;
   vertical-align: bottom;
+  cursor: pointer;
 `;
 
 export {

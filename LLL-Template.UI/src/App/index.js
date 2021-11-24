@@ -90,7 +90,7 @@ export default function App() {
           cartCount={cartCount} cartId={cartId}/>
         <Routes user={user} categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
                 products={products} setProducts={setProducts}
-                cartCount={cartCount} setCartCount={setCartCount}
+                setCartCount={setCartCount}
                 cartId={cartId} setCartId={setCartId}
         />
         <Footer />
