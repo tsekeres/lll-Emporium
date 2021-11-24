@@ -69,16 +69,21 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
 
 const testButtonEnabled = (order, paymentType, transaction) => {
   let enabled = false;
-  let creditCardValid = false;
-  if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa') {
-    if (validator.isCreditCard(transaction.paymentAccount)) {
-      creditCardValid = true;
-    }
+  let validAccount = false;
+  let zipValid = false;
+  if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa'
+      || paymentType.label === 'American Express') {
+    validAccount = validator.isCreditCard(transaction.paymentAccount);
+  } else if (paymentType.label === 'BitCoin') {
+    validAccount = validator.isBtcAddress(transaction.paymentAccount);
+  } else if (paymentType.label === 'PayPal') {
+    validAccount = validator.isEmail(transaction.paymentAccount);
   }
+
+  zipValid = validator.isPostalCode(order.shippingZip, 'US');
   enabled = (order.shippingAddress.length > 0 && order.shippingCity.length > 0
-      && order.shippingState.length > 0 && order.shippingZip.length > 0
-      && paymentType.value.length > 0 && transaction.paymentAmount > 0);
-  return (enabled && creditCardValid);
+      && order.shippingState.length > 0 && paymentType.value.length > 0 && transaction.paymentAmount > 0);
+  return (enabled && validAccount && zipValid);
 };
 
 const OrderDetailView = ({
@@ -295,45 +300,36 @@ const OrderDetailView = ({
 
   // update order
   const handleSubmit = () => {
-    let isValid = true;
-    debugger;
-    if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa') {
-      if (!validator.isCreditCard(newTransaction.paymentAccount)) {
-        isValid = false;
-      }
+    order.shippingCost = shippingCost;
+    if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
+      order.completed = true;
     }
-    if (isValid) {
-      order.shippingCost = shippingCost;
-      if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
-        order.completed = true;
+    const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
+      totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + shippingCost);
+    const timeStamp = new Date();
+    const transaction = {
+      orderId: order.id,
+      paymentTypeId: paymentType.value,
+      transactionTypeId,
+      paymentAccount: newTransaction.paymentAccount,
+      paymentAmount: newTransaction.paymentAmount,
+      paymentDate: timeStamp.toISOString()
+    };
+    addTransaction(transaction).then(() => {
+      updateOrder(order);
+      if (!hasTransactions) {
+        updateQuantities();
       }
-      const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
-        totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + shippingCost);
-      const timeStamp = new Date();
-      const transaction = {
-        orderId: order.id,
-        paymentTypeId: paymentType.value,
-        transactionTypeId,
-        paymentAccount: newTransaction.paymentAccount,
-        paymentAmount: newTransaction.paymentAmount,
-        paymentDate: timeStamp.toISOString()
-      };
-      addTransaction(transaction).then(() => {
-        updateOrder(order);
-        if (!hasTransactions) {
-          updateQuantities();
+      getTransactionsByOrderId(orderId).then((responseList) => {
+        setTransactionList(responseList);
+        if (responseList.length > 0) {
+          setHasTransactions(true);
+          // This is not a cart anymore if there are payments.
+          setCartCount(0);
+          setCartId('');
         }
-        getTransactionsByOrderId(orderId).then((responseList) => {
-          setTransactionList(responseList);
-          if (responseList.length > 0) {
-            setHasTransactions(true);
-            // This is not a cart anymore if there are payments.
-            setCartCount(0);
-            setCartId('');
-          }
-        });
       });
-    }
+    });
     // addTransaction(transaction);
   };
   return (
