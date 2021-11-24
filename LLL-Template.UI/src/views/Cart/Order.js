@@ -67,6 +67,20 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
   return id;
 }
 
+const testButtonEnabled = (order, paymentType, transaction) => {
+  let enabled = false;
+  let creditCardValid = false;
+  if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa') {
+    if (validator.isCreditCard(transaction.paymentAccount)) {
+      creditCardValid = true;
+    }
+  }
+  enabled = (order.shippingAddress.length > 0 && order.shippingCity.length > 0
+      && order.shippingState.length > 0 && order.shippingZip.length > 0
+      && paymentType.value.length > 0 && transaction.paymentAmount > 0);
+  return (enabled && creditCardValid);
+};
+
 const OrderDetailView = ({
   user,
   setCartCount,
@@ -99,6 +113,7 @@ const OrderDetailView = ({
   const [totalPayments, setTotalPayments] = useState('');
   const [lineItemRemoved, setLineItemRemoved] = useState(false);
   const [quantitiesUpdated, setQuantitiesUpdated] = useState(false);
+  const [buttonEnabled, setButtonEnabled] = useState(false);
 
   const toggleQuantitiesUpdated = () => {
     setQuantitiesUpdated(!quantitiesUpdated);
@@ -217,15 +232,28 @@ const OrderDetailView = ({
   // setup access to the order
   useEffect(() => {
     let mounted = true;
-    if (user && order && (user.id === order.customerId || user.roleTypeName === 'Administrator'
-        || user.roleTypeName === 'Super User')) {
-      setAuthed(true);
-    } else setAuthed(false);
+    if (mounted) {
+      if (user && order && (user.id === order.customerId || user.roleTypeName === 'Administrator'
+          || user.roleTypeName === 'Super User')) {
+        setAuthed(true);
+      } else setAuthed(false);
+    }
     return () => {
       mounted = false;
       return mounted;
     };
   }, [user, order]);
+
+  // enabled submit when all fields have data
+  useEffect(() => {
+    let mounted = true;
+    if (order && paymentType && newTransaction && mounted) {
+      setButtonEnabled(testButtonEnabled(order, paymentType, newTransaction));
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [order, paymentType, newTransaction]);
 
   // main form input
   const handleChange = (e) => {
@@ -267,39 +295,47 @@ const OrderDetailView = ({
 
   // update order
   const handleSubmit = () => {
-    order.shippingCost = shippingCost;
-    if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
-      order.completed = true;
-    }
-    const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
-      totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + shippingCost);
-    const timeStamp = new Date();
-    const transaction = {
-      orderId: order.id,
-      paymentTypeId: paymentType.value,
-      transactionTypeId,
-      paymentAccount: newTransaction.paymentAccount,
-      paymentAmount: newTransaction.paymentAmount,
-      paymentDate: timeStamp.toISOString()
-    };
-    addTransaction(transaction).then(() => {
-      updateOrder(order);
-      if (!hasTransactions) {
-        updateQuantities();
+    let isValid = true;
+    debugger;
+    if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa') {
+      if (!validator.isCreditCard(newTransaction.paymentAccount)) {
+        isValid = false;
       }
-      getTransactionsByOrderId(orderId).then((responseList) => {
-        setTransactionList(responseList);
-        if (responseList.length > 0) {
-          setHasTransactions(true);
-          // This is not a cart anymore if there are payments.
-          setCartCount(0);
-          setCartId('');
+    }
+    if (isValid) {
+      order.shippingCost = shippingCost;
+      if (parseFloat(newTransaction.paymentAmount) === orderSubTotal + shippingCost) {
+        order.completed = true;
+      }
+      const transactionTypeId = getTransactionTypeId(transactionTypeOptions,
+        totalPayments, parseFloat(newTransaction.paymentAmount), orderSubTotal + shippingCost);
+      const timeStamp = new Date();
+      const transaction = {
+        orderId: order.id,
+        paymentTypeId: paymentType.value,
+        transactionTypeId,
+        paymentAccount: newTransaction.paymentAccount,
+        paymentAmount: newTransaction.paymentAmount,
+        paymentDate: timeStamp.toISOString()
+      };
+      addTransaction(transaction).then(() => {
+        updateOrder(order);
+        if (!hasTransactions) {
+          updateQuantities();
         }
+        getTransactionsByOrderId(orderId).then((responseList) => {
+          setTransactionList(responseList);
+          if (responseList.length > 0) {
+            setHasTransactions(true);
+            // This is not a cart anymore if there are payments.
+            setCartCount(0);
+            setCartId('');
+          }
+        });
       });
-    });
+    }
     // addTransaction(transaction);
   };
-
   return (
     <>
     { authed
@@ -371,7 +407,7 @@ const OrderDetailView = ({
                 </OrderTotalPaymentsDiv>
                 <OrderTotalDue>Balance Due:<OrderFinancialFigure>{currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}</OrderFinancialFigure>
                   </OrderTotalDue>
-                <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton> </>)
+                <OrderSubmitButton onClick={handleSubmit} disabled={!buttonEnabled}>Submit Order</OrderSubmitButton> </>)
               : (<OrderShippingPayment
                   user={user}
                   order={order}
