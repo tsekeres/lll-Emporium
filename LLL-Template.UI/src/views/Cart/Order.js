@@ -70,7 +70,8 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
 const testButtonEnabled = (order, paymentType, transaction) => {
   let enabled = false;
   let validAccount = false;
-  let zipValid = false; if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa' || paymentType.label === 'American Express') {
+  let zipValid = false;
+  if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa' || paymentType.label === 'American Express') {
     validAccount = validator.isCreditCard(transaction.paymentAccount);
   } else if (paymentType.label === 'BitCoin') {
     validAccount = validator.isBtcAddress(transaction.paymentAccount);

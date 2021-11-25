@@ -105,7 +105,7 @@ namespace LLL_Emporium.DataAccess
                         WHERE US.Id = @Id";
             var parameter = new
             {
-                ID =id 
+                ID = id 
             };
             var user = db.QuerySingleOrDefault<UserWithRole>(sql, parameter);
             return user;
