@@ -12,6 +12,7 @@ import {
   ProfileInfoLineHeading,
   ProfileInfoLineData,
   ProfileImageInfoLineDiv,
+  ButtonDiv,
   ProfileEditButton,
   Modal,
   ModalContent
@@ -31,7 +32,6 @@ const PersonalProfile = ({
   };
 
   return (
-
     <ProfileOuterDiv className='profile-outer-div'>
       <ProfileTitle className='profile-title'>
         Personal Profile
@@ -61,7 +61,9 @@ const PersonalProfile = ({
             <ProfileInfoLineHeading>Profile Picture URL:</ProfileInfoLineHeading>
             <ProfileImageInfoLineDiv> {user.profilePicUrl}</ProfileImageInfoLineDiv>
           </ProfileInfoLineDiv>
-          <ProfileEditButton onClick={openModal}>Edit</ProfileEditButton>
+          <ButtonDiv>
+            <ProfileEditButton onClick={openModal}>Edit</ProfileEditButton>
+          </ButtonDiv>
         </ProfileInfoDiv>
       </ProfileInnerDiv>
         <Modal className='modal'

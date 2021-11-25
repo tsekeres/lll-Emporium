@@ -54,6 +54,10 @@ const ProfileImageInfoLineDiv = styled.div`
   white-space: nowrap;
 `;
 
+const ButtonDiv = styled.div`
+  margin: 1em 0 0 0
+`;
+
 const ProfileEditButton = styled.button`
   border-radius: 5px;
   background-color: blue;
@@ -97,6 +101,7 @@ export {
   ProfileInfoLineHeading,
   ProfileInfoLineData,
   ProfileImageInfoLineDiv,
+  ButtonDiv,
   ProfileEditButton,
   Modal,
   ModalContent
