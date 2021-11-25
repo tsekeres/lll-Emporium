@@ -11,6 +11,9 @@ import {
   ProfileInfoLineDiv,
   ProfileInfoLineHeading,
   ProfileInfoLineData,
+  ProfileBioSection,
+  ProfileBioHeading,
+  ProfileBioText,
   ProfileImageInfoLineDiv,
   ButtonDiv,
   ProfileEditButton,
@@ -57,10 +60,10 @@ const PersonalProfile = ({
             <ProfileInfoLineHeading>Email Address:</ProfileInfoLineHeading>
             <ProfileInfoLineData>{user.emailAddress}</ProfileInfoLineData>
           </ProfileInfoLineDiv>
-          { user.roleTypeName !== 'Customer' && <ProfileInfoLineDiv>
-            <ProfileInfoLineHeading>Bio:</ProfileInfoLineHeading>
-            <ProfileInfoLineData>{user.bio}</ProfileInfoLineData>
-          </ProfileInfoLineDiv> }
+          { user.roleTypeName !== 'Customer' && <ProfileBioSection className='bio-div'>
+            <ProfileBioHeading className='bio-heading'>Bio:</ProfileBioHeading>
+            <ProfileBioText className='bio-text'>{user.bio}</ProfileBioText>
+          </ProfileBioSection> }
           <ProfileInfoLineDiv>
             <ProfileInfoLineHeading>Profile Picture URL:</ProfileInfoLineHeading>
             <ProfileImageInfoLineDiv> {user.profilePicUrl}</ProfileImageInfoLineDiv>

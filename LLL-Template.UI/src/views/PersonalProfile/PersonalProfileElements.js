@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const ProfileOuterDiv = styled.div`
   width: 90%;
-  margin 100px 3em;
+  margin 120px 3em;
 `;
 
 const ProfileTitle = styled.div`
@@ -13,12 +13,12 @@ const ProfileTitle = styled.div`
 
 const ProfilePicDiv = styled.div`
   flex-basis: 18%;
-  margin: 0 5px 0 0;
+  margin: 10px 5px 0;
 `;
 
 const ProfileImg = styled.img`
   border-radius: 50%;
-  max-width: 200px;
+  max-width: 150px;
   height: auto:
 `;
 
@@ -30,22 +30,35 @@ const ProfileInnerDiv = styled.div`
 
 const ProfileInfoDiv = styled.div`
   flex-basis: 78%;
-  margin: 0 5px 0 20px;
-
+  margin: 10px 0 0 5px;;
 `;
 
 const ProfileInfoLineDiv = styled.div`
-  max-width: 28em;
-  margin: 3px 0 3px 5px;
+  display: flex;
+  margin: 3px 0 3px 0;
 `;
 
 const ProfileInfoLineHeading = styled.div`
-  width: 10em;
-  display: inline-block;
+  flex-basis: 20%;
+  min-width: 8em;
 `;
 
 const ProfileInfoLineData = styled.div`
-  display: inline-block;
+  flex-basis: 80%;
+`;
+
+const ProfileBioSection = styled.div`
+  display: flex;
+  margin: 1em 0;
+`;
+
+const ProfileBioHeading = styled.div`
+  flex-basis: 20%;
+  min-width: 8em
+`;
+
+const ProfileBioText = styled.div`
+  flex-basis: 80%;
 `;
 
 const ProfileImageInfoLineDiv = styled.div`
@@ -89,7 +102,7 @@ const ModalContent = styled.div`
   padding: 20px;
   border-radius: 4px;
   min-width: 300px;
-  max-width: 400px;
+  max-width: 450px;
 `;
 
 export {
@@ -101,6 +114,9 @@ export {
   ProfileInfoDiv,
   ProfileInfoLineDiv,
   ProfileInfoLineHeading,
+  ProfileBioSection,
+  ProfileBioHeading,
+  ProfileBioText,
   ProfileInfoLineData,
   ProfileImageInfoLineDiv,
   ButtonDiv,
