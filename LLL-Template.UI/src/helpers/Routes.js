@@ -32,7 +32,8 @@ PrivateRoute.propTypes = {
 };
 
 function Routes({
-  user, categories, setCategories,
+  user, setUser,
+  categories, setCategories,
   productTypes, setProductTypes,
   products, setProducts,
   setCartCount,
@@ -146,7 +147,9 @@ function Routes({
           products={products}
           setProducts={setProducts}
         />
-        <Route exact path="/PersonalProfile" component={PersonalProfile} />
+        <PrivateRoute exact path="/PersonalProfile" user={user}
+          component={() => <PersonalProfile
+            user={user} setUser={setUser}/>} />
         <Route exact path="/OrderHistory" component={() => <OrderHistory
           user={user} />} />
         <Route exact path="/SellingHistory"
@@ -188,6 +191,7 @@ function Routes({
 
 Routes.propTypes = {
   user: PropTypes.any,
+  setUser: PropTypes.func,
   categories: PropTypes.any,
   setCategories: PropTypes.func,
   products: PropTypes.any,

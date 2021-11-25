@@ -34,6 +34,12 @@ const updateUser = (userId, userObj) => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const updateProfile = (userId, userObj) => new Promise((resolve, reject) => {
+  axios.put(`${dbUrl}/api/users/profile/${userId}`, userObj)
+    .then((response) => resolve(response.data))
+    .catch((error) => reject(error));
+});
+
 const getUserByEmail = (emailAddress) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/api/users/email/${emailAddress}`)
     .then((response) => resolve(response.data))
@@ -57,6 +63,7 @@ export {
   deleteUser,
   addUsers,
   updateUser,
+  updateProfile,
   getDesigners,
   getUserByEmail,
   getUserWithRoleByEmail,
