@@ -10,7 +10,8 @@ import {
   CloseButton,
   SubmitButton,
   InputLabel,
-  FormInput
+  FormInput,
+  FormBioInput
 } from './ProfileFormElements';
 
 const ProfileForm = ({
@@ -22,7 +23,8 @@ const ProfileForm = ({
     lastName: user.lastName || '',
     firstName: user.firstName || '',
     displayName: user.displayName || '',
-    profilePicUrl: user.profilePicUrl || ''
+    profilePicUrl: user.profilePicUrl || '',
+    bio: user.bio || ''
   });
 
   const handleChange = (e) => {
@@ -65,6 +67,10 @@ const ProfileForm = ({
         <FormInput
           type='text' name='profilePicUrl' value={userProfile.profilePicUrl}
           label='profilePicUrl' onChange={handleChange}/>
+      { user.roleTypeName !== 'Customer' && (<> <InputLabel htmlFor='bio'>Bio</InputLabel>
+        <FormBioInput
+          name='bio' value={userProfile.bio} rows='4' cols='50'
+          label='bio' onChange={handleChange}/> </>) }
       <ButtonDiv>
         <CloseButton onClick={closeModal}>Cancel</CloseButton>
         <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>

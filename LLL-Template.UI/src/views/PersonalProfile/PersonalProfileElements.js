@@ -12,7 +12,7 @@ const ProfileTitle = styled.div`
 `;
 
 const ProfilePicDiv = styled.div`
-  flex-basis: 20%;
+  flex-basis: 18%;
   margin: 0 5px 0 0;
 `;
 
@@ -25,10 +25,11 @@ const ProfileImg = styled.img`
 const ProfileInnerDiv = styled.div`
   margin: 4em 0 2em;
   display: flex;
+  flex-flow: wrap;
 `;
 
 const ProfileInfoDiv = styled.div`
-  flex-basis: 80%;
+  flex-basis: 78%;
   margin: 0 5px 0 20px;
 
 `;
@@ -74,6 +75,7 @@ const Modal = styled.div`
   z-index: 999;
   width: 100%;
   height: 100%;
+  overflow: scroll;
   padding-top: 100px;
   background-color: rgba(0, 0, 0, 0.4);
   opacity:  ${({ isOpen }) => (isOpen ? '100%' : '0')};

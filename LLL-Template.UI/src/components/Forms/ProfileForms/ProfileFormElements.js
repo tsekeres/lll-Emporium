@@ -7,7 +7,7 @@ const FormOuterDiv = styled.div`
 `;
 
 const FormHeading = styled.div`
-  margin: 5px;
+  margin: 5px 0;
 `;
 
 const XOut = styled.span`
@@ -49,6 +49,10 @@ const FormInput = styled.input`
   width: 90%;
 `;
 
+const FormBioInput = styled.textarea`
+  width: 90%;
+`;
+
 export {
   FormOuterDiv,
   FormHeading,
@@ -57,5 +61,6 @@ export {
   CloseButton,
   SubmitButton,
   InputLabel,
-  FormInput
+  FormInput,
+  FormBioInput
 };

@@ -57,6 +57,10 @@ const PersonalProfile = ({
             <ProfileInfoLineHeading>Email Address:</ProfileInfoLineHeading>
             <ProfileInfoLineData>{user.emailAddress}</ProfileInfoLineData>
           </ProfileInfoLineDiv>
+          { user.roleTypeName !== 'Customer' && <ProfileInfoLineDiv>
+            <ProfileInfoLineHeading>Bio:</ProfileInfoLineHeading>
+            <ProfileInfoLineData>{user.bio}</ProfileInfoLineData>
+          </ProfileInfoLineDiv> }
           <ProfileInfoLineDiv>
             <ProfileInfoLineHeading>Profile Picture URL:</ProfileInfoLineHeading>
             <ProfileImageInfoLineDiv> {user.profilePicUrl}</ProfileImageInfoLineDiv>
