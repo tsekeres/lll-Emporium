@@ -19,6 +19,7 @@ const ProductForm = ({
   productName,
   productDescription,
   price,
+  inventoryCount,
   id,
   productTypeId,
   productTypes,
@@ -29,6 +30,7 @@ const ProductForm = ({
     productName: productName || '',
     productDescription: productDescription || '',
     price: price || '',
+    inventoryCount: inventoryCount || '',
     id: id || '',
     productTypeId: productTypeId || '',
   });
@@ -40,6 +42,7 @@ const ProductForm = ({
       productName: productName || '',
       productDescription: productDescription || '',
       price: price || '',
+      inventoryCount: inventoryCount || '',
       id: id || '',
       productTypeId: productTypeId || '',
     };
@@ -69,9 +72,11 @@ const ProductForm = ({
         productName: product.productName,
         productDescription: product.productDescription,
         price: product.price,
+        inventoryCount: product.inventoryCount,
         productTypeId: product.productTypeId,
         designerId: user.id,
       };
+      debugger;
       addProduct(productObj)
         .then(() => getProducts().then((response) => setProducts(response)));
       setProduct({
@@ -79,6 +84,7 @@ const ProductForm = ({
         productName: '',
         productDescription: '',
         price: '',
+        inventoryCount: '',
         id: null,
         productTypeId: '',
       });
@@ -99,7 +105,7 @@ const ProductForm = ({
         placeholder="Enter a Name"
         onChange={handleInputChange}
       ></Input>
-      <Label for="productImageURL">Image URL: </Label>
+      <Label htmlFor="productImageURL">Image URL: </Label>
       <Input
         name="productImageUrl"
         id="productImageUrl"
@@ -108,7 +114,7 @@ const ProductForm = ({
         placeholder="Enter an Image URL"
         onChange={handleInputChange}
       ></Input>
-      <Label for="productDescription">Description: </Label>
+      <Label htmlFor="productDescription">Description: </Label>
       <Input
         name="productDescription"
         id="productDescription"
@@ -117,13 +123,22 @@ const ProductForm = ({
         placeholder="Enter a Description"
         onChange={handleInputChange}
       ></Input>
-      <Label for="price">Price: </Label>
+      <Label htmlFor="price">Price: </Label>
       <Input
         name="price"
         id="price"
         value={product.price}
         type="text"
         placeholder="Enter a Price"
+        onChange={handleInputChange}
+      ></Input>
+      <Label htmlFor="price">Inventory count: </Label>
+      <Input
+        name="inventoryCount"
+        id="price"
+        value={product.inventoryCount}
+        type="text"
+        placeholder="Enter number of items in stock"
         onChange={handleInputChange}
       ></Input>
       <Label>Product Type:</Label>
@@ -159,6 +174,7 @@ ProductForm.propTypes = {
   productName: PropTypes.string,
   productDescription: PropTypes.string,
   price: PropTypes.number,
+  inventoryCount: PropTypes.number,
   id: PropTypes.string,
   productTypeId: PropTypes.string,
   productTypes: PropTypes.any,

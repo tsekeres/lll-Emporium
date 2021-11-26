@@ -224,6 +224,7 @@ const SingleProductCard = ({
             productImageUrl={product.productImageUrl}
             productName={product.productName}
             price={product.price}
+            inventoryCount={product.inventoryCount}
             user={user}
           />
         </Modal>
