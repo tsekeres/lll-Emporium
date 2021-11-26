@@ -76,7 +76,6 @@ const ProductForm = ({
         productTypeId: product.productTypeId,
         designerId: user.id,
       };
-      debugger;
       addProduct(productObj)
         .then(() => getProducts().then((response) => setProducts(response)));
       setProduct({
