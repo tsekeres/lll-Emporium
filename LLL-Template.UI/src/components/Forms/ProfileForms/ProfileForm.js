@@ -35,10 +35,8 @@ const ProfileForm = ({
   };
 
   const handleSubmit = () => {
-    console.warn('handleSubmit');
     if (user) {
       updateProfile(user.id, userProfile).then((updateResult) => {
-        console.warn(updateResult);
         if (updateResult) {
           setUser(updateResult);
         }
