@@ -19,7 +19,6 @@ import {
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
-  // OrderFinanceOutputDiv,
   OrderTransactionList,
   OrderTransactionLine,
   OrderFinancialFigure,
@@ -38,11 +37,9 @@ import {
   calculateTotalPayments,
   calculateShippingCost
 } from '../../helpers/data/calculators';
-// import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
 import OrderShippingPayment from '../../components/Cards/OrderHistoryCards/OrderShippingPayment';
 import { getOrderLinesWithProduct } from '../../helpers/data/lineItemData';
-// import { getLineItemsByOrderId } from '../../helpers/data/lineItemData';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
