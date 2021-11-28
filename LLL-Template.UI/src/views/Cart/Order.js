@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
@@ -434,4 +434,4 @@ OrderDetailView.propTypes = {
   setCartId: PropTypes.func
 };
 
-export default OrderDetailView;
+export default memo(OrderDetailView);
