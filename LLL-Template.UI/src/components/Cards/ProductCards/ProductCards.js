@@ -34,7 +34,7 @@ const ProductCards = ({
         history.push(`/products/${id}`);
         break;
       case 'designerview':
-        history.push(`/products/${designerId}`);
+        history.push(`/products/designers/${designerId}`);
         break;
       default:
         console.warn('nothing selected');

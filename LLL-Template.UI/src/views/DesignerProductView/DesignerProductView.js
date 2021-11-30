@@ -67,15 +67,18 @@ function DesignerProducts({
           />
         </Modal>
         <Column1 className='designer-product-view'>
-          {designerProducts?.map((productInfo) => (
+          {designerProducts?.map((productInfo, index) => (
             <ProductCards
-              key={productInfo.id}
+              key={index}
               id={productInfo.id}
               productImageUrl={productInfo.productImageUrl}
               productName={productInfo.productName}
               productDescription={productInfo.productDescription}
               price={productInfo.price}
+              designerProducts={designerProducts}
+              setdesignerProducts={setdesignerProducts}
               setProducts={setProducts}
+              products={products}
               productTypeId={productInfo.productTypeId}
               productTypes={productTypes}
               user={user}

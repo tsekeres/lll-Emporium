@@ -151,7 +151,7 @@ function Routes({
         />
         <Route
           exact
-          path='/Products/:designerId'
+          path='/Products/Designers/:designerId'
           user={user}
           component={() => (
             <DesignerProductView
