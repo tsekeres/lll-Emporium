@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Home from '../views/Home/Home';
@@ -7,6 +7,7 @@ import Designers from '../views/Designers/Designers';
 import PersonalProfile from '../views/PersonalProfile/PersonalProfile';
 import { ProductTypes } from '../views/ProductTypes/ProductTypes';
 import OrderHistory from '../views/OrderHistory/OrderHistory';
+import EmptyCart from '../views/Cart/EmptyCart';
 import { SellingHistory } from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
 import userCardView from '../views/Users/Users';
@@ -32,10 +33,11 @@ PrivateRoute.propTypes = {
 };
 
 function Routes({
-  user, categories, setCategories,
+  user, setUser,
+  categories, setCategories,
   productTypes, setProductTypes,
   products, setProducts,
-  cartCount, setCartCount,
+  setCartCount,
   cartId, setCartId
 }) {
   return (
@@ -133,8 +135,9 @@ function Routes({
           user={user}
           component={() => (
             <SingleProductCard
-              productTypes={productTypes}
-              setProductTypes={setProductTypes}
+              products={products} setProducts={setProducts}
+              
+              cartId={cartId} setCartId={setCartId}
               products={products}
               setProducts={setProducts}
               cartCount={cartCount}
@@ -157,12 +160,9 @@ function Routes({
             <DesignerProductView
               productTypes={productTypes}
               setProductTypes={setProductTypes}
-              products={products}
-              setProducts={setProducts}
-              cartCount={cartCount}
-              setCartCount={setCartCount}
-              cartId={cartId}
-              setCartId={setCartId}
+              products={products} setProducts={setProducts}
+              cartCount={cartCount} setCartCount={setCartCount}
+              cartId={cartId} setCartId={setCartId}
               user={user}
             />
           )}
@@ -171,15 +171,12 @@ function Routes({
           products={products}
           setProducts={setProducts}
         />
-        <Route exact path='/PersonalProfile' component={PersonalProfile} />
-        <Route
-          exact
-          path='/OrderHistory'
-          component={() => <OrderHistory user={user} />}
-        />
-        <Route
-          exact
-          path='/SellingHistory'
+        <PrivateRoute exact path="/PersonalProfile" user={user}
+          component={() => <PersonalProfile
+            user={user} setUser={setUser}/>} />
+        <Route exact path="/OrderHistory" component={() => <OrderHistory
+          user={user} />} />
+        <Route exact path="/SellingHistory"
           component={() => (
             <SellingHistory
               user={user}
@@ -195,15 +192,15 @@ function Routes({
         <Route exact path='/Designers' component={() => <Designers />} />
         <Route
           exact
-          path='/orders/:orderId'
-          component={() => (
-            <OrderDetailView
-              cartCount={cartCount}
-              setCartCount={setCartCount}
-              setCartId={setCartId}
-            />
-          )}
+          path="/orders/:orderId"
+          user={user}
+          component={() => <OrderDetailView
+            user={user}
+            setCartCount={setCartCount}
+            cartId={cartId}
+            setCartId={setCartId} />}
         />
+        <Route exact path = "/emptyCart" component={() => <EmptyCart />} />
         <Route
           exact
           path='/Users/RoleTypes'
@@ -219,16 +216,16 @@ function Routes({
 
 Routes.propTypes = {
   user: PropTypes.any,
+  setUser: PropTypes.func,
   categories: PropTypes.any,
   setCategories: PropTypes.func,
   products: PropTypes.any,
   setProducts: PropTypes.func,
   productTypes: PropTypes.any,
   setProductTypes: PropTypes.func,
-  cartCount: PropTypes.number,
   setCartCount: PropTypes.func,
   cartId: PropTypes.string,
   setCartId: PropTypes.func
 };
 
-export default Routes;
+export default memo(Routes);

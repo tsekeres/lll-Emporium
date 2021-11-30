@@ -88,9 +88,10 @@ export default function App() {
         <Sidebar isOpen={isOpen} toggle={toggle} user={user} />
         <NavBar toggle={toggle} user={user}
           cartCount={cartCount} cartId={cartId}/>
-        <Routes user={user} categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
+        <Routes user={user} setUser={setUser}
+                categories={categories} setCategories={setCategories} productTypes={productTypes} setProductTypes={setProductTypes}
                 products={products} setProducts={setProducts}
-                cartCount={cartCount} setCartCount={setCartCount}
+                setCartCount={setCartCount}
                 cartId={cartId} setCartId={setCartId}
         />
         <Footer />
