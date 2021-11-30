@@ -136,14 +136,8 @@ function Routes({
           component={() => (
             <SingleProductCard
               products={products} setProducts={setProducts}
-              
               cartId={cartId} setCartId={setCartId}
-              products={products}
-              setProducts={setProducts}
-              cartCount={cartCount}
               setCartCount={setCartCount}
-              cartId={cartId}
-              setCartId={setCartId}
               user={user}
             />
           )}
@@ -161,7 +155,7 @@ function Routes({
               productTypes={productTypes}
               setProductTypes={setProductTypes}
               products={products} setProducts={setProducts}
-              cartCount={cartCount} setCartCount={setCartCount}
+              setCartCount={setCartCount}
               cartId={cartId} setCartId={setCartId}
               user={user}
             />
