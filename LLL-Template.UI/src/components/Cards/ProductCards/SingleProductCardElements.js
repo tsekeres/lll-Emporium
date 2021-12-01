@@ -20,6 +20,7 @@ export const SingleProductCards = styled.div`
   height: 80%;
   opacity: 0.5;
   margin: 30px;
+  padding-bottom: 10px;
 
   @media screen and (max-width: 525px) {
     margin-left: 25px;
@@ -75,6 +76,7 @@ export const CartButton = styled.button`
 `;
 
 export const SingleProductCardImg = styled.img`
+  border-radius: 10px;
   display: flex;
   width: 100%;
 `;
@@ -112,6 +114,7 @@ export const SingleProductCardBody = styled.div`
   justify-content: center;
   margin-top: 5px;
   margin-bottom: 5px;
+  padding-bottom: 5px;
   width: 100%;
   text-transform: lowercase;
 

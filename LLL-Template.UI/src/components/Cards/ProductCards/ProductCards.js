@@ -11,6 +11,7 @@ import {
   CardTitle,
   Button,
   Button1,
+  Button2,
 } from './ProductCardElements';
 import { getProducts, deleteProduct } from '../../../helpers/data/productData';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
@@ -44,12 +45,6 @@ const ProductCards = ({
   return (
     <ProductCard className='ProductCard' key={id} id='ProductCard'>
       <ProductCardHeader className='ProductCardHeader'>
-        <Button
-          className='DesignerId'
-          onClick={() => handleClick('designerview')}
-        >
-          Designer&apos;s Products
-        </Button>
         {user !== null && (
           <div className='ProductCardHeader' id='authButtons'>
             {(user.roleTypeName === 'Designer' && user.id === designerId) || user.roleTypeName === 'Administrator' ? (
@@ -79,6 +74,13 @@ const ProductCards = ({
       </Button>
       <ProductCardBody>
         <CardTitle tag='h5'>{productName}</CardTitle>
+        <hr/>
+        <Button2
+          className='DesignerId'
+          onClick={() => handleClick('designerview')}
+        >
+          View Designer&apos;s Products
+        </Button2>
       </ProductCardBody>
     </ProductCard>
   );
