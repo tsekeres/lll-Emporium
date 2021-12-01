@@ -89,6 +89,10 @@ export const NavItemsMiddle = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 `;
 
 export const NavBarImg = styled.img`
@@ -100,7 +104,7 @@ export const NavBarImg = styled.img`
     width: 75px;
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (max-width: 700px) {
     width: 50px;
   }
 
@@ -114,6 +118,10 @@ export const NavRight = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   width: 40%;
+
+  @media screen and (max-width: 700px) {
+    width: 60%;
+  }
 `;
 
 export const NavItemsRight = styled.div`
@@ -213,8 +221,8 @@ export const Button = styled.button`
   background-repeat:no-repeat;
   border: none;
   cursor:pointer;
-  overflow: hidden;
-  align-items: start;
+  // overflow: hidden;
+  // align-items: start;
 `;
 
 export const DropDownContent = styled.div`
