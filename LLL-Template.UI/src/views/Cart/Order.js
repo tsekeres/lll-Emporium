@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { useParams } from 'react-router-dom';
@@ -19,7 +19,6 @@ import {
   OrderAddressPaymentDiv,
   InputLabel,
   OrderFormInput,
-  // OrderFinanceOutputDiv,
   OrderTransactionList,
   OrderTransactionLine,
   OrderFinancialFigure,
@@ -38,11 +37,9 @@ import {
   calculateTotalPayments,
   calculateShippingCost
 } from '../../helpers/data/calculators';
-// import LineItemDetailCard from '../../components/Cards/OrderHistoryCards/LineItemDetailCard';
 import LineItemsCartForm from '../../components/Forms/LineItems/LineItemsCartForm';
 import OrderShippingPayment from '../../components/Cards/OrderHistoryCards/OrderShippingPayment';
 import { getOrderLinesWithProduct } from '../../helpers/data/lineItemData';
-// import { getLineItemsByOrderId } from '../../helpers/data/lineItemData';
 
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -66,6 +63,24 @@ function getTransactionTypeId(options, payments, paymentAmount, totalDue) {
   }
   return id;
 }
+
+const testButtonEnabled = (order, paymentType, transaction) => {
+  let enabled = false;
+  let validAccount = false;
+  let zipValid = false;
+  if (paymentType.label === 'MasterCard' || paymentType.label === 'Visa' || paymentType.label === 'American Express') {
+    validAccount = validator.isCreditCard(transaction.paymentAccount);
+  } else if (paymentType.label === 'BitCoin') {
+    validAccount = validator.isBtcAddress(transaction.paymentAccount);
+  } else if (paymentType.label === 'PayPal') {
+    validAccount = validator.isEmail(transaction.paymentAccount);
+  }
+
+  zipValid = validator.isPostalCode(order.shippingZip, 'US');
+  enabled = (order.shippingAddress.length > 0 && order.shippingCity.length > 0
+      && (order.shippingState.length === 2 && order.shippingState.match(/[A-Z]/i)) && paymentType.value.length > 0 && transaction.paymentAmount > 0);
+  return (enabled && validAccount && zipValid);
+};
 
 const OrderDetailView = ({
   user,
@@ -99,6 +114,7 @@ const OrderDetailView = ({
   const [totalPayments, setTotalPayments] = useState('');
   const [lineItemRemoved, setLineItemRemoved] = useState(false);
   const [quantitiesUpdated, setQuantitiesUpdated] = useState(false);
+  const [buttonEnabled, setButtonEnabled] = useState(false);
 
   const toggleQuantitiesUpdated = () => {
     setQuantitiesUpdated(!quantitiesUpdated);
@@ -217,15 +233,28 @@ const OrderDetailView = ({
   // setup access to the order
   useEffect(() => {
     let mounted = true;
-    if (user && order && (user.id === order.customerId || user.roleTypeName === 'Administrator'
-        || user.roleTypeName === 'Super User')) {
-      setAuthed(true);
-    } else setAuthed(false);
+    if (mounted) {
+      if (user && order && (user.id === order.customerId || user.roleTypeName === 'Administrator'
+          || user.roleTypeName === 'Super User')) {
+        setAuthed(true);
+      } else setAuthed(false);
+    }
     return () => {
       mounted = false;
       return mounted;
     };
   }, [user, order]);
+
+  // enabled submit when all fields have data
+  useEffect(() => {
+    let mounted = true;
+    if (order && paymentType && newTransaction && mounted) {
+      setButtonEnabled(testButtonEnabled(order, paymentType, newTransaction));
+    }
+    return () => {
+      mounted = false;
+    };
+  }, [order, paymentType, newTransaction]);
 
   // main form input
   const handleChange = (e) => {
@@ -299,7 +328,6 @@ const OrderDetailView = ({
     });
     // addTransaction(transaction);
   };
-
   return (
     <>
     { authed
@@ -371,7 +399,7 @@ const OrderDetailView = ({
                 </OrderTotalPaymentsDiv>
                 <OrderTotalDue>Balance Due:<OrderFinancialFigure>{currencyFormatter.format(orderSubTotal + shippingCost - totalPayments)}</OrderFinancialFigure>
                   </OrderTotalDue>
-                <OrderSubmitButton onClick={handleSubmit}>Submit Order</OrderSubmitButton> </>)
+                <OrderSubmitButton onClick={handleSubmit} disabled={!buttonEnabled}>Submit Order</OrderSubmitButton> </>)
               : (<OrderShippingPayment
                   user={user}
                   order={order}
@@ -403,4 +431,4 @@ OrderDetailView.propTypes = {
   setCartId: PropTypes.func
 };
 
-export default OrderDetailView;
+export default memo(OrderDetailView);

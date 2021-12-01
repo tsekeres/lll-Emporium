@@ -1,8 +1,7 @@
 
 ## Welcome to Live Laugh Love Emporium!
 Your one stop shop for LLL enthusiasts.
-
-Screenshot????
+![Screenshot (35)](https://user-images.githubusercontent.com/74842096/143957370-e7fd0309-dc0c-49d7-a61c-d6f2bc3415a4.png)
 
 ## Netlify Link
 
@@ -42,3 +41,6 @@ Searchable, live links to items...
 - ERD: https://dbdiagram.io/d/616a0ec2940c4c4eec981197
 
 ## Screenshots
+![Screenshot (37)](https://user-images.githubusercontent.com/74842096/143957407-f1fffd83-167c-42d4-8165-860f494bc4ec.png)
+
+![Screenshot (39)](https://user-images.githubusercontent.com/74842096/143957568-5a9001e7-12c5-4666-b490-354a1c2233b9.png)

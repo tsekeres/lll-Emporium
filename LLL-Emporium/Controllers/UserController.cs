@@ -50,8 +50,18 @@ namespace LLL_Emporium.Controllers
             return Ok(user);
         }
 
+        [HttpGet("withRole/id/{id}")]
+        public IActionResult GetUserWithRoleById(Guid id)
+        {
+            var user = _userRepository.GetUserWithRoleById(id);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return NotFound($"User with id ${id} not found");
+        }
 
-       [HttpGet]
+        [HttpGet]
         public IActionResult GetAllUsers()
         {
             var result = _userRepository.GetAll();
@@ -86,6 +96,18 @@ namespace LLL_Emporium.Controllers
 
             return Ok(userUpdate);
         }
+
+        [HttpPut("profile/{id}")]
+        public IActionResult UpdateProfile(Guid id, User userObj)
+        {
+            var result = _userRepository.UpdateProfile(id, userObj);
+            if (result == null)
+            {
+                return NotFound($"User with id ${id} not found.");
+            }
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")] 
         public IActionResult DeleteUser(Guid id)
         {
