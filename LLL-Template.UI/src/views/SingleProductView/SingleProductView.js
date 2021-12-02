@@ -10,7 +10,12 @@ function SingleProduct({ user }) {
   const { id } = useParams();
 
   useEffect(() => {
+    let mounted = true;
     getSingleProduct(id).then(setProduct);
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, []);
 
   return (
