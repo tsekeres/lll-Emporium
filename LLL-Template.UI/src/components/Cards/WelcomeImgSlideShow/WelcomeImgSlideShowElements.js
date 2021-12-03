@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SlideShow = styled.div`
 margin: 0 auto;
 overflow: hidden;
-max-width: 60%;
+max-width: 800px;
 `;
 
 export const SlideShowDots = styled.div`
