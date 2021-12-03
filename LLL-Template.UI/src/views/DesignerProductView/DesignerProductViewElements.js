@@ -6,8 +6,8 @@ export const DesignerProductsContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 125px;
-  height: 1000px;
-  padding-bottom: 125px;
+  // height: 1000px;
+  // padding-bottom: 125px;
 `;
 
 export const Modal = styled.div`
@@ -36,6 +36,7 @@ export const Column1 = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 90%;
+  height: 75%;
 `;
 
 export const AddProductButtonImg = styled.img`

@@ -89,7 +89,6 @@ export default function SingleProductTypeView({
             user={user}
             setProductTypeProducts={setProductTypeProducts}
             productTypes={productTypes}
-            products={products}
             setProducts={setProducts}
             />
           ))}
