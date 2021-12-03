@@ -8,6 +8,10 @@ flex-direction: column;
   background: #fff;
   height: 734px;
   padding-top: 50px;
+
+  @media screen and (max-width: 800px) {
+    padding-top: 10px;
+  }
 `;
 
 export const Modal = styled.div`
