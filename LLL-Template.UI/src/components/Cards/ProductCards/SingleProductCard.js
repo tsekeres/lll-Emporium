@@ -82,25 +82,22 @@ const SingleProductCard = ({
               shippingZip: '',
               shippingCost: 0,
               orderDate: timeStamp.toISOString(),
-              completed: false
+              completed: false,
             };
-            createOrder(cartObj)
-              .then((cartId) => {
-                if (cartId !== '') {
-                  setCartId(cartId);
-                  const lineItemObj = {
-                    orderId: cartId,
-                    productId: product.id,
-                    unitPrice: product.price,
-                    quantity: product.inventoryCount ? 1 : 0
-                  };
-                  addOrderLine(lineItemObj)
-                    .then(() => {
-                      getLineItemsByOrderId(cartId)
-                        .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
-                    });
-                }
-              });
+            createOrder(cartObj).then((cartId) => {
+              if (cartId !== '') {
+                setCartId(cartId);
+                const lineItemObj = {
+                  orderId: cartId,
+                  productId: product.id,
+                  unitPrice: product.price,
+                  quantity: product.inventoryCount ? 1 : 0,
+                };
+                addOrderLine(lineItemObj).then(() => {
+                  getLineItemsByOrderId(cartId).then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                });
+              }
+            });
             // cart already exists
           } else if (cart.id != null) {
             // set link for cart icon
@@ -113,25 +110,25 @@ const SingleProductCard = ({
                   productId: product.id,
                   unitPrice: product.price,
                   // add only if the inventory allows
-                  quantity: product.inventoryCount > resultObj.quantity ? resultObj.quantity + 1 : resultObj.quantity
+                  quantity:
+                    product.inventoryCount > resultObj.quantity
+                      ? resultObj.quantity + 1
+                      : resultObj.quantity,
                 };
-                updateOrderLine(resultObj.id, lineItemObj)
-                  .then(() => {
-                    getLineItemsByOrderId(cart.id)
-                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
-                  });
-              } else { // not already in cart
+                updateOrderLine(resultObj.id, lineItemObj).then(() => {
+                  getLineItemsByOrderId(cart.id).then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                });
+              } else {
+                // not already in cart
                 const newLineItemObj = {
                   orderId: cart.id,
                   productId: product.id,
                   unitPrice: product.price,
-                  quantity: product.inventoryCount ? 1 : 0
+                  quantity: product.inventoryCount ? 1 : 0,
                 };
-                addOrderLine(newLineItemObj)
-                  .then(() => {
-                    getLineItemsByOrderId(cart.id)
-                      .then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
-                  });
+                addOrderLine(newLineItemObj).then(() => {
+                  getLineItemsByOrderId(cart.id).then((lineItemList) => setCartCount(calculateCartCount(lineItemList)));
+                });
               }
             });
           }
@@ -153,37 +150,42 @@ const SingleProductCard = ({
             <div className='SingleProductCardHeader' id='authButtons'>
               {user ? (
                 <SingleProductCardButtons className='SingleProductCardButtons'>
-                  {
-                    (user.roleTypeName === 'Designer' && user.id === product.designerId) || user.roleTypeName === 'Administrator'
-                      ? <Button1 id='editSingleProduct' onClick={openModal}>
-                          <SingleProductCardEdit
-                            className='SingleProductCardEdit'
-                            src={edit}
-                          ></SingleProductCardEdit>
-                        </Button1>
-                      : <div></div>
-                  }
-                  { product.inventoryCount > 0 ? <CartButton
-                    id='add-to-cart'
-                    onClick={() => handleClick('add-to-cart')}
-                  >
-                    <SingleProductCardEdit
-                      className='SingleProductCardEdit'
-                      src={bag}
-                    ></SingleProductCardEdit>
-                  </CartButton> : '' }
-                  {
-                    (user.roleTypeName === 'Designer' && user.id === product.designerId) || user.roleTypeName === 'Administrator'
-                      ? <Button1
-                            id='deleteSingleProduct'
-                            onClick={() => handleClick('delete')}>
-                            <SingleProductCardDelete
-                              className='SingleProductCardDelete'
-                              src={deleted}
-                            ></SingleProductCardDelete>
-                          </Button1>
-                      : <div></div>
-                  }
+                  {(user.roleTypeName === 'Designer' && user.id === product.designerId) || user.roleTypeName === 'Administrator' ? (
+                    <Button1 id='editSingleProduct' onClick={openModal}>
+                      <SingleProductCardEdit
+                        className='SingleProductCardEdit'
+                        src={edit}
+                      ></SingleProductCardEdit>
+                    </Button1>
+                  ) : (
+                    <div></div>
+                  )}
+                  {product.inventoryCount > 0 ? (
+                    <CartButton
+                      id='add-to-cart'
+                      onClick={() => handleClick('add-to-cart')}
+                    >
+                      <SingleProductCardEdit
+                        className='SingleProductCardEdit'
+                        src={bag}
+                      ></SingleProductCardEdit>
+                    </CartButton>
+                  ) : (
+                    ''
+                  )}
+                  {(user.roleTypeName === 'Designer' && user.id === product.designerId) || user.roleTypeName === 'Administrator' ? (
+                    <Button1
+                      id='deleteSingleProduct'
+                      onClick={() => handleClick('delete')}
+                    >
+                      <SingleProductCardDelete
+                        className='SingleProductCardDelete'
+                        src={deleted}
+                      ></SingleProductCardDelete>
+                    </Button1>
+                  ) : (
+                    <div></div>
+                  )}
                 </SingleProductCardButtons>
               ) : (
                 <div></div>
@@ -198,6 +200,7 @@ const SingleProductCard = ({
             onClick={() => handleClick('view')}
           />
         </Button>
+        <hr/>
         <SingleProductCardBody>
           <CardTitle tag='h5'>{product.productName}</CardTitle>
           <hr></hr>
