@@ -11,6 +11,7 @@ export const ProductCard = styled.div`
   opacity: 0.5;
   margin-left: 75px;
   margin-bottom: 75px;
+  padding: 10px;
 
   @media screen and (max-width: 525px) {
     margin-left: 25px;
@@ -55,6 +56,14 @@ export const Button1 = styled.button`
   overflow: hidden;
 `;
 
+export const Button2 = styled.button`
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+`;
+
 export const ProductCardImg = styled.img`
   border-radius: 10px;
   width: 100%;
@@ -65,7 +74,7 @@ export const ProductCardImg = styled.img`
 export const ProductCardHeader = styled.div`
   display: flex;
   flex-direction: row;
-  height: 20%;
+  height: 30%;
   width: 100%;
   justify-content: flex-end;
 `;
@@ -91,10 +100,10 @@ export const Modal1 = styled.div``;
 
 export const ProductCardBody = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-content: center;
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   width: 100%;
   text-transform: lowercase;
 
