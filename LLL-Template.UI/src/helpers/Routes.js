@@ -15,6 +15,7 @@ import SingleCategoryView from '../views/SingleCategoryView/SingleCategoryView';
 import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
 import OrderDetailView from '../views/Cart/Order';
 import SingleProductCard from '../components/Cards/ProductCards/SingleProductCard';
+import DesignerProductView from '../views/DesignerProductView/DesignerProductView';
 
 const PrivateRoute = ({ component: Component, user, ...rest }) => {
   // eslint-disable-next-line no-confusing-arrow
@@ -44,7 +45,7 @@ function Routes({
       <Switch>
         <Route
           exact
-          path="/"
+          path='/'
           component={() => (
             <Home
               categories={categories}
@@ -58,7 +59,7 @@ function Routes({
         />
         <Route
           exact
-          path="/Categories/:categoryId"
+          path='/Categories/:categoryId'
           user={user}
           categories={categories}
           setCategories={setCategories}
@@ -76,7 +77,7 @@ function Routes({
         />
         <Route
           exact
-          path="/ProductTypes/:productTypeId"
+          path='/ProductTypes/:productTypeId'
           user={user}
           products={products}
           setProducts={setProducts}
@@ -94,7 +95,7 @@ function Routes({
         />
         <Route
           exact
-          path="/ProductTypes"
+          path='/ProductTypes'
           component={() => (
             <ProductTypes
               categories={categories}
@@ -112,7 +113,7 @@ function Routes({
         />
         <Route
           exact
-          path="/Products"
+          path='/Products'
           component={() => (
             <Products
               productTypes={productTypes}
@@ -130,10 +131,27 @@ function Routes({
         />
         <Route
           exact
-          path="/Products/:id"
+          path='/Products/:id'
           user={user}
           component={() => (
             <SingleProductCard
+              products={products} setProducts={setProducts}
+              cartId={cartId} setCartId={setCartId}
+              setCartCount={setCartCount}
+              user={user}
+            />
+          )}
+          productTypes={productTypes}
+          setProductTypes={setProductTypes}
+          products={products}
+          setProducts={setProducts}
+        />
+        <Route
+          exact
+          path='/Products/Designers/:designerId'
+          user={user}
+          component={() => (
+            <DesignerProductView
               productTypes={productTypes}
               setProductTypes={setProductTypes}
               products={products} setProducts={setProducts}
@@ -154,17 +172,18 @@ function Routes({
           user={user} />} />
         <Route exact path="/SellingHistory"
           component={() => (
-          <SellingHistory
+            <SellingHistory
+              user={user}
+              products={products}
+              setProducts={setProducts}
+            />
+          )}
           user={user}
           products={products}
           setProducts={setProducts}
-          />)}
-          user={user}
-          products={products}
-          setProducts={setProducts}
-          />
-        <Route exact path="/Users" component={userCardView} />
-        <Route exact path="/Designers" component={() => <Designers />} />
+        />
+        <Route exact path='/Users' component={userCardView} />
+        <Route exact path='/Designers' component={() => <Designers />} />
         <Route
           exact
           path="/orders/:orderId"
@@ -178,12 +197,12 @@ function Routes({
         <Route exact path = "/emptyCart" component={() => <EmptyCart />} />
         <Route
           exact
-          path="/Users/RoleTypes"
+          path='/Users/RoleTypes'
           component={() => <RoleTypeView />}
         />
         <PrivateRoute />
         <PrivateRoute />
-        <Route path="*" />
+        <Route path='*' />
       </Switch>
     </div>
   );
