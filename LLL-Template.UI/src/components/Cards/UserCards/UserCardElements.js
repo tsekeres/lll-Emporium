@@ -21,6 +21,8 @@ width: 50em;
 display: flex;
 display: wrap;
 margin: 100px;
+opacity:  ${({ isOpen }) => (isOpen ? '0' : '100%')};
+top: ${({ isOpen }) => (isOpen ? '100%' : '0')};
 `;
 
 export const CardImg = styled.img`
@@ -33,4 +35,29 @@ top: 142px;
 
 export const CardBody = styled.div` 
 width: 40em;
+`;
+
+export const EditButton = styled.button`
+width: 75px;
+border-color: #e7e7e7;
+color: black;
+
+`;
+
+export const UserCardButtons = styled.button`
+width: 200px;
+`;
+
+export const Modal = styled.button`
+border-radius: 50%;
+opacity:  ${({ isOpen }) => (isOpen ? '100%' : '0')};
+top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
+`;
+
+export const ButtonModal = styled.div`
+border-radius: 50%;
+`;
+
+export const ButtonImg = styled.img`
+border-radius: 50%;
 `;
