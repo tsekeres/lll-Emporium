@@ -10,6 +10,12 @@ const getAllUsers = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
+const getUsers = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/api/users`)
+    .then((userList) => resolve(userList.data))
+    .catch((err) => reject(err));
+});
+
 const getDesigners = (RoleTypeId) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/api/users/${RoleTypeId}/RoleTypeId`)
     .then((response) => resolve(response.data))
@@ -60,6 +66,7 @@ const addUser = (user) => new Promise((resolve, reject) => {
 
 export {
   getAllUsers,
+  getUsers,
   deleteUser,
   addUsers,
   updateUser,

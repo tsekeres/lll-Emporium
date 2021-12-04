@@ -10,7 +10,7 @@ import OrderHistory from '../views/OrderHistory/OrderHistory';
 import EmptyCart from '../views/Cart/EmptyCart';
 import { SellingHistory } from '../views/SellingHistory/SellingHistory';
 import RoleTypeView from '../views/RoleTypes/RoleTypes';
-import userCardView from '../views/Users/Users';
+import UserCardView from '../views/Users/Users';
 import SingleCategoryView from '../views/SingleCategoryView/SingleCategoryView';
 import SingleProductTypeView from '../views/SingleProductTypeView/SingleProductType';
 import OrderDetailView from '../views/Cart/Order';
@@ -182,7 +182,7 @@ function Routes({
           products={products}
           setProducts={setProducts}
         />
-        <Route exact path='/Users' component={userCardView} />
+        <Route exact path='/Users' component={() => <UserCardView />} />
         <Route exact path='/Designers' component={() => <Designers />} />
         <Route
           exact
