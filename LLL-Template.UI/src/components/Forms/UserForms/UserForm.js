@@ -93,15 +93,15 @@ const UserForm = ({
     <Label className="Bio">Bio</Label>
     <Input
     className="Bio"
-    name="Bio"
+    name="bio"
     placeholder="Enter updated bio"
     value={user.bio}
     onChange={handleInputChange}
     ></Input>
     <Label className="Image">Image</Label>
     <Input
-    className="ProfilePicURL"
-    name="ProfilePicURL"
+    className="profilePicUrl"
+    name="profilePicUrl"
     type="text"
     value={user.profilePicUrl}
     placeholder="enter photo url"
@@ -110,6 +110,7 @@ const UserForm = ({
     <Label className="Roletypes">Roletypes</Label>
     <Select
     id="exampleSelect"
+    name="roleTypeId"
     className="roleType"
     placeholder="Chose a role type"
     type="select"
