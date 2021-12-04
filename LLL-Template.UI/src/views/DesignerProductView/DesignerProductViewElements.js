@@ -30,6 +30,11 @@ export const DesignerProductsWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Column1 = styled.div`

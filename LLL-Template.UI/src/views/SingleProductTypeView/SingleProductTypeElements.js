@@ -2,11 +2,13 @@
 import styled from 'styled-components';
 
 export const CategoryContainer = styled.div`
-display: flex;
-flex-direction: column;
-  color: #00000;
-  background: #fff;
-  height: 734px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 125px;
+  // height: 1000px;
+  // padding-bottom: 125px;
 `;
 
 export const Modal = styled.div`
@@ -28,6 +30,7 @@ export const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: 100%;
 
   @media screen and (max-width: 800px) {
     flex-direction: column;
@@ -38,19 +41,8 @@ export const CategoryWrapper = styled.div`
 export const Column1 = styled.div`
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
-  width: 50%;
-  height: 634px;
-  margin-top: 48px;
-
-  @media screen and (max-width: 1150px) {
-    width: 70%;
-  }
-
-  @media screen and (max-width: 525px) {
-    width: 100%;
-  }
+  width: 90%;
+  height: 75%;
 `;
 
 export const AddCategoryButtonImg = styled.img`
@@ -63,24 +55,6 @@ flex-direction: row;
 justify-content: flex-end;
 width: 5%;
 padding-top: 150px;
-`;
-
-export const CategoryImg = styled.img`
-  display: flex;
-  align-self: center;
-  width: 60%;
-`;
-
-export const Column2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 50%;
-  height: 734px;
-
-  @media screen and (max-width: 800px) {
-    display: none;
-  }
 `;
 
 export const Button = styled.button`

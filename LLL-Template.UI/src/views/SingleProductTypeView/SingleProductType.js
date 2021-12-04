@@ -11,13 +11,13 @@ import {
   AddButtonContainer,
   AddCategoryButton,
   AddCategoryButtonImg,
-  CategoryImg,
-  Column2,
+  // CategoryImg,
+  // Column2,
   Button,
   ButtonImg,
   Modal,
 } from './SingleProductTypeElements';
-import category from '../../Assets/ProfileImages/Three.jpeg';
+// import category from '../../Assets/ProfileImages/Three.jpeg';
 import add from '../../Assets/ActionIcons/Add.png';
 import deleted from '../../Assets/ActionIcons/Delete.png';
 
@@ -28,7 +28,7 @@ export default function SingleProductTypeView({
   setProducts
 }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [productTypeProducts, setProductTypeProducts] = useState([{}]);
+  const [productTypeProducts, setProductTypeProducts] = useState([]);
   const { productTypeId } = useParams();
 
   function openModal() {
@@ -93,9 +93,9 @@ export default function SingleProductTypeView({
             />
           ))}
         </Column1>
-        <Column2 className='CategoryColumn2'>
+        {/* <Column2 className='CategoryColumn2'>
           <CategoryImg src={category} className='CategoryImg'></CategoryImg>
-        </Column2>
+        </Column2> */}
       </CategoryWrapper>
     </CategoryContainer>
   );
