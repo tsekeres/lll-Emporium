@@ -1,22 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  SearchBarBar,
-} from './SearchBarElements';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Select from 'react-select';
+import { getProducts } from '../../helpers/data/productData';
+import { SearchBarBar } from './SearchBarElements';
 
-export default function SearchBar({ toggle2, isOpen2 }) {
+const SearchBar = () => {
+  const history = useHistory();
+  const [options, setOptions] = useState([]);
+
+  useEffect(() => {
+    const optionsArr = [];
+    getProducts().then((resultArr) => {
+      for (let i = 0; i < resultArr.length; i += 1) {
+        const option = {
+          value: resultArr[i].id,
+          label: `${resultArr[i].productName}`
+        };
+        optionsArr.push(option);
+      }
+      setOptions(optionsArr);
+    })
+      .catch(setOptions([]));
+  }, []);
+
+  const handleSelectClick = ((e) => {
+    history.replace(`/products/${e.value}`);
+    window.location.reload(false);
+  });
+
   return (
-    <SearchBarBar
-    className="SearchBarBar"
-    toggle2={toggle2}
-    isOpen2={isOpen2}
-    // isOpen2={isOpen2}
-    >
+    <SearchBarBar>
+      <Select options={options} onChange={handleSelectClick} defaultValue={{ value: '', label: 'Search Our Products' }}/>
     </SearchBarBar>
   );
-}
-
-SearchBar.propTypes = {
-  toggle2: PropTypes.any,
-  isOpen2: PropTypes.any,
 };
+
+export default SearchBar;

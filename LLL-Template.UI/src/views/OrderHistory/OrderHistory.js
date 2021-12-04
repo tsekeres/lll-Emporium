@@ -8,7 +8,7 @@ import {
   OrderHistoryTitle,
 } from './OrderHistoryElements';
 import { getOrdersByUserId } from '../../helpers/data/orderData';
-import { getUsers } from '../../helpers/data/userData';
+import { getAllUsers } from '../../helpers/data/userData';
 
 const OrderHistory = ({
   user
@@ -20,29 +20,31 @@ const OrderHistory = ({
   useEffect(() => {
     const optionsArr = [];
     let mounted = true;
-    if (mounted && user) {
+    if (user) {
       if (user.roleTypeName === 'Super User'
         || user.roleTypeName === 'Administrator') {
-        setIsAdmin(true);
-        setOrderList([]);
-      } else {
-        // if this is not an admin user, we show their orders
-        getOrdersByUserId(user.id)
-          .then((orderListResponse) => setOrderList(orderListResponse));
-      }
-      // setup list of user names for the select drop down
-      getUsers().then((resultArr) => {
-        for (let i = 0; i < resultArr.length; i += 1) {
-          const option = {
-            value: resultArr[i].id,
-            label: `${resultArr[i].lastName}, ${resultArr[i].firstName}`
-          };
-          optionsArr.push(option);
-        }
-        setOptions(optionsArr);
-      })
-        .catch(setOptions([]));
-    } else setOptions([]);
+        if (mounted) setIsAdmin(true);
+        // setup list of user names for the select drop down
+        getAllUsers().then((resultArr) => {
+          for (let i = 0; i < resultArr.length; i += 1) {
+            const option = {
+              value: resultArr[i].id,
+              label: `${resultArr[i].lastName}, ${resultArr[i].firstName}`
+            };
+            optionsArr.push(option);
+          }
+          if (mounted) setOptions(optionsArr);
+        })
+          .catch(setOptions([]));
+      } else if (mounted) setOptions([]);
+      getOrdersByUserId(user.id)
+        .then((orderListResponse) => {
+          if (mounted) setOrderList(orderListResponse);
+        })
+        .catch(() => {
+          if (mounted) setOrderList([]);
+        });
+    }
     return function cleanup() {
       mounted = false;
     };
@@ -60,9 +62,10 @@ const OrderHistory = ({
     <OrderHistoryTitle>Orders</OrderHistoryTitle>
     { isAdmin ? <Select
       options={options}
-      onChange={handleSelectClick}/> : '' }
+      onChange={handleSelectClick}
+      defaultValue={{ value: user.id, label: `${user.lastName}, ${user.firstName}` }} /> : '' }
     </OrderHistorySearchUserOuterDiv>
-    <OrderHistoryOuterDiv>
+    <OrderHistoryOuterDiv className='order-history-outer-div'>
     { orderList.map((order) => <OrderHistoryCard
         key={order.id}
         order={order} />) }

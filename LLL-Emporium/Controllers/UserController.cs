@@ -47,14 +47,19 @@ namespace LLL_Emporium.Controllers
         public IActionResult GetUserWithRoleByEmail(string emailAddress)
         {
             var user = _userRepository.GetUserWithRoleByUserEmail(emailAddress);
-            if (user == null)
-            {
-                return NotFound("No user found.");
-            }
             return Ok(user);
         }
 
-
+        [HttpGet("withRole/id/{id}")]
+        public IActionResult GetUserWithRoleById(Guid id)
+        {
+            var user = _userRepository.GetUserWithRoleById(id);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return NotFound($"User with id ${id} not found");
+        }
 
         [HttpGet]
         public IActionResult GetAllUsers()
@@ -91,6 +96,18 @@ namespace LLL_Emporium.Controllers
 
             return Ok(userUpdate);
         }
+
+        [HttpPut("profile/{id}")]
+        public IActionResult UpdateProfile(Guid id, User userObj)
+        {
+            var result = _userRepository.UpdateProfile(id, userObj);
+            if (result == null)
+            {
+                return NotFound($"User with id ${id} not found.");
+            }
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")] 
         public IActionResult DeleteUser(Guid id)
         {
@@ -100,15 +117,15 @@ namespace LLL_Emporium.Controllers
         }
 
 
-        [HttpGet("{RoleTypeId}/roletypeId")]
-        public IActionResult GetRoleTypeByName(Guid RoleType)
+        [HttpGet("{id}/RoleTypeId")]
+        public IActionResult GetRoleTypeById(Guid id)
         {
-            var RoleTypeId = _userRepository.GetByRoleType(RoleType);
+            var RoleTypeId = _userRepository.GetByRoleType(id);
             if (RoleTypeId != null)
             {
-                return NotFound("No Role Type");
+                return Ok(RoleTypeId);
             }
-            return Ok(RoleTypeId);
+            return NotFound("This Id is not found");
         }
 
     }

@@ -1,105 +1,145 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types';
 import { updateUser, getUsers } from '../../../helpers/data/userData';
+import { getRoleTypes } from '../../../helpers/data/roleTypeData';
 
-const userForm = () => {
-  const [users, setUsers] = useState({
-    FirstName: FirstName || " ",
-    LastName: LastName || " ",
-    RoleTypeId: RoleTypeId || " ",
-    Bio: Bio || " ",
+import {
+  Label,
+  Input,
+  UserUpdateForm,
+  UserUpdateSubmit,
+  Option,
+  Select
+} from './UserFormElements';
+
+const userForm = ({
+  id,
+  firstName,
+  lastName,
+  roleTypeId,
+  profilePicUrl,
+  bio,
+}) => {
+  const [user, setUser] = useState({
+    id: id || '',
+    firstName: firstName || ' ',
+    lastName: lastName || ' ',
+    roleTypeId: roleTypeId || ' ',
+    profilePicUrl: profilePicUrl || ' ',
+    bio: bio || ' ',
   });
 
-  const [updateUsers, updateUserShown] = useState([]);
-  // Show the updated user on screen
-  const [userUpdated, setUserUpdate] = useState([]);
-  // populate the update on the user so we can see it
-  const [deleteUser, RemoveFromList] = useState([]);
-  // remove user from database and site, only show delete if user is an admin 
+  const [roles, setRoles] = useState([]);
 
-  const handleUpdate = (e) => {
-    e.preventDefault;
-    if (users.id === updateUsers.id) {
-      const userObj = {
-        FirstName: FirstName || '',
-        LastName: LastName || '',
-        roleTypeId: roleTypeId || '',
-        Bio: Bio || '',
-      }
-      setShowMessage(true);
-     updateUser(id).then(() =>  getUsers().then((response) => setUsers(response)))
+  const handleInputChange = (e) => {
+    setUser((prevState) => ({
+    // taking all values from changes and resetting
+      ...prevState,
+      [e.target.name]: e.target.value ? e.target.value : ''
+    }));
+  };
+
+  const handleSubmit = () => {
+    if (user.id) {
+      updateUser(id, user).then(() => getUsers().then((response) => setUser(response)))
         .then(() => {
-          setMessage(`Updated user ${FirstName} ${LastName}`);
-          setUserUpdate(userUpdated);
-        })
-        .catch((err) => set(err));
+          <Popup trigger={handleSubmit} position="right center">
+          <div>{firstName} {lastName} has been updated</div>
+        </Popup>;
+        });
     }
   };
 
-  const handleDelete = () => {
+  useEffect(() => {
+    getRoleTypes().then((response) => setRoles(response));
+  }, []);
+
+  /* const handleDelete = () => {
     let canIDelete = false;
-    if (users.roleTypeName === 'Administrator') {
+    if (admin.roleTypeName === "Administrator") {
     canIDelete = true;
-    deleteUser(id, userObj).then(() => getUsers().then((response) => RemoveFromList(response)))
+    deleteUser(id).then(() => getUsers().then((response) => (response)))
     };
     return (
-      <div>
-         'user{users.id} Has been removed.'
-      </div>
+      <Popup trigger={handleDelete} position="right center">
+      <div>{user.id} has been removed</div>
+    </Popup>
     )
   }
-
- return (
-   <UserUpdateForm>
-       <Label className='First Name'>:First Name </Label>
+*/
+  return (
+   <UserUpdateForm
+   >
+       <Label className="First Name">First Name </Label>
     <Input
-     className='First Name'
-     name='name'
-     Placeholder='Enter updated First Name Here'
-     value={updateUser.FirstName}
-     onChange={handleUpdate}     
+     className="firstName"
+     id="firstName"
+     name="firstName"
+     type="text"
+     Placeholder="Enter updated First Name"
+     value={user.firstName}
+     onChange={handleInputChange}
     ></Input>
-    <Label ClassName='Last Name'>: Last Name</Label>
+    <Label ClassName="Last Name">Last Name</Label>
     <Input
-    className='Last Name'
-    name='last name'
-    placeholder='Enter updated last name'
-    value={updateUser.LastName}
-    onChange={handleUpdate}
+    className="lastName"
+    name="lastName"
+    type="text"
+    placeholder="Enter updated last name"
+    value={user.lastName}
+    onChange={handleInputChange}
     ></Input>
-    <Label className='Bio'>:Bio</Label>
+    <Label className="Bio">Bio</Label>
     <Input
-    className='Bio'
-    name='Bio'
-    placeholder='Enter updated bio'
-    value={updatedUser.Bio}
-    onChange={handleUpdate}
+    className="Bio"
+    name="Bio"
+    placeholder="Enter updated bio"
+    value={user.bio}
+    onChange={handleInputChange}
     ></Input>
-    <Label className='Image'>:Image</Label>
+    <Label className="Image">Image</Label>
     <Input
-    className='Image'
-    src={updateUser.ProfilePicURL}
-    placeholder='enter photo url'
-    onChange={handleUpdate}
+    className="ProfilePicURL"
+    name="ProfilePicURL"
+    type="text"
+    value={user.profilePicUrl}
+    placeholder="enter photo url"
+    onChange={handleInputChange}
     ></Input>
-    <Label className='Role Type Map'>:Role Type</Label>
-    {RoleTypes?.map((RoleType) => (
-      <option
+    <Label className="Roletypes">Roletypes</Label>
+    <Select
+    id="exampleSelect"
+    className="roleType"
+    placeholder="Chose a role type"
+    type="select"
+    >
+    {roles?.map((RoleType) => (
+      <Option
       key={RoleType.id}
-      value={RoleType.name}
-      selected={RoleType.id === RoleType}
-      ></option>
+      value={RoleType.id}
+      selected={RoleType.id === roleTypeId}
+      >
+        {RoleType.roleTypeName}
+      </Option>
     ))}
+   </Select>
+    <UserUpdateSubmit
+    type="submit"
+    label="Submit"
+    onClick={handleSubmit}
+    >Submit</UserUpdateSubmit>
    </UserUpdateForm>
- )
-
+  );
 };
 
 userForm.propTypes = {
-  FirstName: PropTypes.string.isRequired,
-  LastName: PropTypes.string,
-  RoleTypeId: PropTypes.string,
-  ProfilePicURL: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  roleTypeId: PropTypes.string,
+  profilePicUrl: PropTypes.string,
+  bio: PropTypes.string,
 };
 
- export default { userForm };
+export default userForm;

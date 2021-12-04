@@ -1,3 +1,4 @@
+ï»¿
 Insert INTO PaymentTypes (PaymentTypeName)
 	VALUES ('MasterCard'), 
 		   ('Visa'),
@@ -26,7 +27,7 @@ VALUES ('Clothing', 'https://storage.googleapis.com/lll-emporium/CategoryIcons/C
 INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
 VALUES ('Honey-Rae', 'Swan', 'Honey-Ray Swan', 'HR@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
 		'https://avatars.githubusercontent.com/u/76716670?v=4',
-		'Honey-Rae is a designer with a passion for making sure “Live, Laugh, Love” is close to our hearts or worn on our sleeve. She designs luxury tees, tracksuits, and jewelry.')
+		'Honey-Rae is a designer with a passion for making sure ï¿½Live, Laugh, Loveï¿½ is close to our hearts or worn on our sleeve. She designs luxury tees, tracksuits, and jewelry.')
 
 INSERT INTO ProductTypes (CategoryId, TypeName, ProductTypeImageURL)
 VALUES	((Select Id from Categories where CategoryName = 'Clothing'), 'Tees', 'https://storage.googleapis.com/lll-emporium/ProductTypeIcons/Tees.png'),
@@ -38,7 +39,7 @@ INSERT INTO Products (ProductTypeId, DesignerId, ProductName, ProductDescription
 VALUES ((Select Id from ProductTypes where TypeName = 'Tees'),
 		(Select Id from Users where LastName = 'Swan'),
 		'White Tee (Live, Laugh, Love)',
-		'Simple white tee to let everyone know you’re a life-long liver, laugher, and lover.',
+		'Simple white tee to let everyone know youï¿½re a life-long liver, laugher, and lover.',
 		'https://customtshirtshops.com/wp-content/uploads/2019/11/Live-Laugh-Love.jpg',
 		'60.00',
 		'213'),
@@ -52,7 +53,7 @@ VALUES ((Select Id from ProductTypes where TypeName = 'Tees'),
 	   ((Select Id from ProductTypes where TypeName = 'Track Suits'),
 		(Select Id from Users where LastName = 'Swan'),
 		 'Pink Tracksuit (Live, Laugh, Love)',
-		 'Pink tracksuit displaying “Live, Laugh, Love” on the top and bottom!',
+		 'Pink tracksuit displaying ï¿½Live, Laugh, Loveï¿½ on the top and bottom!',
 		 'https://www.canva.com/design/DAEsDA2f5Io/d_UTjRxKOOAiNB52ARKwYg/view?utm_content=DAEsDA2f5Io&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink',
 		 '150.00',
 		 '76'),
@@ -99,7 +100,7 @@ VALUES ('Construction', 'https://storage.googleapis.com/lll-emporium/CategoryIco
 INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
 VALUES ('John', 'Maple', 'John Maple', 'JM@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
 		'https://avatars.githubusercontent.com/u/51683901?v=4',
-		'John Maple is a designer with a passion for making sure “Live, Laugh, Love” is displayed in unexpected places.')
+		'John Maple is a designer with a passion for making sure ï¿½Live, Laugh, Loveï¿½ is displayed in unexpected places.')
 
 INSERT INTO ProductTypes (CategoryId, TypeName, ProductTypeImageURL)
 VALUES	((Select Id from Categories where CategoryName = 'Construction'), 'Excavators', 'https://storage.googleapis.com/lll-emporium/ProductTypeIcons/excavator.png'),
@@ -125,7 +126,7 @@ VALUES ((Select Id from ProductTypes where TypeName = 'Excavators'),
 	   ((Select Id from ProductTypes where TypeName = 'Bulldozers'),
 		(Select Id from Users where LastName = 'Maple'),
 		 '1150 M Bulldozer (Live, Laugh, Love with hearts)',
-		 'M Series bulldozer with adjustable blade and steering sensitivity, with  “Live, Laugh, Love” hand lettering style with hearts',
+		 'M Series bulldozer with adjustable blade and steering sensitivity, with  ï¿½Live, Laugh, Loveï¿½ hand lettering style with hearts',
 		 'https://storage.googleapis.com/lll-emporium/1150M_CNH_1764_LLL.jpg',
 		 '159750.00',
 		 '2'),
@@ -172,7 +173,7 @@ VALUES ('Kitchen','https://storage.googleapis.com/lll-emporium/CategoryIcons/Kit
 INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
 VALUES ('Tad', 'Sekeres', 'Tad Sekeres', 'TS@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'), 
 		'https://avatars.githubusercontent.com/u/74842096?v=4',
-		'Tad is a designer with an eye for the subtle touch that will let your friends and family know that “Live, Laugh, Love” is close to your heart and displayed for your neighbors to see. He is in our Kitchen and Bath department but also loves to dabble in the Garden!')
+		'Tad is a designer with an eye for the subtle touch that will let your friends and family know that ï¿½Live, Laugh, Loveï¿½ is close to your heart and displayed for your neighbors to see. He is in our Kitchen and Bath department but also loves to dabble in the Garden!')
 
 INSERT INTO ProductTypes (CategoryId, TypeName, ProductTypeImageURL)
 VALUES	((Select Id from Categories where CategoryName = 'Kitchen'), 'Towels','https://storage.googleapis.com/lll-emporium/ProductTypeIcons/towels.png'),
@@ -184,7 +185,7 @@ INSERT INTO Products (ProductTypeId, DesignerId, ProductName, ProductDescription
 VALUES ((Select Id from ProductTypes where TypeName = 'Towels'),
 		(Select Id from Users where LastName = 'Sekeres'),
 		'White Towel (Live, Laugh, Love)',
-		'Simple white towel to let everyone know you’re a life-long liver, laugher, and lover.',
+		'Simple white towel to let everyone know youï¿½re a life-long liver, laugher, and lover.',
 		'https://ctl.s6img.com/society6/img/kjM8HiTy0rf0cUl9q3BNEGGt_CA/w_700/bath-towels/small/front/~artwork,fw_3708,fh_7410,fy_1347,iw_3696,ih_4704/s6-original-art-uploads/society6/uploads/misc/08a80916633741f7a7c81d729299cd39/~~/live-laugh-love444723-bath-towels.jpg',
 		'30.00',
 		'5'),
@@ -245,7 +246,7 @@ VALUES ('Bathroom Decor', 'https://storage.googleapis.com/lll-emporium/CategoryI
 INSERT INTO Users (FirstName, LastName, DisplayName, EmailAddress, RoleTypeId, ProfilePicURL, Bio)
 VALUES ('Jonathon', 'Joyner', 'Jonathon Joyner', 'JJ@example.com', (Select Id from RoleTypes where RoleTypeName = 'Super User'),
 		'https://avatars.githubusercontent.com/u/67886630?v=4',
-		'Johathan is a designer with an eye for ways to let your friends and family know that “Live, Laugh, Love” is close to your heart. He designs for bath and auto accessories!')
+		'Johathan is a designer with an eye for ways to let your friends and family know that ï¿½Live, Laugh, Loveï¿½ is close to your heart. He designs for bath and auto accessories!')
 
 INSERT INTO ProductTypes (CategoryId, TypeName, ProductTypeImageURL)
 VALUES	((Select Id from Categories where CategoryName = 'Bathroom Decor'), 'Bath Towels', 'https://storage.googleapis.com/lll-emporium/ProductTypeIcons/towels.png'),
@@ -302,6 +303,3 @@ VALUES ((SELECT Id FROM Orders WHERE CustomerId = (Select Id from Users where Fi
         '150.00', '1', '5.00'),
 		((SELECT Id FROM Orders WHERE CustomerId = (Select Id from Users where FirstName = 'Honey-Rae')),(SELECT ID FROM Products WHERE ProductName = 'White Tee (Live, Laugh, Love ft. Kim Jong Un)'),
         '75.00', '1', '5.00')
-
-
-

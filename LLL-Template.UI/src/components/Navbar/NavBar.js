@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FaBars } from 'react-icons/fa';
@@ -17,9 +17,9 @@ import {
   NavRight,
   NavItemsRight,
   NavItemsRightFlexDiv,
+  NavRightButtonsDiv,
   NavBarImg,
   NavBarImg1,
-  SearchImg,
   SignIn,
   MobileIcon,
   Button,
@@ -28,7 +28,6 @@ import logo from '../../Assets/NavBarIcons/LOGO.png';
 import loggedin from '../../Assets/NavBarIcons/LoggedIn.png';
 import loggedOut from '../../Assets/NavBarIcons/LoggedOut.png';
 import CartIcon from '../Icons/CartIcon';
-import magnifyingGlass from '../../Assets/NavBarIcons/SearchIcons.png';
 
 const styleObj = {
   color: '#000000',
@@ -44,12 +43,6 @@ export default function NavBar({
   toggle, user,
   cartCount, cartId
 }) {
-  const [isOpen2, setIsOpen2] = useState(false);
-
-  const toggle2 = () => {
-    setIsOpen2(!isOpen2);
-  };
-
   return (
     <NavigationBar className="NavigationBar">
       <NavLeft className="NavLeft">
@@ -84,8 +77,17 @@ export default function NavBar({
                         <DropDownContent className="dropdown-content">
                           <Link to="/PersonalProfile" style={styleObj}> my account </Link>
                           <Link to="/OrderHistory" style={styleObj}>order history</Link>
-                          <Link to="/SellingHistory" style={styleObj}>selling history</Link>
-                          <Link to="/Users" style={styleObj}> users</Link>
+                            {
+                              user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+                                ? <div><Link to="/SellingHistory" style={styleObj}>selling history</Link>
+                                  {
+                                    user.roleTypeName === 'Administrator'
+                                      ? <Link to="/Users" style={styleObj}> users</Link>
+                                      : <div></div>
+                                  }
+                                  </div>
+                                : <div></div>
+                            }
                         </DropDownContent>
                       </DropDown>
                     </NavLink>
@@ -103,23 +105,22 @@ export default function NavBar({
       </NavMiddle>
       <NavRight className="NavRight">
       <NavItemsRight className="NavItemsRight" id="authButtons">
-        { isOpen2 && <SearchBar/>}
           {
             user !== null
-            && <div className="NavItemsRight" id="authButtons">
+            && <NavItemsRightFlexDiv className="NavItemsRight" id="authButtons">
               {
                 (user)
-                  ? <NavItemsRightFlexDiv>
-                      <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
+                  ? <NavRightButtonsDiv>
+                      <SearchBar/>
                       <Button id="signOut" onClick={signOutUser}><SignIn className="SignOut" src={loggedin}></SignIn></Button>
                       <CartIcon cartCount={cartCount} cartId={cartId} />
-                    </NavItemsRightFlexDiv>
-                  : <div>
-                      <Button onClick={toggle2}><SearchImg className="SearchImg" src={magnifyingGlass}></SearchImg></Button>
+                    </NavRightButtonsDiv>
+                  : <NavRightButtonsDiv>
+                      <SearchBar/>
                       <Button id="signOut" onClick={signInUser}><SignIn className="SignIn" src={loggedOut}></SignIn></Button>
-                    </div>
+                    </NavRightButtonsDiv>
               }
-              </div>
+              </NavItemsRightFlexDiv>
             }
           <MobileIcon className="MobileIcon" onClick={toggle}>
             <FaBars className="FaBars" />
@@ -132,7 +133,6 @@ export default function NavBar({
 
 NavBar.propTypes = {
   toggle: PropTypes.any,
-  toggle2: PropTypes.any,
   user: PropTypes.any,
   cartCount: PropTypes.number,
   cartId: PropTypes.string

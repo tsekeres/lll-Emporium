@@ -11,6 +11,7 @@ export const HomePage = styled.div`
   height: 734px;
   position: relative;
   z-index: 1;
+  padding-bottom: 0px;
 
   @media screen and (max-width: 1150px) {
     padding-top: 50px;

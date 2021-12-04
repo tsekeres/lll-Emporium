@@ -47,7 +47,7 @@ namespace LLL_Emporium.DataAccess
                           @EmailAddress,
                           @ProfilePicUrl,
                           @Bio)";
-        
+
 
             id = db.ExecuteScalar<Guid>(sql, newUser);
             newUser.Id = id;
@@ -92,6 +92,24 @@ namespace LLL_Emporium.DataAccess
             var user = db.QuerySingleOrDefault<UserWithRole>(sql, parameter);
             return user;
         }
+        internal UserWithRole GetUserWithRoleById(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT US.Id, US.RoleTypeId, RT.RoleTypeName, 
+                        US.FirstName, US.LastName, 
+                        US.DisplayName, US.EmailAddress,
+                        US.ProfilePicURL, US.Bio
+                        FROM Users US
+                        JOIN RoleTypes RT
+                            ON RT.Id = US.RoleTypeId
+                        WHERE US.Id = @Id";
+            var parameter = new
+            {
+                ID = id 
+            };
+            var user = db.QuerySingleOrDefault<UserWithRole>(sql, parameter);
+            return user;
+        }
 
         internal void Delete(Guid id)
         {
@@ -99,8 +117,8 @@ namespace LLL_Emporium.DataAccess
             var sql = @"Delete From Users Where Id = @id";
             db.Execute(sql, new { id });
         }
-       
-       internal User Update(Guid id, User user)
+
+        internal User Update(Guid id, User user)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"update Users
@@ -115,15 +133,48 @@ namespace LLL_Emporium.DataAccess
             return userUpdate;
         }
 
-        internal User GetByRoleType(Guid roleTypeId)
+        internal UserWithRole UpdateProfile(Guid id, User user)
+        {
+            var returnResult = new UserWithRole();
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"update Users
+                        Set FirstName = @FirstName,
+                            LastName = @LastName,
+                            DisplayName = @DisplayName,
+                            Bio = @Bio,
+                            ProfilePicURL = @ProfilePicURL
+                       output Inserted.*
+                        Where Id = @Id";
+            var parameters = new
+            {
+                Id = id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                DisplayName = user.DisplayName,
+                Bio = user.Bio,
+                ProfilePicURl = user.ProfilePicUrl
+            };
+            var result = db.QuerySingleOrDefault<User>(sql, parameters);
+            if (result != null)
+            {
+                returnResult = GetUserWithRoleById(id);
+            }
+            if (returnResult != null)
+            {
+                return returnResult;
+            }
+            else return null;
+        }
+      
+        internal IEnumerable<User> GetByRoleType(Guid roleTypeId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"Select * From User where RoleTypeId = @RoleTypeId";
+            var sql = @"Select * From Users where RoleTypeId = @Id";
             var parameter = new
             {
                 Id = roleTypeId
             };
-            var GetRoleType = db.QuerySingleOrDefault<User>(sql, parameter);
+            var GetRoleType = db.Query<User>(sql, parameter);
             return GetRoleType;
         }
 

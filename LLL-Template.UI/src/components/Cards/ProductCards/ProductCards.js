@@ -11,6 +11,7 @@ import {
   CardTitle,
   Button,
   Button1,
+  Button2,
 } from './ProductCardElements';
 import { getProducts, deleteProduct } from '../../../helpers/data/productData';
 import deleted from '../../../Assets/ActionIcons/Delete.png';
@@ -21,6 +22,7 @@ const ProductCards = ({
   productName,
   id,
   user,
+  designerId,
 }) => {
   const history = useHistory();
 
@@ -32,33 +34,36 @@ const ProductCards = ({
       case 'view':
         history.push(`/products/${id}`);
         break;
+      case 'designerview':
+        history.push(`/products/designers/${designerId}`);
+        break;
       default:
         console.warn('nothing selected');
     }
   };
 
   return (
-    <ProductCard
-      className='ProductCard'
-      key={id}
-      id='ProductCard'
-    >
-      <ProductCardHeader className='ProductCardHeader'> {
-        user !== null
-        && <div className='ProductCardHeader' id='authButtons'> {
-          (user)
-            ? <ProductCardButtons className='ProductCardButtons'>
-          <Button1 id='deleteProduct' onClick={() => handleClick('delete')}>
-            <ProductCardDelete
-              className='ProductCardDelete'
-              src={deleted}
-            ></ProductCardDelete>
-          </Button1>
-        </ProductCardButtons>
-            : <div></div>
-        }
-        </div>
-      }
+    <ProductCard className='ProductCard' key={id} id='ProductCard'>
+      <ProductCardHeader className='ProductCardHeader'>
+        {user !== null && (
+          <div className='ProductCardHeader' id='authButtons'>
+            {(user.roleTypeName === 'Designer' && user.id === designerId) || user.roleTypeName === 'Administrator' ? (
+              <ProductCardButtons className='ProductCardButtons'>
+                <Button1
+                  id='deleteProduct'
+                  onClick={() => handleClick('delete')}
+                >
+                  <ProductCardDelete
+                    className='ProductCardDelete'
+                    src={deleted}
+                  ></ProductCardDelete>
+                </Button1>
+              </ProductCardButtons>
+            ) : (
+              <div></div>
+            )}
+          </div>
+        )}
       </ProductCardHeader>
       <Button>
         <ProductCardImg
@@ -69,6 +74,13 @@ const ProductCards = ({
       </Button>
       <ProductCardBody>
         <CardTitle tag='h5'>{productName}</CardTitle>
+        <hr/>
+        <Button2
+          className='DesignerId'
+          onClick={() => handleClick('designerview')}
+        >
+          View Designer&apos;s Products
+        </Button2>
       </ProductCardBody>
     </ProductCard>
   );
@@ -80,6 +92,7 @@ ProductCards.propTypes = {
   productName: PropTypes.string,
   id: PropTypes.string,
   user: PropTypes.any,
+  designerId: PropTypes.any,
 };
 
 export default ProductCards;

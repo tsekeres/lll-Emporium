@@ -9,7 +9,6 @@ import {
   CloseIcon,
   SidebarWrapper,
   SidebarMenu,
-  SidebarLink,
   SideBtnWrap,
   SidebarRoute,
   SidebarRoute2,
@@ -20,6 +19,7 @@ import logo from '../../Assets/NavBarIcons/LOGO.png';
 
 const styleObj = {
   color: '#000000',
+  fontSize: 'small',
 };
 
 const scrollWithOffset = (el) => {
@@ -44,33 +44,50 @@ export default function Sidebar({
       </Icon>
       <SidebarWrapper className='SidebarWrapper'>
         <SidebarMenu className='SidebarMenu'>
-          <SidebarLink className='Link' onClick={toggle}>
-          <HashLink smooth to='/#Categories' style={styleObj} scroll={scrollWithOffset} >
+          <HashLink smooth to='/#Categories' style={styleObj} scroll={scrollWithOffset} onClick={toggle}>
               shop
             </HashLink>
-          </SidebarLink>
             <SidebarRoute to="/ProductTypes">product types</SidebarRoute>
             <SidebarRoute to="/Products">products</SidebarRoute>
-            <SidebarLink className='Link' onClick={toggle}>
-            <HashLink smooth to='/#AboutUs' style={styleObj}>
+            <HashLink smooth to='/#AboutUs' style={styleObj} onClick={toggle}>
               about us
             </HashLink>
-            </SidebarLink>
           <SidebarRoute className="Link" to="/Designers" onClick={toggle}>
             designers
           </SidebarRoute>
-          <SidebarRoute className="Link" to="/PersonalProfile" onClick={toggle}>
-            account
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/OrderHistory" onClick={toggle}>
-            order history
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/SellingHistory" onClick={toggle}>
-            sales
-          </SidebarRoute>
-          <SidebarRoute className="Link" to="/Users" onClick={toggle}>
-            users
-          </SidebarRoute>
+          {
+            user !== null
+            && <div>
+              {
+                (user)
+                  ? <div>
+                      <SidebarRoute className="Link" to="/PersonalProfile" onClick={toggle}>
+                        account
+                      </SidebarRoute>
+                      <SidebarRoute className="Link" to="/OrderHistory" onClick={toggle}>
+                        order history
+                      </SidebarRoute>
+                      {
+                        user.roleTypeName === 'Designer' || user.roleTypeName === 'Administrator'
+                          ? <div>
+                              <SidebarRoute className="Link" to="/SellingHistory" onClick={toggle}>
+                                sales
+                              </SidebarRoute>
+                              {
+                                user.roleTypeName === 'Administrator'
+                                  ? <SidebarRoute className="Link" to="/Users" onClick={toggle}>
+                                      users
+                                    </SidebarRoute>
+                                  : <div></div>
+                              }
+                            </div>
+                          : <div></div>
+                      }
+                    </div>
+                  : <div></div>
+              }
+              </div>
+            }
         </SidebarMenu>
         <SideBtnWrap className="SideBtnWrap">
           <SidebarRoute2 className="SidebarRoute" onClick={toggle}>

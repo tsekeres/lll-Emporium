@@ -14,6 +14,7 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
 });
 
 const OrderShippingPaymentCard = ({
+  user,
   order,
   totalPayments,
   orderSubTotal,
@@ -21,6 +22,7 @@ const OrderShippingPaymentCard = ({
 }) => (
   <>
     <ShippingLineDiv>Shipped to: </ShippingLineDiv>
+    <ShippingLineDiv>{user.firstName} {user.lastName}</ShippingLineDiv>
     <ShippingLineDiv>{order.shippingAddress}</ShippingLineDiv>
     <ShippingLineDiv>{order.shippingCity}</ShippingLineDiv>
     <ShippingLineDiv>{order.shippingState}</ShippingLineDiv>
@@ -35,6 +37,7 @@ const OrderShippingPaymentCard = ({
 );
 
 OrderShippingPaymentCard.propTypes = {
+  user: PropTypes.any,
   order: PropTypes.object,
   totalPayments: PropTypes.number,
   orderSubTotal: PropTypes.number,
