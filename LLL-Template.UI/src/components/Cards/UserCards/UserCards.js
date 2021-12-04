@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import UserForm from '../../Forms/UserForms/UserForms';
+import UserForm from '../../Forms/UserForms/UserForm';
 
 import {
   Card,
