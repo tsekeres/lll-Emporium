@@ -10,9 +10,10 @@ import {
   UserUpdateForm,
   UserUpdateSubmit,
   Option,
+  Select
 } from './UserFormElements';
 
-const userForm = ({
+const UserForm = ({
   id,
   firstName,
   lastName,
@@ -107,7 +108,7 @@ const userForm = ({
     onChange={handleInputChange}
     ></Input>
     <Label className="Roletypes">Roletypes</Label>
-    <Input
+    <Select
     id="exampleSelect"
     className="roleType"
     placeholder="Chose a role type"
@@ -122,7 +123,7 @@ const userForm = ({
         {RoleType.roleTypeName}
       </Option>
     ))}
-   </Input>
+   </Select>
     <UserUpdateSubmit
     type="submit"
     label="Submit"
@@ -132,7 +133,7 @@ const userForm = ({
   );
 };
 
-userForm.propTypes = {
+UserForm.propTypes = {
   id: PropTypes.string.isRequired,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
@@ -141,4 +142,4 @@ userForm.propTypes = {
   bio: PropTypes.string,
 };
 
-export default userForm;
+export default UserForm;
