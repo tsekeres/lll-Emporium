@@ -182,7 +182,7 @@ function Routes({
           products={products}
           setProducts={setProducts}
         />
-        <Route exact path='/Users' component={userCardView} />
+        <Route exact path='/Users' component={() => <userCardView />} />
         <Route exact path='/Designers' component={() => <Designers />} />
         <Route
           exact
