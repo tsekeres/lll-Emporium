@@ -38,14 +38,13 @@ width: 40em;
 `;
 
 export const EditButton = styled.button`
-width: 75px;
 border-color: #e7e7e7;
 color: black;
+border-radius: 50px;
+height: 60px;
+width: 60px;
+margin: 50px;
 
-`;
-
-export const UserCardButtons = styled.button`
-width: 200px;
 `;
 
 export const Modal = styled.button`
@@ -55,7 +54,7 @@ top: ${({ isOpen }) => (isOpen ? '0' : '100%')};
 `;
 
 export const ButtonModal = styled.div`
-border-radius: 50%;
+border-radius: 10%;
 `;
 
 export const ButtonImg = styled.img`

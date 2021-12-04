@@ -7,7 +7,6 @@ import {
   CardBio,
   CardImg,
   CardBody,
-  UserCardButtons,
   EditButton,
   Modal,
   ButtonModal
@@ -38,7 +37,6 @@ const UserCard = ({
         <CardBody>
           <CardBio>{bio}</CardBio>
         </CardBody>
-        <UserCardButtons>
           <EditButton className="EditUser" onClick={openModal}>Edit User</EditButton>
         <Modal
               isOpen={modalIsOpen}
@@ -55,7 +53,6 @@ const UserCard = ({
               bio={bio}
               />
             </Modal>
-          </UserCardButtons>
       </Card>
   </>
   );

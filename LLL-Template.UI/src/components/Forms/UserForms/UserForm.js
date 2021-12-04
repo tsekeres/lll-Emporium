@@ -114,6 +114,7 @@ const UserForm = ({
     className="roleType"
     placeholder="Chose a role type"
     type="select"
+    onChange={handleInputChange}
     >
     {roles?.map((RoleType) => (
       <Option
