@@ -77,6 +77,24 @@ cursor:pointer;
 overflow: hidden;
 `;
 
+export const CategoryImg = styled.img`
+  display: flex;
+  align-self: center;
+  width: 60%;
+`;
+
+export const Column2 = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  height: 734px;
+
+  @media screen and (max-width: 800px) {
+    display: none;
+  }
+`;
+
 export const Button = styled.button`
 display: flex;
 flex-direction: row;

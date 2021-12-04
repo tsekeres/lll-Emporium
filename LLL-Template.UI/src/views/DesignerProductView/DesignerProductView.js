@@ -22,7 +22,7 @@ function DesignerProducts({
   user, productTypes, products, setProducts
 }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [designerProducts, setdesignerProducts] = useState([{}]);
+  const [designerProducts, setdesignerProducts] = useState([]);
   const { designerId } = useParams();
 
   function openModal() {

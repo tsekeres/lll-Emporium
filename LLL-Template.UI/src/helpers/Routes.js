@@ -136,6 +136,7 @@ function Routes({
           component={() => (
             <SingleProductCard
               products={products} setProducts={setProducts}
+              productTypes={productTypes} setProductTypes={setProductTypes}
               cartId={cartId} setCartId={setCartId}
               setCartCount={setCartCount}
               user={user}

@@ -6,8 +6,8 @@ export const DesignerProductsContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 125px;
-  height: 1000px;
-  padding-bottom: 125px;
+  // height: 1000px;
+  // padding-bottom: 125px;
 `;
 
 export const Modal = styled.div`
@@ -30,12 +30,18 @@ export const DesignerProductsWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100%;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Column1 = styled.div`
   display: flex;
   flex-flow: row wrap;
   width: 90%;
+  height: 75%;
 `;
 
 export const AddProductButtonImg = styled.img`

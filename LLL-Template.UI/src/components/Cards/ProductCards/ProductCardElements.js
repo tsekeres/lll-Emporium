@@ -6,8 +6,8 @@ export const ProductCard = styled.div`
   align-items: center;
   border: 1px solid black;
   border-radius: 10px;
-  width: 200px;
-  height: 300px;
+  width: 20%;
+  height: 20%;
   opacity: 0.5;
   margin-left: 75px;
   margin-bottom: 75px;
@@ -65,7 +65,10 @@ export const Button2 = styled.button`
 `;
 
 export const ProductCardImg = styled.img`
-  height: 100px;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const ProductCardHeader = styled.div`

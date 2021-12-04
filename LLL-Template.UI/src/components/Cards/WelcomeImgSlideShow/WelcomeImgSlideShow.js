@@ -22,12 +22,16 @@ export const SlideShowComponent = () => {
   const fadeImages = [welcomeImg, couple, ironing, driving, cleaning];
 
   React.useEffect(() => {
+    let mounted = true;
     setTimeout(
       // eslint-disable-next-line no-confusing-arrow
       () => setIndex((prevIndex) => prevIndex === colors.length - 1 ? 0 : prevIndex + 1),
       delay
     );
-    return () => {};
+    return () => {
+      mounted = false;
+      return mounted;
+    };
   }, [index]);
 
   return (

@@ -7,7 +7,7 @@ export const SingleProductContainer = styled.div`
   color: #00000;
   background: #fff;
   padding-top: 100px;
-  height: 734px;
+  height: 80%;
 `;
 
 export const SingleProductCards = styled.div`
@@ -17,7 +17,7 @@ export const SingleProductCards = styled.div`
   border: 1px solid black;
   border-radius: 10px;
   width: 35%;
-  height: 80%;
+  height: 90%;
   opacity: 0.5;
   margin: 30px;
   padding-bottom: 10px;
@@ -77,8 +77,9 @@ export const CartButton = styled.button`
 
 export const SingleProductCardImg = styled.img`
   border-radius: 10px;
-  display: flex;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 export const SingleProductCardHeader = styled.div`
