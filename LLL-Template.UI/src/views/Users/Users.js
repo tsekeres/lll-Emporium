@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UserCard from '../../components/Cards/UserCards/UserCards';
 import { getUsers } from '../../helpers/data/userData';
 
-const userCardView = () => {
+const UserCardView = () => {
   const [userGroup, setUserGroup] = useState([]);
 
   useEffect(() => {
@@ -20,4 +20,4 @@ const userCardView = () => {
   );
 };
 
-export default userCardView;
+export default UserCardView;

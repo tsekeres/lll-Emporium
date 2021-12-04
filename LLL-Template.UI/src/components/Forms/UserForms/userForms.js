@@ -10,7 +10,6 @@ import {
   UserUpdateForm,
   UserUpdateSubmit,
   Option,
-  Select
 } from './UserFormElements';
 
 const userForm = ({
@@ -108,7 +107,7 @@ const userForm = ({
     onChange={handleInputChange}
     ></Input>
     <Label className="Roletypes">Roletypes</Label>
-    <Select
+    <Input
     id="exampleSelect"
     className="roleType"
     placeholder="Chose a role type"
@@ -123,7 +122,7 @@ const userForm = ({
         {RoleType.roleTypeName}
       </Option>
     ))}
-   </Select>
+   </Input>
     <UserUpdateSubmit
     type="submit"
     label="Submit"
